@@ -1,0 +1,441 @@
+# Russian translation for Appointment General
+# Copyright (C) 2025 Appointment General
+# This file is distributed under the same license as the Appointment General plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Appointment General 1.0.0\n"
+"Report-Msgid-Bugs-To: https://example.com/appointment-general\n"
+"POT-Creation-Date: 2025-01-25T00:00:00+00:00\n"
+"PO-Revision-Date: 2025-01-25T00:00:00+00:00\n"
+"Last-Translator: Developer <dev@example.com>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.0\n"
+"X-Domain: appointment-general\n"
+
+#. Plugin Name of the plugin
+msgid "Appointment General"
+msgstr "Система бронирования"
+
+#. Plugin URI of the plugin
+msgid "https://example.com/appointment-general"
+msgstr "https://example.com/appointment-general"
+
+#. Description of the plugin
+msgid "Berberler, güzellik salonları ve servis sağlayıcılar için profesyonel randevu sistemi."
+msgstr "Профессиональная система бронирования для парикмахерских, салонов красоты и поставщиков услуг."
+
+msgid "Hizmet"
+msgstr "Услуга"
+
+msgid "Personel"
+msgstr "Персонал"
+
+msgid "Tarih/Saat"
+msgstr "Дата/Время"
+
+msgid "Bilgiler"
+msgstr "Информация"
+
+msgid "Hizmet seçin"
+msgstr "Выберите услугу"
+
+msgid "Personel seçin"
+msgstr "Выберите специалиста"
+
+msgid "Tarih seçin"
+msgstr "Выберите дату"
+
+msgid "Saat seçin"
+msgstr "Выберите время"
+
+msgid "Yükleniyor..."
+msgstr "Загрузка..."
+
+msgid "Bu tarihte müsait saat bulunmuyor."
+msgstr "Нет доступного времени на эту дату."
+
+msgid "Bu personel için hizmet bulunmuyor."
+msgstr "Нет доступных услуг для этого специалиста."
+
+msgid "Personel bulunmuyor."
+msgstr "Персонал не найден."
+
+msgid "Randevunuz başarıyla oluşturuldu!"
+msgstr "Ваша запись успешно создана!"
+
+msgid "Bir hata oluştu. Lütfen tekrar deneyin."
+msgstr "Произошла ошибка. Пожалуйста, попробуйте снова."
+
+msgid "Lütfen tüm zorunlu alanları doldurun."
+msgstr "Пожалуйста, заполните все обязательные поля."
+
+msgid "Eksik parametreler."
+msgstr "Отсутствуют параметры."
+
+msgid "Spam tespit edildi."
+msgstr "Обнаружен спам."
+
+msgid "Servis ID gerekli."
+msgstr "Требуется ID услуги."
+
+msgid "Personel ID gerekli."
+msgstr "Требуется ID персонала."
+
+msgid "Geçersiz randevu linki."
+msgstr "Недействительная ссылка на запись."
+
+msgid "Randevu bulunamadı."
+msgstr "Запись не найдена."
+
+msgid "Beklemede"
+msgstr "Ожидание"
+
+msgid "Onaylandı"
+msgstr "Подтверждено"
+
+msgid "İptal Edildi"
+msgstr "Отменено"
+
+msgid "İptal"
+msgstr "Отменено"
+
+msgid "Tamamlandı"
+msgstr "Завершено"
+
+msgid "Gelmedi"
+msgstr "Не явился"
+
+#, php-format
+msgid "Randevu No: #%d"
+msgstr "Запись #%d"
+
+msgid "Müsait slot yok"
+msgstr "Нет доступного времени"
+
+msgid "Hata oluştu"
+msgstr "Произошла ошибка"
+
+msgid "Randevunuz güncellendi!"
+msgstr "Ваша запись обновлена!"
+
+msgid "Bir hata oluştu."
+msgstr "Произошла ошибка."
+
+msgid "Randevunuz iptal edildi!"
+msgstr "Ваша запись отменена!"
+
+msgid "Randevu iptali devre dışı bırakılmış."
+msgstr "Отмена записей отключена."
+
+msgid "Bu randevu zaten iptal edilmiş."
+msgstr "Эта запись уже отменена."
+
+msgid "Tamamlanmış randevular iptal edilemez."
+msgstr "Завершённые записи нельзя отменить."
+
+#, php-format
+msgid "Randevuya %d saatten az kaldığı için iptal edilemez."
+msgstr "Невозможно отменить, так как до записи осталось менее %d часов."
+
+msgid "Randevu değiştirme devre dışı bırakılmış."
+msgstr "Изменение записей отключено."
+
+msgid "İptal edilmiş randevular değiştirilemez."
+msgstr "Отменённые записи нельзя изменить."
+
+msgid "Tamamlanmış randevular değiştirilemez."
+msgstr "Завершённые записи нельзя изменить."
+
+#, php-format
+msgid "Randevu en fazla %d kez değiştirilebilir."
+msgstr "Запись можно изменить только %d раз."
+
+#, php-format
+msgid "Randevuya %d saatten az kaldığı için değiştirilemez."
+msgstr "Невозможно изменить, так как до записи осталось менее %d часов."
+
+#, php-format
+msgid "[%1$s] Müşteri tarafından iptal edildi. Neden: %2$s"
+msgstr "[%1$s] Отменено клиентом. Причина: %2$s"
+
+msgid "Randevunuz başarıyla iptal edildi."
+msgstr "Ваша запись успешно отменена."
+
+msgid "Randevu iptal edilirken bir hata oluştu."
+msgstr "Произошла ошибка при отмене записи."
+
+msgid "Geçersiz tarih formatı."
+msgstr "Неверный формат даты."
+
+msgid "Geçersiz saat formatı."
+msgstr "Неверный формат времени."
+
+msgid "Seçilen tarih ve saat müsait değil."
+msgstr "Выбранные дата и время недоступны."
+
+msgid "Hizmet bilgisi bulunamadı."
+msgstr "Информация об услуге не найдена."
+
+#, php-format
+msgid "[%1$s] Yeniden planlandı: %2$s %3$s -> %4$s %5$s"
+msgstr "[%1$s] Перенесено: %2$s %3$s -> %4$s %5$s"
+
+msgid "Randevunuz başarıyla güncellendi."
+msgstr "Ваша запись успешно обновлена."
+
+msgid "Randevu güncellenirken bir hata oluştu."
+msgstr "Произошла ошибка при обновлении записи."
+
+msgid "Tüm Durumlar"
+msgstr "Все статусы"
+
+#, php-format
+msgid "Randevu Talebiniz - %s"
+msgstr "Ваша заявка на запись - %s"
+
+#, php-format
+msgid "Randevunuz Onaylandı - %s"
+msgstr "Ваша запись подтверждена - %s"
+
+#, php-format
+msgid "Randevunuz İptal Edildi - %s"
+msgstr "Ваша запись отменена - %s"
+
+#, php-format
+msgid "Yeni Randevu Talebi: %s"
+msgstr "Новая заявка на запись: %s"
+
+msgid "Randevu Bildirimi"
+msgstr "Уведомление о записи"
+
+msgid "dk"
+msgstr "мин"
+
+msgid "Randevu Talebiniz Alındı"
+msgstr "Ваша заявка на запись получена"
+
+msgid "Sayın {customer_name},"
+msgstr "Уважаемый(ая) {customer_name},"
+
+msgid "Randevu talebiniz başarıyla alınmıştır. Detaylar aşağıdaki gibidir:"
+msgstr "Ваша заявка на запись успешно получена. Детали следующие:"
+
+msgid "Hizmet(ler):"
+msgstr "Услуга(и):"
+
+msgid "Personel:"
+msgstr "Специалист:"
+
+msgid "Tarih:"
+msgstr "Дата:"
+
+msgid "Saat:"
+msgstr "Время:"
+
+msgid "Süre:"
+msgstr "Продолжительность:"
+
+msgid "Ücret:"
+msgstr "Стоимость:"
+
+msgid "Randevunuz onaylandığında size bilgi verilecektir."
+msgstr "Вы будете уведомлены, когда ваша запись будет подтверждена."
+
+msgid "Randevumu Görüntüle"
+msgstr "Просмотреть запись"
+
+msgid "Bu link üzerinden randevunuzu iptal edebilir veya değiştirebilirsiniz."
+msgstr "По этой ссылке вы можете отменить или изменить свою запись."
+
+msgid "Randevunuz Onaylandı!"
+msgstr "Ваша запись подтверждена!"
+
+msgid "Randevunuz onaylanmıştır. Sizi bekliyoruz!"
+msgstr "Ваша запись подтверждена. Ждём вас!"
+
+msgid "Randevumu Yönet"
+msgstr "Управление записью"
+
+msgid "Randevunuz İptal Edildi"
+msgstr "Ваша запись отменена"
+
+msgid "Aşağıdaki randevunuz iptal edilmiştir:"
+msgstr "Следующая запись была отменена:"
+
+msgid "Yeni bir randevu almak için bizimle iletişime geçebilirsiniz."
+msgstr "Вы можете связаться с нами для новой записи."
+
+msgid "Yeni Randevu Talebi"
+msgstr "Новая заявка на запись"
+
+msgid "Yeni bir randevu talebi alındı:"
+msgstr "Получена новая заявка на запись:"
+
+msgid "Müşteri Bilgileri"
+msgstr "Информация о клиенте"
+
+msgid "Ad Soyad:"
+msgstr "Полное имя:"
+
+msgid "Email:"
+msgstr "Эл. почта:"
+
+msgid "Telefon:"
+msgstr "Телефон:"
+
+msgid "Randevu Detayları"
+msgstr "Детали записи"
+
+msgid "Randevuyu onaylamak için yönetim panelini ziyaret edin."
+msgstr "Посетите панель администратора для подтверждения записи."
+
+msgid "Aktif"
+msgstr "Активен"
+
+msgid "Pasif"
+msgstr "Неактивен"
+
+msgid "Randevular"
+msgstr "Записи"
+
+msgid "Kontrol Paneli"
+msgstr "Панель управления"
+
+msgid "Takvim"
+msgstr "Календарь"
+
+msgid "Hizmetler"
+msgstr "Услуги"
+
+msgid "Müşteriler"
+msgstr "Клиенты"
+
+msgid "Ayarlar"
+msgstr "Настройки"
+
+msgid "Silmek istediğinize emin misiniz?"
+msgstr "Вы уверены, что хотите удалить?"
+
+msgid "Kaydediliyor..."
+msgstr "Сохранение..."
+
+msgid "Kaydedildi!"
+msgstr "Сохранено!"
+
+msgid "Yetkisiz erişim."
+msgstr "Несанкционированный доступ."
+
+msgid "Hizmet kaydedildi."
+msgstr "Услуга сохранена."
+
+msgid "Kaydetme hatası."
+msgstr "Ошибка сохранения."
+
+msgid "Geçersiz ID."
+msgstr "Неверный ID."
+
+msgid "Hizmet silindi."
+msgstr "Услуга удалена."
+
+msgid "Silme hatası."
+msgstr "Ошибка удаления."
+
+msgid "Personel kaydedildi."
+msgstr "Персонал сохранён."
+
+msgid "Personel silindi."
+msgstr "Персонал удалён."
+
+msgid "Geçersiz parametreler."
+msgstr "Неверные параметры."
+
+msgid "Durum güncellendi."
+msgstr "Статус обновлён."
+
+msgid "Güncelleme hatası."
+msgstr "Ошибка обновления."
+
+msgid "Ayarlar kaydedildi."
+msgstr "Настройки сохранены."
+
+msgid "Geçersiz personel."
+msgstr "Неверный персонал."
+
+msgid "Çalışma saatleri kaydedildi."
+msgstr "Рабочее время сохранено."
+
+msgid "Tarih ve saat gerekli."
+msgstr "Требуются дата и время."
+
+#, php-format
+msgid "%1$s - %2$s"
+msgstr "%1$s - %2$s"
+
+#, php-format
+msgid "Personel: %s"
+msgstr "Специалист: %s"
+
+#, php-format
+msgid "Ücret: %s"
+msgstr "Стоимость: %s"
+
+#, php-format
+msgid "Telefon: %s"
+msgstr "Телефон: %s"
+
+msgid "Randevu Hatırlatması"
+msgstr "Напоминание о записи"
+
+msgid "Yarın randevunuz var"
+msgstr "У вас запись завтра"
+
+msgid "Takviminize ekleyin:"
+msgstr "Добавить в календарь:"
+
+msgid "Google Calendar"
+msgstr "Google Календарь"
+
+msgid "Outlook"
+msgstr "Outlook"
+
+msgid "Yahoo Calendar"
+msgstr "Yahoo Календарь"
+
+msgid "Apple Calendar kullanıcıları e-postaya ekli .ics dosyasını kullanabilir."
+msgstr "Пользователи Apple Calendar могут использовать прикреплённый файл .ics."
+
+msgid "Pazartesi"
+msgstr "Понедельник"
+
+msgid "Salı"
+msgstr "Вторник"
+
+msgid "Çarşamba"
+msgstr "Среда"
+
+msgid "Perşembe"
+msgstr "Четверг"
+
+msgid "Cuma"
+msgstr "Пятница"
+
+msgid "Cumartesi"
+msgstr "Суббота"
+
+msgid "Pazar"
+msgstr "Воскресенье"
+
+msgid "Geçersiz hizmet listesi."
+msgstr "Неверный список услуг."
+
+#, php-format
+msgid "%s alanı zorunludur."
+msgstr "Поле %s обязательно для заполнения."
+
+msgid "Bu saat diliminde başka bir randevu mevcut."
+msgstr "В этом временном интервале уже есть другая запись."

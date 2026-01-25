@@ -1,0 +1,441 @@
+# English (United States) translation for Appointment General
+# Copyright (C) 2025 Appointment General
+# This file is distributed under the same license as the Appointment General plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Appointment General 1.0.0\n"
+"Report-Msgid-Bugs-To: https://example.com/appointment-general\n"
+"POT-Creation-Date: 2025-01-25T00:00:00+00:00\n"
+"PO-Revision-Date: 2025-01-25T00:00:00+00:00\n"
+"Last-Translator: Developer <dev@example.com>\n"
+"Language-Team: English (United States) <en_US@li.org>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0\n"
+"X-Domain: appointment-general\n"
+
+#. Plugin Name of the plugin
+msgid "Appointment General"
+msgstr "Appointment General"
+
+#. Plugin URI of the plugin
+msgid "https://example.com/appointment-general"
+msgstr "https://example.com/appointment-general"
+
+#. Description of the plugin
+msgid "Berberler, güzellik salonları ve servis sağlayıcılar için profesyonel randevu sistemi."
+msgstr "Professional appointment booking system for barbers, beauty salons and service providers."
+
+msgid "Hizmet"
+msgstr "Service"
+
+msgid "Personel"
+msgstr "Staff"
+
+msgid "Tarih/Saat"
+msgstr "Date/Time"
+
+msgid "Bilgiler"
+msgstr "Details"
+
+msgid "Hizmet seçin"
+msgstr "Select service"
+
+msgid "Personel seçin"
+msgstr "Select staff"
+
+msgid "Tarih seçin"
+msgstr "Select date"
+
+msgid "Saat seçin"
+msgstr "Select time"
+
+msgid "Yükleniyor..."
+msgstr "Loading..."
+
+msgid "Bu tarihte müsait saat bulunmuyor."
+msgstr "No available time slots for this date."
+
+msgid "Bu personel için hizmet bulunmuyor."
+msgstr "No services found for this staff member."
+
+msgid "Personel bulunmuyor."
+msgstr "No staff found."
+
+msgid "Randevunuz başarıyla oluşturuldu!"
+msgstr "Your appointment has been successfully created!"
+
+msgid "Bir hata oluştu. Lütfen tekrar deneyin."
+msgstr "An error occurred. Please try again."
+
+msgid "Lütfen tüm zorunlu alanları doldurun."
+msgstr "Please fill in all required fields."
+
+msgid "Eksik parametreler."
+msgstr "Missing parameters."
+
+msgid "Spam tespit edildi."
+msgstr "Spam detected."
+
+msgid "Servis ID gerekli."
+msgstr "Service ID required."
+
+msgid "Personel ID gerekli."
+msgstr "Staff ID required."
+
+msgid "Geçersiz randevu linki."
+msgstr "Invalid appointment link."
+
+msgid "Randevu bulunamadı."
+msgstr "Appointment not found."
+
+msgid "Beklemede"
+msgstr "Pending"
+
+msgid "Onaylandı"
+msgstr "Confirmed"
+
+msgid "İptal Edildi"
+msgstr "Cancelled"
+
+msgid "İptal"
+msgstr "Cancelled"
+
+msgid "Tamamlandı"
+msgstr "Completed"
+
+msgid "Gelmedi"
+msgstr "No Show"
+
+#, php-format
+msgid "Randevu No: #%d"
+msgstr "Appointment #%d"
+
+msgid "Müsait slot yok"
+msgstr "No available slots"
+
+msgid "Hata oluştu"
+msgstr "Error occurred"
+
+msgid "Randevunuz güncellendi!"
+msgstr "Your appointment has been updated!"
+
+msgid "Bir hata oluştu."
+msgstr "An error occurred."
+
+msgid "Randevunuz iptal edildi!"
+msgstr "Your appointment has been cancelled!"
+
+msgid "Randevu iptali devre dışı bırakılmış."
+msgstr "Appointment cancellation is disabled."
+
+msgid "Bu randevu zaten iptal edilmiş."
+msgstr "This appointment has already been cancelled."
+
+msgid "Tamamlanmış randevular iptal edilemez."
+msgstr "Completed appointments cannot be cancelled."
+
+#, php-format
+msgid "Randevuya %d saatten az kaldığı için iptal edilemez."
+msgstr "Cannot cancel because less than %d hours remaining until the appointment."
+
+msgid "Randevu değiştirme devre dışı bırakılmış."
+msgstr "Appointment rescheduling is disabled."
+
+msgid "İptal edilmiş randevular değiştirilemez."
+msgstr "Cancelled appointments cannot be rescheduled."
+
+msgid "Tamamlanmış randevular değiştirilemez."
+msgstr "Completed appointments cannot be rescheduled."
+
+#, php-format
+msgid "Randevu en fazla %d kez değiştirilebilir."
+msgstr "Appointment can only be rescheduled %d times."
+
+#, php-format
+msgid "Randevuya %d saatten az kaldığı için değiştirilemez."
+msgstr "Cannot reschedule because less than %d hours remaining until the appointment."
+
+#, php-format
+msgid "[%1$s] Müşteri tarafından iptal edildi. Neden: %2$s"
+msgstr "[%1$s] Cancelled by customer. Reason: %2$s"
+
+msgid "Randevunuz başarıyla iptal edildi."
+msgstr "Your appointment has been successfully cancelled."
+
+msgid "Randevu iptal edilirken bir hata oluştu."
+msgstr "An error occurred while cancelling the appointment."
+
+msgid "Geçersiz tarih formatı."
+msgstr "Invalid date format."
+
+msgid "Geçersiz saat formatı."
+msgstr "Invalid time format."
+
+msgid "Seçilen tarih ve saat müsait değil."
+msgstr "The selected date and time is not available."
+
+msgid "Hizmet bilgisi bulunamadı."
+msgstr "Service information not found."
+
+#, php-format
+msgid "[%1$s] Yeniden planlandı: %2$s %3$s -> %4$s %5$s"
+msgstr "[%1$s] Rescheduled: %2$s %3$s -> %4$s %5$s"
+
+msgid "Randevunuz başarıyla güncellendi."
+msgstr "Your appointment has been successfully updated."
+
+msgid "Randevu güncellenirken bir hata oluştu."
+msgstr "An error occurred while updating the appointment."
+
+msgid "Tüm Durumlar"
+msgstr "All Statuses"
+
+#, php-format
+msgid "Randevu Talebiniz - %s"
+msgstr "Your Appointment Request - %s"
+
+#, php-format
+msgid "Randevunuz Onaylandı - %s"
+msgstr "Your Appointment Confirmed - %s"
+
+#, php-format
+msgid "Randevunuz İptal Edildi - %s"
+msgstr "Your Appointment Cancelled - %s"
+
+#, php-format
+msgid "Yeni Randevu Talebi: %s"
+msgstr "New Appointment Request: %s"
+
+msgid "Randevu Bildirimi"
+msgstr "Appointment Notification"
+
+msgid "dk"
+msgstr "min"
+
+msgid "Randevu Talebiniz Alındı"
+msgstr "Your Appointment Request Received"
+
+msgid "Sayın {customer_name},"
+msgstr "Dear {customer_name},"
+
+msgid "Randevu talebiniz başarıyla alınmıştır. Detaylar aşağıdaki gibidir:"
+msgstr "Your appointment request has been successfully received. Details are as follows:"
+
+msgid "Hizmet(ler):"
+msgstr "Service(s):"
+
+msgid "Personel:"
+msgstr "Staff:"
+
+msgid "Tarih:"
+msgstr "Date:"
+
+msgid "Saat:"
+msgstr "Time:"
+
+msgid "Süre:"
+msgstr "Duration:"
+
+msgid "Ücret:"
+msgstr "Price:"
+
+msgid "Randevunuz onaylandığında size bilgi verilecektir."
+msgstr "You will be notified when your appointment is confirmed."
+
+msgid "Randevumu Görüntüle"
+msgstr "View My Appointment"
+
+msgid "Bu link üzerinden randevunuzu iptal edebilir veya değiştirebilirsiniz."
+msgstr "You can cancel or reschedule your appointment using this link."
+
+msgid "Randevunuz Onaylandı!"
+msgstr "Your Appointment is Confirmed!"
+
+msgid "Randevunuz onaylanmıştır. Sizi bekliyoruz!"
+msgstr "Your appointment has been confirmed. We look forward to seeing you!"
+
+msgid "Randevumu Yönet"
+msgstr "Manage My Appointment"
+
+msgid "Randevunuz İptal Edildi"
+msgstr "Your Appointment Cancelled"
+
+msgid "Aşağıdaki randevunuz iptal edilmiştir:"
+msgstr "The following appointment has been cancelled:"
+
+msgid "Yeni bir randevu almak için bizimle iletişime geçebilirsiniz."
+msgstr "You can contact us to schedule a new appointment."
+
+msgid "Yeni Randevu Talebi"
+msgstr "New Appointment Request"
+
+msgid "Yeni bir randevu talebi alındı:"
+msgstr "A new appointment request has been received:"
+
+msgid "Müşteri Bilgileri"
+msgstr "Customer Information"
+
+msgid "Ad Soyad:"
+msgstr "Full Name:"
+
+msgid "Email:"
+msgstr "Email:"
+
+msgid "Telefon:"
+msgstr "Phone:"
+
+msgid "Randevu Detayları"
+msgstr "Appointment Details"
+
+msgid "Randevuyu onaylamak için yönetim panelini ziyaret edin."
+msgstr "Visit the admin panel to confirm the appointment."
+
+msgid "Aktif"
+msgstr "Active"
+
+msgid "Pasif"
+msgstr "Inactive"
+
+msgid "Randevular"
+msgstr "Appointments"
+
+msgid "Kontrol Paneli"
+msgstr "Dashboard"
+
+msgid "Takvim"
+msgstr "Calendar"
+
+msgid "Hizmetler"
+msgstr "Services"
+
+msgid "Müşteriler"
+msgstr "Customers"
+
+msgid "Ayarlar"
+msgstr "Settings"
+
+msgid "Silmek istediğinize emin misiniz?"
+msgstr "Are you sure you want to delete?"
+
+msgid "Kaydediliyor..."
+msgstr "Saving..."
+
+msgid "Kaydedildi!"
+msgstr "Saved!"
+
+msgid "Yetkisiz erişim."
+msgstr "Unauthorized access."
+
+msgid "Hizmet kaydedildi."
+msgstr "Service saved."
+
+msgid "Kaydetme hatası."
+msgstr "Save error."
+
+msgid "Geçersiz ID."
+msgstr "Invalid ID."
+
+msgid "Hizmet silindi."
+msgstr "Service deleted."
+
+msgid "Silme hatası."
+msgstr "Delete error."
+
+msgid "Personel kaydedildi."
+msgstr "Staff saved."
+
+msgid "Personel silindi."
+msgstr "Staff deleted."
+
+msgid "Geçersiz parametreler."
+msgstr "Invalid parameters."
+
+msgid "Durum güncellendi."
+msgstr "Status updated."
+
+msgid "Güncelleme hatası."
+msgstr "Update error."
+
+msgid "Ayarlar kaydedildi."
+msgstr "Settings saved."
+
+msgid "Geçersiz personel."
+msgstr "Invalid staff."
+
+msgid "Çalışma saatleri kaydedildi."
+msgstr "Working hours saved."
+
+msgid "Tarih ve saat gerekli."
+msgstr "Date and time required."
+
+#, php-format
+msgid "%1$s - %2$s"
+msgstr "%1$s - %2$s"
+
+#, php-format
+msgid "Personel: %s"
+msgstr "Staff: %s"
+
+#, php-format
+msgid "Ücret: %s"
+msgstr "Price: %s"
+
+#, php-format
+msgid "Telefon: %s"
+msgstr "Phone: %s"
+
+msgid "Randevu Hatırlatması"
+msgstr "Appointment Reminder"
+
+msgid "Yarın randevunuz var"
+msgstr "You have an appointment tomorrow"
+
+msgid "Takviminize ekleyin:"
+msgstr "Add to your calendar:"
+
+msgid "Google Calendar"
+msgstr "Google Calendar"
+
+msgid "Outlook"
+msgstr "Outlook"
+
+msgid "Yahoo Calendar"
+msgstr "Yahoo Calendar"
+
+msgid "Apple Calendar kullanıcıları e-postaya ekli .ics dosyasını kullanabilir."
+msgstr "Apple Calendar users can use the .ics file attached to the email."
+
+msgid "Pazartesi"
+msgstr "Monday"
+
+msgid "Salı"
+msgstr "Tuesday"
+
+msgid "Çarşamba"
+msgstr "Wednesday"
+
+msgid "Perşembe"
+msgstr "Thursday"
+
+msgid "Cuma"
+msgstr "Friday"
+
+msgid "Cumartesi"
+msgstr "Saturday"
+
+msgid "Pazar"
+msgstr "Sunday"
+
+msgid "Geçersiz hizmet listesi."
+msgstr "Invalid service list."
+
+#, php-format
+msgid "%s alanı zorunludur."
+msgstr "%s field is required."
+
+msgid "Bu saat diliminde başka bir randevu mevcut."
+msgstr "Another appointment exists in this time slot."
