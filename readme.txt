@@ -26,7 +26,7 @@ Appointment General is a comprehensive booking plugin designed for service-based
 * **SMS Notifications** - Optional SMS alerts via NetGSM integration
 * **Calendar View** - Visual calendar for easy appointment management
 * **Booking Form** - Clean, responsive booking form via shortcode
-* **Multi-language** - Translation ready with Turkish, English, and Bulgarian included
+* **Multi-language** - Translation ready with Turkish, English, Bulgarian, French, German, and Russian included
 
 = Shortcodes =
 
@@ -80,7 +80,7 @@ Yes, SMS notifications are supported via NetGSM integration. More providers comi
 
 = Is it translation ready? =
 
-Yes, the plugin is fully translatable. Turkish, English, and Bulgarian translations are included.
+Yes, the plugin is fully translatable. Turkish, English, Bulgarian, French, German, and Russian translations are included.
 
 == Screenshots ==
 
@@ -104,7 +104,7 @@ Yes, the plugin is fully translatable. Turkish, English, and Bulgarian translati
 * SMS notifications via NetGSM
 * Calendar view
 * Booking form shortcode
-* Multi-language support (TR, EN, BG)
+* Multi-language support (TR, EN, BG, FR, DE, RU)
 
 == Upgrade Notice ==
 
