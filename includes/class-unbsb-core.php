@@ -38,6 +38,7 @@ class UNBSB_Core {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 		$this->define_api_hooks();
+		$this->init_notifications();
 		$this->init_sms_manager();
 		$this->init_seo();
 	}
@@ -224,6 +225,13 @@ class UNBSB_Core {
 	private function define_api_hooks() {
 		$api = new UNBSB_REST_API();
 		$this->loader->add_action( 'rest_api_init', $api, 'register_routes' );
+	}
+
+	/**
+	 * Initialize Notifications (registers email hooks)
+	 */
+	private function init_notifications() {
+		new UNBSB_Notification();
 	}
 
 	/**
