@@ -326,6 +326,52 @@ function unbsb_render_service_checkbox( $service, $currency_symbol ) {
 
 								<hr class="unbsb-divider">
 
+								<!-- WordPress Account -->
+								<div class="unbsb-form-group">
+									<label><?php esc_html_e( 'WordPress Account', 'unbelievable-salon-booking' ); ?></label>
+									<div class="unbsb-wp-account-section" id="unbsb-wp-account-section">
+										<!-- State: No account linked -->
+										<div class="unbsb-wp-account-unlinked" id="unbsb-wp-account-unlinked">
+											<div class="unbsb-wp-account-status">
+												<span class="dashicons dashicons-admin-users" style="color: var(--unbsb-text-muted);"></span>
+												<span class="unbsb-wp-account-label"><?php esc_html_e( 'No account linked', 'unbelievable-salon-booking' ); ?></span>
+											</div>
+											<div class="unbsb-wp-account-actions">
+												<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-primary" id="unbsb-create-wp-account">
+													<?php esc_html_e( 'Create Account', 'unbelievable-salon-booking' ); ?>
+												</button>
+												<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-outline" id="unbsb-link-wp-account-btn">
+													<?php esc_html_e( 'Link Existing', 'unbelievable-salon-booking' ); ?>
+												</button>
+											</div>
+										</div>
+
+										<!-- State: Link existing - search form -->
+										<div class="unbsb-wp-account-search" id="unbsb-wp-account-search" style="display: none;">
+											<div class="unbsb-wp-account-search-input">
+												<input type="text" id="unbsb-wp-user-search" placeholder="<?php esc_attr_e( 'Search by email or username...', 'unbelievable-salon-booking' ); ?>" autocomplete="off">
+												<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-ghost" id="unbsb-cancel-link-search">
+													<span class="dashicons dashicons-no-alt"></span>
+												</button>
+											</div>
+											<div class="unbsb-wp-user-results" id="unbsb-wp-user-results" style="display: none;"></div>
+										</div>
+
+										<!-- State: Account linked -->
+										<div class="unbsb-wp-account-linked" id="unbsb-wp-account-linked" style="display: none;">
+											<div class="unbsb-wp-account-info">
+												<span class="dashicons dashicons-yes-alt" style="color: var(--unbsb-success);"></span>
+												<span class="unbsb-wp-account-user" id="unbsb-wp-account-user"></span>
+											</div>
+											<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-danger unbsb-btn-outline" id="unbsb-unlink-wp-account">
+												<?php esc_html_e( 'Unlink', 'unbelievable-salon-booking' ); ?>
+											</button>
+										</div>
+									</div>
+								</div>
+
+								<hr class="unbsb-divider">
+
 								<div class="unbsb-info-box">
 									<span class="dashicons dashicons-info-outline"></span>
 									<p><?php esc_html_e( 'You can edit working hours from the "Hours" button after saving the staff member.', 'unbelievable-salon-booking' ); ?></p>

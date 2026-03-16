@@ -669,6 +669,9 @@
 			radio.addEventListener('change', updateSalaryFields);
 		});
 
+		// WordPress Account handlers
+		initWpAccountHandlers();
+
 		// Save staff
 		if (saveBtn) {
 			saveBtn.addEventListener('click', function() {
@@ -806,6 +809,8 @@
 			if (salaryPercentageInput) salaryPercentageInput.value = '';
 			if (salaryFixedInput) salaryFixedInput.value = '';
 			updateSalaryFields();
+			// Reset WP account section.
+			resetWpAccountSection();
 			// Uncheck all services and hide custom fields
 			form.querySelectorAll('input[name="services[]"]').forEach(function(checkbox) {
 				checkbox.checked = false;
@@ -869,6 +874,13 @@
 		}
 		updateSalaryFields();
 
+		// WP Account section.
+		if (staff.user_id && parseInt(staff.user_id) > 0) {
+			showLinkedAccount(staff.wp_user_login || '', staff.wp_user_email || '');
+		} else {
+			resetWpAccountSection();
+		}
+
 		// Show/hide custom fields based on checked state
 		toggleAllServiceCustomFields();
 		// Update category counts
@@ -905,6 +917,172 @@
 			// mix
 			percentageField.style.display = '';
 			fixedField.style.display = '';
+		}
+	}
+
+	/**
+	 * WP Account section helpers
+	 */
+	function resetWpAccountSection() {
+		var unlinked = document.getElementById('unbsb-wp-account-unlinked');
+		var linked = document.getElementById('unbsb-wp-account-linked');
+		var search = document.getElementById('unbsb-wp-account-search');
+		if (unlinked) unlinked.style.display = '';
+		if (linked) linked.style.display = 'none';
+		if (search) search.style.display = 'none';
+		var searchInput = document.getElementById('unbsb-wp-user-search');
+		if (searchInput) searchInput.value = '';
+		var results = document.getElementById('unbsb-wp-user-results');
+		if (results) {
+			results.style.display = 'none';
+			results.innerHTML = '';
+		}
+	}
+
+	function showLinkedAccount(login, email) {
+		var unlinked = document.getElementById('unbsb-wp-account-unlinked');
+		var linked = document.getElementById('unbsb-wp-account-linked');
+		var search = document.getElementById('unbsb-wp-account-search');
+		var userEl = document.getElementById('unbsb-wp-account-user');
+		if (unlinked) unlinked.style.display = 'none';
+		if (search) search.style.display = 'none';
+		if (linked) linked.style.display = '';
+		if (userEl) {
+			userEl.textContent = login + (email ? ' (' + email + ')' : '');
+		}
+	}
+
+	function initWpAccountHandlers() {
+		var createBtn = document.getElementById('unbsb-create-wp-account');
+		var linkBtn = document.getElementById('unbsb-link-wp-account-btn');
+		var cancelSearchBtn = document.getElementById('unbsb-cancel-link-search');
+		var unlinkBtn = document.getElementById('unbsb-unlink-wp-account');
+		var searchInput = document.getElementById('unbsb-wp-user-search');
+		var searchSection = document.getElementById('unbsb-wp-account-search');
+		var resultsEl = document.getElementById('unbsb-wp-user-results');
+
+		if (!createBtn) return;
+
+		// Create Account.
+		createBtn.addEventListener('click', function() {
+			var staffId = document.getElementById('staff-id').value;
+			if (!staffId) {
+				showToast(unbsbAdmin.strings.error, 'error');
+				return;
+			}
+
+			createBtn.disabled = true;
+			createBtn.textContent = unbsbAdmin.strings.saving;
+
+			ajaxRequest('unbsb_create_staff_user', { staff_id: staffId }, function(response) {
+				createBtn.disabled = false;
+				createBtn.textContent = unbsbAdmin.strings.create_account;
+				if (response.success) {
+					showToast(unbsbAdmin.strings.account_created);
+					showLinkedAccount(response.data.user_login || '', '');
+					// Update staff data in memory.
+					var staff = getStaffById(staffId);
+					if (staff) {
+						staff.user_id = response.data.user_id;
+						staff.wp_user_login = response.data.user_login;
+					}
+				} else {
+					showToast(response.data || unbsbAdmin.strings.error, 'error');
+				}
+			});
+		});
+
+		// Link Existing → show search.
+		if (linkBtn) {
+			linkBtn.addEventListener('click', function() {
+				var unlinked = document.getElementById('unbsb-wp-account-unlinked');
+				if (unlinked) unlinked.style.display = 'none';
+				if (searchSection) searchSection.style.display = '';
+				if (searchInput) searchInput.focus();
+			});
+		}
+
+		// Cancel search.
+		if (cancelSearchBtn) {
+			cancelSearchBtn.addEventListener('click', function() {
+				if (searchSection) searchSection.style.display = 'none';
+				var unlinked = document.getElementById('unbsb-wp-account-unlinked');
+				if (unlinked) unlinked.style.display = '';
+				if (searchInput) searchInput.value = '';
+				if (resultsEl) {
+					resultsEl.style.display = 'none';
+					resultsEl.innerHTML = '';
+				}
+			});
+		}
+
+		// Search on Enter key.
+		if (searchInput) {
+			searchInput.addEventListener('keydown', function(e) {
+				if ('Enter' === e.key) {
+					e.preventDefault();
+					performUserSearch();
+				}
+			});
+		}
+
+		// Unlink account.
+		if (unlinkBtn) {
+			unlinkBtn.addEventListener('click', function() {
+				if (!confirm(unbsbAdmin.strings.confirm_unlink)) return;
+
+				var staffId = document.getElementById('staff-id').value;
+				unlinkBtn.disabled = true;
+
+				ajaxRequest('unbsb_unlink_staff_user', { staff_id: staffId }, function(response) {
+					unlinkBtn.disabled = false;
+					if (response.success) {
+						showToast(unbsbAdmin.strings.account_unlinked);
+						resetWpAccountSection();
+						var staff = getStaffById(staffId);
+						if (staff) {
+							staff.user_id = 0;
+							staff.wp_user_login = '';
+							staff.wp_user_email = '';
+						}
+					} else {
+						showToast(response.data || unbsbAdmin.strings.error, 'error');
+					}
+				});
+			});
+		}
+
+		function performUserSearch() {
+			var query = searchInput ? searchInput.value.trim() : '';
+			if (!query) return;
+
+			var staffId = document.getElementById('staff-id').value;
+			if (!staffId) return;
+
+			if (resultsEl) {
+				resultsEl.style.display = '';
+				resultsEl.innerHTML = '<div class="unbsb-wp-user-searching">' + unbsbAdmin.strings.searching + '</div>';
+			}
+
+			ajaxRequest('unbsb_link_staff_user', { staff_id: staffId, search: query }, function(response) {
+				if (response.success) {
+					showToast(unbsbAdmin.strings.account_linked);
+					showLinkedAccount(response.data.user_login || '', '');
+					if (resultsEl) {
+						resultsEl.style.display = 'none';
+						resultsEl.innerHTML = '';
+					}
+					var staff = getStaffById(staffId);
+					if (staff) {
+						staff.user_id = response.data.user_id;
+						staff.wp_user_login = response.data.user_login;
+					}
+				} else {
+					if (resultsEl) {
+						resultsEl.innerHTML = '<div class="unbsb-wp-user-no-results">' + (response.data || unbsbAdmin.strings.no_users_found) + '</div>';
+					}
+				}
+			});
 		}
 	}
 

@@ -352,6 +352,19 @@ class UNBSB_Admin {
 					'salary_percentage'          => __( 'Percentage', 'unbelievable-salon-booking' ),
 					'salary_fixed'               => __( 'Fixed Salary', 'unbelievable-salon-booking' ),
 					'salary_mix'                 => __( 'Mix', 'unbelievable-salon-booking' ),
+					// Staff WordPress account.
+					'wp_account'                 => __( 'WordPress Account', 'unbelievable-salon-booking' ),
+					'no_account_linked'          => __( 'No account linked', 'unbelievable-salon-booking' ),
+					'create_account'             => __( 'Create Account', 'unbelievable-salon-booking' ),
+					'link_existing'              => __( 'Link Existing', 'unbelievable-salon-booking' ),
+					'unlink'                     => __( 'Unlink', 'unbelievable-salon-booking' ),
+					'account_created'            => __( 'WordPress account created.', 'unbelievable-salon-booking' ),
+					'account_linked'             => __( 'Account linked.', 'unbelievable-salon-booking' ),
+					'account_unlinked'           => __( 'Account unlinked.', 'unbelievable-salon-booking' ),
+					'confirm_unlink'             => __( 'Are you sure you want to unlink this WordPress account?', 'unbelievable-salon-booking' ),
+					'email_required_for_account' => __( 'Please enter an email address first.', 'unbelievable-salon-booking' ),
+					'no_users_found'             => __( 'No users found.', 'unbelievable-salon-booking' ),
+					'searching'                  => __( 'Searching...', 'unbelievable-salon-booking' ),
 					// Staff services.
 					'select_all'                 => __( 'Select All', 'unbelievable-salon-booking' ),
 					'uncategorized'              => __( 'Uncategorized', 'unbelievable-salon-booking' ),
@@ -430,10 +443,21 @@ class UNBSB_Admin {
 			$service_model = new UNBSB_Service();
 			$all_staff     = $staff_model->get_all();
 
-			// Attach service data with custom prices/durations.
+			// Attach service data and WP user info.
 			foreach ( $all_staff as &$s ) {
-				$s->services      = $staff_model->get_services( $s->id );
+				$s->services        = $staff_model->get_services( $s->id );
 				$s->service_details = $staff_model->get_services( $s->id, false );
+
+				// Attach WP user login/email for account display.
+				$s->wp_user_login = '';
+				$s->wp_user_email = '';
+				if ( ! empty( $s->user_id ) ) {
+					$wp_user = get_userdata( $s->user_id );
+					if ( $wp_user ) {
+						$s->wp_user_login = $wp_user->user_login;
+						$s->wp_user_email = $wp_user->user_email;
+					}
+				}
 			}
 			unset( $s );
 
@@ -1262,21 +1286,25 @@ class UNBSB_Admin {
 			$staff_id_saved = $id ? $id : $result;
 			$staff_services = $staff_model->get_services( $staff_id_saved, false );
 
-			// Auto-link user_id by staff email and assign unbsb_staff role.
-			$staff_email = isset( $data['email'] ) ? $data['email'] : '';
-			if ( ! empty( $staff_email ) ) {
-				$wp_user = get_user_by( 'email', $staff_email );
+			// Get saved staff record for user_id info.
+			$saved_staff = $staff_model->get( $staff_id_saved );
+			$user_id     = ! empty( $saved_staff->user_id ) ? absint( $saved_staff->user_id ) : 0;
+			$user_login  = '';
+
+			if ( $user_id ) {
+				$wp_user = get_user_by( 'id', $user_id );
 				if ( $wp_user ) {
-					$staff_model->update( $staff_id_saved, array( 'user_id' => $wp_user->ID ) );
-					$wp_user->add_role( 'unbsb_staff' );
+					$user_login = $wp_user->user_login;
 				}
 			}
 
 			wp_send_json_success(
 				array(
-					'message'  => __( 'Staff saved.', 'unbelievable-salon-booking' ),
-					'id'       => $staff_id_saved,
-					'services' => $staff_services,
+					'message'    => __( 'Staff saved.', 'unbelievable-salon-booking' ),
+					'id'         => $staff_id_saved,
+					'services'   => $staff_services,
+					'user_id'    => $user_id,
+					'user_login' => $user_login,
 				)
 			);
 		} else {
@@ -2418,6 +2446,284 @@ class UNBSB_Admin {
 		$holidays    = $staff_model->get_holidays( $staff->id );
 
 		wp_send_json_success( $holidays );
+	}
+
+	/**
+	 * AJAX: Create WordPress user for staff member
+	 */
+	public function ajax_create_staff_user() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff_id = isset( $_POST['staff_id'] ) ? absint( $_POST['staff_id'] ) : 0;
+
+		if ( ! $staff_id ) {
+			wp_send_json_error( __( 'Invalid staff ID.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff_model = new UNBSB_Staff();
+		$staff       = $staff_model->get( $staff_id );
+
+		if ( ! $staff ) {
+			wp_send_json_error( __( 'Staff not found.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Check if staff already has a linked user.
+		if ( ! empty( $staff->user_id ) ) {
+			wp_send_json_error( __( 'This staff member already has a linked user account.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Generate username from email or name+phone.
+		$email = ! empty( $staff->email ) ? $staff->email : '';
+
+		if ( ! empty( $email ) ) {
+			// Check if user with this email already exists.
+			$existing_user = get_user_by( 'email', $email );
+			if ( $existing_user ) {
+				// Link to existing user instead.
+				$staff_model->update( $staff_id, array( 'user_id' => $existing_user->ID ) );
+				$existing_user->add_role( 'unbsb_staff' );
+
+				wp_send_json_success(
+					array(
+						'message'    => __( 'Existing user found and linked.', 'unbelievable-salon-booking' ),
+						'user_id'    => $existing_user->ID,
+						'user_login' => $existing_user->user_login,
+					)
+				);
+			}
+
+			$username = sanitize_user( strstr( $email, '@', true ), true );
+		} else {
+			// Build username from name + phone.
+			$name_slug = sanitize_title( $staff->name );
+			$phone     = ! empty( $staff->phone ) ? preg_replace( '/[^0-9]/', '', $staff->phone ) : '';
+			$username  = $name_slug . ( $phone ? '-' . substr( $phone, -4 ) : '' );
+		}
+
+		// Ensure username is unique.
+		$base_username = $username;
+		$counter       = 1;
+		while ( username_exists( $username ) ) {
+			$username = $base_username . $counter;
+			$counter++;
+		}
+
+		// Generate password.
+		$password = wp_generate_password( 12, true, false );
+
+		// Build user data.
+		$userdata = array(
+			'user_login'   => $username,
+			'user_pass'    => $password,
+			'user_email'   => $email,
+			'display_name' => $staff->name,
+			'first_name'   => $staff->name,
+			'role'         => 'unbsb_staff',
+		);
+
+		$user_id = wp_insert_user( $userdata );
+
+		if ( is_wp_error( $user_id ) ) {
+			wp_send_json_error( $user_id->get_error_message() );
+		}
+
+		// Link user to staff.
+		$staff_model->update( $staff_id, array( 'user_id' => $user_id ) );
+
+		// Send new user notification with password reset link.
+		wp_new_user_notification( $user_id, null, 'user' );
+
+		wp_send_json_success(
+			array(
+				'message'    => __( 'User account created and password reset email sent.', 'unbelievable-salon-booking' ),
+				'user_id'    => $user_id,
+				'user_login' => $username,
+			)
+		);
+	}
+
+	/**
+	 * AJAX: Link existing WordPress user to staff member
+	 */
+	public function ajax_link_staff_user() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff_id = isset( $_POST['staff_id'] ) ? absint( $_POST['staff_id'] ) : 0;
+		$search   = isset( $_POST['search'] ) ? sanitize_text_field( wp_unslash( $_POST['search'] ) ) : '';
+
+		if ( ! $staff_id ) {
+			wp_send_json_error( __( 'Invalid staff ID.', 'unbelievable-salon-booking' ) );
+		}
+
+		if ( empty( $search ) ) {
+			wp_send_json_error( __( 'Please provide an email or username to search.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff_model = new UNBSB_Staff();
+		$staff       = $staff_model->get( $staff_id );
+
+		if ( ! $staff ) {
+			wp_send_json_error( __( 'Staff not found.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Search by email first, then username.
+		$wp_user = get_user_by( 'email', $search );
+
+		if ( ! $wp_user ) {
+			$wp_user = get_user_by( 'login', $search );
+		}
+
+		if ( ! $wp_user ) {
+			wp_send_json_error( __( 'No WordPress user found with this email or username.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Check if this user is already linked to another staff member.
+		$existing_staff = $staff_model->get_by_user_id( $wp_user->ID );
+		if ( $existing_staff && absint( $existing_staff->id ) !== $staff_id ) {
+			wp_send_json_error(
+				sprintf(
+					/* translators: %s: Staff member name */
+					__( 'This user is already linked to staff member: %s', 'unbelievable-salon-booking' ),
+					$existing_staff->name
+				)
+			);
+		}
+
+		// Link user to staff.
+		$staff_model->update( $staff_id, array( 'user_id' => $wp_user->ID ) );
+
+		// Add staff role.
+		$wp_user->add_role( 'unbsb_staff' );
+
+		wp_send_json_success(
+			array(
+				'message'    => __( 'User linked successfully.', 'unbelievable-salon-booking' ),
+				'user_id'    => $wp_user->ID,
+				'user_login' => $wp_user->user_login,
+			)
+		);
+	}
+
+	/**
+	 * AJAX: Unlink WordPress user from staff member
+	 */
+	public function ajax_unlink_staff_user() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff_id = isset( $_POST['staff_id'] ) ? absint( $_POST['staff_id'] ) : 0;
+
+		if ( ! $staff_id ) {
+			wp_send_json_error( __( 'Invalid staff ID.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff_model = new UNBSB_Staff();
+		$staff       = $staff_model->get( $staff_id );
+
+		if ( ! $staff ) {
+			wp_send_json_error( __( 'Staff not found.', 'unbelievable-salon-booking' ) );
+		}
+
+		if ( empty( $staff->user_id ) ) {
+			wp_send_json_error( __( 'This staff member has no linked user.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Remove role from user.
+		$wp_user = get_user_by( 'id', $staff->user_id );
+		if ( $wp_user ) {
+			$wp_user->remove_role( 'unbsb_staff' );
+		}
+
+		// Clear user_id from staff.
+		$staff_model->update( $staff_id, array( 'user_id' => null ) );
+
+		wp_send_json_success(
+			array(
+				'message' => __( 'User unlinked successfully.', 'unbelievable-salon-booking' ),
+			)
+		);
+	}
+
+	/**
+	 * Restrict admin menu for staff users
+	 */
+	public function restrict_staff_admin_menu() {
+		if ( current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'unbsb_view_own_bookings' ) ) {
+			return;
+		}
+
+		// Remove default WordPress menu pages for staff users.
+		remove_menu_page( 'index.php' );              // Dashboard.
+		remove_menu_page( 'edit.php' );                // Posts.
+		remove_menu_page( 'upload.php' );              // Media.
+		remove_menu_page( 'edit-comments.php' );       // Comments.
+		remove_menu_page( 'themes.php' );              // Appearance.
+		remove_menu_page( 'plugins.php' );             // Plugins.
+		remove_menu_page( 'users.php' );               // Users.
+		remove_menu_page( 'tools.php' );               // Tools.
+		remove_menu_page( 'options-general.php' );     // Settings.
+		remove_menu_page( 'edit.php?post_type=page' ); // Pages.
+
+		// Remove the main admin booking menu (staff has their own portal).
+		remove_menu_page( 'unbelievable-salon-booking' );
+	}
+
+	/**
+	 * Restrict admin bar for staff users
+	 *
+	 * @param WP_Admin_Bar $wp_admin_bar Admin bar instance.
+	 */
+	public function restrict_staff_admin_bar( $wp_admin_bar ) {
+		if ( current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'unbsb_view_own_bookings' ) ) {
+			return;
+		}
+
+		$wp_admin_bar->remove_node( 'wp-logo' );
+		$wp_admin_bar->remove_node( 'comments' );
+		$wp_admin_bar->remove_node( 'new-content' );
+		$wp_admin_bar->remove_node( 'updates' );
+		$wp_admin_bar->remove_node( 'site-name' );
+	}
+
+	/**
+	 * Redirect staff users to their portal after login
+	 *
+	 * @param string  $redirect_to           Redirect URL.
+	 * @param string  $requested_redirect_to Requested redirect URL.
+	 * @param WP_User $user                  User object.
+	 *
+	 * @return string
+	 */
+	public function staff_login_redirect( $redirect_to, $requested_redirect_to, $user ) {
+		if ( ! is_a( $user, 'WP_User' ) ) {
+			return $redirect_to;
+		}
+
+		// Only redirect if staff role and not admin.
+		if ( in_array( 'unbsb_staff', (array) $user->roles, true ) && ! $user->has_cap( 'manage_options' ) ) {
+			return admin_url( 'admin.php?page=unbsb-staff-portal' );
+		}
+
+		return $redirect_to;
 	}
 
 }

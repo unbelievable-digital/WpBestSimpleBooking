@@ -794,6 +794,11 @@
 		.then(function(r) { return r.json(); })
 		.then(function(response) {
 			var staffData = response.success && response.data ? response.data : [];
+			// Normalize staff_id/staff_name → id/name for consistent access.
+			staffData.forEach(function(s) {
+				if (s.staff_id && !s.id) s.id = s.staff_id;
+				if (s.staff_name && !s.name) s.name = s.staff_name;
+			});
 			if (staffData.length > 0) {
 				state.staffList = staffData;
 				renderStaffAvailability(staffData);
@@ -1572,8 +1577,8 @@
 				}
 			});
 
-			// Ensure staff_id is set for service_only mode
-			if (flowConfig.mode === 'service_only' && state.selectedStaff) {
+			// Ensure staff_id is always set from state.
+			if (state.selectedStaff && state.selectedStaff.id && state.selectedStaff.id !== 'any') {
 				data.staff_id = state.selectedStaff.id;
 			}
 

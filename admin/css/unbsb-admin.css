@@ -5672,3 +5672,99 @@ select optgroup option {
 	color: var(--unbsb-dark);
 	text-align: right;
 }
+
+/* ========================================
+   Staff WordPress Account Section
+   ======================================== */
+
+.unbsb-wp-account-section {
+	margin-top: 4px;
+}
+
+/* Unlinked state */
+.unbsb-wp-account-status {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+	color: var(--unbsb-text-muted);
+	margin-bottom: 8px;
+}
+
+.unbsb-wp-account-status .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+}
+
+.unbsb-wp-account-actions {
+	display: flex;
+	gap: 6px;
+}
+
+/* Search form */
+.unbsb-wp-account-search-input {
+	display: flex;
+	gap: 4px;
+	margin-bottom: 6px;
+}
+
+.unbsb-wp-account-search-input input[type="text"] {
+	flex: 1;
+	padding: 6px 10px;
+	border: 1px solid var(--unbsb-border);
+	border-radius: var(--unbsb-radius-sm);
+	font-size: 13px;
+}
+
+.unbsb-wp-account-search-input input[type="text"]:focus {
+	border-color: var(--unbsb-primary-light);
+	outline: none;
+	box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.1);
+}
+
+.unbsb-wp-user-results {
+	background: var(--unbsb-light);
+	border: 1px solid var(--unbsb-border);
+	border-radius: var(--unbsb-radius-sm);
+	padding: 8px 12px;
+	font-size: 12px;
+	color: var(--unbsb-text-muted);
+}
+
+.unbsb-wp-user-searching {
+	text-align: center;
+	color: var(--unbsb-primary);
+}
+
+.unbsb-wp-user-no-results {
+	text-align: center;
+	color: var(--unbsb-danger);
+}
+
+/* Linked state */
+.unbsb-wp-account-linked {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+}
+
+.unbsb-wp-account-info {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+	color: var(--unbsb-text);
+}
+
+.unbsb-wp-account-info .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+}
+
+.unbsb-wp-account-user {
+	font-weight: 500;
+	word-break: break-all;
+}

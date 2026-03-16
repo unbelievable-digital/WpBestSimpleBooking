@@ -162,6 +162,18 @@ class UNBSB_Core {
 		$this->loader->add_action( 'wp_ajax_unbsb_staff_add_holiday', $admin, 'ajax_staff_add_holiday' );
 		$this->loader->add_action( 'wp_ajax_unbsb_staff_remove_holiday', $admin, 'ajax_staff_remove_holiday' );
 		$this->loader->add_action( 'wp_ajax_unbsb_staff_get_holidays', $admin, 'ajax_staff_get_holidays' );
+
+		// Staff user management AJAX handlers.
+		$this->loader->add_action( 'wp_ajax_unbsb_create_staff_user', $admin, 'ajax_create_staff_user' );
+		$this->loader->add_action( 'wp_ajax_unbsb_link_staff_user', $admin, 'ajax_link_staff_user' );
+		$this->loader->add_action( 'wp_ajax_unbsb_unlink_staff_user', $admin, 'ajax_unlink_staff_user' );
+
+		// Staff admin restrictions.
+		$this->loader->add_action( 'admin_menu', $admin, 'restrict_staff_admin_menu', 999 );
+		$this->loader->add_action( 'admin_bar_menu', $admin, 'restrict_staff_admin_bar', 999 );
+
+		// Staff login redirect.
+		$this->loader->add_filter( 'login_redirect', $admin, 'staff_login_redirect', 10, 3 );
 	}
 
 	/**
