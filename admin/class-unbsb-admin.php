@@ -2106,7 +2106,7 @@ class UNBSB_Admin {
 	public function ajax_search_customers() {
 		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'unbsb_confirm_bookings' ) ) {
 			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
 		}
 
@@ -2143,7 +2143,7 @@ class UNBSB_Admin {
 	public function ajax_admin_create_customer() {
 		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'unbsb_confirm_bookings' ) ) {
 			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
 		}
 
