@@ -25,11 +25,11 @@ $filter = isset( $_GET['filter'] ) ? sanitize_text_field( wp_unslash( $_GET['fil
 		</div>
 		<div class="unbsb-header-actions">
 			<div class="unbsb-view-toggle" id="unbsb-sp-view-toggle">
-				<button type="button" class="unbsb-view-toggle-btn active" data-view="list">
+				<button type="button" class="unbsb-view-toggle-btn" data-view="list">
 					<span class="dashicons dashicons-list-view"></span>
 					<?php esc_html_e( 'List', 'unbelievable-salon-booking' ); ?>
 				</button>
-				<button type="button" class="unbsb-view-toggle-btn" data-view="calendar">
+				<button type="button" class="unbsb-view-toggle-btn active" data-view="calendar">
 					<span class="dashicons dashicons-calendar-alt"></span>
 					<?php esc_html_e( 'Calendar', 'unbelievable-salon-booking' ); ?>
 				</button>
@@ -42,7 +42,7 @@ $filter = isset( $_GET['filter'] ) ? sanitize_text_field( wp_unslash( $_GET['fil
 	</div>
 
 	<!-- List View -->
-	<div id="unbsb-sp-list-view">
+	<div id="unbsb-sp-list-view" style="display: none;">
 		<!-- Date Filter -->
 		<div class="unbsb-card">
 			<div class="unbsb-card-body" style="padding: 12px 24px;">
@@ -155,7 +155,7 @@ $filter = isset( $_GET['filter'] ) ? sanitize_text_field( wp_unslash( $_GET['fil
 	</div>
 
 	<!-- Calendar View -->
-	<div id="unbsb-sp-calendar-view" style="display: none;">
+	<div id="unbsb-sp-calendar-view">
 		<div class="unbsb-card">
 			<div class="unbsb-card-body unbsb-fc-wrap">
 				<div id="unbsb-calendar"></div>

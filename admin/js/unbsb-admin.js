@@ -1735,10 +1735,6 @@
 		var calendarEl = document.getElementById('unbsb-calendar');
 		if (!calendarEl || typeof FullCalendar === 'undefined') return;
 
-		// Skip if calendar is inside a hidden container (staff portal toggle).
-		var hiddenParent = calendarEl.closest('[style*="display: none"]');
-		if (hiddenParent) return;
-
 		var staffSelect = document.getElementById('unbsb-cal-staff');
 		var isStaffPortal = !staffSelect; // Staff portal has no staff filter
 
@@ -1767,7 +1763,7 @@
 		}
 
 		var calendar = new FullCalendar.Calendar(calendarEl, {
-			initialView: 'timeGridDay',
+			initialView: 'timeGridWeek',
 			locale: unbsbAdmin.locale || 'en',
 			headerToolbar: {
 				left: 'prev,today,next',
@@ -3939,7 +3935,6 @@
 		if (viewToggle) {
 			var listView = document.getElementById('unbsb-sp-list-view');
 			var calendarView = document.getElementById('unbsb-sp-calendar-view');
-			var calendarInited = false;
 			var toggleBtns = viewToggle.querySelectorAll('.unbsb-view-toggle-btn');
 
 			toggleBtns.forEach(function(btn) {
@@ -3951,10 +3946,6 @@
 					if ('calendar' === view) {
 						if (listView) listView.style.display = 'none';
 						if (calendarView) calendarView.style.display = '';
-						if (!calendarInited) {
-							calendarInited = true;
-							initCalendar();
-						}
 					} else {
 						if (listView) listView.style.display = '';
 						if (calendarView) calendarView.style.display = 'none';
