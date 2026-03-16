@@ -1336,8 +1336,16 @@ class UNBSB_Admin {
 			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
 		}
 
+		// Support both service_id (single) and service_ids[] (multi) from new booking page.
+		$service_id = 0;
+		if ( ! empty( $_POST['service_id'] ) ) {
+			$service_id = absint( $_POST['service_id'] );
+		} elseif ( ! empty( $_POST['service_ids'] ) && is_array( $_POST['service_ids'] ) ) {
+			$service_id = absint( $_POST['service_ids'][0] );
+		}
+
 		$data = array(
-			'service_id'     => isset( $_POST['service_id'] ) ? absint( $_POST['service_id'] ) : 0,
+			'service_id'     => $service_id,
 			'staff_id'       => isset( $_POST['staff_id'] ) ? absint( $_POST['staff_id'] ) : 0,
 			'customer_id'    => isset( $_POST['customer_id'] ) ? absint( $_POST['customer_id'] ) : 0,
 			'customer_name'  => isset( $_POST['customer_name'] ) ? sanitize_text_field( wp_unslash( $_POST['customer_name'] ) ) : '',
@@ -1364,6 +1372,11 @@ class UNBSB_Admin {
 		// Date format validation.
 		if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $data['booking_date'] ) ) {
 			wp_send_json_error( __( 'Invalid date format.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Pass service_ids for multi-service support.
+		if ( ! empty( $_POST['service_ids'] ) && is_array( $_POST['service_ids'] ) ) {
+			$data['service_ids'] = array_map( 'absint', $_POST['service_ids'] );
 		}
 
 		$booking_model = new UNBSB_Booking();
