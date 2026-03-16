@@ -719,11 +719,17 @@ class UNBSB_Public {
 				$decoded = json_decode( $raw_ids, true );
 				if ( is_array( $decoded ) ) {
 					$service_ids = array_map( 'absint', $decoded );
+				} else {
+					// Comma-separated fallback: "1,3,5".
+					$service_ids = array_map( 'absint', explode( ',', $raw_ids ) );
 				}
 			} elseif ( is_array( $raw_ids ) ) {
 				$service_ids = array_map( 'absint', $raw_ids );
 			}
 		}
+
+		// Remove zero/invalid IDs.
+		$service_ids = array_values( array_filter( $service_ids ) );
 
 		// Single service fallback.
 		if ( empty( $service_ids ) && $service_id ) {
