@@ -130,6 +130,17 @@
 		const filterContainer = document.getElementById('unbsb-category-filter');
 		if (!filterContainer) return;
 
+		// Detect horizontal overflow for fade mask
+		function checkOverflow() {
+			if (filterContainer.scrollWidth > filterContainer.clientWidth) {
+				filterContainer.classList.add('unbsb-overflowing');
+			} else {
+				filterContainer.classList.remove('unbsb-overflowing');
+			}
+		}
+		checkOverflow();
+		window.addEventListener('resize', checkOverflow);
+
 		const filterBtns = filterContainer.querySelectorAll('.unbsb-filter-btn');
 		const serviceItems = document.querySelectorAll('.unbsb-service-item');
 		const categoryGroups = document.querySelectorAll('.unbsb-service-category-group');

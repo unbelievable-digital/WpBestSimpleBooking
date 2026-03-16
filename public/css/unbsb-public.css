@@ -204,44 +204,114 @@
    ======================================== */
 .unbsb-category-filter {
 	display: flex;
-	flex-wrap: wrap;
 	gap: 8px;
 	margin-bottom: 24px;
-	padding-bottom: 4px;
+	padding: 6px 2px 6px 0;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: none;
+	-webkit-overflow-scrolling: touch;
+	mask-image: linear-gradient(to right, black calc(100% - 24px), transparent 100%);
+	-webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent 100%);
+}
+
+.unbsb-category-filter::-webkit-scrollbar {
+	display: none;
+}
+
+/* Remove mask when not overflowing */
+.unbsb-category-filter:not(.unbsb-overflowing) {
+	mask-image: none;
+	-webkit-mask-image: none;
 }
 
 .unbsb-filter-btn {
 	display: inline-flex;
 	align-items: center;
-	gap: 6px;
-	padding: 8px 18px;
+	gap: 7px;
+	padding: 8px 20px;
 	font-size: 13px;
 	font-weight: 600;
 	color: var(--unbsb-text-secondary);
 	background: var(--unbsb-white);
-	border: 2px solid var(--unbsb-border);
+	border: 1.5px solid var(--unbsb-border);
 	border-radius: 100px;
 	cursor: pointer;
 	transition: var(--unbsb-transition);
 	white-space: nowrap;
+	scroll-snap-align: start;
+	position: relative;
+	letter-spacing: 0.1px;
+	flex-shrink: 0;
+}
+
+/* Color dot inside category buttons */
+.unbsb-filter-dot {
+	width: 8px;
+	height: 8px;
+	min-width: 8px;
+	border-radius: 50%;
+	background: var(--filter-color, var(--unbsb-primary));
+	transition: var(--unbsb-transition);
+	box-shadow: 0 0 0 2px color-mix(in srgb, var(--filter-color, var(--unbsb-primary)) 20%, transparent);
+}
+
+/* "All" button grid icon */
+.unbsb-filter-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--unbsb-text-muted);
+	transition: var(--unbsb-transition);
 }
 
 .unbsb-filter-btn:hover {
-	border-color: var(--filter-color, var(--unbsb-primary));
+	border-color: color-mix(in srgb, var(--filter-color, var(--unbsb-primary)) 50%, var(--unbsb-border));
 	color: var(--filter-color, var(--unbsb-primary));
 	background: color-mix(in srgb, var(--filter-color, var(--unbsb-primary)) 6%, white);
-	transform: translateY(-1px);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px color-mix(in srgb, var(--filter-color, var(--unbsb-primary)) 12%, transparent);
 }
 
+.unbsb-filter-btn:hover .unbsb-filter-dot {
+	transform: scale(1.25);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--filter-color, var(--unbsb-primary)) 25%, transparent);
+}
+
+.unbsb-filter-btn:hover .unbsb-filter-icon {
+	color: var(--filter-color, var(--unbsb-primary));
+}
+
+.unbsb-filter-btn:active {
+	transform: translateY(0);
+}
+
+/* Active state — filled with category color */
 .unbsb-filter-btn.active {
-	background: var(--filter-color, var(--unbsb-primary));
-	border-color: var(--filter-color, var(--unbsb-primary));
+	background: linear-gradient(135deg, var(--filter-color, var(--unbsb-primary)), color-mix(in srgb, var(--filter-color, var(--unbsb-primary)) 80%, black));
+	border-color: transparent;
 	color: var(--unbsb-white);
-	box-shadow: 0 4px 12px color-mix(in srgb, var(--filter-color, var(--unbsb-primary)) 35%, transparent);
+	box-shadow:
+		0 4px 14px color-mix(in srgb, var(--filter-color, var(--unbsb-primary)) 40%, transparent),
+		0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+.unbsb-filter-btn.active .unbsb-filter-dot {
+	background: var(--unbsb-white);
+	box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.unbsb-filter-btn.active .unbsb-filter-icon {
+	color: var(--unbsb-white);
+}
+
+/* "All" button — special gradient when active */
 .unbsb-filter-btn[data-category="all"] {
 	--filter-color: var(--unbsb-secondary);
+}
+
+.unbsb-filter-btn[data-category="all"].active {
+	background: linear-gradient(135deg, #475569, #334155);
 }
 
 /* Hide filtered out services with animation */

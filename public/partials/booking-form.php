@@ -133,10 +133,14 @@ $has_staff_step   = isset( $step_numbers['staff'] );
 					<!-- Category Filter -->
 					<div class="unbsb-category-filter" id="unbsb-category-filter">
 						<button type="button" class="unbsb-filter-btn active" data-category="all">
+							<span class="unbsb-filter-icon">
+								<svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
+							</span>
 							<?php esc_html_e( 'All', 'unbelievable-salon-booking' ); ?>
 						</button>
 						<?php foreach ( $categories as $category ) : ?>
 							<button type="button" class="unbsb-filter-btn" data-category="<?php echo esc_attr( $category->id ); ?>" style="--filter-color: <?php echo esc_attr( $category->color ); ?>">
+								<span class="unbsb-filter-dot"></span>
 								<?php echo esc_html( $category->name ); ?>
 							</button>
 						<?php endforeach; ?>
