@@ -351,7 +351,7 @@
 				const service = getServiceById(serviceId);
 
 				if (this.checked) {
-					// Hizmeti ekle
+					// Add service
 					if (!state.selectedServices.find(function(s) { return s.id == serviceId; })) {
 						state.selectedServices.push(service);
 					}
@@ -705,12 +705,30 @@
 
 		staffList.innerHTML = renderStaffSkeleton();
 
-		// Build service IDs for the request
+		// Build service IDs — always check DOM first for reliability
 		var serviceIds = [];
-		if (flowConfig.multiService && state.selectedServices.length > 0) {
-			serviceIds = state.selectedServices.map(function(s) { return s.id; });
-		} else if (state.selectedService) {
-			serviceIds = [state.selectedService.id];
+
+		// Multi-service: read checked checkboxes
+		var checkedCheckboxes = document.querySelectorAll('input[name="service_ids[]"]:checked');
+		if (checkedCheckboxes.length > 0) {
+			serviceIds = Array.from(checkedCheckboxes).map(function(cb) { return cb.value; });
+		}
+
+		// Single-service: read checked radio
+		if (0 === serviceIds.length) {
+			var checkedRadio = document.querySelector('input[name="service_id"]:checked');
+			if (checkedRadio) {
+				serviceIds = [checkedRadio.value];
+			}
+		}
+
+		// State fallback
+		if (0 === serviceIds.length) {
+			if (flowConfig.multiService && state.selectedServices.length > 0) {
+				serviceIds = state.selectedServices.map(function(s) { return s.id; });
+			} else if (state.selectedService) {
+				serviceIds = [state.selectedService.id];
+			}
 		}
 
 		loadStaffNearestSlots(serviceIds);
@@ -744,18 +762,47 @@
 		var staffList = document.getElementById('unbsb-staff-list');
 		if (!staffList) return;
 
+		// Ensure serviceIds is populated — DOM fallback
+		if (!serviceIds || 0 === serviceIds.length) {
+			serviceIds = [];
+			var checkedCheckboxes = document.querySelectorAll('input[name="service_ids[]"]:checked');
+			if (checkedCheckboxes.length > 0) {
+				serviceIds = Array.from(checkedCheckboxes).map(function(cb) { return cb.value; });
+			}
+			if (0 === serviceIds.length) {
+				var checkedRadio = document.querySelector('input[name="service_id"]:checked');
+				if (checkedRadio) {
+					serviceIds = [checkedRadio.value];
+				}
+			}
+		}
+
 		var params = {};
 		if (serviceIds && serviceIds.length > 0) {
 			params.service_ids = serviceIds.join(',');
 		}
 
-		ajaxRequest('unbsb_get_staff_nearest_slots', params, function(response) {
-			if (response.success && response.data.length > 0) {
-				state.staffList = response.data;
-				renderStaffAvailability(response.data);
+		params.action = 'unbsb_get_staff_nearest_slots';
+		params.nonce = unbsbPublic.nonce;
+
+		var formData = new FormData();
+		for (var key in params) {
+			formData.append(key, params[key]);
+		}
+
+		fetch(unbsbPublic.ajaxUrl, { method: 'POST', body: formData })
+		.then(function(r) { return r.json(); })
+		.then(function(response) {
+			var staffData = response.success && response.data ? response.data : [];
+			if (staffData.length > 0) {
+				state.staffList = staffData;
+				renderStaffAvailability(staffData);
 			} else {
 				staffList.innerHTML = '<p class="unbsb-time-hint">' + (unbsbPublic.strings.no_staff || 'No staff available.') + '</p>';
 			}
+		})
+		.catch(function() {
+			staffList.innerHTML = '<p class="unbsb-time-hint">' + (unbsbPublic.strings.no_staff || 'No staff available.') + '</p>';
 		});
 	}
 
@@ -787,8 +834,8 @@
 		// Staff cards with availability
 		staffData.forEach(function(staff) {
 			var avatar = staff.avatar_url
-				? '<img src="' + staff.avatar_url + '" alt="' + staff.name + '">'
-				: '<span class="unbsb-staff-avatar-placeholder">' + staff.name.charAt(0) + '</span>';
+				? '<img src="' + staff.avatar_url + '" alt="' + (staff.staff_name || staff.name) + '">'
+				: '<span class="unbsb-staff-avatar-placeholder">' + (staff.staff_name || staff.name).charAt(0) + '</span>';
 
 			html += '<div class="unbsb-staff-avail-card" data-staff-id="' + staff.staff_id + '">' +
 				'<div class="unbsb-staff-header">' +
@@ -954,14 +1001,14 @@
 
 		staffData.forEach(function(staff) {
 			var avatar = staff.avatar_url
-				? '<img src="' + staff.avatar_url + '" alt="' + staff.name + '">'
-				: '<span class="unbsb-staff-avatar-placeholder">' + staff.name.charAt(0) + '</span>';
+				? '<img src="' + staff.avatar_url + '" alt="' + (staff.staff_name || staff.name) + '">'
+				: '<span class="unbsb-staff-avatar-placeholder">' + (staff.staff_name || staff.name).charAt(0) + '</span>';
 
 			html += '<div class="unbsb-staff-avail-card" data-staff-id="' + staff.id + '" style="cursor:pointer">' +
 				'<div class="unbsb-staff-header">' +
 					'<div class="unbsb-staff-avatar">' + avatar + '</div>' +
 					'<div class="unbsb-staff-info">' +
-						'<h4 class="unbsb-staff-name">' + staff.name + '</h4>' +
+						'<h4 class="unbsb-staff-name">' + (staff.staff_name || staff.name) + '</h4>' +
 					'</div>' +
 				'</div>' +
 			'</div>';
@@ -1754,12 +1801,12 @@
 				.then(function(res) {
 					if ( res.success ) {
 						msgEl.className = 'unbsb-auth-message success';
-						msgEl.textContent = res.data.message || 'OK';
+						msgEl.textContent = res.data.message || (accountData && accountData.strings && accountData.strings.ok ? accountData.strings.ok : 'OK');
 						msgEl.style.display = '';
 						setTimeout(function() { location.reload(); }, 800);
 					} else {
 						msgEl.className = 'unbsb-auth-message error';
-						msgEl.textContent = res.data || 'Error';
+						msgEl.textContent = res.data || (accountData && accountData.strings && accountData.strings.error ? accountData.strings.error : 'Error');
 						msgEl.style.display = '';
 						btn.disabled = false;
 						btn.textContent = originalText;
@@ -1767,7 +1814,7 @@
 				})
 				.catch(function() {
 					msgEl.className = 'unbsb-auth-message error';
-					msgEl.textContent = 'Connection error';
+					msgEl.textContent = accountData && accountData.strings && accountData.strings.connection_error ? accountData.strings.connection_error : 'Connection error';
 					msgEl.style.display = '';
 					btn.disabled = false;
 					btn.textContent = originalText;
@@ -1796,7 +1843,7 @@
 
 				if ( password !== passwordConfirm ) {
 					msgEl.className = 'unbsb-auth-message error';
-					msgEl.textContent = accountData && accountData.strings ? accountData.strings.password_mismatch : 'Passwords do not match';
+					msgEl.textContent = accountData && accountData.strings && accountData.strings.password_mismatch ? accountData.strings.password_mismatch : 'Passwords do not match';
 					msgEl.style.display = '';
 					return;
 				}
@@ -1822,12 +1869,12 @@
 				.then(function(res) {
 					if ( res.success ) {
 						msgEl.className = 'unbsb-auth-message success';
-						msgEl.textContent = res.data.message || 'OK';
+						msgEl.textContent = res.data.message || (accountData && accountData.strings && accountData.strings.ok ? accountData.strings.ok : 'OK');
 						msgEl.style.display = '';
 						setTimeout(function() { location.reload(); }, 800);
 					} else {
 						msgEl.className = 'unbsb-auth-message error';
-						msgEl.textContent = res.data || 'Error';
+						msgEl.textContent = res.data || (accountData && accountData.strings && accountData.strings.error ? accountData.strings.error : 'Error');
 						msgEl.style.display = '';
 						btn.disabled = false;
 						btn.textContent = originalText;
@@ -1835,7 +1882,7 @@
 				})
 				.catch(function() {
 					msgEl.className = 'unbsb-auth-message error';
-					msgEl.textContent = 'Connection error';
+					msgEl.textContent = accountData && accountData.strings && accountData.strings.connection_error ? accountData.strings.connection_error : 'Connection error';
 					msgEl.style.display = '';
 					btn.disabled = false;
 					btn.textContent = originalText;
