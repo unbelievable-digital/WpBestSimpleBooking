@@ -251,6 +251,17 @@ class UNBSB_Admin {
 			return;
 		}
 
+		// Load FullCalendar for Calendar page.
+		if ( false !== strpos( $hook, 'unbsb-calendar' ) || false !== strpos( $hook, 'unbsb-staff-calendar' ) ) {
+			wp_enqueue_script(
+				'fullcalendar',
+				'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js',
+				array(),
+				'6.1.15',
+				true
+			);
+		}
+
 		// Load Chart.js for Dashboard (local file).
 		if ( 'toplevel_page_unbelievable-salon-booking' === $hook ) {
 			wp_enqueue_script(
@@ -985,7 +996,7 @@ class UNBSB_Admin {
 		$booking_model = new UNBSB_Booking();
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only filtering.
-		$filter = isset( $_GET['filter'] ) ? sanitize_text_field( wp_unslash( $_GET['filter'] ) ) : 'today';
+		$filter = isset( $_GET['filter'] ) ? sanitize_text_field( wp_unslash( $_GET['filter'] ) ) : 'all';
 
 		$today = current_time( 'Y-m-d' );
 		$args  = array(
@@ -2863,6 +2874,81 @@ class UNBSB_Admin {
 		} else {
 			wp_send_json_error( __( 'Could not complete booking.', 'unbelievable-salon-booking' ) );
 		}
+	}
+
+	/**
+	 * Get calendar events (FullCalendar format)
+	 */
+	public function ajax_get_calendar_events() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		$is_admin      = current_user_can( 'manage_options' );
+		$is_staff_user = ! $is_admin && current_user_can( 'unbsb_view_own_bookings' );
+
+		if ( ! $is_admin && ! $is_staff_user ) {
+			wp_send_json_error( __( 'Unauthorized.', 'unbelievable-salon-booking' ) );
+		}
+
+		$start    = isset( $_GET['start'] ) ? sanitize_text_field( wp_unslash( $_GET['start'] ) ) : '';
+		$end      = isset( $_GET['end'] ) ? sanitize_text_field( wp_unslash( $_GET['end'] ) ) : '';
+		$staff_id = isset( $_GET['staff_id'] ) ? absint( $_GET['staff_id'] ) : 0;
+
+		// Staff users can only see their own bookings.
+		if ( $is_staff_user ) {
+			$current_staff = $this->get_current_staff();
+			if ( ! $current_staff ) {
+				wp_send_json_error( __( 'Staff not found.', 'unbelievable-salon-booking' ) );
+			}
+			$staff_id = absint( $current_staff->id );
+		}
+
+		$booking_model = new UNBSB_Booking();
+
+		$args = array(
+			'date_from' => $start ? gmdate( 'Y-m-d', strtotime( $start ) ) : '',
+			'date_to'   => $end ? gmdate( 'Y-m-d', strtotime( $end ) ) : '',
+			'orderby'   => 'start_time',
+			'order'     => 'ASC',
+		);
+
+		if ( $staff_id ) {
+			$args['staff_id'] = $staff_id;
+		}
+
+		$bookings = $booking_model->get_all( $args );
+
+		$status_colors = array(
+			'pending'   => '#f59e0b',
+			'confirmed' => '#10b981',
+			'cancelled' => '#ef4444',
+			'completed' => '#6366f1',
+			'no_show'   => '#6b7280',
+		);
+
+		$events = array();
+		foreach ( $bookings as $booking ) {
+			$color = isset( $status_colors[ $booking->status ] ) ? $status_colors[ $booking->status ] : '#4f46e5';
+
+			$events[] = array(
+				'id'            => absint( $booking->id ),
+				'title'         => $booking->customer_name,
+				'start'         => $booking->booking_date . 'T' . $booking->start_time,
+				'end'           => $booking->booking_date . 'T' . $booking->end_time,
+				'color'         => $color,
+				'extendedProps' => array(
+					'customer_name'  => $booking->customer_name,
+					'customer_phone' => $booking->customer_phone,
+					'service_name'   => $booking->service_name,
+					'staff_name'     => $booking->staff_name,
+					'staff_id'       => absint( $booking->staff_id ),
+					'status'         => $booking->status,
+					'price'          => number_format( (float) $booking->price, 2, '.', '' ),
+					'booking_id'     => absint( $booking->id ),
+				),
+			);
+		}
+
+		wp_send_json_success( $events );
 	}
 
 }
