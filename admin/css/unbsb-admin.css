@@ -5768,3 +5768,108 @@ select optgroup option {
 	font-weight: 500;
 	word-break: break-all;
 }
+
+/* ─── Complete Booking Modal ─── */
+.unbsb-modal-compact {
+	max-width: 420px;
+	width: 90%;
+}
+
+.unbsb-complete-service-info {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 12px 16px;
+	background: var(--unbsb-bg-light, #f8f9fa);
+	border-radius: 8px;
+	margin-bottom: 20px;
+	font-size: 14px;
+	color: var(--unbsb-text);
+}
+
+.unbsb-complete-service-info .dashicons {
+	color: var(--unbsb-primary);
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
+.unbsb-input-with-suffix {
+	display: flex;
+	align-items: center;
+	gap: 0;
+}
+
+.unbsb-input-with-suffix input {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	flex: 1;
+}
+
+.unbsb-input-suffix {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 12px;
+	height: 40px;
+	background: var(--unbsb-bg-light, #f1f1f1);
+	border: 1px solid var(--unbsb-border);
+	border-left: 0;
+	border-radius: 0 8px 8px 0;
+	font-weight: 600;
+	color: var(--unbsb-text-muted);
+	font-size: 14px;
+}
+
+.unbsb-payment-methods {
+	display: flex;
+	gap: 8px;
+}
+
+.unbsb-payment-method {
+	flex: 1;
+	cursor: pointer;
+}
+
+.unbsb-payment-method input[type="radio"] {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.unbsb-payment-method-label {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+	padding: 12px 8px;
+	border: 2px solid var(--unbsb-border);
+	border-radius: 8px;
+	font-size: 12px;
+	font-weight: 500;
+	color: var(--unbsb-text-muted);
+	transition: all 0.2s ease;
+	text-align: center;
+}
+
+.unbsb-payment-method-label .dashicons {
+	font-size: 20px;
+	width: 20px;
+	height: 20px;
+}
+
+.unbsb-payment-method input[type="radio"]:checked + .unbsb-payment-method-label {
+	border-color: var(--unbsb-primary);
+	background: rgba(109, 40, 217, 0.05);
+	color: var(--unbsb-primary);
+}
+
+.unbsb-payment-method:hover .unbsb-payment-method-label {
+	border-color: var(--unbsb-primary-light, #8b5cf6);
+}
+
+@media (max-width: 480px) {
+	.unbsb-payment-methods {
+		flex-direction: column;
+	}
+}

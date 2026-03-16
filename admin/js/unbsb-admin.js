@@ -22,6 +22,7 @@
 		initPromoCodes();
 		initExportImport();
 		initNewBookingPage();
+		initCompleteBooking();
 		initStaffBookings();
 		initStaffScheduleOwn();
 	});
@@ -1294,6 +1295,106 @@
 			if (serviceInfoDiv) {
 				serviceInfoDiv.style.display = 'none';
 			}
+		}
+	}
+
+	/**
+	 * Complete Booking with Payment
+	 */
+	function initCompleteBooking() {
+		var completeModal = document.getElementById('unbsb-complete-booking-modal');
+		if (!completeModal) return;
+
+		var saveBtn = document.getElementById('unbsb-complete-booking-save');
+		var amountInput = document.getElementById('unbsb-complete-amount');
+		var serviceInfo = document.getElementById('unbsb-complete-service-info');
+		var bookingIdEl = document.getElementById('unbsb-complete-booking-id');
+		var currentBookingId = null;
+
+		// Open modal on complete button click (delegated).
+		document.addEventListener('click', function(e) {
+			var btn = e.target.closest('.unbsb-complete-booking');
+			if (!btn) return;
+
+			currentBookingId = btn.dataset.id;
+			var serviceName = btn.dataset.service || '';
+			var price = btn.dataset.price || '0';
+
+			// Populate modal.
+			if (bookingIdEl) {
+				bookingIdEl.textContent = '#' + currentBookingId;
+			}
+			if (serviceInfo) {
+				serviceInfo.innerHTML = '<span class="dashicons dashicons-admin-tools"></span> ' +
+					'<strong>' + escHtml(serviceName) + '</strong>' +
+					' &mdash; ' + parseFloat(price).toFixed(2) + ' ' + (unbsbAdmin.currency ? unbsbAdmin.currency.symbol : '');
+			}
+			if (amountInput) {
+				amountInput.value = parseFloat(price).toFixed(2);
+			}
+
+			// Reset payment method to cash.
+			var cashRadio = completeModal.querySelector('input[name="unbsb_payment_method"][value="cash"]');
+			if (cashRadio) {
+				cashRadio.checked = true;
+			}
+
+			openModal('unbsb-complete-booking-modal');
+		});
+
+		// Save complete booking.
+		if (saveBtn) {
+			saveBtn.addEventListener('click', function() {
+				if (!currentBookingId) return;
+
+				var paidAmount = amountInput ? amountInput.value : '0';
+				var paymentMethod = completeModal.querySelector('input[name="unbsb_payment_method"]:checked');
+				paymentMethod = paymentMethod ? paymentMethod.value : 'cash';
+
+				saveBtn.disabled = true;
+				saveBtn.innerHTML = '<span class="dashicons dashicons-update-alt unbsb-spin"></span> ' + unbsbAdmin.strings.saving;
+
+				ajaxRequest('unbsb_complete_booking_with_payment', {
+					booking_id: currentBookingId,
+					paid_amount: paidAmount,
+					payment_method: paymentMethod
+				}, function(response) {
+					saveBtn.disabled = false;
+					saveBtn.innerHTML = '<span class="dashicons dashicons-yes-alt"></span> ' + unbsbAdmin.strings.complete_and_save;
+
+					if (response.success) {
+						showToast(unbsbAdmin.strings.booking_completed);
+						closeModal(completeModal);
+
+						// Update row status.
+						var row = document.querySelector('tr[data-id="' + currentBookingId + '"]');
+						if (row) {
+							// Update status select (admin bookings page).
+							var statusSelect = row.querySelector('.unbsb-status-select');
+							if (statusSelect) {
+								statusSelect.value = 'completed';
+							}
+
+							// Update status badge (staff bookings page).
+							var statusBadge = row.querySelector('.unbsb-status');
+							if (statusBadge) {
+								statusBadge.className = 'unbsb-status unbsb-status-completed';
+								statusBadge.textContent = unbsbAdmin.strings.completed || 'Completed';
+							}
+
+							// Remove the complete button from the row.
+							var completeBtn = row.querySelector('.unbsb-complete-booking');
+							if (completeBtn) {
+								completeBtn.remove();
+							}
+						}
+
+						currentBookingId = null;
+					} else {
+						showToast(response.data || unbsbAdmin.strings.error, 'error');
+					}
+				});
+			});
 		}
 	}
 

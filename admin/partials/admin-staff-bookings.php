@@ -118,6 +118,11 @@ $filter = isset( $_GET['filter'] ) ? sanitize_text_field( wp_unslash( $_GET['fil
 												<span class="dashicons dashicons-dismiss"></span>
 											</button>
 										<?php endif; ?>
+										<?php if ( 'confirmed' === $booking->status ) : ?>
+											<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-success unbsb-complete-booking" data-id="<?php echo esc_attr( $booking->id ); ?>" data-service="<?php echo esc_attr( $booking->service_name ); ?>" data-price="<?php echo esc_attr( number_format( $booking->price, 2, '.', '' ) ); ?>" title="<?php esc_attr_e( 'Complete', 'unbelievable-salon-booking' ); ?>">
+												<span class="dashicons dashicons-yes-alt"></span>
+											</button>
+										<?php endif; ?>
 										<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-icon unbsb-sp-view-booking" data-id="<?php echo esc_attr( $booking->id ); ?>" title="<?php esc_attr_e( 'View', 'unbelievable-salon-booking' ); ?>">
 											<span class="dashicons dashicons-visibility"></span>
 										</button>
@@ -133,6 +138,74 @@ $filter = isset( $_GET['filter'] ) ? sanitize_text_field( wp_unslash( $_GET['fil
 					<p><?php esc_html_e( 'No bookings found for this period.', 'unbelievable-salon-booking' ); ?></p>
 				</div>
 			<?php endif; ?>
+		</div>
+	</div>
+</div>
+
+<!-- Complete Booking Modal -->
+<div id="unbsb-complete-booking-modal" class="unbsb-modal" style="display: none;">
+	<div class="unbsb-modal-overlay"></div>
+	<div class="unbsb-modal-content unbsb-modal-compact">
+		<div class="unbsb-modal-header unbsb-modal-header-gradient unbsb-modal-header-booking">
+			<div class="unbsb-modal-header-content">
+				<div class="unbsb-modal-icon">
+					<span class="dashicons dashicons-yes-alt"></span>
+				</div>
+				<div>
+					<h3><?php esc_html_e( 'Complete Booking', 'unbelievable-salon-booking' ); ?></h3>
+					<p class="unbsb-modal-subtitle" id="unbsb-complete-booking-id"></p>
+				</div>
+			</div>
+			<button type="button" class="unbsb-modal-close">&times;</button>
+		</div>
+		<div class="unbsb-modal-body">
+			<div class="unbsb-complete-service-info" id="unbsb-complete-service-info"></div>
+
+			<div class="unbsb-form-group">
+				<label for="unbsb-complete-amount">
+					<?php esc_html_e( 'Amount Received', 'unbelievable-salon-booking' ); ?>
+				</label>
+				<div class="unbsb-input-with-suffix">
+					<input type="number" id="unbsb-complete-amount" step="0.01" min="0">
+					<span class="unbsb-input-suffix"><?php echo esc_html( $currency_symbol ); ?></span>
+				</div>
+			</div>
+
+			<div class="unbsb-form-group">
+				<label><?php esc_html_e( 'Payment Method', 'unbelievable-salon-booking' ); ?></label>
+				<div class="unbsb-payment-methods">
+					<label class="unbsb-payment-method">
+						<input type="radio" name="unbsb_payment_method" value="cash" checked>
+						<span class="unbsb-payment-method-label">
+							<span class="dashicons dashicons-money-alt"></span>
+							<?php esc_html_e( 'Cash', 'unbelievable-salon-booking' ); ?>
+						</span>
+					</label>
+					<label class="unbsb-payment-method">
+						<input type="radio" name="unbsb_payment_method" value="card">
+						<span class="unbsb-payment-method-label">
+							<span class="dashicons dashicons-credit-card"></span>
+							<?php esc_html_e( 'Card', 'unbelievable-salon-booking' ); ?>
+						</span>
+					</label>
+					<label class="unbsb-payment-method">
+						<input type="radio" name="unbsb_payment_method" value="transfer">
+						<span class="unbsb-payment-method-label">
+							<span class="dashicons dashicons-bank"></span>
+							<?php esc_html_e( 'Transfer', 'unbelievable-salon-booking' ); ?>
+						</span>
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="unbsb-modal-footer">
+			<button type="button" class="unbsb-btn unbsb-btn-ghost unbsb-modal-close">
+				<?php esc_html_e( 'Cancel', 'unbelievable-salon-booking' ); ?>
+			</button>
+			<button type="button" class="unbsb-btn unbsb-btn-success" id="unbsb-complete-booking-save">
+				<span class="dashicons dashicons-yes-alt"></span>
+				<?php esc_html_e( 'Complete & Save', 'unbelievable-salon-booking' ); ?>
+			</button>
 		</div>
 	</div>
 </div>

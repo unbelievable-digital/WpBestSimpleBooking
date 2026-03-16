@@ -427,6 +427,16 @@ class UNBSB_Admin {
 					'sp_holiday_removed'         => __( 'Day off removed.', 'unbelievable-salon-booking' ),
 					'sp_confirm_remove_holiday'  => __( 'Are you sure you want to remove this day off?', 'unbelievable-salon-booking' ),
 					'sp_no_holidays'             => __( 'No days off registered.', 'unbelievable-salon-booking' ),
+					// Complete Booking.
+					'complete_booking'           => __( 'Complete Booking', 'unbelievable-salon-booking' ),
+					'amount_received'            => __( 'Amount Received', 'unbelievable-salon-booking' ),
+					'payment_method'             => __( 'Payment Method', 'unbelievable-salon-booking' ),
+					'cash'                       => __( 'Cash', 'unbelievable-salon-booking' ),
+					'card'                       => __( 'Card', 'unbelievable-salon-booking' ),
+					'transfer'                   => __( 'Transfer', 'unbelievable-salon-booking' ),
+					'complete_and_save'          => __( 'Complete & Save', 'unbelievable-salon-booking' ),
+					'booking_completed'          => __( 'Booking completed successfully.', 'unbelievable-salon-booking' ),
+					'completed'                  => __( 'Completed', 'unbelievable-salon-booking' ),
 				),
 				'currency'  => array(
 					'symbol'   => get_option( 'unbsb_currency_symbol', '₺' ),
