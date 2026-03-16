@@ -169,45 +169,102 @@ class UNBSB_Staff {
 	}
 
 	/**
-	 * Get staff's services
+	 * Get staff's services with custom pricing data.
 	 *
-	 * @param int $staff_id Staff ID.
+	 * @param int  $staff_id Staff ID.
+	 * @param bool $ids_only Return only service IDs (backward compatible).
 	 *
-	 * @return array
+	 * @return array Array of service IDs (ids_only=true) or objects with service_id, custom_price, custom_duration.
 	 */
-	public function get_services( $staff_id ) {
+	public function get_services( $staff_id, $ids_only = true ) {
 		global $wpdb;
 
 		$prefix = $wpdb->prefix . 'unbsb_';
 
+		if ( $ids_only ) {
+			$sql = $wpdb->prepare(
+				"SELECT service_id FROM {$prefix}staff_services WHERE staff_id = %d",
+				$staff_id
+			);
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+			return $wpdb->get_col( $sql );
+		}
+
 		$sql = $wpdb->prepare(
-			"SELECT service_id FROM {$prefix}staff_services WHERE staff_id = %d",
+			"SELECT service_id, custom_price, custom_duration FROM {$prefix}staff_services WHERE staff_id = %d",
 			$staff_id
 		);
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
-		return $wpdb->get_col( $sql );
+		return $wpdb->get_results( $sql );
+	}
+
+	/**
+	 * Get custom price/duration for a specific staff-service pair.
+	 *
+	 * @param int $staff_id   Staff ID.
+	 * @param int $service_id Service ID.
+	 *
+	 * @return object|null Object with custom_price and custom_duration, or null.
+	 */
+	public function get_service_custom_data( $staff_id, $service_id ) {
+		global $wpdb;
+
+		$prefix = $wpdb->prefix . 'unbsb_';
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT custom_price, custom_duration FROM {$prefix}staff_services WHERE staff_id = %d AND service_id = %d",
+				$staff_id,
+				$service_id
+			)
+		);
 	}
 
 	/**
 	 * Sync services
 	 *
+	 * Accepts two formats:
+	 * - Simple: array( 1, 2, 3 ) — service IDs only (backward compatible).
+	 * - Detailed: array( array( 'service_id' => 1, 'custom_price' => 50.00, 'custom_duration' => 45 ), ... )
+	 *
 	 * @param int   $staff_id Staff ID.
-	 * @param array $services Service IDs.
+	 * @param array $services Service IDs or service data arrays.
 	 */
 	public function sync_services( $staff_id, $services ) {
 		// Delete existing services.
 		$this->db->delete( 'staff_services', array( 'staff_id' => $staff_id ) );
 
 		// Add new services.
-		foreach ( $services as $service_id ) {
-			$this->db->insert(
-				'staff_services',
-				array(
-					'staff_id'   => $staff_id,
-					'service_id' => absint( $service_id ),
-				)
-			);
+		foreach ( $services as $service ) {
+			if ( is_array( $service ) ) {
+				// Detailed format.
+				$row = array(
+					'staff_id'   => absint( $staff_id ),
+					'service_id' => absint( $service['service_id'] ),
+				);
+
+				if ( isset( $service['custom_price'] ) && '' !== $service['custom_price'] ) {
+					$row['custom_price'] = floatval( $service['custom_price'] );
+				}
+
+				if ( isset( $service['custom_duration'] ) && '' !== $service['custom_duration'] ) {
+					$row['custom_duration'] = absint( $service['custom_duration'] );
+				}
+
+				$this->db->insert( 'staff_services', $row );
+			} else {
+				// Simple format (backward compatible).
+				$this->db->insert(
+					'staff_services',
+					array(
+						'staff_id'   => absint( $staff_id ),
+						'service_id' => absint( $service ),
+					)
+				);
+			}
 		}
 	}
 

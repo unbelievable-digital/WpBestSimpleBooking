@@ -15,6 +15,26 @@
 	var restUrl = unbsbManageBooking.restUrl;
 	var strings = unbsbManageBooking.strings;
 
+	/**
+	 * Format time for display based on user's time format setting.
+	 */
+	function formatTime(time24) {
+		if (!time24) return '';
+		var timeFormat = unbsbManageBooking.timeFormat || 'H:i';
+		var parts = time24.split(':');
+		var hours = parseInt(parts[0], 10);
+		var minutes = parts[1] || '00';
+
+		if ('g:i A' === timeFormat || 'g:i a' === timeFormat) {
+			var ampm = hours >= 12 ? 'PM' : 'AM';
+			var h = hours % 12;
+			if (0 === h) h = 12;
+			return h + ':' + minutes + ' ' + ampm;
+		}
+
+		return parts[0] + ':' + minutes;
+	}
+
 	// Modal open/close.
 	var rescheduleBtn = document.getElementById('unbsb-open-reschedule');
 	var cancelBtn = document.getElementById('unbsb-open-cancel');
@@ -83,7 +103,7 @@
 						data.data.forEach(function(slot) {
 							var option = document.createElement('option');
 							option.value = slot.start;
-							option.textContent = slot.start + ' - ' + slot.end;
+							option.textContent = formatTime(slot.start) + ' - ' + formatTime(slot.end);
 							timeSelect.appendChild(option);
 						});
 						timeSelect.disabled = false;

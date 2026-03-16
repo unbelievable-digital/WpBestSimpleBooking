@@ -8,6 +8,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+$currency_symbol = get_option( 'unbsb_currency_symbol', '₺' );
 ?>
 
 <div class="unbsb-admin-wrap">
@@ -71,6 +73,48 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </div>
+
+<?php
+/**
+ * Render a single service checkbox with custom price/duration fields.
+ *
+ * @param object $service         Service object.
+ * @param string $currency_symbol Currency symbol.
+ */
+function unbsb_render_service_checkbox( $service, $currency_symbol ) {
+	?>
+	<div class="unbsb-service-checkbox-wrap" data-service-id="<?php echo esc_attr( $service->id ); ?>">
+		<label class="unbsb-service-checkbox">
+			<input type="checkbox" name="services[]" value="<?php echo esc_attr( $service->id ); ?>" data-price="<?php echo esc_attr( $service->price ); ?>" data-duration="<?php echo esc_attr( $service->duration ); ?>">
+			<span class="unbsb-service-checkbox-content">
+				<span class="unbsb-service-checkbox-color" style="background-color: <?php echo esc_attr( $service->color ); ?>"></span>
+				<span class="unbsb-service-checkbox-name"><?php echo esc_html( $service->name ); ?></span>
+				<span class="unbsb-service-checkbox-duration"><?php echo esc_html( $service->duration ); ?> <?php esc_html_e( 'min', 'unbelievable-salon-booking' ); ?></span>
+			</span>
+			<span class="unbsb-service-checkbox-check">
+				<span class="dashicons dashicons-yes"></span>
+			</span>
+		</label>
+		<div class="unbsb-service-custom-fields" style="display: none;">
+			<div class="unbsb-custom-field">
+				<label><?php esc_html_e( 'Custom Price', 'unbelievable-salon-booking' ); ?></label>
+				<div class="unbsb-custom-field-input">
+					<input type="number" name="service_prices[<?php echo esc_attr( $service->id ); ?>]" step="0.01" min="0" placeholder="<?php echo esc_attr( $service->price ); ?>">
+					<span class="unbsb-custom-field-suffix"><?php echo esc_html( $currency_symbol ); ?></span>
+				</div>
+			</div>
+			<div class="unbsb-custom-field">
+				<label><?php esc_html_e( 'Custom Duration', 'unbelievable-salon-booking' ); ?></label>
+				<div class="unbsb-custom-field-input">
+					<input type="number" name="service_durations[<?php echo esc_attr( $service->id ); ?>]" step="1" min="1" placeholder="<?php echo esc_attr( $service->duration ); ?>">
+					<span class="unbsb-custom-field-suffix"><?php esc_html_e( 'min', 'unbelievable-salon-booking' ); ?></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php
+}
+?>
 
 <!-- Staff Modal -->
 <div id="unbsb-staff-modal" class="unbsb-modal unbsb-modal-staff" style="display: none;">
@@ -174,19 +218,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 												</div>
 												<div class="unbsb-service-category-body">
 													<div class="unbsb-service-checkbox-grid">
-														<?php foreach ( $cat_services as $service ) : ?>
-															<label class="unbsb-service-checkbox">
-																<input type="checkbox" name="services[]" value="<?php echo esc_attr( $service->id ); ?>">
-																<span class="unbsb-service-checkbox-content">
-																	<span class="unbsb-service-checkbox-color" style="background-color: <?php echo esc_attr( $service->color ); ?>"></span>
-																	<span class="unbsb-service-checkbox-name"><?php echo esc_html( $service->name ); ?></span>
-																	<span class="unbsb-service-checkbox-duration"><?php echo esc_html( $service->duration ); ?> <?php esc_html_e( 'min', 'unbelievable-salon-booking' ); ?></span>
-																</span>
-																<span class="unbsb-service-checkbox-check">
-																	<span class="dashicons dashicons-yes"></span>
-																</span>
-															</label>
-														<?php endforeach; ?>
+														<?php foreach ( $cat_services as $service ) :
+															unbsb_render_service_checkbox( $service, $currency_symbol );
+														endforeach; ?>
 													</div>
 												</div>
 											</div>
@@ -205,19 +239,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 												</div>
 												<div class="unbsb-service-category-body">
 													<div class="unbsb-service-checkbox-grid">
-														<?php foreach ( $uncategorized as $service ) : ?>
-															<label class="unbsb-service-checkbox">
-																<input type="checkbox" name="services[]" value="<?php echo esc_attr( $service->id ); ?>">
-																<span class="unbsb-service-checkbox-content">
-																	<span class="unbsb-service-checkbox-color" style="background-color: <?php echo esc_attr( $service->color ); ?>"></span>
-																	<span class="unbsb-service-checkbox-name"><?php echo esc_html( $service->name ); ?></span>
-																	<span class="unbsb-service-checkbox-duration"><?php echo esc_html( $service->duration ); ?> <?php esc_html_e( 'min', 'unbelievable-salon-booking' ); ?></span>
-																</span>
-																<span class="unbsb-service-checkbox-check">
-																	<span class="dashicons dashicons-yes"></span>
-																</span>
-															</label>
-														<?php endforeach; ?>
+														<?php foreach ( $uncategorized as $service ) :
+															unbsb_render_service_checkbox( $service, $currency_symbol );
+														endforeach; ?>
 													</div>
 												</div>
 											</div>

@@ -4169,6 +4169,78 @@ select optgroup option {
 	border-top: none;
 }
 
+/* Staff - Service Custom Price/Duration Fields */
+.unbsb-service-checkbox-wrap {
+	margin-bottom: 4px;
+}
+
+.unbsb-service-custom-fields {
+	display: flex;
+	gap: 12px;
+	padding: 8px 12px 8px 36px;
+	margin-top: 2px;
+	background: var(--unbsb-bg);
+	border-radius: 0 0 var(--unbsb-radius) var(--unbsb-radius);
+	border: 1px solid var(--unbsb-border);
+	border-top: none;
+}
+
+.unbsb-custom-field {
+	flex: 1;
+}
+
+.unbsb-custom-field label {
+	display: block;
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--unbsb-text-muted);
+	margin-bottom: 4px;
+	text-transform: uppercase;
+	letter-spacing: 0.3px;
+}
+
+.unbsb-custom-field-input {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.unbsb-custom-field-input input {
+	width: 100%;
+	padding: 4px 8px;
+	font-size: 13px;
+	border: 1px solid var(--unbsb-border);
+	border-radius: var(--unbsb-radius-sm);
+	background: var(--unbsb-white);
+	transition: var(--unbsb-transition);
+}
+
+.unbsb-custom-field-input input:focus {
+	border-color: var(--unbsb-primary);
+	outline: none;
+	box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.1);
+}
+
+.unbsb-custom-field-input input::placeholder {
+	color: var(--unbsb-text-muted);
+	font-style: italic;
+}
+
+.unbsb-custom-field-suffix {
+	font-size: 12px;
+	color: var(--unbsb-text-muted);
+	flex-shrink: 0;
+	min-width: 20px;
+}
+
+@media (max-width: 480px) {
+	.unbsb-service-custom-fields {
+		flex-direction: column;
+		gap: 8px;
+		padding-left: 12px;
+	}
+}
+
 /* ========================================
    Export / Import
    ======================================== */

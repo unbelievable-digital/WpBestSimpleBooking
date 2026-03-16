@@ -635,11 +635,12 @@
 			});
 		});
 
-		// Individual service checkbox change -> update category count
+		// Individual service checkbox change -> update category count + toggle custom fields
 		document.querySelectorAll('.unbsb-service-category-group input[name="services[]"]').forEach(function(cb) {
 			cb.addEventListener('change', function() {
 				var group = this.closest('.unbsb-service-category-group');
 				updateCategoryCount(group);
+				toggleServiceCustomFields(this);
 			});
 		});
 
@@ -666,16 +667,29 @@
 				const formData = new FormData(form);
 				const data = {};
 				const services = [];
+				var servicePrices = {};
+				var serviceDurations = {};
 
 				formData.forEach(function(value, key) {
 					if (key === 'services[]') {
 						services.push(value);
 					} else {
-						data[key] = value;
+						// Capture service_prices[ID] and service_durations[ID]
+						var priceMatch = key.match(/^service_prices\[(\d+)\]$/);
+						var durationMatch = key.match(/^service_durations\[(\d+)\]$/);
+						if (priceMatch && value !== '') {
+							servicePrices[priceMatch[1]] = value;
+						} else if (durationMatch && value !== '') {
+							serviceDurations[durationMatch[1]] = value;
+						} else {
+							data[key] = value;
+						}
 					}
 				});
 
 				data.services = services;
+				data.service_prices = servicePrices;
+				data.service_durations = serviceDurations;
 
 				ajaxRequest('unbsb_save_staff', data, function(response) {
 					if (response.success) {
@@ -723,6 +737,26 @@
 		}
 	}
 
+	function toggleServiceCustomFields(checkbox) {
+		var wrap = checkbox.closest('.unbsb-service-checkbox-wrap');
+		if (!wrap) return;
+		var fields = wrap.querySelector('.unbsb-service-custom-fields');
+		if (!fields) return;
+		fields.style.display = checkbox.checked ? 'flex' : 'none';
+		if (!checkbox.checked) {
+			// Clear custom values when unchecked.
+			fields.querySelectorAll('input[type="number"]').forEach(function(input) {
+				input.value = '';
+			});
+		}
+	}
+
+	function toggleAllServiceCustomFields() {
+		document.querySelectorAll('.unbsb-service-checkbox-wrap input[name="services[]"]').forEach(function(cb) {
+			toggleServiceCustomFields(cb);
+		});
+	}
+
 	function updateCategoryCount(group) {
 		var checkboxes = group.querySelectorAll('input[name="services[]"]');
 		var checked = group.querySelectorAll('input[name="services[]"]:checked');
@@ -754,10 +788,11 @@
 			if (activeRadio) {
 				activeRadio.checked = true;
 			}
-			// Uncheck all services
+			// Uncheck all services and hide custom fields
 			form.querySelectorAll('input[name="services[]"]').forEach(function(checkbox) {
 				checkbox.checked = false;
 			});
+			toggleAllServiceCustomFields();
 			// Update category counts
 			updateAllCategoryCounts();
 		}
@@ -781,6 +816,27 @@
 			checkbox.checked = staff.services && staff.services.includes(checkbox.value);
 		});
 
+		// Fill custom prices/durations from service_details
+		if (staff.service_details && Array.isArray(staff.service_details)) {
+			staff.service_details.forEach(function(detail) {
+				var sid = String(detail.service_id);
+				if (detail.custom_price) {
+					var priceInput = document.querySelector('input[name="service_prices[' + sid + ']"]');
+					if (priceInput) {
+						priceInput.value = detail.custom_price;
+					}
+				}
+				if (detail.custom_duration) {
+					var durationInput = document.querySelector('input[name="service_durations[' + sid + ']"]');
+					if (durationInput) {
+						durationInput.value = detail.custom_duration;
+					}
+				}
+			});
+		}
+
+		// Show/hide custom fields based on checked state
+		toggleAllServiceCustomFields();
 		// Update category counts
 		updateAllCategoryCounts();
 	}

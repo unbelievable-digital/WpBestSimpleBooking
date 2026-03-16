@@ -334,7 +334,7 @@ class UNBSB_REST_API {
 		$staff_model = new UNBSB_Staff();
 		$staff       = $staff_model->get_active();
 
-		return rest_ensure_response( $staff );
+		return rest_ensure_response( $this->sanitize_staff_for_public( $staff ) );
 	}
 
 	/**
@@ -349,7 +349,7 @@ class UNBSB_REST_API {
 		$staff_model = new UNBSB_Staff();
 		$staff       = $staff_model->get_by_service( $service_id );
 
-		return rest_ensure_response( $staff );
+		return rest_ensure_response( $this->sanitize_staff_for_public( $staff ) );
 	}
 
 	/**
@@ -719,6 +719,29 @@ class UNBSB_REST_API {
 				'success' => true,
 				'data'    => $summary,
 			)
+		);
+	}
+
+	/**
+	 * Strip private fields from staff data for public endpoints.
+	 *
+	 * @param array $staff_list Array of staff objects.
+	 *
+	 * @return array Sanitized staff list with only public fields.
+	 */
+	private function sanitize_staff_for_public( $staff_list ) {
+		return array_map(
+			function ( $staff ) {
+				return (object) array(
+					'id'         => $staff->id,
+					'name'       => $staff->name,
+					'bio'        => $staff->bio,
+					'avatar_url' => $staff->avatar_url,
+					'status'     => $staff->status,
+					'sort_order' => $staff->sort_order,
+				);
+			},
+			$staff_list
 		);
 	}
 

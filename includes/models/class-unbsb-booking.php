@@ -102,6 +102,7 @@ class UNBSB_Booking {
 
 		// Calculate duration and price in multi-service mode.
 		$service_model = new UNBSB_Service();
+		$staff_model   = new UNBSB_Staff();
 
 		if ( $is_multi_service ) {
 			$total_duration = 0;
@@ -111,18 +112,29 @@ class UNBSB_Booking {
 			foreach ( $service_ids as $index => $sid ) {
 				$service = $service_model->get( absint( $sid ) );
 				if ( $service ) {
-					$effective_price = ( ! empty( $service->discounted_price ) && floatval( $service->discounted_price ) < floatval( $service->price ) )
-						? floatval( $service->discounted_price )
-						: floatval( $service->price );
+					// Check for staff custom price/duration.
+					$custom = $staff_model->get_service_custom_data( $sanitized['staff_id'], absint( $sid ) );
 
-					$total_duration += $service->duration;
+					$effective_duration = ( $custom && null !== $custom->custom_duration )
+						? intval( $custom->custom_duration )
+						: intval( $service->duration );
+
+					if ( $custom && null !== $custom->custom_price ) {
+						$effective_price = floatval( $custom->custom_price );
+					} elseif ( ! empty( $service->discounted_price ) && floatval( $service->discounted_price ) < floatval( $service->price ) ) {
+						$effective_price = floatval( $service->discounted_price );
+					} else {
+						$effective_price = floatval( $service->price );
+					}
+
+					$total_duration += $effective_duration;
 					$total_price    += $effective_price;
 
 					$services_data[] = array(
 						'service_id' => absint( $sid ),
 						'staff_id'   => $sanitized['staff_id'],
 						'price'      => $effective_price,
-						'duration'   => intval( $service->duration ),
+						'duration'   => $effective_duration,
 						'sort_order' => $index,
 					);
 
@@ -140,17 +152,27 @@ class UNBSB_Booking {
 			$start                 = strtotime( $sanitized['start_time'] );
 			$sanitized['end_time'] = gmdate( 'H:i:s', $start + ( $total_duration * 60 ) );
 		} elseif ( empty( $sanitized['end_time'] ) ) {
-			// Single service - existing logic.
+			// Single service - check for staff custom price/duration.
 			$service = $service_model->get( $sanitized['service_id'] );
 
 			if ( $service ) {
+				$custom = $staff_model->get_service_custom_data( $sanitized['staff_id'], $sanitized['service_id'] );
+
+				$effective_duration = ( $custom && null !== $custom->custom_duration )
+					? intval( $custom->custom_duration )
+					: intval( $service->duration );
+
+				$duration              = $effective_duration + $service->buffer_after;
 				$start                 = strtotime( $sanitized['start_time'] );
-				$duration              = $service->duration + $service->buffer_after;
 				$sanitized['end_time'] = gmdate( 'H:i:s', $start + ( $duration * 60 ) );
 
-					$sanitized['price'] = ( ! empty( $service->discounted_price ) && floatval( $service->discounted_price ) < floatval( $service->price ) )
-					? floatval( $service->discounted_price )
-					: floatval( $service->price );
+				if ( $custom && null !== $custom->custom_price ) {
+					$sanitized['price'] = floatval( $custom->custom_price );
+				} elseif ( ! empty( $service->discounted_price ) && floatval( $service->discounted_price ) < floatval( $service->price ) ) {
+					$sanitized['price'] = floatval( $service->discounted_price );
+				} else {
+					$sanitized['price'] = floatval( $service->price );
+				}
 
 				$sanitized['total_duration'] = $duration;
 			}

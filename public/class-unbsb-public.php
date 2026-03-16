@@ -296,9 +296,10 @@ class UNBSB_Public {
 			'unbsb-booking-manage',
 			'unbsbManageBooking',
 			array(
-				'token'   => $manage_token,
-				'restUrl' => rest_url( 'unbsb/v1/' ),
-				'strings' => array(
+				'token'      => $manage_token,
+				'restUrl'    => rest_url( 'unbsb/v1/' ),
+				'timeFormat' => get_option( 'unbsb_time_format', 'H:i' ),
+				'strings'    => array(
 					'loading'      => __( 'Loading...', 'unbelievable-salon-booking' ),
 					'selectTime'   => __( 'Select a time', 'unbelievable-salon-booking' ),
 					'noSlots'      => __( 'No available slots', 'unbelievable-salon-booking' ),
@@ -528,7 +529,7 @@ class UNBSB_Public {
 		$staff_model = new UNBSB_Staff();
 		$staff       = $staff_model->get_by_service( $service_id );
 
-		wp_send_json_success( $staff );
+		wp_send_json_success( $this->sanitize_staff_for_public( $staff ) );
 	}
 
 	/**
@@ -540,7 +541,7 @@ class UNBSB_Public {
 		$staff_model = new UNBSB_Staff();
 		$staff       = $staff_model->get_active();
 
-		wp_send_json_success( $staff );
+		wp_send_json_success( $this->sanitize_staff_for_public( $staff ) );
 	}
 
 	/**
@@ -691,6 +692,29 @@ class UNBSB_Public {
 			array(
 				'message' => __( 'Registration successful. Redirecting...', 'unbelievable-salon-booking' ),
 			)
+		);
+	}
+
+	/**
+	 * Strip private fields from staff data for public responses.
+	 *
+	 * @param array $staff_list Array of staff objects.
+	 *
+	 * @return array Sanitized staff list with only public fields.
+	 */
+	private function sanitize_staff_for_public( $staff_list ) {
+		return array_map(
+			function ( $staff ) {
+				return (object) array(
+					'id'         => $staff->id,
+					'name'       => $staff->name,
+					'bio'        => $staff->bio,
+					'avatar_url' => $staff->avatar_url,
+					'status'     => $staff->status,
+					'sort_order' => $staff->sort_order,
+				);
+			},
+			$staff_list
 		);
 	}
 }

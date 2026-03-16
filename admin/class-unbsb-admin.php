@@ -304,6 +304,8 @@ class UNBSB_Admin {
 					// Staff services.
 					'select_all'                 => __( 'Select All', 'unbelievable-salon-booking' ),
 					'uncategorized'              => __( 'Uncategorized', 'unbelievable-salon-booking' ),
+					'custom_price'               => __( 'Custom Price', 'unbelievable-salon-booking' ),
+					'custom_duration'            => __( 'Custom Duration', 'unbelievable-salon-booking' ),
 					// Export / Import.
 					'exporting'                  => __( 'Exporting...', 'unbelievable-salon-booking' ),
 					'export_success'             => __( 'Data exported successfully!', 'unbelievable-salon-booking' ),
@@ -349,7 +351,16 @@ class UNBSB_Admin {
 		if ( false !== strpos( $hook, 'unbsb-staff' ) && false === strpos( $hook, 'unbsb-staff-schedule' ) ) {
 			$staff_model   = new UNBSB_Staff();
 			$service_model = new UNBSB_Service();
-			wp_localize_script( 'unbsb-admin', 'unbsbStaff', $staff_model->get_all() );
+			$all_staff     = $staff_model->get_all();
+
+			// Attach service data with custom prices/durations.
+			foreach ( $all_staff as &$s ) {
+				$s->services      = $staff_model->get_services( $s->id );
+				$s->service_details = $staff_model->get_services( $s->id, false );
+			}
+			unset( $s );
+
+			wp_localize_script( 'unbsb-admin', 'unbsbStaff', $all_staff );
 			wp_localize_script( 'unbsb-admin', 'unbsbServices', $service_model->get_active() );
 		}
 
@@ -1021,13 +1032,36 @@ class UNBSB_Admin {
 		}
 
 		$id   = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
+
+		// Build services data with optional custom price/duration.
+		$service_ids       = isset( $_POST['services'] ) ? array_map( 'absint', (array) $_POST['services'] ) : array();
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitized below per element.
+		$service_prices    = isset( $_POST['service_prices'] ) ? (array) wp_unslash( $_POST['service_prices'] ) : array();
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitized below per element.
+		$service_durations = isset( $_POST['service_durations'] ) ? (array) wp_unslash( $_POST['service_durations'] ) : array();
+
+		$services = array();
+		foreach ( $service_ids as $sid ) {
+			$service_entry = array( 'service_id' => $sid );
+
+			if ( isset( $service_prices[ $sid ] ) && '' !== $service_prices[ $sid ] ) {
+				$service_entry['custom_price'] = floatval( $service_prices[ $sid ] );
+			}
+
+			if ( isset( $service_durations[ $sid ] ) && '' !== $service_durations[ $sid ] ) {
+				$service_entry['custom_duration'] = absint( $service_durations[ $sid ] );
+			}
+
+			$services[] = $service_entry;
+		}
+
 		$data = array(
 			'name'     => isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '',
 			'email'    => isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '',
 			'phone'    => isset( $_POST['phone'] ) ? sanitize_text_field( wp_unslash( $_POST['phone'] ) ) : '',
 			'bio'      => isset( $_POST['bio'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bio'] ) ) : '',
 			'status'   => isset( $_POST['status'] ) ? sanitize_text_field( wp_unslash( $_POST['status'] ) ) : 'active',
-			'services' => isset( $_POST['services'] ) ? array_map( 'absint', (array) $_POST['services'] ) : array(),
+			'services' => $services,
 		);
 
 		$staff_model = new UNBSB_Staff();
@@ -1039,10 +1073,14 @@ class UNBSB_Admin {
 		}
 
 		if ( false !== $result ) {
+			$staff_id_saved = $id ? $id : $result;
+			$staff_services = $staff_model->get_services( $staff_id_saved, false );
+
 			wp_send_json_success(
 				array(
-					'message' => __( 'Staff saved.', 'unbelievable-salon-booking' ),
-					'id'      => $id ? $id : $result,
+					'message'  => __( 'Staff saved.', 'unbelievable-salon-booking' ),
+					'id'       => $staff_id_saved,
+					'services' => $staff_services,
 				)
 			);
 		} else {

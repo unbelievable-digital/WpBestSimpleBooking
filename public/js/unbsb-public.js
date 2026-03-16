@@ -50,6 +50,30 @@
 		discountType: null
 	};
 
+	/**
+	 * Format time string based on user's time format setting.
+	 * Converts 24h "HH:MM" to 12h "h:MM AM/PM" when format is "g:i A".
+	 *
+	 * @param {string} time24 Time in "HH:MM" or "HH:MM:SS" format.
+	 * @return {string} Formatted time string.
+	 */
+	function formatTime(time24) {
+		if (!time24) return '';
+		var timeFormat = typeof unbsbPublic !== 'undefined' ? unbsbPublic.timeFormat : 'H:i';
+		var parts = time24.split(':');
+		var hours = parseInt(parts[0], 10);
+		var minutes = parts[1] || '00';
+
+		if (timeFormat === 'g:i A' || timeFormat === 'g:i a') {
+			var ampm = hours >= 12 ? 'PM' : 'AM';
+			var h = hours % 12;
+			if (0 === h) h = 12;
+			return h + ':' + minutes + ' ' + ampm;
+		}
+
+		return parts[0] + ':' + minutes;
+	}
+
 	// DOM Elements
 	let form, nextBtn, prevBtn, submitBtn, formActions;
 
@@ -867,7 +891,7 @@
 
 		slots.forEach(function(slot) {
 			const className = slot.available ? 'unbsb-time-slot' : 'unbsb-time-slot disabled';
-			html += '<div class="' + className + '" data-time="' + slot.start + '">' + slot.start + '</div>';
+			html += '<div class="' + className + '" data-time="' + slot.start + '">' + formatTime(slot.start) + '</div>';
 		});
 
 		html += '</div>';
@@ -1058,7 +1082,7 @@
 		'</div>' +
 		'<div class="unbsb-summary-row">' +
 			'<span class="unbsb-summary-label">' + unbsbPublic.strings.time + '</span>' +
-			'<span class="unbsb-summary-value">' + state.selectedTime + '</span>' +
+			'<span class="unbsb-summary-value">' + formatTime(state.selectedTime) + '</span>' +
 		'</div>' +
 		'<div class="unbsb-summary-row">' +
 			'<span class="unbsb-summary-label">' + unbsbPublic.strings.duration + '</span>' +
@@ -1207,7 +1231,7 @@
 		'</div>' +
 		'<div class="unbsb-summary-row">' +
 			'<span class="unbsb-summary-label">' + unbsbPublic.strings.time + '</span>' +
-			'<span class="unbsb-summary-value">' + booking.start_time.substring(0, 5) + '</span>' +
+			'<span class="unbsb-summary-value">' + formatTime(booking.start_time.substring(0, 5)) + '</span>' +
 		'</div>' +
 		'<div class="unbsb-summary-row total">' +
 			'<span class="unbsb-summary-label">' + unbsbPublic.strings.total + '</span>' +
