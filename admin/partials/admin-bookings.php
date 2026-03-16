@@ -292,7 +292,7 @@ $statuses = array(
 											<span class="dashicons dashicons-clock" style="font-size: 14px; width: 14px; height: 14px; margin-right: 4px; color: var(--unbsb-info);"></span>
 											<?php esc_html_e( 'Time', 'unbelievable-salon-booking' ); ?> <span class="required">*</span>
 										</label>
-										<input type="time" id="booking-time" name="start_time" required>
+										<input type="text" id="booking-time" name="start_time" class="unbsb-time-input" required placeholder="09:00" maxlength="5" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" inputmode="numeric" autocomplete="off">
 									</div>
 								</div>
 

@@ -1696,12 +1696,20 @@ select optgroup option {
 }
 
 .unbsb-hours-time-input {
-	width: 100px;
+	width: 80px;
 	padding: 8px 10px;
 	border: 1px solid var(--unbsb-border);
 	border-radius: var(--unbsb-radius);
-	font-size: 13px;
+	font-size: 14px;
 	text-align: center;
+	font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+	letter-spacing: 1px;
+}
+
+.unbsb-hours-time-input:focus {
+	outline: none;
+	border-color: var(--unbsb-primary);
+	box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.1);
 }
 
 .unbsb-hours-time-separator {

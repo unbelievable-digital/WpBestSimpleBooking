@@ -357,9 +357,9 @@ function unbsb_render_service_checkbox( $service, $currency_symbol ) {
 							</div>
 							<div class="unbsb-hours-day-times">
 								<div class="unbsb-hours-time-group">
-									<input type="time" name="hours[<?php echo esc_attr( $day_num ); ?>][start_time]" value="09:00" class="unbsb-hours-time-input">
+									<input type="text" name="hours[<?php echo esc_attr( $day_num ); ?>][start_time]" value="09:00" class="unbsb-hours-time-input unbsb-time-input" placeholder="09:00" maxlength="5" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" inputmode="numeric" autocomplete="off">
 									<span class="unbsb-hours-time-separator">—</span>
-									<input type="time" name="hours[<?php echo esc_attr( $day_num ); ?>][end_time]" value="18:00" class="unbsb-hours-time-input">
+									<input type="text" name="hours[<?php echo esc_attr( $day_num ); ?>][end_time]" value="18:00" class="unbsb-hours-time-input unbsb-time-input" placeholder="18:00" maxlength="5" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" inputmode="numeric" autocomplete="off">
 								</div>
 							</div>
 						</div>
