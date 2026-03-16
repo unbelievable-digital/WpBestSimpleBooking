@@ -201,6 +201,25 @@ class UNBSB_Admin {
 				'unbsb-staff-schedule-portal',
 				array( $this, 'render_staff_schedule_portal' )
 			);
+		} else {
+			// Hidden pages for admin access (accessible via URL).
+			add_submenu_page(
+				null,
+				__( 'Staff Bookings', 'unbelievable-salon-booking' ),
+				__( 'Staff Bookings', 'unbelievable-salon-booking' ),
+				'manage_options',
+				'unbsb-staff-portal',
+				array( $this, 'render_staff_bookings' )
+			);
+
+			add_submenu_page(
+				null,
+				__( 'Staff Schedule', 'unbelievable-salon-booking' ),
+				__( 'Staff Schedule', 'unbelievable-salon-booking' ),
+				'manage_options',
+				'unbsb-staff-schedule-portal',
+				array( $this, 'render_staff_schedule_portal' )
+			);
 		}
 	}
 
