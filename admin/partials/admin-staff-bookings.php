@@ -14,7 +14,7 @@ $date_format     = get_option( 'unbsb_date_format', 'd.m.Y' );
 $time_format     = get_option( 'unbsb_time_format', 'H:i' );
 
 // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only filtering.
-$filter = isset( $_GET['filter'] ) ? sanitize_text_field( wp_unslash( $_GET['filter'] ) ) : 'today';
+$filter = isset( $_GET['filter'] ) ? sanitize_text_field( wp_unslash( $_GET['filter'] ) ) : 'all';
 ?>
 
 <div class="unbsb-admin-wrap">
