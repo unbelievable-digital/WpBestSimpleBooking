@@ -121,7 +121,7 @@ $currency_symbol = get_option( 'unbsb_currency_symbol', '₺' );
 				<input type="hidden" name="id" id="service-id" value="">
 
 				<div class="unbsb-modal-columns">
-					<!-- Sol Kolon - Temel Bilgiler -->
+					<!-- Left Column - Basic Info -->
 					<div class="unbsb-modal-column unbsb-modal-column-main">
 						<div class="unbsb-form-section">
 							<div class="unbsb-form-section-header">

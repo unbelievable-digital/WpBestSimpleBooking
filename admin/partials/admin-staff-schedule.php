@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Personelleri al.
+// Get staff members.
 $staff_model = new UNBSB_Staff();
 $all_staff   = $staff_model->get_active();
 
@@ -102,7 +102,7 @@ $days_of_week = array(
 										</button>
 									</div>
 									<div class="unbsb-breaks-list" data-day="<?php echo esc_attr( $day_num ); ?>">
-										<!-- Molalar JavaScript ile doldurulacak -->
+										<!-- Populated via JavaScript -->
 									</div>
 								</div>
 							</div>

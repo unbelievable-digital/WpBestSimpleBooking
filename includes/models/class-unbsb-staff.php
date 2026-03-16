@@ -544,6 +544,165 @@ class UNBSB_Staff {
 	}
 
 	/**
+	 * Calculate commission for a booking
+	 *
+	 * @param int   $staff_id      Staff ID.
+	 * @param float $booking_price Booking price.
+	 *
+	 * @return float Commission amount.
+	 */
+	public function calculate_commission( $staff_id, $booking_price ) {
+		$staff = $this->get( $staff_id );
+
+		if ( ! $staff ) {
+			return 0;
+		}
+
+		$salary_type       = isset( $staff->salary_type ) ? $staff->salary_type : 'percentage';
+		$salary_percentage = isset( $staff->salary_percentage ) ? floatval( $staff->salary_percentage ) : 0;
+
+		if ( 'fixed' === $salary_type ) {
+			return 0; // Fixed salary has no per-booking commission.
+		}
+
+		// percentage or mix — calculate commission from booking price.
+		return round( $booking_price * $salary_percentage / 100, 2 );
+	}
+
+	/**
+	 * Record commission earning for a booking
+	 *
+	 * @param int   $staff_id   Staff ID.
+	 * @param int   $booking_id Booking ID.
+	 * @param float $amount     Commission amount.
+	 *
+	 * @return int|false
+	 */
+	public function record_commission( $staff_id, $booking_id, $amount ) {
+		if ( $amount <= 0 ) {
+			return false;
+		}
+
+		return $this->db->insert(
+			'staff_earnings',
+			array(
+				'staff_id'   => absint( $staff_id ),
+				'booking_id' => absint( $booking_id ),
+				'amount'     => floatval( $amount ),
+				'type'       => 'commission',
+				'period'     => current_time( 'Y-m' ),
+			)
+		);
+	}
+
+	/**
+	 * Record monthly fixed salary
+	 *
+	 * @param int    $staff_id Staff ID.
+	 * @param string $period   Period in Y-m format.
+	 *
+	 * @return int|false
+	 */
+	public function record_salary( $staff_id, $period = null ) {
+		$staff = $this->get( $staff_id );
+
+		if ( ! $staff || 'percentage' === ( $staff->salary_type ?? 'percentage' ) ) {
+			return false;
+		}
+
+		$salary_fixed = isset( $staff->salary_fixed ) ? floatval( $staff->salary_fixed ) : 0;
+
+		if ( $salary_fixed <= 0 ) {
+			return false;
+		}
+
+		if ( null === $period ) {
+			$period = current_time( 'Y-m' );
+		}
+
+		// Check if salary already recorded for this period.
+		global $wpdb;
+		$table = $wpdb->prefix . 'unbsb_staff_earnings';
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$exists = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT id FROM {$table} WHERE staff_id = %d AND type = 'salary' AND period = %s",
+				$staff_id,
+				$period
+			)
+		);
+
+		if ( $exists ) {
+			return false; // Already recorded.
+		}
+
+		return $this->db->insert(
+			'staff_earnings',
+			array(
+				'staff_id' => absint( $staff_id ),
+				'amount'   => $salary_fixed,
+				'type'     => 'salary',
+				'period'   => $period,
+			)
+		);
+	}
+
+	/**
+	 * Get staff earnings for a period
+	 *
+	 * @param int    $staff_id Staff ID.
+	 * @param string $period   Period in Y-m format.
+	 *
+	 * @return array
+	 */
+	public function get_earnings( $staff_id, $period = null ) {
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'unbsb_staff_earnings';
+
+		if ( null === $period ) {
+			$period = current_time( 'Y-m' );
+		}
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$commission_total = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT COALESCE(SUM(amount), 0) FROM {$table} WHERE staff_id = %d AND type = 'commission' AND period = %s",
+				$staff_id,
+				$period
+			)
+		);
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$salary_total = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT COALESCE(SUM(amount), 0) FROM {$table} WHERE staff_id = %d AND type = 'salary' AND period = %s",
+				$staff_id,
+				$period
+			)
+		);
+
+		return array(
+			'commission' => floatval( $commission_total ),
+			'salary'     => floatval( $salary_total ),
+			'total'      => floatval( $commission_total ) + floatval( $salary_total ),
+			'period'     => $period,
+		);
+	}
+
+	/**
+	 * Delete earnings for a booking (for reversals)
+	 *
+	 * @param int $booking_id Booking ID.
+	 *
+	 * @return int|false
+	 */
+	public function delete_earnings_by_booking( $booking_id ) {
+		return $this->db->delete( 'staff_earnings', array( 'booking_id' => $booking_id ) );
+	}
+
+	/**
 	 * Sanitize data
 	 *
 	 * @param array $data Raw data.
@@ -585,6 +744,20 @@ class UNBSB_Staff {
 
 		if ( isset( $data['sort_order'] ) ) {
 			$sanitized['sort_order'] = absint( $data['sort_order'] );
+		}
+
+		if ( isset( $data['salary_type'] ) ) {
+			$sanitized['salary_type'] = in_array( $data['salary_type'], array( 'percentage', 'fixed', 'mix' ), true )
+				? $data['salary_type']
+				: 'percentage';
+		}
+
+		if ( isset( $data['salary_percentage'] ) ) {
+			$sanitized['salary_percentage'] = max( 0, min( 100, floatval( $data['salary_percentage'] ) ) );
+		}
+
+		if ( isset( $data['salary_fixed'] ) ) {
+			$sanitized['salary_fixed'] = max( 0, floatval( $data['salary_fixed'] ) );
 		}
 
 		return $sanitized;

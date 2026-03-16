@@ -189,7 +189,7 @@ class UNBSB_Public {
 			UNBSB_Captcha::enqueue_scripts();
 		}
 
-		// Servisleri, kategorileri ve personeli getir.
+		// Get services, categories and staff.
 		$service_model  = new UNBSB_Service();
 		$category_model = new UNBSB_Category();
 		$staff_model    = new UNBSB_Staff();
@@ -392,7 +392,7 @@ class UNBSB_Public {
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$service_ids = wp_unslash( $_POST['service_ids'] );
 
-			// JSON string ise decode et.
+			// Decode if JSON string.
 			if ( is_string( $service_ids ) ) {
 				$decoded = json_decode( $service_ids, true );
 				if ( is_array( $decoded ) ) {
@@ -590,6 +590,9 @@ class UNBSB_Public {
 				'isLoggedIn' => is_user_logged_in(),
 				'strings'    => array(
 					'password_mismatch' => __( 'Passwords do not match.', 'unbelievable-salon-booking' ),
+					'ok'                => __( 'OK', 'unbelievable-salon-booking' ),
+					'error'             => __( 'Error', 'unbelievable-salon-booking' ),
+					'connection_error'  => __( 'Connection error', 'unbelievable-salon-booking' ),
 				),
 			)
 		);

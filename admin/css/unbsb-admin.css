@@ -1776,6 +1776,46 @@ select optgroup option {
 	padding: 8px 12px;
 }
 
+/* Salary Type Options */
+.unbsb-salary-type-options {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.unbsb-salary-type-option {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 5px 8px;
+	border-radius: var(--unbsb-radius-sm);
+	cursor: pointer;
+	font-size: 13px;
+	color: var(--unbsb-text);
+	transition: var(--unbsb-transition);
+}
+
+.unbsb-salary-type-option:hover {
+	background: rgba(109, 40, 217, 0.04);
+}
+
+.unbsb-salary-type-option input[type="radio"] {
+	margin: 0;
+	accent-color: var(--unbsb-primary);
+}
+
+.unbsb-salary-fields {
+	margin-top: 4px;
+}
+
+.unbsb-salary-fields .unbsb-form-group {
+	margin-bottom: 10px;
+}
+
+.unbsb-salary-fields label {
+	font-size: 12px !important;
+}
+
 .unbsb-form-row-3 {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);

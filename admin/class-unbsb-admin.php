@@ -314,6 +314,13 @@ class UNBSB_Admin {
 					// Promo codes.
 					'new_promo_code'             => __( 'New Promo Code', 'unbelievable-salon-booking' ),
 					'edit_promo_code'            => __( 'Edit Promo Code', 'unbelievable-salon-booking' ),
+					// Staff compensation.
+					'compensation'               => __( 'Compensation', 'unbelievable-salon-booking' ),
+					'commission_rate'            => __( 'Commission Rate', 'unbelievable-salon-booking' ),
+					'monthly_salary'             => __( 'Monthly Salary', 'unbelievable-salon-booking' ),
+					'salary_percentage'          => __( 'Percentage', 'unbelievable-salon-booking' ),
+					'salary_fixed'               => __( 'Fixed Salary', 'unbelievable-salon-booking' ),
+					'salary_mix'                 => __( 'Mix', 'unbelievable-salon-booking' ),
 					// Staff services.
 					'select_all'                 => __( 'Select All', 'unbelievable-salon-booking' ),
 					'uncategorized'              => __( 'Uncategorized', 'unbelievable-salon-booking' ),
@@ -1119,12 +1126,15 @@ class UNBSB_Admin {
 		}
 
 		$data = array(
-			'name'     => isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '',
-			'email'    => isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '',
-			'phone'    => isset( $_POST['phone'] ) ? sanitize_text_field( wp_unslash( $_POST['phone'] ) ) : '',
-			'bio'      => isset( $_POST['bio'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bio'] ) ) : '',
-			'status'   => isset( $_POST['status'] ) ? sanitize_text_field( wp_unslash( $_POST['status'] ) ) : 'active',
-			'services' => $services,
+			'name'              => isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '',
+			'email'             => isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '',
+			'phone'             => isset( $_POST['phone'] ) ? sanitize_text_field( wp_unslash( $_POST['phone'] ) ) : '',
+			'bio'               => isset( $_POST['bio'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bio'] ) ) : '',
+			'status'            => isset( $_POST['status'] ) ? sanitize_text_field( wp_unslash( $_POST['status'] ) ) : 'active',
+			'salary_type'       => isset( $_POST['salary_type'] ) ? sanitize_text_field( wp_unslash( $_POST['salary_type'] ) ) : 'percentage',
+			'salary_percentage' => isset( $_POST['salary_percentage'] ) ? floatval( $_POST['salary_percentage'] ) : 0,
+			'salary_fixed'      => isset( $_POST['salary_fixed'] ) ? floatval( $_POST['salary_fixed'] ) : 0,
+			'services'          => $services,
 		);
 
 		$staff_model = new UNBSB_Staff();
@@ -2010,6 +2020,35 @@ class UNBSB_Admin {
 			);
 		} else {
 			wp_send_json_error( __( 'Failed to create customer.', 'unbelievable-salon-booking' ) );
+		}
+	}
+
+	/**
+	 * Handle booking earnings when status changes
+	 *
+	 * @param int    $booking_id Booking ID.
+	 * @param string $new_status New status.
+	 * @param string $old_status Old status.
+	 */
+	public function handle_booking_earnings( $booking_id, $new_status, $old_status ) {
+		$staff_model   = new UNBSB_Staff();
+		$booking_model = new UNBSB_Booking();
+
+		// Record commission when booking is completed.
+		if ( 'completed' === $new_status && 'completed' !== $old_status ) {
+			$booking = $booking_model->get( $booking_id );
+
+			if ( ! $booking || empty( $booking->staff_id ) ) {
+				return;
+			}
+
+			$commission = $staff_model->calculate_commission( $booking->staff_id, floatval( $booking->price ) );
+			$staff_model->record_commission( $booking->staff_id, $booking_id, $commission );
+		}
+
+		// Remove commission if booking reverted from completed.
+		if ( 'completed' === $old_status && 'completed' !== $new_status ) {
+			$staff_model->delete_earnings_by_booking( $booking_id );
 		}
 	}
 

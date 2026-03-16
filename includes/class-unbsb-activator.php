@@ -25,7 +25,7 @@ class UNBSB_Activator {
 
 		// Save version.
 		update_option( 'unbsb_version', UNBSB_VERSION );
-		update_option( 'unbsb_db_version', '1.8.0' );
+		update_option( 'unbsb_db_version', '1.9.0' );
 
 		// Rewrite rules flush.
 		flush_rewrite_rules();
@@ -93,6 +93,22 @@ class UNBSB_Activator {
 			updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 			PRIMARY KEY (id),
 			KEY user_id (user_id)
+		) $charset_collate;";
+		dbDelta( $sql );
+
+		// Staff earnings table.
+		$sql = "CREATE TABLE {$prefix}staff_earnings (
+			id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+			staff_id BIGINT(20) UNSIGNED NOT NULL,
+			booking_id BIGINT(20) UNSIGNED,
+			amount DECIMAL(10,2) NOT NULL DEFAULT 0,
+			type VARCHAR(20) DEFAULT 'commission',
+			period VARCHAR(7),
+			created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+			PRIMARY KEY (id),
+			KEY staff_id (staff_id),
+			KEY booking_id (booking_id),
+			KEY period (period)
 		) $charset_collate;";
 		dbDelta( $sql );
 
@@ -421,6 +437,11 @@ class UNBSB_Activator {
 		// v1.8.0 - Promo codes.
 		if ( version_compare( $current_db_version, '1.8.0', '<' ) ) {
 			self::migration_1_8_0();
+		}
+
+		// v1.9.0 - Staff salary/commission system.
+		if ( version_compare( $current_db_version, '1.9.0', '<' ) ) {
+			self::migration_1_9_0();
 		}
 	}
 
@@ -973,6 +994,55 @@ class UNBSB_Activator {
 		if ( empty( $column_exists ) ) {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			$wpdb->query( "ALTER TABLE {$table_name} ADD COLUMN discounted_price DECIMAL(10,2) DEFAULT NULL AFTER price" );
+		}
+	}
+
+	/**
+	 * Migration 1.9.0 - Staff salary/commission system
+	 */
+	private static function migration_1_9_0() {
+		global $wpdb;
+
+		$charset_collate = $wpdb->get_charset_collate();
+		$prefix          = $wpdb->prefix . 'unbsb_';
+
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+
+		// Staff earnings table.
+		$sql = "CREATE TABLE {$prefix}staff_earnings (
+			id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+			staff_id BIGINT(20) UNSIGNED NOT NULL,
+			booking_id BIGINT(20) UNSIGNED,
+			amount DECIMAL(10,2) NOT NULL DEFAULT 0,
+			type VARCHAR(20) DEFAULT 'commission',
+			period VARCHAR(7),
+			created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+			PRIMARY KEY (id),
+			KEY staff_id (staff_id),
+			KEY booking_id (booking_id),
+			KEY period (period)
+		) $charset_collate;";
+		dbDelta( $sql );
+
+		// Add salary columns to staff table.
+		$table_name = $wpdb->prefix . 'unbsb_staff';
+
+		// salary_type column.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$column_exists = $wpdb->get_results(
+			$wpdb->prepare(
+				'SHOW COLUMNS FROM ' . $table_name . ' LIKE %s',
+				'salary_type'
+			)
+		);
+
+		if ( empty( $column_exists ) ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->query( "ALTER TABLE {$table_name} ADD COLUMN salary_type VARCHAR(20) DEFAULT 'percentage' AFTER sort_order" );
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->query( "ALTER TABLE {$table_name} ADD COLUMN salary_percentage DECIMAL(5,2) DEFAULT 0 AFTER salary_type" );
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->query( "ALTER TABLE {$table_name} ADD COLUMN salary_fixed DECIMAL(10,2) DEFAULT 0 AFTER salary_percentage" );
 		}
 	}
 }

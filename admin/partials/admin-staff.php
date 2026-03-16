@@ -287,6 +287,45 @@ function unbsb_render_service_checkbox( $service, $currency_symbol ) {
 
 								<hr class="unbsb-divider">
 
+								<!-- Compensation -->
+								<div class="unbsb-form-group">
+									<label><?php esc_html_e( 'Compensation', 'unbelievable-salon-booking' ); ?></label>
+									<div class="unbsb-salary-type-options">
+										<label class="unbsb-salary-type-option">
+											<input type="radio" name="salary_type" value="percentage" checked>
+											<span><?php esc_html_e( 'Percentage', 'unbelievable-salon-booking' ); ?></span>
+										</label>
+										<label class="unbsb-salary-type-option">
+											<input type="radio" name="salary_type" value="fixed">
+											<span><?php esc_html_e( 'Fixed Salary', 'unbelievable-salon-booking' ); ?></span>
+										</label>
+										<label class="unbsb-salary-type-option">
+											<input type="radio" name="salary_type" value="mix">
+											<span><?php esc_html_e( 'Mix', 'unbelievable-salon-booking' ); ?></span>
+										</label>
+									</div>
+								</div>
+
+								<div class="unbsb-salary-fields">
+									<div class="unbsb-form-group unbsb-salary-field-percentage" id="unbsb-salary-percentage-field">
+										<label for="staff-salary-percentage"><?php esc_html_e( 'Commission Rate', 'unbelievable-salon-booking' ); ?></label>
+										<div class="unbsb-input-with-suffix">
+											<input type="number" id="staff-salary-percentage" name="salary_percentage" min="0" max="100" step="1" placeholder="40" value="">
+											<span class="unbsb-input-suffix">%</span>
+										</div>
+									</div>
+
+									<div class="unbsb-form-group unbsb-salary-field-fixed" id="unbsb-salary-fixed-field" style="display: none;">
+										<label for="staff-salary-fixed"><?php esc_html_e( 'Monthly Salary', 'unbelievable-salon-booking' ); ?></label>
+										<div class="unbsb-input-with-suffix">
+											<input type="number" id="staff-salary-fixed" name="salary_fixed" min="0" step="0.01" placeholder="2000.00" value="">
+											<span class="unbsb-input-suffix"><?php echo esc_html( get_option( 'unbsb_currency_symbol', '₺' ) ); ?></span>
+										</div>
+									</div>
+								</div>
+
+								<hr class="unbsb-divider">
+
 								<div class="unbsb-info-box">
 									<span class="dashicons dashicons-info-outline"></span>
 									<p><?php esc_html_e( 'You can edit working hours from the "Hours" button after saving the staff member.', 'unbelievable-salon-booking' ); ?></p>

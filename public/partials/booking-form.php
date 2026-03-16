@@ -267,7 +267,7 @@ $has_staff_step   = isset( $step_numbers['staff'] );
 				<h3 class="unbsb-step-title"><?php esc_html_e( 'Select Staff', 'unbelievable-salon-booking' ); ?></h3>
 
 				<div class="unbsb-staff-list" id="unbsb-staff-list">
-					<!-- AJAX ile doldurulacak -->
+					<!-- Populated via AJAX -->
 				</div>
 			</div>
 			<?php endif; ?>
@@ -288,7 +288,7 @@ $has_staff_step   = isset( $step_numbers['staff'] );
 							</button>
 						</div>
 						<div class="unbsb-calendar-body" id="unbsb-calendar-body">
-							<!-- JS ile doldurulacak -->
+							<!-- Populated via JS -->
 						</div>
 						<input type="hidden" name="booking_date" id="booking-date" required>
 					</div>
@@ -376,7 +376,7 @@ $has_staff_step   = isset( $step_numbers['staff'] );
 				<div class="unbsb-booking-summary">
 					<h4><?php esc_html_e( 'Booking Summary', 'unbelievable-salon-booking' ); ?></h4>
 					<div class="unbsb-summary-content" id="unbsb-booking-summary">
-						<!-- JS ile doldurulacak -->
+						<!-- Populated via JS -->
 					</div>
 				</div>
 			</div>
@@ -389,7 +389,7 @@ $has_staff_step   = isset( $step_numbers['staff'] );
 				<h3 class="unbsb-success-title"><?php esc_html_e( 'Your Booking is Received!', 'unbelievable-salon-booking' ); ?></h3>
 				<p class="unbsb-success-message"><?php esc_html_e( 'Your booking details will be sent to your email address.', 'unbelievable-salon-booking' ); ?></p>
 				<div class="unbsb-success-details" id="unbsb-success-details">
-					<!-- JS ile doldurulacak -->
+					<!-- Populated via JS -->
 				</div>
 			</div>
 

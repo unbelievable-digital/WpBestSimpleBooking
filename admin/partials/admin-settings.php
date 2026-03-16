@@ -459,7 +459,7 @@ if ( ! array_key_exists( $current_tab, $unbsb_tabs ) ) {
 				</div>
 
 				<?php elseif ( 'sms' === $current_tab ) : ?>
-				<!-- SMS AYARLARI -->
+				<!-- SMS SETTINGS -->
 				<div class="unbsb-settings-section">
 					<div class="unbsb-section-header">
 						<h2><?php esc_html_e( 'SMS Notifications', 'unbelievable-salon-booking' ); ?></h2>

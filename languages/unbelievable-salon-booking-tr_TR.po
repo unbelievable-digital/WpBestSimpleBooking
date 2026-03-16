@@ -1,7 +1,3 @@
-# Turkish translation for Unbelievable Salon Booking plugin.
-# Copyright (C) 2026 zgrkaralar
-# This file is distributed under the GPL-2.0+.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Unbelievable Salon Booking 1.0.2\n"
@@ -17,7 +13,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: unbelievable-salon-booking\n"
-
 
 #. Plugin Name of the plugin
 #: unbelievable-salon-booking.php
@@ -43,7 +38,8 @@ msgstr "https://unbelievable.digital"
 #: admin/class-unbsb-admin.php:39
 #: admin/class-unbsb-admin.php:58
 #: admin/class-unbsb-admin.php:59
-#: admin/class-unbsb-admin.php:321
+#: admin/class-unbsb-admin.php:320
+#: admin/class-unbsb-admin.php:392
 #: admin/partials/admin-bookings.php:28
 msgid "Bookings"
 msgstr "Randevular"
@@ -63,30 +59,35 @@ msgstr "Takvim"
 
 #: admin/class-unbsb-admin.php:76
 #: admin/class-unbsb-admin.php:77
+#: admin/class-unbsb-admin.php:316
 #: admin/partials/admin-categories.php:15
+#: admin/partials/admin-promo-codes.php:265
 msgid "Categories"
 msgstr "Kategoriler"
 
 #: admin/class-unbsb-admin.php:85
 #: admin/class-unbsb-admin.php:86
+#: admin/class-unbsb-admin.php:317
 #: admin/partials/admin-dashboard.php:231
 #: admin/partials/admin-email-templates.php:213
+#: admin/partials/admin-promo-codes.php:243
 #: admin/partials/admin-services.php:17
-#: public/class-unbsb-public.php:92
+#: public/class-unbsb-public.php:98
 msgid "Services"
 msgstr "Hizmetler"
 
 #: admin/class-unbsb-admin.php:94
 #: admin/class-unbsb-admin.php:95
-#: admin/class-unbsb-admin.php:264
+#: admin/class-unbsb-admin.php:288
+#: admin/class-unbsb-admin.php:318
 #: admin/partials/admin-bookings.php:56
 #: admin/partials/admin-bookings.php:99
 #: admin/partials/admin-bookings.php:220
 #: admin/partials/admin-dashboard.php:236
 #: admin/partials/admin-email-templates.php:214
-#: admin/partials/admin-staff.php:15
-#: public/class-unbsb-public.php:88
+#: admin/partials/admin-staff.php:17
 #: public/class-unbsb-public.php:94
+#: public/class-unbsb-public.php:100
 #: public/partials/booking-form.php:28
 #: public/partials/booking-form.php:42
 #: public/partials/booking-form.php:74
@@ -102,286 +103,293 @@ msgstr "Çalışma Programı"
 
 #: admin/class-unbsb-admin.php:112
 #: admin/class-unbsb-admin.php:113
+#: admin/class-unbsb-admin.php:319
 #: admin/partials/admin-customers.php:15
 #: admin/partials/admin-dashboard.php:241
 msgid "Customers"
 msgstr "Müşteriler"
 
-#: admin/class-unbsb-admin.php:121
-#: admin/class-unbsb-admin.php:122
+#: admin/class-unbsb-admin.php:130
+#: admin/class-unbsb-admin.php:131
 #: admin/partials/admin-settings.php:125
-#: admin/partials/admin-staff.php:170
+#: admin/partials/admin-staff.php:265
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: admin/class-unbsb-admin.php:130
-#: admin/class-unbsb-admin.php:131
+#: admin/class-unbsb-admin.php:139
+#: admin/class-unbsb-admin.php:140
 #: admin/partials/admin-email-templates.php:58
 msgid "Email Templates"
 msgstr "E-posta Şablonları"
 
-#: admin/class-unbsb-admin.php:202
+#: admin/class-unbsb-admin.php:220
 msgid "Are you sure you want to delete?"
 msgstr "Silmek istediğinizden emin misiniz?"
 
-#: admin/class-unbsb-admin.php:203
+#: admin/class-unbsb-admin.php:221
 msgid "Saving..."
 msgstr "Kaydediliyor..."
 
-#: admin/class-unbsb-admin.php:204
+#: admin/class-unbsb-admin.php:222
 msgid "Saved!"
 msgstr "Kaydedildi!"
 
-#: admin/class-unbsb-admin.php:205
-#: public/class-unbsb-public.php:283
+#: admin/class-unbsb-admin.php:223
+#: public/class-unbsb-public.php:312
 msgid "An error occurred."
 msgstr "Bir hata oluştu."
 
-#: admin/class-unbsb-admin.php:206
+#: admin/class-unbsb-admin.php:224
 #: public/class-unbsb-public.php:77
-#: public/class-unbsb-public.php:280
+#: public/class-unbsb-public.php:309
 msgid "Loading..."
 msgstr "Yükleniyor..."
 
-#: admin/class-unbsb-admin.php:207
+#: admin/class-unbsb-admin.php:225
 msgid "Sending..."
 msgstr "Gönderiliyor..."
 
-#: admin/class-unbsb-admin.php:208
+#: admin/class-unbsb-admin.php:226
 msgid "Copied!"
 msgstr "Kopyalandı!"
 
-#: admin/class-unbsb-admin.php:210
+#: admin/class-unbsb-admin.php:228
 #: admin/partials/admin-categories.php:18
 #: admin/partials/admin-categories.php:96
 msgid "New Category"
 msgstr "Yeni Kategori"
 
-#: admin/class-unbsb-admin.php:211
+#: admin/class-unbsb-admin.php:229
 msgid "Edit Category"
 msgstr "Kategori Düzenle"
 
-#: admin/class-unbsb-admin.php:212
+#: admin/class-unbsb-admin.php:230
 msgid "Category name is required."
 msgstr "Kategori adı gereklidir."
 
-#: admin/class-unbsb-admin.php:213
+#: admin/class-unbsb-admin.php:231
 msgid "Category added."
 msgstr "Kategori eklendi."
 
 #. translators: %d: Number of services in the category
-#: admin/class-unbsb-admin.php:215
+#: admin/class-unbsb-admin.php:233
 #, php-format
 msgid "This category has %d services. Are you sure you want to delete it? (Services will become uncategorized)"
 msgstr "Bu kategoride %d hizmet bulunuyor. Silmek istediğinizden emin misiniz? (Hizmetler kategorisiz olacak)"
 
-#: admin/class-unbsb-admin.php:217
+#: admin/class-unbsb-admin.php:235
 #: admin/partials/admin-services.php:20
-#: admin/partials/admin-services.php:106
+#: admin/partials/admin-services.php:113
 msgid "New Service"
 msgstr "Yeni Hizmet"
 
-#: admin/class-unbsb-admin.php:218
+#: admin/class-unbsb-admin.php:236
 msgid "Edit Service"
 msgstr "Hizmet Düzenle"
 
-#: admin/class-unbsb-admin.php:220
-#: admin/partials/admin-staff.php:18
-#: admin/partials/admin-staff.php:85
+#: admin/class-unbsb-admin.php:238
+#: admin/partials/admin-staff.php:20
+#: admin/partials/admin-staff.php:129
 msgid "New Staff"
 msgstr "Yeni Personel"
 
-#: admin/class-unbsb-admin.php:221
+#: admin/class-unbsb-admin.php:239
 msgid "Edit Staff"
 msgstr "Personel Düzenle"
 
-#: admin/class-unbsb-admin.php:223
-#: admin/class-unbsb-admin.php:971
+#: admin/class-unbsb-admin.php:244
+#: admin/class-unbsb-admin.php:1295
 #: public/class-unbsb-public.php:83
+#: public/class-unbsb-public.php:615
+#: public/class-unbsb-public.php:651
 msgid "Please fill in all required fields."
 msgstr "Lütfen tüm zorunlu alanları doldurun."
 
-#: admin/class-unbsb-admin.php:224
+#: admin/class-unbsb-admin.php:245
 #: admin/partials/admin-bookings.php:398
 msgid "Create Booking"
 msgstr "Randevu Oluştur"
 
-#: admin/class-unbsb-admin.php:226
+#: admin/class-unbsb-admin.php:247
 msgid "Please enter a test phone number"
 msgstr "Lütfen bir test telefon numarası girin"
 
-#: admin/class-unbsb-admin.php:227
+#: admin/class-unbsb-admin.php:248
 msgid "Please enter a test email address"
 msgstr "Lütfen bir test e-posta adresi girin"
 
-#: admin/class-unbsb-admin.php:228
+#: admin/class-unbsb-admin.php:249
 msgid "Please select a template"
 msgstr "Lütfen bir şablon seçin"
 
-#: admin/class-unbsb-admin.php:229
+#: admin/class-unbsb-admin.php:250
 msgid "Querying..."
 msgstr "Sorgulanıyor..."
 
-#: admin/class-unbsb-admin.php:230
+#: admin/class-unbsb-admin.php:251
 #: admin/partials/admin-email-templates.php:241
 msgid "Save Template"
 msgstr "Şablonu Kaydet"
 
-#: admin/class-unbsb-admin.php:231
+#: admin/class-unbsb-admin.php:252
 #: admin/partials/admin-email-templates.php:245
 msgid "Preview"
 msgstr "Önizleme"
 
-#: admin/class-unbsb-admin.php:232
+#: admin/class-unbsb-admin.php:253
 #: admin/partials/admin-email-templates.php:252
 msgid "Send Test"
 msgstr "Test Gönder"
 
-#: admin/class-unbsb-admin.php:233
+#: admin/class-unbsb-admin.php:254
 #: admin/partials/admin-email-templates.php:135
 msgid "Save Settings"
 msgstr "Ayarları Kaydet"
 
-#: admin/class-unbsb-admin.php:234
+#: admin/class-unbsb-admin.php:258
 msgid "Variable added"
 msgstr "Değişken eklendi"
 
-#: admin/class-unbsb-admin.php:235
+#: admin/class-unbsb-admin.php:259
 #: admin/partials/admin-categories.php:56
 #: admin/partials/admin-categories.php:136
 #: admin/partials/admin-email-templates.php:83
 #: admin/partials/admin-email-templates.php:159
-#: admin/partials/admin-services.php:66
-#: admin/partials/admin-services.php:239
-#: admin/partials/admin-staff.php:180
+#: admin/partials/admin-promo-codes.php:147
+#: admin/partials/admin-promo-codes.php:368
+#: admin/partials/admin-services.php:73
+#: admin/partials/admin-services.php:258
+#: admin/partials/admin-staff.php:275
 msgid "Active"
 msgstr "Aktif"
 
-#: admin/class-unbsb-admin.php:236
+#: admin/class-unbsb-admin.php:260
 #: admin/partials/admin-categories.php:56
 #: admin/partials/admin-categories.php:143
 #: admin/partials/admin-email-templates.php:83
-#: admin/partials/admin-services.php:66
-#: admin/partials/admin-services.php:246
-#: admin/partials/admin-staff.php:187
+#: admin/partials/admin-promo-codes.php:147
+#: admin/partials/admin-promo-codes.php:375
+#: admin/partials/admin-services.php:73
+#: admin/partials/admin-services.php:265
+#: admin/partials/admin-staff.php:282
 msgid "Inactive"
 msgstr "Pasif"
 
-#: admin/class-unbsb-admin.php:239
-#: public/class-unbsb-public.php:101
+#: admin/class-unbsb-admin.php:263
+#: public/class-unbsb-public.php:116
 msgid "January"
 msgstr "Ocak"
 
-#: admin/class-unbsb-admin.php:240
-#: public/class-unbsb-public.php:102
+#: admin/class-unbsb-admin.php:264
+#: public/class-unbsb-public.php:117
 msgid "February"
 msgstr "Şubat"
 
-#: admin/class-unbsb-admin.php:241
-#: public/class-unbsb-public.php:103
+#: admin/class-unbsb-admin.php:265
+#: public/class-unbsb-public.php:118
 msgid "March"
 msgstr "Mart"
 
-#: admin/class-unbsb-admin.php:242
-#: public/class-unbsb-public.php:104
+#: admin/class-unbsb-admin.php:266
+#: public/class-unbsb-public.php:119
 msgid "April"
 msgstr "Nisan"
 
-#: admin/class-unbsb-admin.php:243
-#: public/class-unbsb-public.php:105
+#: admin/class-unbsb-admin.php:267
+#: public/class-unbsb-public.php:120
 msgid "May"
 msgstr "Mayıs"
 
-#: admin/class-unbsb-admin.php:244
-#: public/class-unbsb-public.php:106
+#: admin/class-unbsb-admin.php:268
+#: public/class-unbsb-public.php:121
 msgid "June"
 msgstr "Haziran"
 
-#: admin/class-unbsb-admin.php:245
-#: public/class-unbsb-public.php:107
+#: admin/class-unbsb-admin.php:269
+#: public/class-unbsb-public.php:122
 msgid "July"
 msgstr "Temmuz"
 
-#: admin/class-unbsb-admin.php:246
-#: public/class-unbsb-public.php:108
+#: admin/class-unbsb-admin.php:270
+#: public/class-unbsb-public.php:123
 msgid "August"
 msgstr "Ağustos"
 
-#: admin/class-unbsb-admin.php:247
-#: public/class-unbsb-public.php:109
+#: admin/class-unbsb-admin.php:271
+#: public/class-unbsb-public.php:124
 msgid "September"
 msgstr "Eylül"
 
-#: admin/class-unbsb-admin.php:248
-#: public/class-unbsb-public.php:110
+#: admin/class-unbsb-admin.php:272
+#: public/class-unbsb-public.php:125
 msgid "October"
 msgstr "Ekim"
 
-#: admin/class-unbsb-admin.php:249
-#: public/class-unbsb-public.php:111
+#: admin/class-unbsb-admin.php:273
+#: public/class-unbsb-public.php:126
 msgid "November"
 msgstr "Kasım"
 
-#: admin/class-unbsb-admin.php:250
-#: public/class-unbsb-public.php:112
+#: admin/class-unbsb-admin.php:274
+#: public/class-unbsb-public.php:127
 msgid "December"
 msgstr "Aralık"
 
-#: admin/class-unbsb-admin.php:253
+#: admin/class-unbsb-admin.php:277
 #: admin/partials/admin-staff-schedule.php:143
-#: public/class-unbsb-public.php:115
+#: public/class-unbsb-public.php:130
 msgid "Mon"
 msgstr "Pzt"
 
-#: admin/class-unbsb-admin.php:254
+#: admin/class-unbsb-admin.php:278
 #: admin/partials/admin-staff-schedule.php:144
-#: public/class-unbsb-public.php:116
+#: public/class-unbsb-public.php:131
 msgid "Tue"
 msgstr "Sal"
 
-#: admin/class-unbsb-admin.php:255
+#: admin/class-unbsb-admin.php:279
 #: admin/partials/admin-staff-schedule.php:145
-#: public/class-unbsb-public.php:117
+#: public/class-unbsb-public.php:132
 msgid "Wed"
 msgstr "Çar"
 
-#: admin/class-unbsb-admin.php:256
+#: admin/class-unbsb-admin.php:280
 #: admin/partials/admin-staff-schedule.php:146
-#: public/class-unbsb-public.php:118
+#: public/class-unbsb-public.php:133
 msgid "Thu"
 msgstr "Per"
 
-#: admin/class-unbsb-admin.php:257
+#: admin/class-unbsb-admin.php:281
 #: admin/partials/admin-staff-schedule.php:147
-#: public/class-unbsb-public.php:119
+#: public/class-unbsb-public.php:134
 msgid "Fri"
 msgstr "Cum"
 
-#: admin/class-unbsb-admin.php:258
+#: admin/class-unbsb-admin.php:282
 #: admin/partials/admin-staff-schedule.php:148
-#: public/class-unbsb-public.php:120
+#: public/class-unbsb-public.php:135
 msgid "Sat"
 msgstr "Cmt"
 
-#: admin/class-unbsb-admin.php:259
+#: admin/class-unbsb-admin.php:283
 #: admin/partials/admin-staff-schedule.php:149
-#: public/class-unbsb-public.php:121
+#: public/class-unbsb-public.php:136
 msgid "Sun"
 msgstr "Paz"
 
-#: admin/class-unbsb-admin.php:262
+#: admin/class-unbsb-admin.php:286
 #: admin/partials/admin-bookings.php:97
 #: admin/partials/admin-dashboard.php:184
 #: admin/partials/admin-email-templates.php:207
 msgid "Customer"
 msgstr "Müşteri"
 
-#: admin/class-unbsb-admin.php:263
+#: admin/class-unbsb-admin.php:287
 #: admin/partials/admin-bookings.php:98
 #: admin/partials/admin-bookings.php:234
 #: admin/partials/admin-dashboard.php:185
-#: public/class-unbsb-public.php:87
 #: public/class-unbsb-public.php:93
+#: public/class-unbsb-public.php:99
 #: public/partials/booking-form.php:24
 #: public/partials/booking-form.php:46
 #: public/partials/booking-form.php:60
@@ -389,241 +397,255 @@ msgstr "Müşteri"
 msgid "Service"
 msgstr "Hizmet"
 
-#: admin/class-unbsb-admin.php:265
+#: admin/class-unbsb-admin.php:289
 #: admin/partials/admin-bookings.php:45
 #: admin/partials/admin-bookings.php:102
 #: admin/partials/admin-bookings.php:345
 #: admin/partials/admin-categories.php:32
 #: admin/partials/admin-categories.php:130
 #: admin/partials/admin-dashboard.php:187
+#: admin/partials/admin-promo-codes.php:35
+#: admin/partials/admin-promo-codes.php:362
 #: admin/partials/admin-services.php:35
-#: admin/partials/admin-services.php:233
-#: admin/partials/admin-staff.php:174
+#: admin/partials/admin-services.php:252
+#: admin/partials/admin-staff.php:269
 msgid "Status"
 msgstr "Durum"
 
-#: admin/class-unbsb-admin.php:266
+#: admin/class-unbsb-admin.php:290
 #: admin/partials/admin-bookings.php:101
 #: admin/partials/admin-email-templates.php:218
 #: admin/partials/admin-services.php:34
-#: admin/partials/admin-services.php:184
+#: admin/partials/admin-services.php:191
 #: public/partials/booking-manage.php:145
 msgid "Price"
 msgstr "Fiyat"
 
-#: admin/class-unbsb-admin.php:268
+#: admin/class-unbsb-admin.php:292
 msgid "Not working"
 msgstr "Çalışmıyor"
 
-#: admin/class-unbsb-admin.php:269
+#: admin/class-unbsb-admin.php:293
 msgid "No holidays registered"
 msgstr "Kayıtlı tatil yok"
 
-#: admin/class-unbsb-admin.php:270
+#: admin/class-unbsb-admin.php:294
 msgid "Do you want to delete this holiday?"
 msgstr "Bu tatili silmek istiyor musunuz?"
 
-#: admin/class-unbsb-admin.php:271
+#: admin/class-unbsb-admin.php:295
 msgid "Holiday added"
 msgstr "Tatil eklendi"
 
-#: admin/class-unbsb-admin.php:272
+#: admin/class-unbsb-admin.php:296
 msgid "Holiday deleted"
 msgstr "Tatil silindi"
 
-#: admin/class-unbsb-admin.php:274
+#: admin/class-unbsb-admin.php:298
 msgid "text"
 msgstr "metin"
 
-#: admin/class-unbsb-admin.php:275
+#: admin/class-unbsb-admin.php:299
 #: admin/partials/admin-email-templates.php:187
 msgid "Heading"
 msgstr "Başlık"
 
-#: admin/class-unbsb-admin.php:276
+#: admin/class-unbsb-admin.php:300
 msgid "Paragraph text"
 msgstr "Paragraf metni"
 
-#: admin/class-unbsb-admin.php:277
+#: admin/class-unbsb-admin.php:301
 msgid "Button Text"
 msgstr "Buton Metni"
 
-#: admin/class-unbsb-admin.php:278
+#: admin/class-unbsb-admin.php:302
 msgid "View My Booking"
 msgstr "Randevumu Görüntüle"
 
-#: admin/class-unbsb-admin.php:279
+#: admin/class-unbsb-admin.php:303
 msgid "link text"
 msgstr "bağlantı metni"
 
-#: admin/class-unbsb-admin.php:322
+#: admin/class-unbsb-admin.php:393
 msgid "Revenue"
 msgstr "Gelir"
 
-#: admin/class-unbsb-admin.php:704
-#: admin/class-unbsb-admin.php:744
-#: admin/class-unbsb-admin.php:770
-#: admin/class-unbsb-admin.php:813
-#: admin/class-unbsb-admin.php:839
-#: admin/class-unbsb-admin.php:879
-#: admin/class-unbsb-admin.php:905
-#: admin/class-unbsb-admin.php:932
-#: admin/class-unbsb-admin.php:952
-#: admin/class-unbsb-admin.php:1010
-#: admin/class-unbsb-admin.php:1112
-#: admin/class-unbsb-admin.php:1136
-#: admin/class-unbsb-admin.php:1162
-#: admin/class-unbsb-admin.php:1182
-#: admin/class-unbsb-admin.php:1216
-#: admin/class-unbsb-admin.php:1250
-#: admin/class-unbsb-admin.php:1281
-#: admin/class-unbsb-admin.php:1338
-#: admin/class-unbsb-admin.php:1368
-#: admin/class-unbsb-admin.php:1406
-#: admin/class-unbsb-admin.php:1447
-#: admin/class-unbsb-admin.php:1485
+#: admin/class-unbsb-admin.php:800
+#: admin/class-unbsb-admin.php:867
+#: admin/class-unbsb-admin.php:893
+#: admin/class-unbsb-admin.php:933
+#: admin/class-unbsb-admin.php:959
+#: admin/class-unbsb-admin.php:1008
+#: admin/class-unbsb-admin.php:1034
+#: admin/class-unbsb-admin.php:1101
+#: admin/class-unbsb-admin.php:1127
+#: admin/class-unbsb-admin.php:1203
+#: admin/class-unbsb-admin.php:1229
+#: admin/class-unbsb-admin.php:1256
+#: admin/class-unbsb-admin.php:1276
+#: admin/class-unbsb-admin.php:1334
+#: admin/class-unbsb-admin.php:1436
+#: admin/class-unbsb-admin.php:1460
+#: admin/class-unbsb-admin.php:1486
+#: admin/class-unbsb-admin.php:1506
+#: admin/class-unbsb-admin.php:1540
+#: admin/class-unbsb-admin.php:1574
+#: admin/class-unbsb-admin.php:1605
+#: admin/class-unbsb-admin.php:1662
+#: admin/class-unbsb-admin.php:1692
+#: admin/class-unbsb-admin.php:1730
+#: admin/class-unbsb-admin.php:1771
+#: admin/class-unbsb-admin.php:1809
 msgid "Unauthorized access."
 msgstr "Yetkisiz erişim."
 
-#: admin/class-unbsb-admin.php:728
+#: admin/class-unbsb-admin.php:917
 msgid "Category saved."
 msgstr "Kategori kaydedildi."
 
-#: admin/class-unbsb-admin.php:733
-#: admin/class-unbsb-admin.php:802
-#: admin/class-unbsb-admin.php:868
+#: admin/class-unbsb-admin.php:856
+#: admin/class-unbsb-admin.php:922
+#: admin/class-unbsb-admin.php:997
+#: admin/class-unbsb-admin.php:1090
+#: admin/class-unbsb-admin.php:1192
 msgid "Save error."
 msgstr "Kaydetme hatası."
 
-#: admin/class-unbsb-admin.php:750
-#: admin/class-unbsb-admin.php:819
-#: admin/class-unbsb-admin.php:885
+#: admin/class-unbsb-admin.php:873
+#: admin/class-unbsb-admin.php:939
+#: admin/class-unbsb-admin.php:1014
+#: admin/class-unbsb-admin.php:1107
+#: admin/class-unbsb-admin.php:1209
 msgid "Invalid ID."
 msgstr "Geçersiz ID."
 
-#: admin/class-unbsb-admin.php:757
+#: admin/class-unbsb-admin.php:946
 msgid "Category deleted."
 msgstr "Kategori silindi."
 
-#: admin/class-unbsb-admin.php:759
-#: admin/class-unbsb-admin.php:828
-#: admin/class-unbsb-admin.php:894
+#: admin/class-unbsb-admin.php:882
+#: admin/class-unbsb-admin.php:948
+#: admin/class-unbsb-admin.php:1023
+#: admin/class-unbsb-admin.php:1116
+#: admin/class-unbsb-admin.php:1218
 msgid "Delete error."
 msgstr "Silme hatası."
 
-#: admin/class-unbsb-admin.php:797
+#: admin/class-unbsb-admin.php:992
 msgid "Service saved."
 msgstr "Hizmet kaydedildi."
 
-#: admin/class-unbsb-admin.php:826
+#: admin/class-unbsb-admin.php:1021
 msgid "Service deleted."
 msgstr "Hizmet silindi."
 
-#: admin/class-unbsb-admin.php:863
+#: admin/class-unbsb-admin.php:1084
 msgid "Staff saved."
 msgstr "Personel kaydedildi."
 
-#: admin/class-unbsb-admin.php:892
+#: admin/class-unbsb-admin.php:1114
 msgid "Staff deleted."
 msgstr "Personel silindi."
 
-#: admin/class-unbsb-admin.php:912
+#: admin/class-unbsb-admin.php:1236
 msgid "Invalid parameters."
 msgstr "Geçersiz parametreler."
 
-#: admin/class-unbsb-admin.php:919
+#: admin/class-unbsb-admin.php:1243
 msgid "Status updated."
 msgstr "Durum güncellendi."
 
-#: admin/class-unbsb-admin.php:921
+#: admin/class-unbsb-admin.php:1245
 msgid "Update error."
 msgstr "Güncelleme hatası."
 
-#: admin/class-unbsb-admin.php:976
+#: admin/class-unbsb-admin.php:1300
 msgid "Invalid email address."
 msgstr "Geçersiz e-posta adresi."
 
-#: admin/class-unbsb-admin.php:981
-#: admin/class-unbsb-admin.php:1460
+#: admin/class-unbsb-admin.php:1305
+#: admin/class-unbsb-admin.php:1784
 #: includes/class-unbsb-booking-manager.php:308
 msgid "Invalid date format."
 msgstr "Geçersiz tarih formatı."
 
-#: admin/class-unbsb-admin.php:994
+#: admin/class-unbsb-admin.php:1318
 msgid "Booking created successfully."
 msgstr "Randevu başarıyla oluşturuldu."
 
-#: admin/class-unbsb-admin.php:999
+#: admin/class-unbsb-admin.php:1323
 msgid "An error occurred while creating the booking."
 msgstr "Randevu oluşturulurken bir hata oluştu."
 
-#: admin/class-unbsb-admin.php:1102
+#: admin/class-unbsb-admin.php:1426
 msgid "Settings saved."
 msgstr "Ayarlar kaydedildi."
 
-#: admin/class-unbsb-admin.php:1120
-#: admin/class-unbsb-admin.php:1374
-#: admin/class-unbsb-admin.php:1412
+#: admin/class-unbsb-admin.php:1444
+#: admin/class-unbsb-admin.php:1698
+#: admin/class-unbsb-admin.php:1736
 msgid "Invalid staff."
 msgstr "Geçersiz personel."
 
-#: admin/class-unbsb-admin.php:1126
+#: admin/class-unbsb-admin.php:1450
 msgid "Working hours saved."
 msgstr "Çalışma saatleri kaydedildi."
 
-#: admin/class-unbsb-admin.php:1142
+#: admin/class-unbsb-admin.php:1466
 msgid "Phone number is required."
 msgstr "Telefon numarası gereklidir."
 
-#: admin/class-unbsb-admin.php:1190
-#: admin/class-unbsb-admin.php:1223
+#: admin/class-unbsb-admin.php:1514
+#: admin/class-unbsb-admin.php:1547
 msgid "Invalid template data."
 msgstr "Geçersiz şablon verisi."
 
-#: admin/class-unbsb-admin.php:1206
+#: admin/class-unbsb-admin.php:1530
 msgid "SMS templates saved."
 msgstr "SMS şablonları kaydedildi."
 
-#: admin/class-unbsb-admin.php:1240
+#: admin/class-unbsb-admin.php:1564
 msgid "Email templates saved."
 msgstr "E-posta şablonları kaydedildi."
 
-#: admin/class-unbsb-admin.php:1257
+#: admin/class-unbsb-admin.php:1143
+#: admin/class-unbsb-admin.php:1581
+#: public/class-unbsb-public.php:655
 msgid "Please enter a valid email address."
 msgstr "Lütfen geçerli bir e-posta adresi girin."
 
-#: admin/class-unbsb-admin.php:1261
-#: admin/class-unbsb-admin.php:1287
+#: admin/class-unbsb-admin.php:1585
+#: admin/class-unbsb-admin.php:1611
 msgid "Template type is required."
 msgstr "Şablon türü gereklidir."
 
-#: admin/class-unbsb-admin.php:1294
+#: admin/class-unbsb-admin.php:1618
 #: includes/class-unbsb-notification.php:841
 msgid "Template not found."
 msgstr "Şablon bulunamadı."
 
-#: admin/class-unbsb-admin.php:1358
+#: admin/class-unbsb-admin.php:1682
 msgid "Email settings saved."
 msgstr "E-posta ayarları kaydedildi."
 
-#: admin/class-unbsb-admin.php:1437
+#: admin/class-unbsb-admin.php:1761
 msgid "Schedule saved."
 msgstr "Program kaydedildi."
 
-#: admin/class-unbsb-admin.php:1455
-#: admin/class-unbsb-admin.php:1492
+#: admin/class-unbsb-admin.php:1779
+#: admin/class-unbsb-admin.php:1816
 msgid "Invalid data."
 msgstr "Geçersiz veri."
 
-#: admin/class-unbsb-admin.php:1469
+#: admin/class-unbsb-admin.php:1793
 msgid "Holiday added."
 msgstr "Tatil eklendi."
 
-#: admin/class-unbsb-admin.php:1474
+#: admin/class-unbsb-admin.php:1798
 msgid "A holiday already exists on this date."
 msgstr "Bu tarihte zaten bir tatil mevcut."
 
-#: admin/class-unbsb-admin.php:1498
+#: admin/class-unbsb-admin.php:1822
 msgid "Holiday deleted."
 msgstr "Tatil silindi."
 
@@ -636,6 +658,7 @@ msgstr "Tüm Durumlar"
 #: admin/partials/admin-dashboard.php:49
 #: admin/partials/admin-dashboard.php:273
 #: includes/class-unbsb-notification.php:759
+#: public/partials/account.php:18
 #: public/partials/booking-manage.php:64
 msgid "Pending"
 msgstr "Beklemede"
@@ -644,6 +667,7 @@ msgstr "Beklemede"
 #: admin/partials/admin-bookings.php:360
 #: admin/partials/admin-dashboard.php:274
 #: includes/class-unbsb-notification.php:760
+#: public/partials/account.php:19
 #: public/partials/booking-manage.php:65
 msgid "Confirmed"
 msgstr "Onaylandı"
@@ -651,6 +675,7 @@ msgstr "Onaylandı"
 #: admin/partials/admin-bookings.php:20
 #: admin/partials/admin-dashboard.php:275
 #: includes/class-unbsb-notification.php:761
+#: public/partials/account.php:20
 #: public/partials/booking-manage.php:66
 msgid "Cancelled"
 msgstr "İptal Edildi"
@@ -658,6 +683,7 @@ msgstr "İptal Edildi"
 #: admin/partials/admin-bookings.php:21
 #: admin/partials/admin-dashboard.php:276
 #: includes/class-unbsb-notification.php:762
+#: public/partials/account.php:21
 #: public/partials/booking-manage.php:67
 msgid "Completed"
 msgstr "Tamamlandı"
@@ -665,6 +691,7 @@ msgstr "Tamamlandı"
 #: admin/partials/admin-bookings.php:22
 #: admin/partials/admin-dashboard.php:277
 #: includes/class-unbsb-notification.php:763
+#: public/partials/account.php:22
 #: public/partials/booking-manage.php:68
 msgid "No Show"
 msgstr "Gelmedi"
@@ -686,15 +713,17 @@ msgid "All Staff"
 msgstr "Tüm Personel"
 
 #: admin/partials/admin-bookings.php:68
+#: admin/partials/admin-promo-codes.php:348
 msgid "Start Date"
 msgstr "Başlangıç Tarihi"
 
 #: admin/partials/admin-bookings.php:73
+#: admin/partials/admin-promo-codes.php:353
 msgid "End Date"
 msgstr "Bitiş Tarihi"
 
 #: admin/partials/admin-bookings.php:82
-#: admin/partials/admin-staff.php:283
+#: admin/partials/admin-staff.php:378
 msgid "Clear"
 msgstr "Temizle"
 
@@ -703,7 +732,7 @@ msgid "ID"
 msgstr "ID"
 
 #: admin/partials/admin-bookings.php:100
-#: public/class-unbsb-public.php:89
+#: public/class-unbsb-public.php:95
 #: public/partials/booking-form.php:32
 #: public/partials/booking-form.php:50
 #: public/partials/booking-form.php:64
@@ -713,7 +742,8 @@ msgstr "Tarih/Saat"
 
 #: admin/partials/admin-bookings.php:103
 #: admin/partials/admin-categories.php:33
-#: admin/partials/admin-customers.php:28
+#: admin/partials/admin-customers.php:33
+#: admin/partials/admin-promo-codes.php:36
 #: admin/partials/admin-services.php:36
 msgid "Actions"
 msgstr "İşlemler"
@@ -761,13 +791,13 @@ msgstr "Diğer"
 #: admin/partials/admin-bookings.php:286
 #: admin/partials/admin-dashboard.php:186
 #: admin/partials/admin-email-templates.php:215
-#: public/class-unbsb-public.php:95
+#: public/class-unbsb-public.php:101
 msgid "Date"
 msgstr "Tarih"
 
 #: admin/partials/admin-bookings.php:293
 #: admin/partials/admin-email-templates.php:216
-#: public/class-unbsb-public.php:96
+#: public/class-unbsb-public.php:102
 msgid "Time"
 msgstr "Saat"
 
@@ -777,9 +807,11 @@ msgid "Customer Information"
 msgstr "Müşteri Bilgileri"
 
 #: admin/partials/admin-bookings.php:323
-#: admin/partials/admin-customers.php:24
-#: admin/partials/admin-staff.php:105
-#: public/partials/booking-form.php:254
+#: admin/partials/admin-customers.php:28
+#: admin/partials/admin-customers.php:101
+#: admin/partials/admin-staff.php:149
+#: public/partials/account.php:156
+#: public/partials/booking-form.php:332
 msgid "Full Name"
 msgstr "Ad Soyad"
 
@@ -788,22 +820,29 @@ msgid "Customer full name"
 msgstr "Müşteri ad soyad"
 
 #: admin/partials/admin-bookings.php:327
-#: admin/partials/admin-customers.php:25
+#: admin/partials/admin-customers.php:29
+#: admin/partials/admin-customers.php:109
 #: admin/partials/admin-settings.php:89
-#: admin/partials/admin-staff.php:113
-#: public/partials/booking-form.php:260
+#: admin/partials/admin-staff.php:157
+#: public/partials/account.php:133
+#: public/partials/account.php:161
+#: public/partials/booking-form.php:338
 msgid "Email"
 msgstr "E-posta"
 
 #: admin/partials/admin-bookings.php:333
-#: admin/partials/admin-customers.php:26
-#: admin/partials/admin-staff.php:120
-#: public/partials/booking-form.php:264
+#: admin/partials/admin-customers.php:30
+#: admin/partials/admin-customers.php:116
+#: admin/partials/admin-staff.php:164
+#: public/partials/account.php:166
+#: public/partials/booking-form.php:342
 msgid "Phone"
 msgstr "Telefon"
 
 #: admin/partials/admin-bookings.php:370
-#: public/partials/booking-form.php:270
+#: admin/partials/admin-customers.php:31
+#: admin/partials/admin-customers.php:123
+#: public/partials/booking-form.php:348
 msgid "Notes"
 msgstr "Notlar"
 
@@ -829,10 +868,12 @@ msgstr "Yalnızca yönetici görebilir..."
 
 #: admin/partials/admin-bookings.php:394
 #: admin/partials/admin-categories.php:166
-#: admin/partials/admin-services.php:260
+#: admin/partials/admin-customers.php:129
+#: admin/partials/admin-promo-codes.php:389
+#: admin/partials/admin-services.php:279
 #: admin/partials/admin-staff-schedule.php:216
-#: admin/partials/admin-staff.php:208
-#: admin/partials/admin-staff.php:291
+#: admin/partials/admin-staff.php:303
+#: admin/partials/admin-staff.php:386
 msgid "Cancel"
 msgstr "İptal"
 
@@ -868,12 +909,14 @@ msgid "Order"
 msgstr "Sıra"
 
 #: admin/partials/admin-categories.php:61
-#: admin/partials/admin-services.php:71
+#: admin/partials/admin-promo-codes.php:152
+#: admin/partials/admin-services.php:78
 msgid "Edit"
 msgstr "Düzenle"
 
 #: admin/partials/admin-categories.php:64
-#: admin/partials/admin-services.php:74
+#: admin/partials/admin-promo-codes.php:155
+#: admin/partials/admin-services.php:81
 msgid "Delete"
 msgstr "Sil"
 
@@ -894,7 +937,9 @@ msgid "e.g. Hair Care, Manicure, Massage"
 msgstr "ör. Saç Bakımı, Manikür, Masaj"
 
 #: admin/partials/admin-categories.php:112
-#: admin/partials/admin-services.php:158
+#: admin/partials/admin-promo-codes.php:29
+#: admin/partials/admin-promo-codes.php:212
+#: admin/partials/admin-services.php:165
 msgid "Description"
 msgstr "Açıklama"
 
@@ -903,8 +948,8 @@ msgid "Short description about the category..."
 msgstr "Kategori hakkında kısa açıklama..."
 
 #: admin/partials/admin-categories.php:118
-#: admin/partials/admin-services.php:146
-#: admin/partials/admin-services.php:225
+#: admin/partials/admin-services.php:153
+#: admin/partials/admin-services.php:244
 msgid "Color"
 msgstr "Renk"
 
@@ -921,21 +966,19 @@ msgid "Quick Colors:"
 msgstr "Hızlı Renkler:"
 
 #: admin/partials/admin-categories.php:170
-#: admin/partials/admin-services.php:264
-#: admin/partials/admin-staff.php:212
-#: admin/partials/admin-staff.php:295
+#: admin/partials/admin-customers.php:132
+#: admin/partials/admin-promo-codes.php:393
+#: admin/partials/admin-services.php:283
+#: admin/partials/admin-staff.php:307
+#: admin/partials/admin-staff.php:390
 msgid "Save"
 msgstr "Kaydet"
 
-#: admin/partials/admin-customers.php:27
+#: admin/partials/admin-customers.php:32
 msgid "Registration Date"
 msgstr "Kayıt Tarihi"
 
-#: admin/partials/admin-customers.php:44
-msgid "View Bookings"
-msgstr "Randevuları Görüntüle"
-
-#: admin/partials/admin-customers.php:54
+#: admin/partials/admin-customers.php:70
 msgid "No customers found yet."
 msgstr "Henüz müşteri bulunamadı."
 
@@ -973,7 +1016,7 @@ msgid "Recent Bookings"
 msgstr "Son Randevular"
 
 #: admin/partials/admin-dashboard.php:176
-#: public/partials/booking-form.php:136
+#: public/partials/booking-form.php:143
 msgid "All"
 msgstr "Tümü"
 
@@ -1116,8 +1159,8 @@ msgstr "Randevu"
 
 #: admin/partials/admin-email-templates.php:217
 #: admin/partials/admin-services.php:33
-#: admin/partials/admin-services.php:174
-#: public/class-unbsb-public.php:97
+#: admin/partials/admin-services.php:181
+#: public/class-unbsb-public.php:103
 msgid "Duration"
 msgstr "Süre"
 
@@ -1171,84 +1214,85 @@ msgid "Email Preview"
 msgstr "E-posta Önizleme"
 
 #: admin/partials/admin-services.php:31
-#: admin/partials/admin-services.php:126
+#: admin/partials/admin-services.php:133
 msgid "Service Name"
 msgstr "Hizmet Adı"
 
 #: admin/partials/admin-services.php:32
-#: admin/partials/admin-services.php:131
+#: admin/partials/admin-services.php:138
 msgid "Category"
 msgstr "Kategori"
 
 #: admin/partials/admin-services.php:62
-#: admin/partials/admin-services.php:178
-#: admin/partials/admin-services.php:208
-#: admin/partials/admin-services.php:217
-#: admin/partials/admin-staff.php:147
+#: admin/partials/admin-services.php:185
+#: admin/partials/admin-services.php:227
+#: admin/partials/admin-services.php:236
+#: admin/partials/admin-staff.php:92
+#: admin/partials/admin-staff.php:110
 #: includes/class-unbsb-notification.php:588
 #: public/class-unbsb-public.php:85
-#: public/partials/booking-form.php:160
-#: public/partials/booking-form.php:188
+#: public/partials/booking-form.php:246
+#: public/partials/service-card-inner.php:27
 msgid "min"
 msgstr "dk"
 
-#: admin/partials/admin-services.php:86
+#: admin/partials/admin-services.php:93
 msgid "No services added yet."
 msgstr "Henüz hizmet eklenmedi."
 
-#: admin/partials/admin-services.php:88
+#: admin/partials/admin-services.php:95
 msgid "Add First Service"
 msgstr "İlk Hizmeti Ekle"
 
-#: admin/partials/admin-services.php:107
+#: admin/partials/admin-services.php:114
 msgid "Enter service details"
 msgstr "Hizmet detaylarını girin"
 
-#: admin/partials/admin-services.php:122
+#: admin/partials/admin-services.php:129
 msgid "Basic Information"
 msgstr "Temel Bilgiler"
 
-#: admin/partials/admin-services.php:127
+#: admin/partials/admin-services.php:134
 msgid "e.g. Haircut"
 msgstr "ör. Saç Kesimi"
 
-#: admin/partials/admin-services.php:134
+#: admin/partials/admin-services.php:141
 msgid "-- Select Category --"
 msgstr "-- Kategori Seçin --"
 
-#: admin/partials/admin-services.php:139
+#: admin/partials/admin-services.php:146
 msgid "Add New Category"
 msgstr "Yeni Kategori Ekle"
 
-#: admin/partials/admin-services.php:145
+#: admin/partials/admin-services.php:152
 msgid "Category name"
 msgstr "Kategori adı"
 
-#: admin/partials/admin-services.php:159
+#: admin/partials/admin-services.php:166
 msgid "Short description about the service..."
 msgstr "Hizmet hakkında kısa açıklama..."
 
-#: admin/partials/admin-services.php:167
+#: admin/partials/admin-services.php:174
 msgid "Duration & Price"
 msgstr "Süre ve Fiyat"
 
-#: admin/partials/admin-services.php:201
+#: admin/partials/admin-services.php:220
 msgid "Additional Settings"
 msgstr "Ek Ayarlar"
 
-#: admin/partials/admin-services.php:205
+#: admin/partials/admin-services.php:224
 msgid "Buffer Before"
 msgstr "Öncesi Tampon Süresi"
 
-#: admin/partials/admin-services.php:210
+#: admin/partials/admin-services.php:229
 msgid "Preparation time"
 msgstr "Hazırlık süresi"
 
-#: admin/partials/admin-services.php:214
+#: admin/partials/admin-services.php:233
 msgid "Buffer After"
 msgstr "Sonrası Tampon Süresi"
 
-#: admin/partials/admin-services.php:219
+#: admin/partials/admin-services.php:238
 msgid "Cleanup time"
 msgstr "Temizlik süresi"
 
@@ -1313,7 +1357,7 @@ msgid "Minimum minutes before a booking can be made"
 msgstr "Randevu alınabilmesi için minimum dakika"
 
 #: admin/partials/admin-settings.php:179
-#: public/partials/services-list.php:29
+#: public/partials/services-list.php:30
 msgid "minutes"
 msgstr "dakika"
 
@@ -1548,6 +1592,8 @@ msgid "Username"
 msgstr "Kullanıcı Adı"
 
 #: admin/partials/admin-settings.php:494
+#: public/partials/account.php:138
+#: public/partials/account.php:171
 msgid "Password"
 msgstr "Şifre"
 
@@ -1615,6 +1661,7 @@ msgstr "SMS Şablonları"
 msgid "Variables:"
 msgstr "Değişkenler:"
 
+#: admin/class-unbsb-admin.php:255
 #: admin/partials/admin-settings.php:610
 msgid "Save Templates"
 msgstr "Şablonları Kaydet"
@@ -1887,37 +1934,37 @@ msgid "Save Changes"
 msgstr "Değişiklikleri Kaydet"
 
 #: admin/partials/admin-staff-schedule.php:18
-#: admin/partials/admin-staff.php:241
+#: admin/partials/admin-staff.php:336
 msgid "Monday"
 msgstr "Pazartesi"
 
 #: admin/partials/admin-staff-schedule.php:19
-#: admin/partials/admin-staff.php:242
+#: admin/partials/admin-staff.php:337
 msgid "Tuesday"
 msgstr "Salı"
 
 #: admin/partials/admin-staff-schedule.php:20
-#: admin/partials/admin-staff.php:243
+#: admin/partials/admin-staff.php:338
 msgid "Wednesday"
 msgstr "Çarşamba"
 
 #: admin/partials/admin-staff-schedule.php:21
-#: admin/partials/admin-staff.php:244
+#: admin/partials/admin-staff.php:339
 msgid "Thursday"
 msgstr "Perşembe"
 
 #: admin/partials/admin-staff-schedule.php:22
-#: admin/partials/admin-staff.php:245
+#: admin/partials/admin-staff.php:340
 msgid "Friday"
 msgstr "Cuma"
 
 #: admin/partials/admin-staff-schedule.php:23
-#: admin/partials/admin-staff.php:246
+#: admin/partials/admin-staff.php:341
 msgid "Saturday"
 msgstr "Cumartesi"
 
 #: admin/partials/admin-staff-schedule.php:24
-#: admin/partials/admin-staff.php:247
+#: admin/partials/admin-staff.php:342
 msgid "Sunday"
 msgstr "Pazar"
 
@@ -1986,71 +2033,71 @@ msgstr "Sebep (isteğe bağlı)"
 msgid "e.g. Annual leave, Sick leave..."
 msgstr "ör. Yıllık izin, Hastalık izni..."
 
-#: admin/partials/admin-staff.php:50
+#: admin/partials/admin-staff.php:52
 msgid "Hours"
 msgstr "Saatler"
 
-#: admin/partials/admin-staff.php:65
+#: admin/partials/admin-staff.php:67
 msgid "No staff added yet."
 msgstr "Henüz personel eklenmedi."
 
-#: admin/partials/admin-staff.php:67
+#: admin/partials/admin-staff.php:69
 msgid "Add First Staff"
 msgstr "İlk Personeli Ekle"
 
-#: admin/partials/admin-staff.php:86
+#: admin/partials/admin-staff.php:130
 msgid "Enter staff details"
 msgstr "Personel bilgilerini girin"
 
-#: admin/partials/admin-staff.php:101
+#: admin/partials/admin-staff.php:145
 msgid "Personal Information"
 msgstr "Kişisel Bilgiler"
 
-#: admin/partials/admin-staff.php:106
+#: admin/partials/admin-staff.php:150
 msgid "e.g. John Doe"
 msgstr "ör. Ahmet Yılmaz"
 
-#: admin/partials/admin-staff.php:127
+#: admin/partials/admin-staff.php:171
 msgid "Biography"
 msgstr "Biyografi"
 
-#: admin/partials/admin-staff.php:128
+#: admin/partials/admin-staff.php:172
 msgid "A short introduction..."
 msgstr "Kısa bir tanıtım..."
 
-#: admin/partials/admin-staff.php:136
+#: admin/partials/admin-staff.php:180
 msgid "Offered Services"
 msgstr "Sunulan Hizmetler"
 
-#: admin/partials/admin-staff.php:158
+#: admin/partials/admin-staff.php:253
 msgid "No services added yet. Please add services first."
 msgstr "Henüz hizmet eklenmedi. Lütfen önce hizmet ekleyin."
 
-#: admin/partials/admin-staff.php:197
+#: admin/partials/admin-staff.php:292
 msgid "You can edit working hours from the \"Hours\" button after saving the staff member."
 msgstr "Personeli kaydettikten sonra \"Saatler\" butonundan çalışma saatlerini düzenleyebilirsiniz."
 
-#: admin/partials/admin-staff.php:228
+#: admin/partials/admin-staff.php:323
 msgid "Working Hours"
 msgstr "Çalışma Saatleri"
 
-#: admin/partials/admin-staff.php:258
+#: admin/partials/admin-staff.php:353
 msgid "Open"
 msgstr "Açık"
 
-#: admin/partials/admin-staff.php:259
+#: admin/partials/admin-staff.php:354
 msgid "Closed"
 msgstr "Kapalı"
 
-#: admin/partials/admin-staff.php:275
+#: admin/partials/admin-staff.php:370
 msgid "Quick Set:"
 msgstr "Hızlı Ayarla:"
 
-#: admin/partials/admin-staff.php:277
+#: admin/partials/admin-staff.php:372
 msgid "Weekdays (09-18)"
 msgstr "Hafta İçi (09-18)"
 
-#: admin/partials/admin-staff.php:280
+#: admin/partials/admin-staff.php:375
 msgid "All Days"
 msgstr "Tüm Günler"
 
@@ -2098,8 +2145,8 @@ msgstr "Randevuya %d saatten az kaldığı için yeniden planlanamaz."
 
 #: includes/class-unbsb-booking-manager.php:217
 #: includes/class-unbsb-booking-manager.php:289
-#: includes/class-unbsb-rest-api.php:395
-#: includes/class-unbsb-rest-api.php:505
+#: includes/class-unbsb-rest-api.php:437
+#: includes/class-unbsb-rest-api.php:547
 #: public/partials/booking-manage.php:36
 msgid "Booking not found."
 msgstr "Randevu bulunamadı."
@@ -2277,36 +2324,36 @@ msgstr "E-posta gönderilemedi."
 msgid "Too many requests. Please try again in %d seconds."
 msgstr "Çok fazla istek. Lütfen %d saniye sonra tekrar deneyin."
 
-#: includes/class-unbsb-rest-api.php:361
-#: public/class-unbsb-public.php:333
+#: includes/class-unbsb-rest-api.php:403
+#: public/class-unbsb-public.php:362
 msgid "Spam detected."
 msgstr "Spam tespit edildi."
 
-#: includes/class-unbsb-rest-api.php:376
+#: includes/class-unbsb-rest-api.php:418
 msgid "Your booking has been created successfully."
 msgstr "Randevunuz başarıyla oluşturuldu."
 
-#: includes/class-unbsb-rest-api.php:458
+#: includes/class-unbsb-rest-api.php:500
 msgid "Date and time are required."
 msgstr "Tarih ve saat gereklidir."
 
 #. translators: %s: parameter name
-#: includes/class-unbsb-rest-api.php:597
+#: includes/class-unbsb-rest-api.php:782
 #, php-format
 msgid "Invalid date format (%s). Format must be: YYYY-MM-DD."
 msgstr "Geçersiz tarih formatı (%s). Format şu şekilde olmalıdır: YYYY-MM-DD."
 
-#: includes/class-unbsb-rest-api.php:609
+#: includes/class-unbsb-rest-api.php:794
 msgid "Invalid date value."
 msgstr "Geçersiz tarih değeri."
 
 #. translators: %s: parameter name
-#: includes/class-unbsb-rest-api.php:633
+#: includes/class-unbsb-rest-api.php:818
 #, php-format
 msgid "Invalid month format (%s). Format must be: YYYY-MM."
 msgstr "Geçersiz ay formatı (%s). Format şu şekilde olmalıdır: YYYY-MM."
 
-#: includes/class-unbsb-rest-api.php:646
+#: includes/class-unbsb-rest-api.php:831
 msgid "Invalid month value (must be between 1-12)."
 msgstr "Geçersiz ay değeri (1-12 arasında olmalıdır)."
 
@@ -2347,6 +2394,7 @@ msgid "Warning"
 msgstr "Uyarı"
 
 #: includes/class-unbsb-security-logger.php:520
+#: public/class-unbsb-public.php:594
 msgid "Error"
 msgstr "Hata"
 
@@ -2354,11 +2402,11 @@ msgstr "Hata"
 msgid "Critical"
 msgstr "Kritik"
 
-#: includes/class-unbsb-seo.php:195
+#: includes/class-unbsb-seo.php:197
 msgid "Our Services"
 msgstr "Hizmetlerimiz"
 
-#: includes/class-unbsb-seo.php:267
+#: includes/class-unbsb-seo.php:269
 msgid "Book online - fast and easy!"
 msgstr "Çevrimiçi randevu alın - hızlı ve kolay!"
 
@@ -2384,7 +2432,11 @@ msgstr "%s alanı gereklidir."
 msgid "Another booking exists in this time slot."
 msgstr "Bu zaman diliminde başka bir randevu mevcut."
 
+#: admin/class-unbsb-admin.php:309
+#: admin/partials/admin-staff.php:207
+#: admin/partials/admin-staff.php:236
 #: includes/models/class-unbsb-service.php:186
+#: public/partials/booking-form.php:208
 msgid "Uncategorized"
 msgstr "Kategorisiz"
 
@@ -2469,7 +2521,7 @@ msgid "Select a date"
 msgstr "Bir tarih seçin"
 
 #: public/class-unbsb-public.php:76
-#: public/class-unbsb-public.php:281
+#: public/class-unbsb-public.php:310
 msgid "Select a time"
 msgstr "Bir saat seçin"
 
@@ -2486,7 +2538,7 @@ msgid "No staff available."
 msgstr "Müsait personel yok."
 
 #: public/class-unbsb-public.php:81
-#: public/class-unbsb-public.php:398
+#: public/class-unbsb-public.php:440
 msgid "Your booking has been created successfully!"
 msgstr "Randevunuz başarıyla oluşturuldu!"
 
@@ -2495,11 +2547,11 @@ msgid "An error occurred. Please try again."
 msgstr "Bir hata oluştu. Lütfen tekrar deneyin."
 
 #: public/class-unbsb-public.php:84
-#: public/partials/booking-form.php:315
+#: public/partials/booking-form.php:408
 msgid "Book Now"
 msgstr "Hemen Randevu Al"
 
-#: public/class-unbsb-public.php:90
+#: public/class-unbsb-public.php:96
 #: public/partials/booking-form.php:36
 #: public/partials/booking-form.php:54
 #: public/partials/booking-form.php:68
@@ -2507,31 +2559,32 @@ msgstr "Hemen Randevu Al"
 msgid "Details"
 msgstr "Detaylar"
 
-#: public/class-unbsb-public.php:98
+#: public/class-unbsb-public.php:104
 msgid "Total"
 msgstr "Toplam"
 
-#: public/class-unbsb-public.php:282
+#: public/class-unbsb-public.php:311
 msgid "No available slots"
 msgstr "Müsait zaman dilimi yok"
 
-#: public/class-unbsb-public.php:284
+#: public/class-unbsb-public.php:313
 msgid "Your booking has been updated!"
 msgstr "Randevunuz güncellendi!"
 
-#: public/class-unbsb-public.php:285
+#: public/class-unbsb-public.php:314
 msgid "Your booking has been cancelled!"
 msgstr "Randevunuz iptal edildi!"
 
-#: public/class-unbsb-public.php:307
+#: public/class-unbsb-public.php:336
 msgid "Missing parameters."
 msgstr "Eksik parametreler."
 
-#: public/class-unbsb-public.php:413
+#: public/class-unbsb-public.php:532
+#: public/class-unbsb-public.php:743
 msgid "Service ID is required."
 msgstr "Hizmet ID gereklidir."
 
-#: public/class-unbsb-public.php:443
+#: public/class-unbsb-public.php:562
 msgid "Staff ID is required."
 msgstr "Personel ID gereklidir."
 
@@ -2543,73 +2596,77 @@ msgstr "Hizmet Seçin (Birden fazla seçebilirsiniz)"
 msgid "Select a Service"
 msgstr "Hizmet Seçin"
 
-#: public/partials/booking-form.php:183
+#: public/partials/booking-form.php:241
 msgid "Selected Services"
 msgstr "Seçilen Hizmetler"
 
-#: public/partials/booking-form.php:188
+#: public/partials/booking-form.php:246
 msgid "Total:"
 msgstr "Toplam:"
 
-#: public/partials/booking-form.php:201
-#: public/partials/services-list.php:44
+#: public/partials/booking-form.php:259
+#: public/partials/services-list.php:64
 msgid "No services available yet."
 msgstr "Henüz hizmet mevcut değil."
 
-#: public/partials/booking-form.php:209
+#: public/partials/booking-form.php:267
 msgid "Select Staff"
 msgstr "Personel Seçin"
 
-#: public/partials/booking-form.php:219
+#: public/partials/booking-form.php:277
 msgid "Select Date and Time"
 msgstr "Tarih ve Saat Seçin"
 
-#: public/partials/booking-form.php:239
+#: public/partials/booking-form.php:297
 msgid "Available Times"
 msgstr "Müsait Saatler"
 
-#: public/partials/booking-form.php:241
+#: public/partials/booking-form.php:299
 #: public/partials/booking-manage.php:211
 msgid "Select a date first"
 msgstr "Önce bir tarih seçin"
 
-#: public/partials/booking-form.php:250
+#: public/partials/booking-form.php:308
 msgid "Enter Your Information"
 msgstr "Bilgilerinizi Girin"
 
-#: public/partials/booking-form.php:255
+#: public/partials/account.php:157
+#: public/partials/booking-form.php:333
 msgid "Your full name"
 msgstr "Adınız soyadınız"
 
-#: public/partials/booking-form.php:261
+#: public/partials/account.php:134
+#: public/partials/account.php:162
+#: public/partials/booking-form.php:339
 msgid "example@email.com"
 msgstr "ornek@email.com"
 
-#: public/partials/booking-form.php:265
+#: public/partials/account.php:167
+#: public/partials/booking-form.php:343
 msgid "+1 XXX XXX XXXX"
 msgstr "+90 XXX XXX XXXX"
 
-#: public/partials/booking-form.php:271
+#: public/partials/booking-form.php:349
 msgid "Any additional notes (optional)"
 msgstr "Ek notlar (isteğe bağlı)"
 
-#: public/partials/booking-form.php:284
+#: public/partials/booking-form.php:377
 msgid "Booking Summary"
 msgstr "Randevu Özeti"
 
-#: public/partials/booking-form.php:296
+#: public/partials/booking-form.php:389
 msgid "Your Booking is Received!"
 msgstr "Randevunuz Alındı!"
 
-#: public/partials/booking-form.php:297
+#: public/partials/booking-form.php:390
 msgid "Your booking details will be sent to your email address."
 msgstr "Randevu detaylarınız e-posta adresinize gönderilecektir."
 
-#: public/partials/booking-form.php:307
+#: public/partials/booking-form.php:400
 msgid "Back"
 msgstr "Geri"
 
-#: public/partials/booking-form.php:310
+#: public/partials/booking-form.php:403
 msgid "Continue"
 msgstr "Devam"
 
@@ -2673,3 +2730,727 @@ msgstr "Evet, İptal Et"
 #: public/partials/staff-list.php:51
 msgid "No staff available yet."
 msgstr "Henüz müsait personel yok."
+
+#: admin/class-unbsb-admin.php:121
+#: admin/class-unbsb-admin.php:122
+#: admin/class-unbsb-admin.php:321
+#: admin/partials/admin-promo-codes.php:15
+msgid "Promo Codes"
+msgstr "Promosyon Kodları"
+
+#: admin/class-unbsb-admin.php:148
+#: admin/class-unbsb-admin.php:149
+#: admin/partials/admin-export-import.php:16
+msgid "Export / Import"
+msgstr "Dışa / İçe Aktar"
+
+#: admin/class-unbsb-admin.php:241
+#: admin/partials/admin-customers.php:18
+#: admin/partials/admin-customers.php:90
+msgid "New Customer"
+msgstr "Yeni Müşteri"
+
+#: admin/class-unbsb-admin.php:242
+msgid "Edit Customer"
+msgstr "Müşteriyi Düzenle"
+
+#: admin/class-unbsb-admin.php:256
+msgid "Send Test SMS"
+msgstr "Test SMS Gönder"
+
+#: admin/class-unbsb-admin.php:257
+msgid "Checking..."
+msgstr "Kontrol ediliyor..."
+
+#: admin/class-unbsb-admin.php:305
+#: admin/partials/admin-promo-codes.php:18
+#: admin/partials/admin-promo-codes.php:187
+msgid "New Promo Code"
+msgstr "Yeni Promosyon Kodu"
+
+#: admin/class-unbsb-admin.php:306
+msgid "Edit Promo Code"
+msgstr "Promosyon Kodunu Düzenle"
+
+#: admin/class-unbsb-admin.php:308
+msgid "Select All"
+msgstr "Tümünü Seç"
+
+#: admin/class-unbsb-admin.php:310
+#: admin/partials/admin-staff.php:100
+msgid "Custom Price"
+msgstr "Özel Fiyat"
+
+#: admin/class-unbsb-admin.php:311
+#: admin/partials/admin-staff.php:107
+msgid "Custom Duration"
+msgstr "Özel Süre"
+
+#: admin/class-unbsb-admin.php:313
+msgid "Exporting..."
+msgstr "Dışa aktarılıyor..."
+
+#: admin/class-unbsb-admin.php:314
+msgid "Data exported successfully!"
+msgstr "Veriler başarıyla dışa aktarıldı!"
+
+#: admin/class-unbsb-admin.php:315
+msgid "Export failed. Please try again."
+msgstr "Dışa aktarma başarısız. Lütfen tekrar deneyin."
+
+#: admin/class-unbsb-admin.php:322
+msgid "Importing..."
+msgstr "İçe aktarılıyor..."
+
+#: admin/class-unbsb-admin.php:323
+msgid "Data imported successfully!"
+msgstr "Veriler başarıyla içe aktarıldı!"
+
+#: admin/class-unbsb-admin.php:324
+msgid "Import failed. Please try again."
+msgstr "İçe aktarma başarısız. Lütfen tekrar deneyin."
+
+#: admin/class-unbsb-admin.php:325
+msgid "Please select a JSON file to import."
+msgstr "Lütfen içe aktarılacak bir JSON dosyası seçin."
+
+#: admin/class-unbsb-admin.php:326
+msgid "Invalid file type. Please select a .json file."
+msgstr "Geçersiz dosya türü. Lütfen bir .json dosyası seçin."
+
+#: admin/class-unbsb-admin.php:327
+msgid "File is too large. Maximum allowed size is 50MB."
+msgstr "Dosya çok büyük. İzin verilen maksimum boyut 50MB."
+
+#: admin/class-unbsb-admin.php:328
+msgid "Are you sure? Replace mode will permanently delete ALL existing data and replace it with imported data. This action cannot be undone!"
+msgstr "Emin misiniz? Değiştirme modu tüm mevcut verileri kalıcı olarak silecek ve içe aktarılan verilerle değiştirecektir. Bu işlem geri alınamaz!"
+
+#: admin/class-unbsb-admin.php:329
+#: admin/partials/admin-export-import.php:130
+msgid "Preparing import..."
+msgstr "İçe aktarma hazırlanıyor..."
+
+#: admin/class-unbsb-admin.php:330
+#: admin/partials/admin-export-import.php:122
+msgid "Importing data..."
+msgstr "Veriler içe aktarılıyor..."
+
+#: admin/class-unbsb-admin.php:331
+msgid "Import complete!"
+msgstr "İçe aktarma tamamlandı!"
+
+#: admin/class-unbsb-admin.php:332
+msgid "records imported"
+msgstr "kayıt içe aktarıldı"
+
+#: admin/class-unbsb-admin.php:822
+msgid "Promo code is required."
+msgstr "Promosyon kodu gereklidir."
+
+#: admin/class-unbsb-admin.php:827
+msgid "Discount value must be greater than 0."
+msgstr "İndirim değeri 0'dan büyük olmalıdır."
+
+#: admin/class-unbsb-admin.php:831
+msgid "Percentage discount cannot exceed 100%."
+msgstr "Yüzde indirimi %100'ü geçemez."
+
+#: admin/class-unbsb-admin.php:839
+msgid "This promo code already exists."
+msgstr "Bu promosyon kodu zaten mevcut."
+
+#: admin/class-unbsb-admin.php:851
+msgid "Promo code saved."
+msgstr "Promosyon kodu kaydedildi."
+
+#: admin/class-unbsb-admin.php:880
+msgid "Promo code deleted."
+msgstr "Promosyon kodu silindi."
+
+#: admin/class-unbsb-admin.php:978
+msgid "Discounted price must be greater than 0 and less than the regular price."
+msgstr "İndirimli fiyat 0'dan büyük ve normal fiyattan küçük olmalıdır."
+
+#: admin/class-unbsb-admin.php:1139
+msgid "Name and email are required."
+msgstr "Ad ve e-posta gereklidir."
+
+#: admin/class-unbsb-admin.php:1151
+msgid "A customer with this email already exists."
+msgstr "Bu e-posta adresine sahip bir müşteri zaten mevcut."
+
+#: admin/class-unbsb-admin.php:1187
+msgid "Customer saved."
+msgstr "Müşteri kaydedildi."
+
+#: admin/class-unbsb-admin.php:1216
+msgid "Customer deleted."
+msgstr "Müşteri silindi."
+
+#: admin/partials/admin-customers.php:72
+msgid "Add First Customer"
+msgstr "İlk Müşteriyi Ekle"
+
+#: admin/partials/admin-customers.php:91
+msgid "Enter customer details"
+msgstr "Müşteri bilgilerini girin"
+
+#: admin/partials/admin-customers.php:124
+msgid "Internal notes about this customer..."
+msgstr "Bu müşteri hakkında dahili notlar..."
+
+#: admin/partials/admin-export-import.php:17
+msgid "Export your data as JSON or import from a backup file."
+msgstr "Verilerinizi JSON olarak dışa aktarın veya bir yedek dosyasından içe aktarın."
+
+#: admin/partials/admin-export-import.php:27
+msgid "Export Data"
+msgstr "Veri Dışa Aktar"
+
+#: admin/partials/admin-export-import.php:32
+msgid "Download all your plugin data as a JSON file. This includes categories, services, staff, customers, bookings, promo codes, working hours, and settings."
+msgstr "Tüm eklenti verilerinizi JSON dosyası olarak indirin. Bu kategoriler, hizmetler, personel, müşteriler, randevular, promosyon kodları, çalışma saatleri ve ayarları içerir."
+
+#: admin/partials/admin-export-import.php:38
+msgid "Loading summary..."
+msgstr "Özet yükleniyor..."
+
+#: admin/partials/admin-export-import.php:44
+msgid "Export All Data"
+msgstr "Tüm Verileri Dışa Aktar"
+
+#: admin/partials/admin-export-import.php:54
+#: admin/partials/admin-export-import.php:111
+msgid "Import Data"
+msgstr "Veri İçe Aktar"
+
+#: admin/partials/admin-export-import.php:59
+msgid "Import data from a previously exported JSON file."
+msgstr "Daha önce dışa aktarılmış bir JSON dosyasından veri içe aktarın."
+
+#: admin/partials/admin-export-import.php:64
+msgid "Select File"
+msgstr "Dosya Seç"
+
+#: admin/partials/admin-export-import.php:67
+msgid "Drag & drop your JSON file here or click to browse"
+msgstr "JSON dosyanızı buraya sürükleyip bırakın veya göz atmak için tıklayın"
+
+#: admin/partials/admin-export-import.php:68
+msgid "Only .json files are accepted"
+msgstr "Sadece .json dosyaları kabul edilir"
+
+#: admin/partials/admin-export-import.php:75
+msgid "Remove file"
+msgstr "Dosyayı kaldır"
+
+#: admin/partials/admin-export-import.php:83
+msgid "Import Mode"
+msgstr "İçe Aktarma Modu"
+
+#: admin/partials/admin-export-import.php:89
+msgid "Merge"
+msgstr "Birleştir"
+
+#: admin/partials/admin-export-import.php:90
+msgid "Add imported data to existing records. Existing data will not be deleted."
+msgstr "İçe aktarılan verileri mevcut kayıtlara ekle. Mevcut veriler silinmez."
+
+#: admin/partials/admin-export-import.php:97
+msgid "Replace"
+msgstr "Değiştir"
+
+#: admin/partials/admin-export-import.php:98
+msgid "Delete all existing data and replace with imported data."
+msgstr "Tüm mevcut verileri sil ve içe aktarılan verilerle değiştir."
+
+#: admin/partials/admin-export-import.php:104
+msgid "Warning: Replace mode will permanently delete all existing data before importing. Make sure you have a backup!"
+msgstr "Uyarı: Değiştirme modu içe aktarmadan önce tüm mevcut verileri kalıcı olarak silecektir. Yedeğiniz olduğundan emin olun!"
+
+#: admin/partials/admin-export-import.php:144
+msgid "Close"
+msgstr "Kapat"
+
+#: admin/partials/admin-promo-codes.php:28
+#: admin/partials/admin-promo-codes.php:207
+msgid "Code"
+msgstr "Kod"
+
+#: admin/partials/admin-promo-codes.php:30
+msgid "Type"
+msgstr "Tür"
+
+#: admin/partials/admin-promo-codes.php:31
+msgid "Value"
+msgstr "Değer"
+
+#: admin/partials/admin-promo-codes.php:32
+msgid "Usage"
+msgstr "Kullanım"
+
+#: admin/partials/admin-promo-codes.php:33
+msgid "Date Range"
+msgstr "Tarih Aralığı"
+
+#: admin/partials/admin-promo-codes.php:34
+msgid "Rules"
+msgstr "Kurallar"
+
+#: admin/partials/admin-promo-codes.php:44
+msgid "Copy Code"
+msgstr "Kodu Kopyala"
+
+#: admin/partials/admin-promo-codes.php:60
+#: admin/partials/admin-promo-codes.php:220
+msgid "Percentage"
+msgstr "Yüzde"
+
+#: admin/partials/admin-promo-codes.php:64
+#: admin/partials/admin-promo-codes.php:221
+msgid "Fixed Amount"
+msgstr "Sabit Tutar"
+
+#: admin/partials/admin-promo-codes.php:68
+#: admin/partials/admin-promo-codes.php:222
+msgid "Cheapest Free"
+msgstr "En Ucuz Ücretsiz"
+
+#. translators: %s: start date of the promo code
+#: admin/partials/admin-promo-codes.php:103
+#, php-format
+msgid "From %s"
+msgstr "%s tarihinden itibaren"
+
+#. translators: %s: end date of the promo code
+#: admin/partials/admin-promo-codes.php:108
+#, php-format
+msgid "Until %s"
+msgstr "%s tarihine kadar"
+
+#: admin/partials/admin-promo-codes.php:117
+msgid "First Time"
+msgstr "İlk Kez"
+
+#. translators: %d: minimum number of services required
+#: admin/partials/admin-promo-codes.php:124
+#, php-format
+msgid "Min %d services"
+msgstr "Min %d hizmet"
+
+#. translators: %s: minimum order amount with currency
+#: admin/partials/admin-promo-codes.php:132
+#, php-format
+msgid "Min %s"
+msgstr "Min %s"
+
+#: admin/partials/admin-promo-codes.php:167
+msgid "No promo codes added yet."
+msgstr "Henüz promosyon kodu eklenmedi."
+
+#: admin/partials/admin-promo-codes.php:169
+msgid "Add First Promo Code"
+msgstr "İlk Promosyon Kodunu Ekle"
+
+#: admin/partials/admin-promo-codes.php:188
+msgid "Enter promo code details"
+msgstr "Promosyon kodu bilgilerini girin"
+
+#: admin/partials/admin-promo-codes.php:203
+msgid "Code & Discount"
+msgstr "Kod ve İndirim"
+
+#: admin/partials/admin-promo-codes.php:208
+msgid "e.g. WELCOME20"
+msgstr "ör. HOSGELDIN20"
+
+#: admin/partials/admin-promo-codes.php:213
+msgid "Short description about the promo code..."
+msgstr "Promosyon kodu hakkında kısa açıklama..."
+
+#: admin/partials/admin-promo-codes.php:218
+msgid "Discount Type"
+msgstr "İndirim Türü"
+
+#: admin/partials/admin-promo-codes.php:226
+msgid "Discount Value"
+msgstr "İndirim Değeri"
+
+#: admin/partials/admin-promo-codes.php:239
+msgid "Applicable To"
+msgstr "Geçerli Olduğu"
+
+#: admin/partials/admin-promo-codes.php:247
+msgid "All Services"
+msgstr "Tüm Hizmetler"
+
+#: admin/partials/admin-promo-codes.php:259
+msgid "No services available."
+msgstr "Mevcut hizmet yok."
+
+#: admin/partials/admin-promo-codes.php:269
+msgid "All Categories"
+msgstr "Tüm Kategoriler"
+
+#: admin/partials/admin-promo-codes.php:281
+msgid "No categories available."
+msgstr "Mevcut kategori yok."
+
+#: admin/partials/admin-promo-codes.php:294
+msgid "Conditions"
+msgstr "Koşullar"
+
+#: admin/partials/admin-promo-codes.php:300
+msgid "First Time Only"
+msgstr "Sadece İlk Kez"
+
+#: admin/partials/admin-promo-codes.php:302
+msgid "Only for customers with no previous bookings"
+msgstr "Sadece daha önce randevusu olmayan müşteriler için"
+
+#: admin/partials/admin-promo-codes.php:306
+msgid "Min Services"
+msgstr "Min Hizmet"
+
+#: admin/partials/admin-promo-codes.php:308
+msgid "Minimum number of services in a booking"
+msgstr "Bir randevudaki minimum hizmet sayısı"
+
+#: admin/partials/admin-promo-codes.php:312
+msgid "Min Order Amount"
+msgstr "Min Sipariş Tutarı"
+
+#: admin/partials/admin-promo-codes.php:324
+msgid "Usage Limits"
+msgstr "Kullanım Limitleri"
+
+#: admin/partials/admin-promo-codes.php:328
+msgid "Max Uses"
+msgstr "Maks Kullanım"
+
+#: admin/partials/admin-promo-codes.php:330
+#: admin/partials/admin-promo-codes.php:336
+msgid "0 = unlimited"
+msgstr "0 = sınırsız"
+
+#: admin/partials/admin-promo-codes.php:334
+msgid "Max Uses Per Customer"
+msgstr "Müşteri Başına Maks Kullanım"
+
+#: admin/partials/admin-promo-codes.php:344
+msgid "Validity"
+msgstr "Geçerlilik"
+
+#: admin/partials/admin-services.php:203
+msgid "Discounted Price"
+msgstr "İndirimli Fiyat"
+
+#: admin/partials/admin-services.php:206
+msgid "Leave empty for no discount"
+msgstr "İndirim yoksa boş bırakın"
+
+#: admin/partials/admin-services.php:209
+msgid "Leave empty for no discount. Must be less than the regular price."
+msgstr "İndirim yoksa boş bırakın. Normal fiyattan düşük olmalıdır."
+
+#: includes/class-unbsb-activator.php:372
+msgid "Salon Customer"
+msgstr "Salon Müşterisi"
+
+#: includes/class-unbsb-export-import.php:80
+msgid "You do not have permission to export data."
+msgstr "Veri dışa aktarma izniniz yok."
+
+#: includes/class-unbsb-export-import.php:168
+msgid "Failed to encode export data as JSON."
+msgstr "Dışa aktarma verileri JSON olarak kodlanamadı."
+
+#: includes/class-unbsb-export-import.php:187
+msgid "You do not have permission to import data."
+msgstr "Veri içe aktarma izniniz yok."
+
+#: includes/class-unbsb-export-import.php:194
+msgid "Invalid import mode. Use \"merge\" or \"replace\"."
+msgstr "Geçersiz içe aktarma modu. \"merge\" veya \"replace\" kullanın."
+
+#. translators: %s: JSON error message
+#: includes/class-unbsb-export-import.php:209
+#, php-format
+msgid "Invalid JSON data: %s"
+msgstr "Geçersiz JSON verisi: %s"
+
+#. translators: %s: error message
+#: includes/class-unbsb-export-import.php:280
+#, php-format
+msgid "Import failed: %s"
+msgstr "İçe aktarma başarısız: %s"
+
+#. translators: %s: table name
+#: includes/class-unbsb-export-import.php:304
+#, php-format
+msgid "Could not read columns for table: %s"
+msgstr "Tablo sütunları okunamadı: %s"
+
+#: includes/class-unbsb-export-import.php:380
+msgid "Import data must be an object."
+msgstr "İçe aktarma verisi bir nesne olmalıdır."
+
+#: includes/class-unbsb-export-import.php:388
+msgid "Import data is missing the \"meta\" section. This does not appear to be a valid export file."
+msgstr "İçe aktarma verisinde \"meta\" bölümü eksik. Bu geçerli bir dışa aktarma dosyası gibi görünmüyor."
+
+#. translators: %s: meta field name
+#: includes/class-unbsb-export-import.php:398
+#, php-format
+msgid "Import data is missing required meta field: %s"
+msgstr "İçe aktarma verisinde gerekli meta alanı eksik: %s"
+
+#: includes/class-unbsb-export-import.php:407
+msgid "Import data contains no tables or settings to import."
+msgstr "İçe aktarma verisi içe aktarılacak tablo veya ayar içermiyor."
+
+#: includes/class-unbsb-export-import.php:416
+msgid "The \"tables\" section must be an object."
+msgstr "\"tables\" bölümü bir nesne olmalıdır."
+
+#. translators: %s: table name
+#: includes/class-unbsb-export-import.php:427
+#, php-format
+msgid "Unknown table in import data: %s"
+msgstr "İçe aktarma verisinde bilinmeyen tablo: %s"
+
+#. translators: %s: table name
+#: includes/class-unbsb-export-import.php:435
+#, php-format
+msgid "Table data must be an array: %s"
+msgstr "Tablo verisi bir dizi olmalıdır: %s"
+
+#: includes/class-unbsb-export-import.php:445
+msgid "The \"settings\" section must be an object."
+msgstr "\"settings\" bölümü bir nesne olmalıdır."
+
+#. translators: 1: available memory in MB, 2: required memory in MB
+#: includes/class-unbsb-export-import.php:476
+#, php-format
+msgid "Insufficient memory available. Available: %1$sMB, Required: %2$sMB. Please increase PHP memory_limit."
+msgstr "Yetersiz bellek. Mevcut: %1$sMB, Gerekli: %2$sMB. Lütfen PHP memory_limit değerini artırın."
+
+#: includes/class-unbsb-export-import.php:626
+msgid "You do not have permission to view data summary."
+msgstr "Veri özetini görüntüleme izniniz yok."
+
+#: includes/class-unbsb-rest-api.php:649
+msgid "Security check failed."
+msgstr "Güvenlik kontrolü başarısız."
+
+#: includes/class-unbsb-rest-api.php:681
+msgid "No import data provided. Send JSON data in the request body or upload a file."
+msgstr "İçe aktarma verisi sağlanmadı. İstek gövdesinde JSON verisi gönderin veya bir dosya yükleyin."
+
+#: includes/class-unbsb-rest-api.php:696
+msgid "Data imported successfully."
+msgstr "Veriler başarıyla içe aktarıldı."
+
+#: includes/models/class-unbsb-booking.php:116
+msgid "One or more selected services are not available for this staff member."
+msgstr "Seçilen hizmetlerden bir veya daha fazlası bu personel için mevcut değil."
+
+#: includes/models/class-unbsb-booking.php:172
+msgid "The selected service is not available for this staff member."
+msgstr "Seçilen hizmet bu personel için mevcut değil."
+
+#: includes/models/class-unbsb-promo-code.php:225
+msgid "This promo code is invalid or inactive."
+msgstr "Bu promosyon kodu geçersiz veya aktif değil."
+
+#: includes/models/class-unbsb-promo-code.php:235
+msgid "This promo code is not yet valid."
+msgstr "Bu promosyon kodu henüz geçerli değil."
+
+#: includes/models/class-unbsb-promo-code.php:242
+msgid "This promo code has expired."
+msgstr "Bu promosyon kodunun süresi dolmuş."
+
+#: includes/models/class-unbsb-promo-code.php:252
+msgid "This promo code has reached its usage limit."
+msgstr "Bu promosyon kodu kullanım limitine ulaşmış."
+
+#: includes/models/class-unbsb-promo-code.php:263
+msgid "You have already used this promo code the maximum number of times."
+msgstr "Bu promosyon kodunu maksimum sayıda kullandınız."
+
+#: includes/models/class-unbsb-promo-code.php:284
+msgid "This promo code is only valid for first-time customers."
+msgstr "Bu promosyon kodu yalnızca ilk kez gelen müşteriler için geçerlidir."
+
+#. translators: %d: minimum number of services required
+#: includes/models/class-unbsb-promo-code.php:295
+#, php-format
+msgid "This promo code requires at least %d service(s)."
+msgstr "Bu promosyon kodu en az %d hizmet gerektirir."
+
+#. translators: %s: minimum order amount
+#: includes/models/class-unbsb-promo-code.php:307
+#, php-format
+msgid "This promo code requires a minimum order amount of %s."
+msgstr "Bu promosyon kodu minimum %s sipariş tutarı gerektirir."
+
+#: includes/models/class-unbsb-promo-code.php:324
+msgid "This promo code is not applicable to the selected services."
+msgstr "Bu promosyon kodu seçilen hizmetler için geçerli değil."
+
+#: includes/models/class-unbsb-promo-code.php:354
+msgid "This promo code is not applicable to the selected service categories."
+msgstr "Bu promosyon kodu seçilen hizmet kategorileri için geçerli değil."
+
+#: public/class-unbsb-public.php:87
+msgid "Nearest available:"
+msgstr "En yakın müsait:"
+
+#: public/class-unbsb-public.php:88
+msgid "No available slots this week"
+msgstr "Bu hafta müsait slot yok"
+
+#: public/class-unbsb-public.php:89
+msgid "Any Staff"
+msgstr "Herhangi Bir Personel"
+
+#: public/class-unbsb-public.php:90
+msgid "We'll assign the first available staff member"
+msgstr "İlk müsait personeli atayacağız"
+
+#: public/class-unbsb-public.php:91
+msgid "More dates"
+msgstr "Daha fazla tarih"
+
+#: public/class-unbsb-public.php:105
+msgid "Discount"
+msgstr "İndirim"
+
+#: public/class-unbsb-public.php:106
+msgid "Promo code applied!"
+msgstr "Promosyon kodu uygulandı!"
+
+#: public/class-unbsb-public.php:107
+msgid "Promo code removed."
+msgstr "Promosyon kodu kaldırıldı."
+
+#: public/class-unbsb-public.php:108
+msgid "Invalid promo code."
+msgstr "Geçersiz promosyon kodu."
+
+#: public/class-unbsb-public.php:109
+#: public/partials/booking-form.php:359
+msgid "Enter promo code"
+msgstr "Promosyon kodu girin"
+
+#: public/class-unbsb-public.php:110
+#: public/partials/booking-form.php:360
+msgid "Apply"
+msgstr "Uygula"
+
+#: public/class-unbsb-public.php:111
+msgid "Remove"
+msgstr "Kaldır"
+
+#: public/class-unbsb-public.php:112
+#: public/class-unbsb-public.php:419
+#: public/class-unbsb-public.php:465
+msgid "You must be logged in to use a promo code."
+msgstr "Promosyon kodu kullanmak için giriş yapmalısınız."
+
+#: public/class-unbsb-public.php:113
+msgid "Log In"
+msgstr "Giriş Yap"
+
+#: public/class-unbsb-public.php:460
+msgid "Please enter a promo code."
+msgstr "Lütfen bir promosyon kodu girin."
+
+#. translators: %s: formatted discount amount
+#: public/class-unbsb-public.php:518
+#, php-format
+msgid "Promo code applied! You save %s"
+msgstr "Promosyon kodu uygulandı! %s tasarruf ediyorsunuz"
+
+#: public/class-unbsb-public.php:592
+#: public/class-unbsb-public.php:663
+msgid "Passwords do not match."
+msgstr "Şifreler eşleşmiyor."
+
+#: public/class-unbsb-public.php:593
+msgid "OK"
+msgstr "Tamam"
+
+#: public/class-unbsb-public.php:595
+msgid "Connection error"
+msgstr "Bağlantı hatası"
+
+#: public/class-unbsb-public.php:628
+msgid "Invalid email or password."
+msgstr "Geçersiz e-posta veya şifre."
+
+#: public/class-unbsb-public.php:633
+msgid "Login successful. Redirecting..."
+msgstr "Giriş başarılı. Yönlendiriliyor..."
+
+#: public/class-unbsb-public.php:659
+msgid "Password must be at least 6 characters."
+msgstr "Şifre en az 6 karakter olmalıdır."
+
+#: public/class-unbsb-public.php:667
+msgid "This email is already registered."
+msgstr "Bu e-posta zaten kayıtlı."
+
+#: public/class-unbsb-public.php:702
+msgid "Registration successful. Redirecting..."
+msgstr "Kayıt başarılı. Yönlendiriliyor..."
+
+#: public/partials/account.php:66
+msgid "Log Out"
+msgstr "Çıkış Yap"
+
+#: public/partials/account.php:72
+msgid "My Bookings"
+msgstr "Randevularım"
+
+#: public/partials/account.php:104
+msgid "Manage"
+msgstr "Yönet"
+
+#: public/partials/account.php:111
+msgid "You have no bookings yet."
+msgstr "Henüz randevunuz yok."
+
+#: public/partials/account.php:120
+#: public/partials/account.php:145
+msgid "Login"
+msgstr "Giriş"
+
+#: public/partials/account.php:123
+#: public/partials/account.php:183
+msgid "Register"
+msgstr "Kayıt Ol"
+
+#: public/partials/account.php:176
+msgid "Confirm Password"
+msgstr "Şifre Onayı"
+
+#: public/partials/booking-form.php:135
+msgid "Scroll left"
+msgstr "Sola kaydır"
+
+#: public/partials/booking-form.php:152
+msgid "Scroll right"
+msgstr "Sağa kaydır"
+
+#: public/partials/booking-form.php:357
+msgid "Promo Code"
+msgstr "Promosyon Kodu"
+
+#. translators: %d: discount percentage
+#: public/partials/service-card-inner.php:54
+#, php-format
+msgid "-%d%%"
+msgstr "-%d%%"

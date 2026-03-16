@@ -151,6 +151,9 @@ class UNBSB_Core {
 		// Customer search/create AJAX handlers (for new booking page).
 		$this->loader->add_action( 'wp_ajax_unbsb_search_customers', $admin, 'ajax_search_customers' );
 		$this->loader->add_action( 'wp_ajax_unbsb_admin_create_customer', $admin, 'ajax_admin_create_customer' );
+
+		// Staff earnings on booking completion.
+		$this->loader->add_action( 'unbsb_booking_status_changed', $admin, 'handle_booking_earnings', 10, 3 );
 	}
 
 	/**

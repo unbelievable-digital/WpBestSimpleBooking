@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Unbelievable Salon Booking 1.0.2\n"
+"Project-Id-Version: Unbelievable Salon Booking 1.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/unbelievable-salon-booking\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-07T13:22:15+00:00\n"
+"POT-Creation-Date: 2026-03-16T17:57:42+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: unbelievable-salon-booking\n"
@@ -38,7 +38,8 @@ msgstr ""
 #: admin/class-unbsb-admin.php:39
 #: admin/class-unbsb-admin.php:58
 #: admin/class-unbsb-admin.php:59
-#: admin/class-unbsb-admin.php:321
+#: admin/class-unbsb-admin.php:320
+#: admin/class-unbsb-admin.php:392
 #: admin/partials/admin-bookings.php:28
 msgid "Bookings"
 msgstr ""
@@ -58,30 +59,35 @@ msgstr ""
 
 #: admin/class-unbsb-admin.php:76
 #: admin/class-unbsb-admin.php:77
+#: admin/class-unbsb-admin.php:316
 #: admin/partials/admin-categories.php:15
+#: admin/partials/admin-promo-codes.php:265
 msgid "Categories"
 msgstr ""
 
 #: admin/class-unbsb-admin.php:85
 #: admin/class-unbsb-admin.php:86
+#: admin/class-unbsb-admin.php:317
 #: admin/partials/admin-dashboard.php:231
 #: admin/partials/admin-email-templates.php:213
+#: admin/partials/admin-promo-codes.php:243
 #: admin/partials/admin-services.php:17
-#: public/class-unbsb-public.php:92
+#: public/class-unbsb-public.php:98
 msgid "Services"
 msgstr ""
 
 #: admin/class-unbsb-admin.php:94
 #: admin/class-unbsb-admin.php:95
-#: admin/class-unbsb-admin.php:264
+#: admin/class-unbsb-admin.php:288
+#: admin/class-unbsb-admin.php:318
 #: admin/partials/admin-bookings.php:56
 #: admin/partials/admin-bookings.php:99
 #: admin/partials/admin-bookings.php:220
 #: admin/partials/admin-dashboard.php:236
 #: admin/partials/admin-email-templates.php:214
-#: admin/partials/admin-staff.php:15
-#: public/class-unbsb-public.php:88
+#: admin/partials/admin-staff.php:17
 #: public/class-unbsb-public.php:94
+#: public/class-unbsb-public.php:100
 #: public/partials/booking-form.php:28
 #: public/partials/booking-form.php:42
 #: public/partials/booking-form.php:74
@@ -97,6 +103,7 @@ msgstr ""
 
 #: admin/class-unbsb-admin.php:112
 #: admin/class-unbsb-admin.php:113
+#: admin/class-unbsb-admin.php:319
 #: admin/partials/admin-customers.php:15
 #: admin/partials/admin-dashboard.php:241
 msgid "Customers"
@@ -104,279 +111,321 @@ msgstr ""
 
 #: admin/class-unbsb-admin.php:121
 #: admin/class-unbsb-admin.php:122
-#: admin/partials/admin-settings.php:125
-#: admin/partials/admin-staff.php:170
-msgid "Settings"
+#: admin/class-unbsb-admin.php:321
+#: admin/partials/admin-promo-codes.php:15
+msgid "Promo Codes"
 msgstr ""
 
 #: admin/class-unbsb-admin.php:130
 #: admin/class-unbsb-admin.php:131
+#: admin/partials/admin-settings.php:125
+#: admin/partials/admin-staff.php:265
+msgid "Settings"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:139
+#: admin/class-unbsb-admin.php:140
 #: admin/partials/admin-email-templates.php:58
 msgid "Email Templates"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:202
+#: admin/class-unbsb-admin.php:148
+#: admin/class-unbsb-admin.php:149
+#: admin/partials/admin-export-import.php:16
+msgid "Export / Import"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:220
 msgid "Are you sure you want to delete?"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:203
+#: admin/class-unbsb-admin.php:221
 msgid "Saving..."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:204
+#: admin/class-unbsb-admin.php:222
 msgid "Saved!"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:205
-#: public/class-unbsb-public.php:283
+#: admin/class-unbsb-admin.php:223
+#: public/class-unbsb-public.php:312
 msgid "An error occurred."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:206
+#: admin/class-unbsb-admin.php:224
 #: public/class-unbsb-public.php:77
-#: public/class-unbsb-public.php:280
+#: public/class-unbsb-public.php:309
 msgid "Loading..."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:207
+#: admin/class-unbsb-admin.php:225
 msgid "Sending..."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:208
+#: admin/class-unbsb-admin.php:226
 msgid "Copied!"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:210
+#: admin/class-unbsb-admin.php:228
 #: admin/partials/admin-categories.php:18
 #: admin/partials/admin-categories.php:96
 msgid "New Category"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:211
+#: admin/class-unbsb-admin.php:229
 msgid "Edit Category"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:212
+#: admin/class-unbsb-admin.php:230
 msgid "Category name is required."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:213
+#: admin/class-unbsb-admin.php:231
 msgid "Category added."
 msgstr ""
 
 #. translators: %d: Number of services in the category
-#: admin/class-unbsb-admin.php:215
+#: admin/class-unbsb-admin.php:233
 #, php-format
 msgid "This category has %d services. Are you sure you want to delete it? (Services will become uncategorized)"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:217
+#: admin/class-unbsb-admin.php:235
 #: admin/partials/admin-services.php:20
-#: admin/partials/admin-services.php:106
+#: admin/partials/admin-services.php:113
 msgid "New Service"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:218
+#: admin/class-unbsb-admin.php:236
 msgid "Edit Service"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:220
-#: admin/partials/admin-staff.php:18
-#: admin/partials/admin-staff.php:85
+#: admin/class-unbsb-admin.php:238
+#: admin/partials/admin-staff.php:20
+#: admin/partials/admin-staff.php:129
 msgid "New Staff"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:221
+#: admin/class-unbsb-admin.php:239
 msgid "Edit Staff"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:223
-#: admin/class-unbsb-admin.php:971
+#: admin/class-unbsb-admin.php:241
+#: admin/partials/admin-customers.php:18
+#: admin/partials/admin-customers.php:90
+msgid "New Customer"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:242
+msgid "Edit Customer"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:244
+#: admin/class-unbsb-admin.php:1295
 #: public/class-unbsb-public.php:83
+#: public/class-unbsb-public.php:615
+#: public/class-unbsb-public.php:651
 msgid "Please fill in all required fields."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:224
+#: admin/class-unbsb-admin.php:245
 #: admin/partials/admin-bookings.php:398
 msgid "Create Booking"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:226
+#: admin/class-unbsb-admin.php:247
 msgid "Please enter a test phone number"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:227
+#: admin/class-unbsb-admin.php:248
 msgid "Please enter a test email address"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:228
+#: admin/class-unbsb-admin.php:249
 msgid "Please select a template"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:229
+#: admin/class-unbsb-admin.php:250
 msgid "Querying..."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:230
+#: admin/class-unbsb-admin.php:251
 #: admin/partials/admin-email-templates.php:241
 msgid "Save Template"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:231
+#: admin/class-unbsb-admin.php:252
 #: admin/partials/admin-email-templates.php:245
 msgid "Preview"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:232
+#: admin/class-unbsb-admin.php:253
 #: admin/partials/admin-email-templates.php:252
 msgid "Send Test"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:233
+#: admin/class-unbsb-admin.php:254
 #: admin/partials/admin-email-templates.php:135
 msgid "Save Settings"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:234
+#: admin/class-unbsb-admin.php:255
+#: admin/partials/admin-settings.php:610
+msgid "Save Templates"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:256
+msgid "Send Test SMS"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:257
+msgid "Checking..."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:258
 msgid "Variable added"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:235
+#: admin/class-unbsb-admin.php:259
 #: admin/partials/admin-categories.php:56
 #: admin/partials/admin-categories.php:136
 #: admin/partials/admin-email-templates.php:83
 #: admin/partials/admin-email-templates.php:159
-#: admin/partials/admin-services.php:66
-#: admin/partials/admin-services.php:239
-#: admin/partials/admin-staff.php:180
+#: admin/partials/admin-promo-codes.php:147
+#: admin/partials/admin-promo-codes.php:368
+#: admin/partials/admin-services.php:73
+#: admin/partials/admin-services.php:258
+#: admin/partials/admin-staff.php:275
 msgid "Active"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:236
+#: admin/class-unbsb-admin.php:260
 #: admin/partials/admin-categories.php:56
 #: admin/partials/admin-categories.php:143
 #: admin/partials/admin-email-templates.php:83
-#: admin/partials/admin-services.php:66
-#: admin/partials/admin-services.php:246
-#: admin/partials/admin-staff.php:187
+#: admin/partials/admin-promo-codes.php:147
+#: admin/partials/admin-promo-codes.php:375
+#: admin/partials/admin-services.php:73
+#: admin/partials/admin-services.php:265
+#: admin/partials/admin-staff.php:282
 msgid "Inactive"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:239
-#: public/class-unbsb-public.php:101
+#: admin/class-unbsb-admin.php:263
+#: public/class-unbsb-public.php:116
 msgid "January"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:240
-#: public/class-unbsb-public.php:102
+#: admin/class-unbsb-admin.php:264
+#: public/class-unbsb-public.php:117
 msgid "February"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:241
-#: public/class-unbsb-public.php:103
+#: admin/class-unbsb-admin.php:265
+#: public/class-unbsb-public.php:118
 msgid "March"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:242
-#: public/class-unbsb-public.php:104
+#: admin/class-unbsb-admin.php:266
+#: public/class-unbsb-public.php:119
 msgid "April"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:243
-#: public/class-unbsb-public.php:105
+#: admin/class-unbsb-admin.php:267
+#: public/class-unbsb-public.php:120
 msgid "May"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:244
-#: public/class-unbsb-public.php:106
+#: admin/class-unbsb-admin.php:268
+#: public/class-unbsb-public.php:121
 msgid "June"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:245
-#: public/class-unbsb-public.php:107
+#: admin/class-unbsb-admin.php:269
+#: public/class-unbsb-public.php:122
 msgid "July"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:246
-#: public/class-unbsb-public.php:108
+#: admin/class-unbsb-admin.php:270
+#: public/class-unbsb-public.php:123
 msgid "August"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:247
-#: public/class-unbsb-public.php:109
+#: admin/class-unbsb-admin.php:271
+#: public/class-unbsb-public.php:124
 msgid "September"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:248
-#: public/class-unbsb-public.php:110
+#: admin/class-unbsb-admin.php:272
+#: public/class-unbsb-public.php:125
 msgid "October"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:249
-#: public/class-unbsb-public.php:111
+#: admin/class-unbsb-admin.php:273
+#: public/class-unbsb-public.php:126
 msgid "November"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:250
-#: public/class-unbsb-public.php:112
+#: admin/class-unbsb-admin.php:274
+#: public/class-unbsb-public.php:127
 msgid "December"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:253
+#: admin/class-unbsb-admin.php:277
 #: admin/partials/admin-staff-schedule.php:143
-#: public/class-unbsb-public.php:115
+#: public/class-unbsb-public.php:130
 msgid "Mon"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:254
+#: admin/class-unbsb-admin.php:278
 #: admin/partials/admin-staff-schedule.php:144
-#: public/class-unbsb-public.php:116
+#: public/class-unbsb-public.php:131
 msgid "Tue"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:255
+#: admin/class-unbsb-admin.php:279
 #: admin/partials/admin-staff-schedule.php:145
-#: public/class-unbsb-public.php:117
+#: public/class-unbsb-public.php:132
 msgid "Wed"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:256
+#: admin/class-unbsb-admin.php:280
 #: admin/partials/admin-staff-schedule.php:146
-#: public/class-unbsb-public.php:118
+#: public/class-unbsb-public.php:133
 msgid "Thu"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:257
+#: admin/class-unbsb-admin.php:281
 #: admin/partials/admin-staff-schedule.php:147
-#: public/class-unbsb-public.php:119
+#: public/class-unbsb-public.php:134
 msgid "Fri"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:258
+#: admin/class-unbsb-admin.php:282
 #: admin/partials/admin-staff-schedule.php:148
-#: public/class-unbsb-public.php:120
+#: public/class-unbsb-public.php:135
 msgid "Sat"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:259
+#: admin/class-unbsb-admin.php:283
 #: admin/partials/admin-staff-schedule.php:149
-#: public/class-unbsb-public.php:121
+#: public/class-unbsb-public.php:136
 msgid "Sun"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:262
+#: admin/class-unbsb-admin.php:286
 #: admin/partials/admin-bookings.php:97
 #: admin/partials/admin-dashboard.php:184
 #: admin/partials/admin-email-templates.php:207
 msgid "Customer"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:263
+#: admin/class-unbsb-admin.php:287
 #: admin/partials/admin-bookings.php:98
 #: admin/partials/admin-bookings.php:234
 #: admin/partials/admin-dashboard.php:185
-#: public/class-unbsb-public.php:87
 #: public/class-unbsb-public.php:93
+#: public/class-unbsb-public.php:99
 #: public/partials/booking-form.php:24
 #: public/partials/booking-form.php:46
 #: public/partials/booking-form.php:60
@@ -384,241 +433,389 @@ msgstr ""
 msgid "Service"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:265
+#: admin/class-unbsb-admin.php:289
 #: admin/partials/admin-bookings.php:45
 #: admin/partials/admin-bookings.php:102
 #: admin/partials/admin-bookings.php:345
 #: admin/partials/admin-categories.php:32
 #: admin/partials/admin-categories.php:130
 #: admin/partials/admin-dashboard.php:187
+#: admin/partials/admin-promo-codes.php:35
+#: admin/partials/admin-promo-codes.php:362
 #: admin/partials/admin-services.php:35
-#: admin/partials/admin-services.php:233
-#: admin/partials/admin-staff.php:174
+#: admin/partials/admin-services.php:252
+#: admin/partials/admin-staff.php:269
 msgid "Status"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:266
+#: admin/class-unbsb-admin.php:290
 #: admin/partials/admin-bookings.php:101
 #: admin/partials/admin-email-templates.php:218
 #: admin/partials/admin-services.php:34
-#: admin/partials/admin-services.php:184
+#: admin/partials/admin-services.php:191
 #: public/partials/booking-manage.php:145
 msgid "Price"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:268
+#: admin/class-unbsb-admin.php:292
 msgid "Not working"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:269
+#: admin/class-unbsb-admin.php:293
 msgid "No holidays registered"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:270
+#: admin/class-unbsb-admin.php:294
 msgid "Do you want to delete this holiday?"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:271
+#: admin/class-unbsb-admin.php:295
 msgid "Holiday added"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:272
+#: admin/class-unbsb-admin.php:296
 msgid "Holiday deleted"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:274
+#: admin/class-unbsb-admin.php:298
 msgid "text"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:275
+#: admin/class-unbsb-admin.php:299
 #: admin/partials/admin-email-templates.php:187
 msgid "Heading"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:276
+#: admin/class-unbsb-admin.php:300
 msgid "Paragraph text"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:277
+#: admin/class-unbsb-admin.php:301
 msgid "Button Text"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:278
+#: admin/class-unbsb-admin.php:302
 msgid "View My Booking"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:279
+#: admin/class-unbsb-admin.php:303
 msgid "link text"
 msgstr ""
 
+#: admin/class-unbsb-admin.php:305
+#: admin/partials/admin-promo-codes.php:18
+#: admin/partials/admin-promo-codes.php:187
+msgid "New Promo Code"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:306
+msgid "Edit Promo Code"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:308
+msgid "Select All"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:309
+#: admin/partials/admin-staff.php:207
+#: admin/partials/admin-staff.php:236
+#: includes/models/class-unbsb-service.php:186
+#: public/partials/booking-form.php:208
+msgid "Uncategorized"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:310
+#: admin/partials/admin-staff.php:100
+msgid "Custom Price"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:311
+#: admin/partials/admin-staff.php:107
+msgid "Custom Duration"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:313
+msgid "Exporting..."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:314
+msgid "Data exported successfully!"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:315
+msgid "Export failed. Please try again."
+msgstr ""
+
 #: admin/class-unbsb-admin.php:322
+msgid "Importing..."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:323
+msgid "Data imported successfully!"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:324
+msgid "Import failed. Please try again."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:325
+msgid "Please select a JSON file to import."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:326
+msgid "Invalid file type. Please select a .json file."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:327
+msgid "File is too large. Maximum allowed size is 50MB."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:328
+msgid "Are you sure? Replace mode will permanently delete ALL existing data and replace it with imported data. This action cannot be undone!"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:329
+#: admin/partials/admin-export-import.php:130
+msgid "Preparing import..."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:330
+#: admin/partials/admin-export-import.php:122
+msgid "Importing data..."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:331
+msgid "Import complete!"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:332
+msgid "records imported"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:393
 msgid "Revenue"
 msgstr ""
 
-#: admin/class-unbsb-admin.php:704
-#: admin/class-unbsb-admin.php:744
-#: admin/class-unbsb-admin.php:770
-#: admin/class-unbsb-admin.php:813
-#: admin/class-unbsb-admin.php:839
-#: admin/class-unbsb-admin.php:879
-#: admin/class-unbsb-admin.php:905
-#: admin/class-unbsb-admin.php:932
-#: admin/class-unbsb-admin.php:952
-#: admin/class-unbsb-admin.php:1010
-#: admin/class-unbsb-admin.php:1112
-#: admin/class-unbsb-admin.php:1136
-#: admin/class-unbsb-admin.php:1162
-#: admin/class-unbsb-admin.php:1182
-#: admin/class-unbsb-admin.php:1216
-#: admin/class-unbsb-admin.php:1250
-#: admin/class-unbsb-admin.php:1281
-#: admin/class-unbsb-admin.php:1338
-#: admin/class-unbsb-admin.php:1368
-#: admin/class-unbsb-admin.php:1406
-#: admin/class-unbsb-admin.php:1447
-#: admin/class-unbsb-admin.php:1485
+#: admin/class-unbsb-admin.php:800
+#: admin/class-unbsb-admin.php:867
+#: admin/class-unbsb-admin.php:893
+#: admin/class-unbsb-admin.php:933
+#: admin/class-unbsb-admin.php:959
+#: admin/class-unbsb-admin.php:1008
+#: admin/class-unbsb-admin.php:1034
+#: admin/class-unbsb-admin.php:1101
+#: admin/class-unbsb-admin.php:1127
+#: admin/class-unbsb-admin.php:1203
+#: admin/class-unbsb-admin.php:1229
+#: admin/class-unbsb-admin.php:1256
+#: admin/class-unbsb-admin.php:1276
+#: admin/class-unbsb-admin.php:1334
+#: admin/class-unbsb-admin.php:1436
+#: admin/class-unbsb-admin.php:1460
+#: admin/class-unbsb-admin.php:1486
+#: admin/class-unbsb-admin.php:1506
+#: admin/class-unbsb-admin.php:1540
+#: admin/class-unbsb-admin.php:1574
+#: admin/class-unbsb-admin.php:1605
+#: admin/class-unbsb-admin.php:1662
+#: admin/class-unbsb-admin.php:1692
+#: admin/class-unbsb-admin.php:1730
+#: admin/class-unbsb-admin.php:1771
+#: admin/class-unbsb-admin.php:1809
 msgid "Unauthorized access."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:728
-msgid "Category saved."
+#: admin/class-unbsb-admin.php:822
+msgid "Promo code is required."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:733
-#: admin/class-unbsb-admin.php:802
-#: admin/class-unbsb-admin.php:868
+#: admin/class-unbsb-admin.php:827
+msgid "Discount value must be greater than 0."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:831
+msgid "Percentage discount cannot exceed 100%."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:839
+msgid "This promo code already exists."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:851
+msgid "Promo code saved."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:856
+#: admin/class-unbsb-admin.php:922
+#: admin/class-unbsb-admin.php:997
+#: admin/class-unbsb-admin.php:1090
+#: admin/class-unbsb-admin.php:1192
 msgid "Save error."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:750
-#: admin/class-unbsb-admin.php:819
-#: admin/class-unbsb-admin.php:885
+#: admin/class-unbsb-admin.php:873
+#: admin/class-unbsb-admin.php:939
+#: admin/class-unbsb-admin.php:1014
+#: admin/class-unbsb-admin.php:1107
+#: admin/class-unbsb-admin.php:1209
 msgid "Invalid ID."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:757
-msgid "Category deleted."
+#: admin/class-unbsb-admin.php:880
+msgid "Promo code deleted."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:759
-#: admin/class-unbsb-admin.php:828
-#: admin/class-unbsb-admin.php:894
+#: admin/class-unbsb-admin.php:882
+#: admin/class-unbsb-admin.php:948
+#: admin/class-unbsb-admin.php:1023
+#: admin/class-unbsb-admin.php:1116
+#: admin/class-unbsb-admin.php:1218
 msgid "Delete error."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:797
+#: admin/class-unbsb-admin.php:917
+msgid "Category saved."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:946
+msgid "Category deleted."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:978
+msgid "Discounted price must be greater than 0 and less than the regular price."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:992
 msgid "Service saved."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:826
+#: admin/class-unbsb-admin.php:1021
 msgid "Service deleted."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:863
+#: admin/class-unbsb-admin.php:1084
 msgid "Staff saved."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:892
+#: admin/class-unbsb-admin.php:1114
 msgid "Staff deleted."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:912
+#: admin/class-unbsb-admin.php:1139
+msgid "Name and email are required."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1143
+#: admin/class-unbsb-admin.php:1581
+#: public/class-unbsb-public.php:655
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1151
+msgid "A customer with this email already exists."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1187
+msgid "Customer saved."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1216
+msgid "Customer deleted."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1236
 msgid "Invalid parameters."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:919
+#: admin/class-unbsb-admin.php:1243
 msgid "Status updated."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:921
+#: admin/class-unbsb-admin.php:1245
 msgid "Update error."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:976
+#: admin/class-unbsb-admin.php:1300
 msgid "Invalid email address."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:981
-#: admin/class-unbsb-admin.php:1460
+#: admin/class-unbsb-admin.php:1305
+#: admin/class-unbsb-admin.php:1784
 #: includes/class-unbsb-booking-manager.php:308
 msgid "Invalid date format."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:994
+#: admin/class-unbsb-admin.php:1318
 msgid "Booking created successfully."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:999
+#: admin/class-unbsb-admin.php:1323
 msgid "An error occurred while creating the booking."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:1102
+#: admin/class-unbsb-admin.php:1426
 msgid "Settings saved."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:1120
-#: admin/class-unbsb-admin.php:1374
-#: admin/class-unbsb-admin.php:1412
+#: admin/class-unbsb-admin.php:1444
+#: admin/class-unbsb-admin.php:1698
+#: admin/class-unbsb-admin.php:1736
 msgid "Invalid staff."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:1126
+#: admin/class-unbsb-admin.php:1450
 msgid "Working hours saved."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:1142
+#: admin/class-unbsb-admin.php:1466
 msgid "Phone number is required."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:1190
-#: admin/class-unbsb-admin.php:1223
+#: admin/class-unbsb-admin.php:1514
+#: admin/class-unbsb-admin.php:1547
 msgid "Invalid template data."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:1206
+#: admin/class-unbsb-admin.php:1530
 msgid "SMS templates saved."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:1240
+#: admin/class-unbsb-admin.php:1564
 msgid "Email templates saved."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:1257
-msgid "Please enter a valid email address."
-msgstr ""
-
-#: admin/class-unbsb-admin.php:1261
-#: admin/class-unbsb-admin.php:1287
+#: admin/class-unbsb-admin.php:1585
+#: admin/class-unbsb-admin.php:1611
 msgid "Template type is required."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:1294
+#: admin/class-unbsb-admin.php:1618
 #: includes/class-unbsb-notification.php:841
 msgid "Template not found."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:1358
+#: admin/class-unbsb-admin.php:1682
 msgid "Email settings saved."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:1437
+#: admin/class-unbsb-admin.php:1761
 msgid "Schedule saved."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:1455
-#: admin/class-unbsb-admin.php:1492
+#: admin/class-unbsb-admin.php:1779
+#: admin/class-unbsb-admin.php:1816
 msgid "Invalid data."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:1469
+#: admin/class-unbsb-admin.php:1793
 msgid "Holiday added."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:1474
+#: admin/class-unbsb-admin.php:1798
 msgid "A holiday already exists on this date."
 msgstr ""
 
-#: admin/class-unbsb-admin.php:1498
+#: admin/class-unbsb-admin.php:1822
 msgid "Holiday deleted."
 msgstr ""
 
@@ -631,6 +828,7 @@ msgstr ""
 #: admin/partials/admin-dashboard.php:49
 #: admin/partials/admin-dashboard.php:273
 #: includes/class-unbsb-notification.php:759
+#: public/partials/account.php:18
 #: public/partials/booking-manage.php:64
 msgid "Pending"
 msgstr ""
@@ -639,6 +837,7 @@ msgstr ""
 #: admin/partials/admin-bookings.php:360
 #: admin/partials/admin-dashboard.php:274
 #: includes/class-unbsb-notification.php:760
+#: public/partials/account.php:19
 #: public/partials/booking-manage.php:65
 msgid "Confirmed"
 msgstr ""
@@ -646,6 +845,7 @@ msgstr ""
 #: admin/partials/admin-bookings.php:20
 #: admin/partials/admin-dashboard.php:275
 #: includes/class-unbsb-notification.php:761
+#: public/partials/account.php:20
 #: public/partials/booking-manage.php:66
 msgid "Cancelled"
 msgstr ""
@@ -653,6 +853,7 @@ msgstr ""
 #: admin/partials/admin-bookings.php:21
 #: admin/partials/admin-dashboard.php:276
 #: includes/class-unbsb-notification.php:762
+#: public/partials/account.php:21
 #: public/partials/booking-manage.php:67
 msgid "Completed"
 msgstr ""
@@ -660,6 +861,7 @@ msgstr ""
 #: admin/partials/admin-bookings.php:22
 #: admin/partials/admin-dashboard.php:277
 #: includes/class-unbsb-notification.php:763
+#: public/partials/account.php:22
 #: public/partials/booking-manage.php:68
 msgid "No Show"
 msgstr ""
@@ -681,15 +883,17 @@ msgid "All Staff"
 msgstr ""
 
 #: admin/partials/admin-bookings.php:68
+#: admin/partials/admin-promo-codes.php:348
 msgid "Start Date"
 msgstr ""
 
 #: admin/partials/admin-bookings.php:73
+#: admin/partials/admin-promo-codes.php:353
 msgid "End Date"
 msgstr ""
 
 #: admin/partials/admin-bookings.php:82
-#: admin/partials/admin-staff.php:283
+#: admin/partials/admin-staff.php:378
 msgid "Clear"
 msgstr ""
 
@@ -698,7 +902,7 @@ msgid "ID"
 msgstr ""
 
 #: admin/partials/admin-bookings.php:100
-#: public/class-unbsb-public.php:89
+#: public/class-unbsb-public.php:95
 #: public/partials/booking-form.php:32
 #: public/partials/booking-form.php:50
 #: public/partials/booking-form.php:64
@@ -708,7 +912,8 @@ msgstr ""
 
 #: admin/partials/admin-bookings.php:103
 #: admin/partials/admin-categories.php:33
-#: admin/partials/admin-customers.php:28
+#: admin/partials/admin-customers.php:33
+#: admin/partials/admin-promo-codes.php:36
 #: admin/partials/admin-services.php:36
 msgid "Actions"
 msgstr ""
@@ -756,13 +961,13 @@ msgstr ""
 #: admin/partials/admin-bookings.php:286
 #: admin/partials/admin-dashboard.php:186
 #: admin/partials/admin-email-templates.php:215
-#: public/class-unbsb-public.php:95
+#: public/class-unbsb-public.php:101
 msgid "Date"
 msgstr ""
 
 #: admin/partials/admin-bookings.php:293
 #: admin/partials/admin-email-templates.php:216
-#: public/class-unbsb-public.php:96
+#: public/class-unbsb-public.php:102
 msgid "Time"
 msgstr ""
 
@@ -772,9 +977,11 @@ msgid "Customer Information"
 msgstr ""
 
 #: admin/partials/admin-bookings.php:323
-#: admin/partials/admin-customers.php:24
-#: admin/partials/admin-staff.php:105
-#: public/partials/booking-form.php:254
+#: admin/partials/admin-customers.php:28
+#: admin/partials/admin-customers.php:101
+#: admin/partials/admin-staff.php:149
+#: public/partials/account.php:156
+#: public/partials/booking-form.php:332
 msgid "Full Name"
 msgstr ""
 
@@ -783,22 +990,29 @@ msgid "Customer full name"
 msgstr ""
 
 #: admin/partials/admin-bookings.php:327
-#: admin/partials/admin-customers.php:25
+#: admin/partials/admin-customers.php:29
+#: admin/partials/admin-customers.php:109
 #: admin/partials/admin-settings.php:89
-#: admin/partials/admin-staff.php:113
-#: public/partials/booking-form.php:260
+#: admin/partials/admin-staff.php:157
+#: public/partials/account.php:133
+#: public/partials/account.php:161
+#: public/partials/booking-form.php:338
 msgid "Email"
 msgstr ""
 
 #: admin/partials/admin-bookings.php:333
-#: admin/partials/admin-customers.php:26
-#: admin/partials/admin-staff.php:120
-#: public/partials/booking-form.php:264
+#: admin/partials/admin-customers.php:30
+#: admin/partials/admin-customers.php:116
+#: admin/partials/admin-staff.php:164
+#: public/partials/account.php:166
+#: public/partials/booking-form.php:342
 msgid "Phone"
 msgstr ""
 
 #: admin/partials/admin-bookings.php:370
-#: public/partials/booking-form.php:270
+#: admin/partials/admin-customers.php:31
+#: admin/partials/admin-customers.php:123
+#: public/partials/booking-form.php:348
 msgid "Notes"
 msgstr ""
 
@@ -824,10 +1038,12 @@ msgstr ""
 
 #: admin/partials/admin-bookings.php:394
 #: admin/partials/admin-categories.php:166
-#: admin/partials/admin-services.php:260
+#: admin/partials/admin-customers.php:129
+#: admin/partials/admin-promo-codes.php:389
+#: admin/partials/admin-services.php:279
 #: admin/partials/admin-staff-schedule.php:216
-#: admin/partials/admin-staff.php:208
-#: admin/partials/admin-staff.php:291
+#: admin/partials/admin-staff.php:303
+#: admin/partials/admin-staff.php:386
 msgid "Cancel"
 msgstr ""
 
@@ -863,12 +1079,14 @@ msgid "Order"
 msgstr ""
 
 #: admin/partials/admin-categories.php:61
-#: admin/partials/admin-services.php:71
+#: admin/partials/admin-promo-codes.php:152
+#: admin/partials/admin-services.php:78
 msgid "Edit"
 msgstr ""
 
 #: admin/partials/admin-categories.php:64
-#: admin/partials/admin-services.php:74
+#: admin/partials/admin-promo-codes.php:155
+#: admin/partials/admin-services.php:81
 msgid "Delete"
 msgstr ""
 
@@ -889,7 +1107,9 @@ msgid "e.g. Hair Care, Manicure, Massage"
 msgstr ""
 
 #: admin/partials/admin-categories.php:112
-#: admin/partials/admin-services.php:158
+#: admin/partials/admin-promo-codes.php:29
+#: admin/partials/admin-promo-codes.php:212
+#: admin/partials/admin-services.php:165
 msgid "Description"
 msgstr ""
 
@@ -898,8 +1118,8 @@ msgid "Short description about the category..."
 msgstr ""
 
 #: admin/partials/admin-categories.php:118
-#: admin/partials/admin-services.php:146
-#: admin/partials/admin-services.php:225
+#: admin/partials/admin-services.php:153
+#: admin/partials/admin-services.php:244
 msgid "Color"
 msgstr ""
 
@@ -916,22 +1136,32 @@ msgid "Quick Colors:"
 msgstr ""
 
 #: admin/partials/admin-categories.php:170
-#: admin/partials/admin-services.php:264
-#: admin/partials/admin-staff.php:212
-#: admin/partials/admin-staff.php:295
+#: admin/partials/admin-customers.php:132
+#: admin/partials/admin-promo-codes.php:393
+#: admin/partials/admin-services.php:283
+#: admin/partials/admin-staff.php:307
+#: admin/partials/admin-staff.php:390
 msgid "Save"
 msgstr ""
 
-#: admin/partials/admin-customers.php:27
+#: admin/partials/admin-customers.php:32
 msgid "Registration Date"
 msgstr ""
 
-#: admin/partials/admin-customers.php:44
-msgid "View Bookings"
+#: admin/partials/admin-customers.php:70
+msgid "No customers found yet."
 msgstr ""
 
-#: admin/partials/admin-customers.php:54
-msgid "No customers found yet."
+#: admin/partials/admin-customers.php:72
+msgid "Add First Customer"
+msgstr ""
+
+#: admin/partials/admin-customers.php:91
+msgid "Enter customer details"
+msgstr ""
+
+#: admin/partials/admin-customers.php:124
+msgid "Internal notes about this customer..."
 msgstr ""
 
 #: admin/partials/admin-dashboard.php:39
@@ -968,7 +1198,7 @@ msgid "Recent Bookings"
 msgstr ""
 
 #: admin/partials/admin-dashboard.php:176
-#: public/partials/booking-form.php:136
+#: public/partials/booking-form.php:143
 msgid "All"
 msgstr ""
 
@@ -1111,8 +1341,8 @@ msgstr ""
 
 #: admin/partials/admin-email-templates.php:217
 #: admin/partials/admin-services.php:33
-#: admin/partials/admin-services.php:174
-#: public/class-unbsb-public.php:97
+#: admin/partials/admin-services.php:181
+#: public/class-unbsb-public.php:103
 msgid "Duration"
 msgstr ""
 
@@ -1165,85 +1395,340 @@ msgstr ""
 msgid "Email Preview"
 msgstr ""
 
+#: admin/partials/admin-export-import.php:17
+msgid "Export your data as JSON or import from a backup file."
+msgstr ""
+
+#: admin/partials/admin-export-import.php:27
+msgid "Export Data"
+msgstr ""
+
+#: admin/partials/admin-export-import.php:32
+msgid "Download all your plugin data as a JSON file. This includes categories, services, staff, customers, bookings, promo codes, working hours, and settings."
+msgstr ""
+
+#: admin/partials/admin-export-import.php:38
+msgid "Loading summary..."
+msgstr ""
+
+#: admin/partials/admin-export-import.php:44
+msgid "Export All Data"
+msgstr ""
+
+#: admin/partials/admin-export-import.php:54
+#: admin/partials/admin-export-import.php:111
+msgid "Import Data"
+msgstr ""
+
+#: admin/partials/admin-export-import.php:59
+msgid "Import data from a previously exported JSON file."
+msgstr ""
+
+#: admin/partials/admin-export-import.php:64
+msgid "Select File"
+msgstr ""
+
+#: admin/partials/admin-export-import.php:67
+msgid "Drag & drop your JSON file here or click to browse"
+msgstr ""
+
+#: admin/partials/admin-export-import.php:68
+msgid "Only .json files are accepted"
+msgstr ""
+
+#: admin/partials/admin-export-import.php:75
+msgid "Remove file"
+msgstr ""
+
+#: admin/partials/admin-export-import.php:83
+msgid "Import Mode"
+msgstr ""
+
+#: admin/partials/admin-export-import.php:89
+msgid "Merge"
+msgstr ""
+
+#: admin/partials/admin-export-import.php:90
+msgid "Add imported data to existing records. Existing data will not be deleted."
+msgstr ""
+
+#: admin/partials/admin-export-import.php:97
+msgid "Replace"
+msgstr ""
+
+#: admin/partials/admin-export-import.php:98
+msgid "Delete all existing data and replace with imported data."
+msgstr ""
+
+#: admin/partials/admin-export-import.php:104
+msgid "Warning: Replace mode will permanently delete all existing data before importing. Make sure you have a backup!"
+msgstr ""
+
+#: admin/partials/admin-export-import.php:144
+msgid "Close"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:28
+#: admin/partials/admin-promo-codes.php:207
+msgid "Code"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:30
+msgid "Type"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:31
+msgid "Value"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:32
+msgid "Usage"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:33
+msgid "Date Range"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:34
+msgid "Rules"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:44
+msgid "Copy Code"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:60
+#: admin/partials/admin-promo-codes.php:220
+msgid "Percentage"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:64
+#: admin/partials/admin-promo-codes.php:221
+msgid "Fixed Amount"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:68
+#: admin/partials/admin-promo-codes.php:222
+msgid "Cheapest Free"
+msgstr ""
+
+#. translators: %s: start date of the promo code
+#: admin/partials/admin-promo-codes.php:103
+#, php-format
+msgid "From %s"
+msgstr ""
+
+#. translators: %s: end date of the promo code
+#: admin/partials/admin-promo-codes.php:108
+#, php-format
+msgid "Until %s"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:117
+msgid "First Time"
+msgstr ""
+
+#. translators: %d: minimum number of services required
+#: admin/partials/admin-promo-codes.php:124
+#, php-format
+msgid "Min %d services"
+msgstr ""
+
+#. translators: %s: minimum order amount with currency
+#: admin/partials/admin-promo-codes.php:132
+#, php-format
+msgid "Min %s"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:167
+msgid "No promo codes added yet."
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:169
+msgid "Add First Promo Code"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:188
+msgid "Enter promo code details"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:203
+msgid "Code & Discount"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:208
+msgid "e.g. WELCOME20"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:213
+msgid "Short description about the promo code..."
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:218
+msgid "Discount Type"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:226
+msgid "Discount Value"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:239
+msgid "Applicable To"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:247
+msgid "All Services"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:259
+msgid "No services available."
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:269
+msgid "All Categories"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:281
+msgid "No categories available."
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:294
+msgid "Conditions"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:300
+msgid "First Time Only"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:302
+msgid "Only for customers with no previous bookings"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:306
+msgid "Min Services"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:308
+msgid "Minimum number of services in a booking"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:312
+msgid "Min Order Amount"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:324
+msgid "Usage Limits"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:328
+msgid "Max Uses"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:330
+#: admin/partials/admin-promo-codes.php:336
+msgid "0 = unlimited"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:334
+msgid "Max Uses Per Customer"
+msgstr ""
+
+#: admin/partials/admin-promo-codes.php:344
+msgid "Validity"
+msgstr ""
+
 #: admin/partials/admin-services.php:31
-#: admin/partials/admin-services.php:126
+#: admin/partials/admin-services.php:133
 msgid "Service Name"
 msgstr ""
 
 #: admin/partials/admin-services.php:32
-#: admin/partials/admin-services.php:131
+#: admin/partials/admin-services.php:138
 msgid "Category"
 msgstr ""
 
 #: admin/partials/admin-services.php:62
-#: admin/partials/admin-services.php:178
-#: admin/partials/admin-services.php:208
-#: admin/partials/admin-services.php:217
-#: admin/partials/admin-staff.php:147
+#: admin/partials/admin-services.php:185
+#: admin/partials/admin-services.php:227
+#: admin/partials/admin-services.php:236
+#: admin/partials/admin-staff.php:92
+#: admin/partials/admin-staff.php:110
 #: includes/class-unbsb-notification.php:588
 #: public/class-unbsb-public.php:85
-#: public/partials/booking-form.php:160
-#: public/partials/booking-form.php:188
+#: public/partials/booking-form.php:246
+#: public/partials/service-card-inner.php:27
 msgid "min"
 msgstr ""
 
-#: admin/partials/admin-services.php:86
+#: admin/partials/admin-services.php:93
 msgid "No services added yet."
 msgstr ""
 
-#: admin/partials/admin-services.php:88
+#: admin/partials/admin-services.php:95
 msgid "Add First Service"
 msgstr ""
 
-#: admin/partials/admin-services.php:107
+#: admin/partials/admin-services.php:114
 msgid "Enter service details"
 msgstr ""
 
-#: admin/partials/admin-services.php:122
+#: admin/partials/admin-services.php:129
 msgid "Basic Information"
 msgstr ""
 
-#: admin/partials/admin-services.php:127
+#: admin/partials/admin-services.php:134
 msgid "e.g. Haircut"
 msgstr ""
 
-#: admin/partials/admin-services.php:134
+#: admin/partials/admin-services.php:141
 msgid "-- Select Category --"
 msgstr ""
 
-#: admin/partials/admin-services.php:139
+#: admin/partials/admin-services.php:146
 msgid "Add New Category"
 msgstr ""
 
-#: admin/partials/admin-services.php:145
+#: admin/partials/admin-services.php:152
 msgid "Category name"
 msgstr ""
 
-#: admin/partials/admin-services.php:159
+#: admin/partials/admin-services.php:166
 msgid "Short description about the service..."
 msgstr ""
 
-#: admin/partials/admin-services.php:167
+#: admin/partials/admin-services.php:174
 msgid "Duration & Price"
 msgstr ""
 
-#: admin/partials/admin-services.php:201
+#: admin/partials/admin-services.php:203
+msgid "Discounted Price"
+msgstr ""
+
+#: admin/partials/admin-services.php:206
+msgid "Leave empty for no discount"
+msgstr ""
+
+#: admin/partials/admin-services.php:209
+msgid "Leave empty for no discount. Must be less than the regular price."
+msgstr ""
+
+#: admin/partials/admin-services.php:220
 msgid "Additional Settings"
 msgstr ""
 
-#: admin/partials/admin-services.php:205
+#: admin/partials/admin-services.php:224
 msgid "Buffer Before"
 msgstr ""
 
-#: admin/partials/admin-services.php:210
+#: admin/partials/admin-services.php:229
 msgid "Preparation time"
 msgstr ""
 
-#: admin/partials/admin-services.php:214
+#: admin/partials/admin-services.php:233
 msgid "Buffer After"
 msgstr ""
 
-#: admin/partials/admin-services.php:219
+#: admin/partials/admin-services.php:238
 msgid "Cleanup time"
 msgstr ""
 
@@ -1308,7 +1793,7 @@ msgid "Minimum minutes before a booking can be made"
 msgstr ""
 
 #: admin/partials/admin-settings.php:179
-#: public/partials/services-list.php:29
+#: public/partials/services-list.php:30
 msgid "minutes"
 msgstr ""
 
@@ -1543,6 +2028,8 @@ msgid "Username"
 msgstr ""
 
 #: admin/partials/admin-settings.php:494
+#: public/partials/account.php:138
+#: public/partials/account.php:171
 msgid "Password"
 msgstr ""
 
@@ -1608,10 +2095,6 @@ msgstr ""
 
 #: admin/partials/admin-settings.php:589
 msgid "Variables:"
-msgstr ""
-
-#: admin/partials/admin-settings.php:610
-msgid "Save Templates"
 msgstr ""
 
 #: admin/partials/admin-settings.php:624
@@ -1882,37 +2365,37 @@ msgid "Save Changes"
 msgstr ""
 
 #: admin/partials/admin-staff-schedule.php:18
-#: admin/partials/admin-staff.php:241
+#: admin/partials/admin-staff.php:336
 msgid "Monday"
 msgstr ""
 
 #: admin/partials/admin-staff-schedule.php:19
-#: admin/partials/admin-staff.php:242
+#: admin/partials/admin-staff.php:337
 msgid "Tuesday"
 msgstr ""
 
 #: admin/partials/admin-staff-schedule.php:20
-#: admin/partials/admin-staff.php:243
+#: admin/partials/admin-staff.php:338
 msgid "Wednesday"
 msgstr ""
 
 #: admin/partials/admin-staff-schedule.php:21
-#: admin/partials/admin-staff.php:244
+#: admin/partials/admin-staff.php:339
 msgid "Thursday"
 msgstr ""
 
 #: admin/partials/admin-staff-schedule.php:22
-#: admin/partials/admin-staff.php:245
+#: admin/partials/admin-staff.php:340
 msgid "Friday"
 msgstr ""
 
 #: admin/partials/admin-staff-schedule.php:23
-#: admin/partials/admin-staff.php:246
+#: admin/partials/admin-staff.php:341
 msgid "Saturday"
 msgstr ""
 
 #: admin/partials/admin-staff-schedule.php:24
-#: admin/partials/admin-staff.php:247
+#: admin/partials/admin-staff.php:342
 msgid "Sunday"
 msgstr ""
 
@@ -1981,72 +2464,76 @@ msgstr ""
 msgid "e.g. Annual leave, Sick leave..."
 msgstr ""
 
-#: admin/partials/admin-staff.php:50
+#: admin/partials/admin-staff.php:52
 msgid "Hours"
 msgstr ""
 
-#: admin/partials/admin-staff.php:65
+#: admin/partials/admin-staff.php:67
 msgid "No staff added yet."
 msgstr ""
 
-#: admin/partials/admin-staff.php:67
+#: admin/partials/admin-staff.php:69
 msgid "Add First Staff"
 msgstr ""
 
-#: admin/partials/admin-staff.php:86
+#: admin/partials/admin-staff.php:130
 msgid "Enter staff details"
 msgstr ""
 
-#: admin/partials/admin-staff.php:101
+#: admin/partials/admin-staff.php:145
 msgid "Personal Information"
 msgstr ""
 
-#: admin/partials/admin-staff.php:106
+#: admin/partials/admin-staff.php:150
 msgid "e.g. John Doe"
 msgstr ""
 
-#: admin/partials/admin-staff.php:127
+#: admin/partials/admin-staff.php:171
 msgid "Biography"
 msgstr ""
 
-#: admin/partials/admin-staff.php:128
+#: admin/partials/admin-staff.php:172
 msgid "A short introduction..."
 msgstr ""
 
-#: admin/partials/admin-staff.php:136
+#: admin/partials/admin-staff.php:180
 msgid "Offered Services"
 msgstr ""
 
-#: admin/partials/admin-staff.php:158
+#: admin/partials/admin-staff.php:253
 msgid "No services added yet. Please add services first."
 msgstr ""
 
-#: admin/partials/admin-staff.php:197
+#: admin/partials/admin-staff.php:292
 msgid "You can edit working hours from the \"Hours\" button after saving the staff member."
 msgstr ""
 
-#: admin/partials/admin-staff.php:228
+#: admin/partials/admin-staff.php:323
 msgid "Working Hours"
 msgstr ""
 
-#: admin/partials/admin-staff.php:258
+#: admin/partials/admin-staff.php:353
 msgid "Open"
 msgstr ""
 
-#: admin/partials/admin-staff.php:259
+#: admin/partials/admin-staff.php:354
 msgid "Closed"
 msgstr ""
 
-#: admin/partials/admin-staff.php:275
+#: admin/partials/admin-staff.php:370
 msgid "Quick Set:"
 msgstr ""
 
-#: admin/partials/admin-staff.php:277
+#: admin/partials/admin-staff.php:372
 msgid "Weekdays (09-18)"
 msgstr ""
 
-#: admin/partials/admin-staff.php:280
+#: admin/partials/admin-staff.php:375
 msgid "All Days"
+msgstr ""
+
+#: includes/class-unbsb-activator.php:372
+msgid "Salon Customer"
 msgstr ""
 
 #: includes/class-unbsb-booking-manager.php:58
@@ -2093,8 +2580,8 @@ msgstr ""
 
 #: includes/class-unbsb-booking-manager.php:217
 #: includes/class-unbsb-booking-manager.php:289
-#: includes/class-unbsb-rest-api.php:395
-#: includes/class-unbsb-rest-api.php:505
+#: includes/class-unbsb-rest-api.php:437
+#: includes/class-unbsb-rest-api.php:547
 #: public/partials/booking-manage.php:36
 msgid "Booking not found."
 msgstr ""
@@ -2154,6 +2641,88 @@ msgstr ""
 
 #: includes/class-unbsb-database.php:203
 msgid "Direct SQL queries are deprecated. Use prepared_query() instead."
+msgstr ""
+
+#: includes/class-unbsb-export-import.php:80
+msgid "You do not have permission to export data."
+msgstr ""
+
+#: includes/class-unbsb-export-import.php:168
+msgid "Failed to encode export data as JSON."
+msgstr ""
+
+#: includes/class-unbsb-export-import.php:187
+msgid "You do not have permission to import data."
+msgstr ""
+
+#: includes/class-unbsb-export-import.php:194
+msgid "Invalid import mode. Use \"merge\" or \"replace\"."
+msgstr ""
+
+#. translators: %s: JSON error message
+#: includes/class-unbsb-export-import.php:209
+#, php-format
+msgid "Invalid JSON data: %s"
+msgstr ""
+
+#. translators: %s: error message
+#: includes/class-unbsb-export-import.php:280
+#, php-format
+msgid "Import failed: %s"
+msgstr ""
+
+#. translators: %s: table name
+#: includes/class-unbsb-export-import.php:304
+#, php-format
+msgid "Could not read columns for table: %s"
+msgstr ""
+
+#: includes/class-unbsb-export-import.php:380
+msgid "Import data must be an object."
+msgstr ""
+
+#: includes/class-unbsb-export-import.php:388
+msgid "Import data is missing the \"meta\" section. This does not appear to be a valid export file."
+msgstr ""
+
+#. translators: %s: meta field name
+#: includes/class-unbsb-export-import.php:398
+#, php-format
+msgid "Import data is missing required meta field: %s"
+msgstr ""
+
+#: includes/class-unbsb-export-import.php:407
+msgid "Import data contains no tables or settings to import."
+msgstr ""
+
+#: includes/class-unbsb-export-import.php:416
+msgid "The \"tables\" section must be an object."
+msgstr ""
+
+#. translators: %s: table name
+#: includes/class-unbsb-export-import.php:427
+#, php-format
+msgid "Unknown table in import data: %s"
+msgstr ""
+
+#. translators: %s: table name
+#: includes/class-unbsb-export-import.php:435
+#, php-format
+msgid "Table data must be an array: %s"
+msgstr ""
+
+#: includes/class-unbsb-export-import.php:445
+msgid "The \"settings\" section must be an object."
+msgstr ""
+
+#. translators: 1: available memory in MB, 2: required memory in MB
+#: includes/class-unbsb-export-import.php:476
+#, php-format
+msgid "Insufficient memory available. Available: %1$sMB, Required: %2$sMB. Please increase PHP memory_limit."
+msgstr ""
+
+#: includes/class-unbsb-export-import.php:626
+msgid "You do not have permission to view data summary."
 msgstr ""
 
 #. translators: 1: Service name, 2: Company name
@@ -2272,36 +2841,48 @@ msgstr ""
 msgid "Too many requests. Please try again in %d seconds."
 msgstr ""
 
-#: includes/class-unbsb-rest-api.php:361
-#: public/class-unbsb-public.php:333
+#: includes/class-unbsb-rest-api.php:403
+#: public/class-unbsb-public.php:362
 msgid "Spam detected."
 msgstr ""
 
-#: includes/class-unbsb-rest-api.php:376
+#: includes/class-unbsb-rest-api.php:418
 msgid "Your booking has been created successfully."
 msgstr ""
 
-#: includes/class-unbsb-rest-api.php:458
+#: includes/class-unbsb-rest-api.php:500
 msgid "Date and time are required."
 msgstr ""
 
+#: includes/class-unbsb-rest-api.php:649
+msgid "Security check failed."
+msgstr ""
+
+#: includes/class-unbsb-rest-api.php:681
+msgid "No import data provided. Send JSON data in the request body or upload a file."
+msgstr ""
+
+#: includes/class-unbsb-rest-api.php:696
+msgid "Data imported successfully."
+msgstr ""
+
 #. translators: %s: parameter name
-#: includes/class-unbsb-rest-api.php:597
+#: includes/class-unbsb-rest-api.php:782
 #, php-format
 msgid "Invalid date format (%s). Format must be: YYYY-MM-DD."
 msgstr ""
 
-#: includes/class-unbsb-rest-api.php:609
+#: includes/class-unbsb-rest-api.php:794
 msgid "Invalid date value."
 msgstr ""
 
 #. translators: %s: parameter name
-#: includes/class-unbsb-rest-api.php:633
+#: includes/class-unbsb-rest-api.php:818
 #, php-format
 msgid "Invalid month format (%s). Format must be: YYYY-MM."
 msgstr ""
 
-#: includes/class-unbsb-rest-api.php:646
+#: includes/class-unbsb-rest-api.php:831
 msgid "Invalid month value (must be between 1-12)."
 msgstr ""
 
@@ -2342,6 +2923,7 @@ msgid "Warning"
 msgstr ""
 
 #: includes/class-unbsb-security-logger.php:520
+#: public/class-unbsb-public.php:594
 msgid "Error"
 msgstr ""
 
@@ -2349,11 +2931,11 @@ msgstr ""
 msgid "Critical"
 msgstr ""
 
-#: includes/class-unbsb-seo.php:195
+#: includes/class-unbsb-seo.php:197
 msgid "Our Services"
 msgstr ""
 
-#: includes/class-unbsb-seo.php:267
+#: includes/class-unbsb-seo.php:269
 msgid "Book online - fast and easy!"
 msgstr ""
 
@@ -2379,8 +2961,56 @@ msgstr ""
 msgid "Another booking exists in this time slot."
 msgstr ""
 
-#: includes/models/class-unbsb-service.php:186
-msgid "Uncategorized"
+#: includes/models/class-unbsb-booking.php:116
+msgid "One or more selected services are not available for this staff member."
+msgstr ""
+
+#: includes/models/class-unbsb-booking.php:172
+msgid "The selected service is not available for this staff member."
+msgstr ""
+
+#: includes/models/class-unbsb-promo-code.php:225
+msgid "This promo code is invalid or inactive."
+msgstr ""
+
+#: includes/models/class-unbsb-promo-code.php:235
+msgid "This promo code is not yet valid."
+msgstr ""
+
+#: includes/models/class-unbsb-promo-code.php:242
+msgid "This promo code has expired."
+msgstr ""
+
+#: includes/models/class-unbsb-promo-code.php:252
+msgid "This promo code has reached its usage limit."
+msgstr ""
+
+#: includes/models/class-unbsb-promo-code.php:263
+msgid "You have already used this promo code the maximum number of times."
+msgstr ""
+
+#: includes/models/class-unbsb-promo-code.php:284
+msgid "This promo code is only valid for first-time customers."
+msgstr ""
+
+#. translators: %d: minimum number of services required
+#: includes/models/class-unbsb-promo-code.php:295
+#, php-format
+msgid "This promo code requires at least %d service(s)."
+msgstr ""
+
+#. translators: %s: minimum order amount
+#: includes/models/class-unbsb-promo-code.php:307
+#, php-format
+msgid "This promo code requires a minimum order amount of %s."
+msgstr ""
+
+#: includes/models/class-unbsb-promo-code.php:324
+msgid "This promo code is not applicable to the selected services."
+msgstr ""
+
+#: includes/models/class-unbsb-promo-code.php:354
+msgid "This promo code is not applicable to the selected service categories."
 msgstr ""
 
 #: includes/sms/class-unbsb-sms-netgsm.php:79
@@ -2464,7 +3094,7 @@ msgid "Select a date"
 msgstr ""
 
 #: public/class-unbsb-public.php:76
-#: public/class-unbsb-public.php:281
+#: public/class-unbsb-public.php:310
 msgid "Select a time"
 msgstr ""
 
@@ -2481,7 +3111,7 @@ msgid "No staff available."
 msgstr ""
 
 #: public/class-unbsb-public.php:81
-#: public/class-unbsb-public.php:398
+#: public/class-unbsb-public.php:440
 msgid "Your booking has been created successfully!"
 msgstr ""
 
@@ -2490,11 +3120,31 @@ msgid "An error occurred. Please try again."
 msgstr ""
 
 #: public/class-unbsb-public.php:84
-#: public/partials/booking-form.php:315
+#: public/partials/booking-form.php:408
 msgid "Book Now"
 msgstr ""
 
+#: public/class-unbsb-public.php:87
+msgid "Nearest available:"
+msgstr ""
+
+#: public/class-unbsb-public.php:88
+msgid "No available slots this week"
+msgstr ""
+
+#: public/class-unbsb-public.php:89
+msgid "Any Staff"
+msgstr ""
+
 #: public/class-unbsb-public.php:90
+msgid "We'll assign the first available staff member"
+msgstr ""
+
+#: public/class-unbsb-public.php:91
+msgid "More dates"
+msgstr ""
+
+#: public/class-unbsb-public.php:96
 #: public/partials/booking-form.php:36
 #: public/partials/booking-form.php:54
 #: public/partials/booking-form.php:68
@@ -2502,32 +3152,162 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: public/class-unbsb-public.php:98
+#: public/class-unbsb-public.php:104
 msgid "Total"
 msgstr ""
 
-#: public/class-unbsb-public.php:282
+#: public/class-unbsb-public.php:105
+msgid "Discount"
+msgstr ""
+
+#: public/class-unbsb-public.php:106
+msgid "Promo code applied!"
+msgstr ""
+
+#: public/class-unbsb-public.php:107
+msgid "Promo code removed."
+msgstr ""
+
+#: public/class-unbsb-public.php:108
+msgid "Invalid promo code."
+msgstr ""
+
+#: public/class-unbsb-public.php:109
+#: public/partials/booking-form.php:359
+msgid "Enter promo code"
+msgstr ""
+
+#: public/class-unbsb-public.php:110
+#: public/partials/booking-form.php:360
+msgid "Apply"
+msgstr ""
+
+#: public/class-unbsb-public.php:111
+msgid "Remove"
+msgstr ""
+
+#: public/class-unbsb-public.php:112
+#: public/class-unbsb-public.php:419
+#: public/class-unbsb-public.php:465
+msgid "You must be logged in to use a promo code."
+msgstr ""
+
+#: public/class-unbsb-public.php:113
+msgid "Log In"
+msgstr ""
+
+#: public/class-unbsb-public.php:311
 msgid "No available slots"
 msgstr ""
 
-#: public/class-unbsb-public.php:284
+#: public/class-unbsb-public.php:313
 msgid "Your booking has been updated!"
 msgstr ""
 
-#: public/class-unbsb-public.php:285
+#: public/class-unbsb-public.php:314
 msgid "Your booking has been cancelled!"
 msgstr ""
 
-#: public/class-unbsb-public.php:307
+#: public/class-unbsb-public.php:336
 msgid "Missing parameters."
 msgstr ""
 
-#: public/class-unbsb-public.php:413
+#: public/class-unbsb-public.php:460
+msgid "Please enter a promo code."
+msgstr ""
+
+#. translators: %s: formatted discount amount
+#: public/class-unbsb-public.php:518
+#, php-format
+msgid "Promo code applied! You save %s"
+msgstr ""
+
+#: public/class-unbsb-public.php:532
+#: public/class-unbsb-public.php:743
 msgid "Service ID is required."
 msgstr ""
 
-#: public/class-unbsb-public.php:443
+#: public/class-unbsb-public.php:562
 msgid "Staff ID is required."
+msgstr ""
+
+#: public/class-unbsb-public.php:592
+#: public/class-unbsb-public.php:663
+msgid "Passwords do not match."
+msgstr ""
+
+#: public/class-unbsb-public.php:593
+msgid "OK"
+msgstr ""
+
+#: public/class-unbsb-public.php:595
+msgid "Connection error"
+msgstr ""
+
+#: public/class-unbsb-public.php:628
+msgid "Invalid email or password."
+msgstr ""
+
+#: public/class-unbsb-public.php:633
+msgid "Login successful. Redirecting..."
+msgstr ""
+
+#: public/class-unbsb-public.php:659
+msgid "Password must be at least 6 characters."
+msgstr ""
+
+#: public/class-unbsb-public.php:667
+msgid "This email is already registered."
+msgstr ""
+
+#: public/class-unbsb-public.php:702
+msgid "Registration successful. Redirecting..."
+msgstr ""
+
+#: public/partials/account.php:66
+msgid "Log Out"
+msgstr ""
+
+#: public/partials/account.php:72
+msgid "My Bookings"
+msgstr ""
+
+#: public/partials/account.php:104
+msgid "Manage"
+msgstr ""
+
+#: public/partials/account.php:111
+msgid "You have no bookings yet."
+msgstr ""
+
+#: public/partials/account.php:120
+#: public/partials/account.php:145
+msgid "Login"
+msgstr ""
+
+#: public/partials/account.php:123
+#: public/partials/account.php:183
+msgid "Register"
+msgstr ""
+
+#: public/partials/account.php:134
+#: public/partials/account.php:162
+#: public/partials/booking-form.php:339
+msgid "example@email.com"
+msgstr ""
+
+#: public/partials/account.php:157
+#: public/partials/booking-form.php:333
+msgid "Your full name"
+msgstr ""
+
+#: public/partials/account.php:167
+#: public/partials/booking-form.php:343
+msgid "+1 XXX XXX XXXX"
+msgstr ""
+
+#: public/partials/account.php:176
+msgid "Confirm Password"
 msgstr ""
 
 #: public/partials/booking-form.php:125
@@ -2538,73 +3318,73 @@ msgstr ""
 msgid "Select a Service"
 msgstr ""
 
-#: public/partials/booking-form.php:183
-msgid "Selected Services"
+#: public/partials/booking-form.php:135
+msgid "Scroll left"
 msgstr ""
 
-#: public/partials/booking-form.php:188
-msgid "Total:"
-msgstr ""
-
-#: public/partials/booking-form.php:201
-#: public/partials/services-list.php:44
-msgid "No services available yet."
-msgstr ""
-
-#: public/partials/booking-form.php:209
-msgid "Select Staff"
-msgstr ""
-
-#: public/partials/booking-form.php:219
-msgid "Select Date and Time"
-msgstr ""
-
-#: public/partials/booking-form.php:239
-msgid "Available Times"
+#: public/partials/booking-form.php:152
+msgid "Scroll right"
 msgstr ""
 
 #: public/partials/booking-form.php:241
+msgid "Selected Services"
+msgstr ""
+
+#: public/partials/booking-form.php:246
+msgid "Total:"
+msgstr ""
+
+#: public/partials/booking-form.php:259
+#: public/partials/services-list.php:64
+msgid "No services available yet."
+msgstr ""
+
+#: public/partials/booking-form.php:267
+msgid "Select Staff"
+msgstr ""
+
+#: public/partials/booking-form.php:277
+msgid "Select Date and Time"
+msgstr ""
+
+#: public/partials/booking-form.php:297
+msgid "Available Times"
+msgstr ""
+
+#: public/partials/booking-form.php:299
 #: public/partials/booking-manage.php:211
 msgid "Select a date first"
 msgstr ""
 
-#: public/partials/booking-form.php:250
+#: public/partials/booking-form.php:308
 msgid "Enter Your Information"
 msgstr ""
 
-#: public/partials/booking-form.php:255
-msgid "Your full name"
-msgstr ""
-
-#: public/partials/booking-form.php:261
-msgid "example@email.com"
-msgstr ""
-
-#: public/partials/booking-form.php:265
-msgid "+1 XXX XXX XXXX"
-msgstr ""
-
-#: public/partials/booking-form.php:271
+#: public/partials/booking-form.php:349
 msgid "Any additional notes (optional)"
 msgstr ""
 
-#: public/partials/booking-form.php:284
+#: public/partials/booking-form.php:357
+msgid "Promo Code"
+msgstr ""
+
+#: public/partials/booking-form.php:377
 msgid "Booking Summary"
 msgstr ""
 
-#: public/partials/booking-form.php:296
+#: public/partials/booking-form.php:389
 msgid "Your Booking is Received!"
 msgstr ""
 
-#: public/partials/booking-form.php:297
+#: public/partials/booking-form.php:390
 msgid "Your booking details will be sent to your email address."
 msgstr ""
 
-#: public/partials/booking-form.php:307
+#: public/partials/booking-form.php:400
 msgid "Back"
 msgstr ""
 
-#: public/partials/booking-form.php:310
+#: public/partials/booking-form.php:403
 msgid "Continue"
 msgstr ""
 
@@ -2663,6 +3443,12 @@ msgstr ""
 
 #: public/partials/booking-manage.php:259
 msgid "Yes, Cancel"
+msgstr ""
+
+#. translators: %d: discount percentage
+#: public/partials/service-card-inner.php:54
+#, php-format
+msgid "-%d%%"
 msgstr ""
 
 #: public/partials/staff-list.php:51

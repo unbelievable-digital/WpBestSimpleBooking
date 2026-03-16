@@ -662,6 +662,11 @@
 			});
 		});
 
+		// Salary type toggle
+		document.querySelectorAll('#unbsb-staff-form input[name="salary_type"]').forEach(function(radio) {
+			radio.addEventListener('change', updateSalaryFields);
+		});
+
 		// Save staff
 		if (saveBtn) {
 			saveBtn.addEventListener('click', function() {
@@ -789,6 +794,16 @@
 			if (activeRadio) {
 				activeRadio.checked = true;
 			}
+			// Reset salary type
+			const percentageRadio = form.querySelector('input[name="salary_type"][value="percentage"]');
+			if (percentageRadio) {
+				percentageRadio.checked = true;
+			}
+			var salaryPercentageInput = document.getElementById('staff-salary-percentage');
+			var salaryFixedInput = document.getElementById('staff-salary-fixed');
+			if (salaryPercentageInput) salaryPercentageInput.value = '';
+			if (salaryFixedInput) salaryFixedInput.value = '';
+			updateSalaryFields();
 			// Uncheck all services and hide custom fields
 			form.querySelectorAll('input[name="services[]"]').forEach(function(checkbox) {
 				checkbox.checked = false;
@@ -836,6 +851,22 @@
 			});
 		}
 
+		// Salary fields
+		var salaryType = staff.salary_type || 'percentage';
+		var salaryTypeRadio = document.querySelector('#unbsb-staff-form input[name="salary_type"][value="' + salaryType + '"]');
+		if (salaryTypeRadio) {
+			salaryTypeRadio.checked = true;
+		}
+		var salaryPercentageInput = document.getElementById('staff-salary-percentage');
+		var salaryFixedInput = document.getElementById('staff-salary-fixed');
+		if (salaryPercentageInput) {
+			salaryPercentageInput.value = staff.salary_percentage || '';
+		}
+		if (salaryFixedInput) {
+			salaryFixedInput.value = staff.salary_fixed || '';
+		}
+		updateSalaryFields();
+
 		// Show/hide custom fields based on checked state
 		toggleAllServiceCustomFields();
 		// Update category counts
@@ -849,6 +880,30 @@
 			});
 		}
 		return null;
+	}
+
+	function updateSalaryFields() {
+		var form = document.getElementById('unbsb-staff-form');
+		if (!form) return;
+
+		var salaryType = form.querySelector('input[name="salary_type"]:checked');
+		var type = salaryType ? salaryType.value : 'percentage';
+		var percentageField = document.getElementById('unbsb-salary-percentage-field');
+		var fixedField = document.getElementById('unbsb-salary-fixed-field');
+
+		if (!percentageField || !fixedField) return;
+
+		if ('percentage' === type) {
+			percentageField.style.display = '';
+			fixedField.style.display = 'none';
+		} else if ('fixed' === type) {
+			percentageField.style.display = 'none';
+			fixedField.style.display = '';
+		} else {
+			// mix
+			percentageField.style.display = '';
+			fixedField.style.display = '';
+		}
 	}
 
 	/**

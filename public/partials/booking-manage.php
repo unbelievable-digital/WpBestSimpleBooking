@@ -28,7 +28,7 @@ if ( ! class_exists( 'UNBSB_Booking_Manager' ) ) {
 $booking_manager = new UNBSB_Booking_Manager();
 $booking_model   = new UNBSB_Booking();
 
-// Randevuyu getir.
+// Get the booking.
 $booking = $booking_model->get_by_token( $token );
 
 if ( ! $booking ) {
@@ -51,7 +51,7 @@ $company_name    = get_option( 'unbsb_company_name', get_bloginfo( 'name' ) );
 $can_cancel     = $booking_manager->can_cancel( $booking );
 $can_reschedule = $booking_manager->can_reschedule( $booking );
 
-// Durum renkleri.
+// Status colors.
 $status_colors = array(
 	'pending'   => '#f59e0b',
 	'confirmed' => '#10b981',
@@ -91,7 +91,7 @@ $formatted_time = date_i18n( $time_format, strtotime( $booking->start_time ) );
 		</div>
 	</div>
 
-	<!-- Randevu Bilgileri -->
+	<!-- Booking Details -->
 	<div class="unbsb-manage-card">
 		<div class="unbsb-info-row">
 			<span class="unbsb-info-icon">
