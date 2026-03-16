@@ -3381,14 +3381,6 @@
 
 			var html = '';
 
-			// Any Staff option
-			html += '<label class="unbsb-nb-staff-item">';
-			html += '<input type="radio" name="staff_id" value="any">';
-			html += '<span class="unbsb-nb-staff-radio"></span>';
-			html += '<div class="unbsb-nb-staff-avatar"><span class="dashicons dashicons-groups"></span></div>';
-			html += '<span class="unbsb-nb-staff-name">' + unbsbAdmin.strings.nb_any_staff + '</span>';
-			html += '</label>';
-
 			availableStaff.forEach(function(staff) {
 				html += '<label class="unbsb-nb-staff-item">';
 				html += '<input type="radio" name="staff_id" value="' + staff.id + '">';
@@ -3452,7 +3444,7 @@
 
 			// Use REST API for available slots
 			var serviceId = selectedServices[0].id;
-			var url = unbsbAdmin.restUrl + 'available-slots?service_id=' + serviceId + '&date=' + date + '&duration=' + totalDuration;
+			var url = unbsbAdmin.restUrl + 'slots?service_id=' + serviceId + '&date=' + date + '&duration=' + totalDuration;
 			if (staffId) {
 				url += '&staff_id=' + staffId;
 			}
