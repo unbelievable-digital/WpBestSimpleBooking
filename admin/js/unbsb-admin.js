@@ -3458,8 +3458,10 @@
 				if (Array.isArray(slots) && slots.length > 0) {
 					var html = '<div class="unbsb-nb-slots-grid">';
 					slots.forEach(function(slot) {
-						var time = typeof slot === 'string' ? slot : slot.time || slot.start_time || '';
-						html += '<button type="button" class="unbsb-nb-slot-btn" data-time="' + escAttr(time) + '">' + escHtml(time) + '</button>';
+						var time = typeof slot === 'string' ? slot : slot.start || slot.time || slot.start_time || '';
+						var endTime = typeof slot === 'object' ? (slot.end || '') : '';
+						var label = endTime ? (time + ' - ' + endTime) : time;
+						html += '<button type="button" class="unbsb-nb-slot-btn" data-time="' + escAttr(time) + '">' + escHtml(label) + '</button>';
 					});
 					html += '</div>';
 					slotsWrap.innerHTML = html;

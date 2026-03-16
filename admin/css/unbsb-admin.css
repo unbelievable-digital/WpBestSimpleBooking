@@ -5229,31 +5229,35 @@ select optgroup option {
 .unbsb-nb-slots-grid {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 6px;
+	gap: 8px;
 }
 
 .unbsb-nb-slot-btn {
-	padding: 6px 14px;
-	border: 1px solid var(--unbsb-border);
+	padding: 8px 16px;
+	border: 2px solid var(--unbsb-secondary);
 	border-radius: var(--unbsb-radius);
 	background: var(--unbsb-white);
-	color: var(--unbsb-text);
-	font-size: 13px;
-	font-weight: 500;
+	color: var(--unbsb-dark);
+	font-size: 14px;
+	font-weight: 600;
 	cursor: pointer;
 	transition: var(--unbsb-transition);
+	letter-spacing: 0.02em;
 }
 
 .unbsb-nb-slot-btn:hover {
 	border-color: var(--unbsb-primary);
 	color: var(--unbsb-primary);
-	background: rgba(109, 40, 217, 0.04);
+	background: rgba(109, 40, 217, 0.06);
+	transform: translateY(-1px);
+	box-shadow: 0 2px 6px rgba(109, 40, 217, 0.15);
 }
 
 .unbsb-nb-slot-btn.active {
 	background: var(--unbsb-gradient);
 	color: #fff;
 	border-color: var(--unbsb-primary);
+	box-shadow: 0 3px 8px rgba(109, 40, 217, 0.3);
 }
 
 /* Summary Card */
