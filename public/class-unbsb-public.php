@@ -83,6 +83,12 @@ class UNBSB_Public {
 					'required_fields' => __( 'Please fill in all required fields.', 'unbelievable-salon-booking' ),
 					'book_now'        => __( 'Book Now', 'unbelievable-salon-booking' ),
 	'minute_short'    => __( 'min', 'unbelievable-salon-booking' ),
+					// Staff availability.
+					'nearest_available' => __( 'Nearest available:', 'unbelievable-salon-booking' ),
+					'no_available_slots' => __( 'No available slots this week', 'unbelievable-salon-booking' ),
+					'any_staff'       => __( 'Any Staff', 'unbelievable-salon-booking' ),
+					'any_staff_desc'  => __( 'We\'ll assign the first available staff member', 'unbelievable-salon-booking' ),
+					'more_dates'      => __( 'More dates', 'unbelievable-salon-booking' ),
 					// Step labels.
 					'step_service'    => __( 'Service', 'unbelievable-salon-booking' ),
 					'step_staff'      => __( 'Staff', 'unbelievable-salon-booking' ),
@@ -693,6 +699,141 @@ class UNBSB_Public {
 				'message' => __( 'Registration successful. Redirecting...', 'unbelievable-salon-booking' ),
 			)
 		);
+	}
+
+	/**
+	 * AJAX: Get nearest available slots for staff members
+	 */
+	public function ajax_get_staff_nearest_slots() {
+		check_ajax_referer( 'unbsb_public_nonce', 'nonce' );
+
+		$service_id     = isset( $_POST['service_id'] ) ? absint( $_POST['service_id'] ) : 0;
+		$total_duration = isset( $_POST['total_duration'] ) ? absint( $_POST['total_duration'] ) : 0;
+
+		// Parse service_ids for multi-service.
+		$service_ids = array();
+		if ( ! empty( $_POST['service_ids'] ) ) {
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$raw_ids = wp_unslash( $_POST['service_ids'] );
+			if ( is_string( $raw_ids ) ) {
+				$decoded = json_decode( $raw_ids, true );
+				if ( is_array( $decoded ) ) {
+					$service_ids = array_map( 'absint', $decoded );
+				}
+			} elseif ( is_array( $raw_ids ) ) {
+				$service_ids = array_map( 'absint', $raw_ids );
+			}
+		}
+
+		// Single service fallback.
+		if ( empty( $service_ids ) && $service_id ) {
+			$service_ids = array( $service_id );
+		}
+
+		if ( empty( $service_ids ) ) {
+			wp_send_json_error( __( 'Service ID is required.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Parse optional staff_ids filter.
+		$staff_ids = array();
+		if ( ! empty( $_POST['staff_ids'] ) ) {
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$raw_staff = wp_unslash( $_POST['staff_ids'] );
+			if ( is_array( $raw_staff ) ) {
+				$staff_ids = array_map( 'absint', $raw_staff );
+			}
+		}
+
+		$staff_model   = new UNBSB_Staff();
+		$service_model = new UNBSB_Service();
+		$calendar      = new UNBSB_Calendar();
+
+		// Get relevant staff: filtered or all who offer these services.
+		if ( ! empty( $staff_ids ) ) {
+			$all_staff = array();
+			foreach ( $staff_ids as $sid ) {
+				$s = $staff_model->get( $sid );
+				if ( $s && 'active' === $s->status ) {
+					$all_staff[] = $s;
+				}
+			}
+		} else {
+			// Get staff that offer the first service (intersection for multi-service is handled below).
+			$all_staff = $staff_model->get_by_service( $service_ids[0] );
+		}
+
+		// For multi-service, filter to staff who offer ALL selected services.
+		if ( count( $service_ids ) > 1 ) {
+			$all_staff = array_filter(
+				$all_staff,
+				function ( $staff_member ) use ( $staff_model, $service_ids ) {
+					$staff_services = array_map( 'absint', $staff_model->get_services( $staff_member->id ) );
+					foreach ( $service_ids as $sid ) {
+						if ( ! in_array( $sid, $staff_services, true ) ) {
+							return false;
+						}
+					}
+					return true;
+				}
+			);
+			$all_staff = array_values( $all_staff );
+		}
+
+		// Calculate total_duration from services if not provided.
+		if ( $total_duration <= 0 ) {
+			$total_duration = 0;
+			foreach ( $service_ids as $sid ) {
+				$svc = $service_model->get( $sid );
+				if ( $svc ) {
+					$total_duration += intval( $svc->duration );
+				}
+			}
+		}
+
+		$is_multi   = count( $service_ids ) > 1;
+		$today      = current_time( 'Y-m-d' );
+		$max_days   = 7;
+		$max_slots  = 6;
+		$result     = array();
+
+		foreach ( $all_staff as $staff_member ) {
+			$nearest_date  = null;
+			$nearest_slots = array();
+
+			for ( $d = 0; $d < $max_days; $d++ ) {
+				$check_date = gmdate( 'Y-m-d', strtotime( $today . " +{$d} days" ) );
+
+				if ( $is_multi ) {
+					$slots = $calendar->get_available_slots_by_duration( $staff_member->id, $check_date, $total_duration );
+				} else {
+					$slots = $calendar->get_available_slots( $staff_member->id, $service_ids[0], $check_date );
+				}
+
+				if ( ! empty( $slots ) ) {
+					$nearest_date  = $check_date;
+					$nearest_slots = array_slice( array_column( $slots, 'start' ), 0, $max_slots );
+					break;
+				}
+			}
+
+			$formatted_date = null;
+			if ( $nearest_date ) {
+				$timestamp      = strtotime( $nearest_date );
+				$formatted_date = date_i18n( get_option( 'date_format', 'j F, l' ), $timestamp );
+			}
+
+			$result[] = array(
+				'staff_id'               => $staff_member->id,
+				'staff_name'             => $staff_member->name,
+				'avatar_url'             => $staff_member->avatar_url ?? '',
+				'bio'                    => $staff_member->bio ?? '',
+				'nearest_date'           => $nearest_date,
+				'nearest_date_formatted' => $formatted_date,
+				'slots'                  => $nearest_slots,
+			);
+		}
+
+		wp_send_json_success( $result );
 	}
 
 	/**

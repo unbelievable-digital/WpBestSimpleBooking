@@ -173,6 +173,8 @@ class UNBSB_Core {
 		$this->loader->add_action( 'wp_ajax_nopriv_unbsb_get_all_staff', $public, 'ajax_get_all_staff' );
 		$this->loader->add_action( 'wp_ajax_unbsb_get_services_for_staff', $public, 'ajax_get_services_for_staff' );
 		$this->loader->add_action( 'wp_ajax_nopriv_unbsb_get_services_for_staff', $public, 'ajax_get_services_for_staff' );
+		$this->loader->add_action( 'wp_ajax_unbsb_get_staff_nearest_slots', $public, 'ajax_get_staff_nearest_slots' );
+		$this->loader->add_action( 'wp_ajax_nopriv_unbsb_get_staff_nearest_slots', $public, 'ajax_get_staff_nearest_slots' );
 
 		// Customer account AJAX.
 		$this->loader->add_action( 'wp_ajax_nopriv_unbsb_customer_login', $public, 'ajax_customer_login' );

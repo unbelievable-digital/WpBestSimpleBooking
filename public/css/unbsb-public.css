@@ -826,59 +826,51 @@
    Staff Selection
    ======================================== */
 .unbsb-staff-list {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-	gap: 16px;
-}
-
-.unbsb-staff-item {
-	cursor: pointer;
-}
-
-.unbsb-staff-item input[type="radio"] {
-	position: absolute;
-	opacity: 0;
-	width: 0;
-	height: 0;
-}
-
-.unbsb-staff-card {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	padding: 28px 16px;
-	border: 2px solid var(--unbsb-border);
-	border-radius: var(--unbsb-radius-sm);
-	transition: var(--unbsb-transition);
-	background: var(--unbsb-white);
-	text-align: center;
+	gap: 12px;
 }
 
-.unbsb-staff-item:hover .unbsb-staff-card {
-	border-color: color-mix(in srgb, var(--unbsb-primary) 40%, var(--unbsb-border));
-	transform: translateY(-3px);
+/* --- Staff Availability Card --- */
+.unbsb-staff-avail-card {
+	background: var(--unbsb-white);
+	border: 2px solid var(--unbsb-border);
+	border-radius: var(--unbsb-radius);
+	padding: 20px;
+	transition: var(--unbsb-transition);
+}
+
+.unbsb-staff-avail-card:hover {
+	border-color: color-mix(in srgb, var(--unbsb-primary) 30%, var(--unbsb-border));
 	box-shadow: var(--unbsb-shadow-md);
 }
 
-.unbsb-staff-item input:checked + .unbsb-staff-card {
+.unbsb-staff-avail-card.unbsb-staff-selected {
 	border-color: var(--unbsb-primary);
 	background: var(--unbsb-primary-light);
 	box-shadow: var(--unbsb-shadow-glow);
-	transform: translateY(-2px);
+}
+
+/* Staff header row: avatar + info */
+.unbsb-staff-header {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	margin-bottom: 14px;
 }
 
 .unbsb-staff-avatar {
-	width: 76px;
-	height: 76px;
+	width: 56px;
+	height: 56px;
+	min-width: 56px;
 	border-radius: 50%;
 	overflow: hidden;
-	margin-bottom: 14px;
 	background: var(--unbsb-border);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 	transition: var(--unbsb-transition);
 }
 
-.unbsb-staff-item input:checked + .unbsb-staff-card .unbsb-staff-avatar {
+.unbsb-staff-avail-card.unbsb-staff-selected .unbsb-staff-avatar {
 	box-shadow: 0 4px 16px var(--unbsb-primary-glow);
 }
 
@@ -896,16 +888,232 @@
 	justify-content: center;
 	background: linear-gradient(135deg, var(--unbsb-primary), #8b5cf6);
 	color: var(--unbsb-white);
-	font-size: 28px;
+	font-size: 22px;
 	font-weight: 700;
 }
 
+.unbsb-staff-info {
+	flex: 1;
+	min-width: 0;
+}
+
 .unbsb-staff-name {
-	font-size: 15px;
+	font-size: 16px;
 	font-weight: 700;
 	color: var(--unbsb-text);
 	margin: 0;
 	letter-spacing: -0.2px;
+}
+
+.unbsb-staff-bio {
+	font-size: 12px;
+	color: var(--unbsb-text-muted);
+	margin: 2px 0 0 0;
+	line-height: 1.4;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+/* Nearest date label */
+.unbsb-staff-nearest-label {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	font-size: 12px;
+	color: var(--unbsb-text-muted);
+	margin-bottom: 8px;
+	font-weight: 500;
+}
+
+.unbsb-staff-nearest-label svg {
+	opacity: 0.5;
+	flex-shrink: 0;
+}
+
+/* Time slot pills */
+.unbsb-staff-slots {
+	display: flex;
+	gap: 6px;
+	flex-wrap: wrap;
+}
+
+.unbsb-staff-slot {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 6px 14px;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--unbsb-text-secondary);
+	background: var(--unbsb-bg);
+	border: 1.5px solid var(--unbsb-border);
+	border-radius: 100px;
+	cursor: pointer;
+	transition: var(--unbsb-transition);
+	white-space: nowrap;
+}
+
+.unbsb-staff-slot:hover {
+	border-color: var(--unbsb-primary);
+	color: var(--unbsb-primary);
+	background: color-mix(in srgb, var(--unbsb-primary) 6%, white);
+	transform: translateY(-1px);
+	box-shadow: 0 2px 8px color-mix(in srgb, var(--unbsb-primary) 15%, transparent);
+}
+
+.unbsb-staff-slot.active {
+	background: var(--unbsb-primary);
+	border-color: var(--unbsb-primary);
+	color: var(--unbsb-white);
+	box-shadow: 0 3px 10px color-mix(in srgb, var(--unbsb-primary) 35%, transparent);
+}
+
+/* "More dates" link */
+.unbsb-staff-more-dates {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 12px;
+	color: var(--unbsb-primary);
+	font-weight: 600;
+	cursor: pointer;
+	border: none;
+	background: none;
+	padding: 6px 10px;
+	border-radius: 100px;
+	transition: var(--unbsb-transition);
+}
+
+.unbsb-staff-more-dates:hover {
+	background: var(--unbsb-primary-light);
+}
+
+/* No slots message */
+.unbsb-staff-no-slots {
+	font-size: 13px;
+	color: var(--unbsb-text-muted);
+	font-style: italic;
+	padding: 4px 0;
+}
+
+/* "Any Staff" card */
+.unbsb-staff-avail-card.unbsb-any-staff {
+	border-style: dashed;
+	background: var(--unbsb-bg);
+}
+
+.unbsb-staff-avail-card.unbsb-any-staff:hover {
+	background: color-mix(in srgb, var(--unbsb-primary) 4%, var(--unbsb-bg));
+}
+
+.unbsb-staff-avail-card.unbsb-any-staff.unbsb-staff-selected {
+	border-style: solid;
+	background: var(--unbsb-primary-light);
+}
+
+.unbsb-any-staff-icon {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(135deg, var(--unbsb-secondary), #475569);
+	color: var(--unbsb-white);
+}
+
+/* --- Staff Loading Skeleton --- */
+.unbsb-staff-skeleton {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.unbsb-staff-skeleton-card {
+	background: var(--unbsb-white);
+	border: 2px solid var(--unbsb-border-light);
+	border-radius: var(--unbsb-radius);
+	padding: 20px;
+	animation: unbsbSkeletonPulse 1.5s ease-in-out infinite;
+}
+
+.unbsb-skeleton-header {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	margin-bottom: 14px;
+}
+
+.unbsb-skeleton-avatar {
+	width: 56px;
+	height: 56px;
+	min-width: 56px;
+	border-radius: 50%;
+	background: var(--unbsb-border-light);
+}
+
+.unbsb-skeleton-lines {
+	flex: 1;
+}
+
+.unbsb-skeleton-line {
+	height: 12px;
+	border-radius: 6px;
+	background: var(--unbsb-border-light);
+	margin-bottom: 8px;
+}
+
+.unbsb-skeleton-line:last-child {
+	margin-bottom: 0;
+	width: 60%;
+}
+
+.unbsb-skeleton-slots {
+	display: flex;
+	gap: 6px;
+}
+
+.unbsb-skeleton-slot {
+	width: 64px;
+	height: 32px;
+	border-radius: 100px;
+	background: var(--unbsb-border-light);
+}
+
+@keyframes unbsbSkeletonPulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.5; }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+	.unbsb-staff-avail-card {
+		padding: 16px;
+	}
+
+	.unbsb-staff-avatar {
+		width: 48px;
+		height: 48px;
+		min-width: 48px;
+	}
+
+	.unbsb-staff-avatar-placeholder {
+		font-size: 18px;
+	}
+
+	.unbsb-staff-name {
+		font-size: 15px;
+	}
+
+	.unbsb-staff-slots {
+		gap: 5px;
+	}
+
+	.unbsb-staff-slot {
+		padding: 5px 12px;
+		font-size: 12px;
+	}
 }
 
 /* ========================================
@@ -1623,8 +1831,7 @@
 	}
 
 	.unbsb-staff-list {
-		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-		gap: 12px;
+		gap: 10px;
 	}
 }
 

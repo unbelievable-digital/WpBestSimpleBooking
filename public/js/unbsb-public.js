@@ -493,15 +493,16 @@
 	 * Load all staff (for staff_first and staff_only modes)
 	 */
 	function loadAllStaff() {
-		const staffList = document.getElementById('unbsb-staff-list');
+		var staffList = document.getElementById('unbsb-staff-list');
 		if (!staffList) return;
 
-		staffList.innerHTML = '<div class="unbsb-loading-spinner">' + unbsbPublic.strings.loading + '</div>';
+		staffList.innerHTML = renderStaffSkeleton();
 
 		ajaxRequest('unbsb_get_all_staff', {}, function(response) {
 			if (response.success && response.data.length > 0) {
 				state.staffList = response.data;
-				renderStaffList(response.data, true);
+				// Load nearest slots for all staff
+				loadStaffNearestSlots(null);
 			} else {
 				staffList.innerHTML = '<p class="unbsb-time-hint">' + unbsbPublic.strings.select_staff + '</p>';
 			}
@@ -574,13 +575,23 @@
 				break;
 			case 'staff':
 				if (flowConfig.mode === 'service_first') {
-					// Load staff for selected service
+					// Load staff for selected service (with nearest slots)
 					loadStaffForService();
 				}
 				break;
 			case 'datetime':
-				// Auto-select staff for service_only mode
-				if (flowConfig.mode === 'service_only' && !state.selectedStaff) {
+				// If date+time already selected from staff availability cards, skip
+				if (state.selectedDate && state.selectedTime && state.selectedStaff && state.selectedStaff.id !== 'any') {
+					var infoStep = getStepNumber('info');
+					if (infoStep) {
+						goToStep(infoStep);
+						return;
+					}
+				}
+				// "Any Staff" → auto-select then show calendar
+				if (state.selectedStaff && state.selectedStaff.id === 'any') {
+					autoSelectStaff();
+				} else if (flowConfig.mode === 'service_only' && !state.selectedStaff) {
 					autoSelectStaff();
 				} else {
 					renderCalendar();
@@ -689,21 +700,20 @@
 	 * Load staff for selected service
 	 */
 	function loadStaffForService() {
-		const staffList = document.getElementById('unbsb-staff-list');
+		var staffList = document.getElementById('unbsb-staff-list');
 		if (!staffList) return;
 
-		staffList.innerHTML = '<div class="unbsb-loading-spinner">' + unbsbPublic.strings.loading + '</div>';
+		staffList.innerHTML = renderStaffSkeleton();
 
-		ajaxRequest('unbsb_get_staff_for_service', {
-			service_id: state.selectedService.id
-		}, function(response) {
-			if (response.success && response.data.length > 0) {
-				state.staffList = response.data;
-				renderStaffList(response.data, false);
-			} else {
-				staffList.innerHTML = '<p class="unbsb-time-hint">' + unbsbPublic.strings.select_staff + '</p>';
-			}
-		});
+		// Build service IDs for the request
+		var serviceIds = [];
+		if (flowConfig.multiService && state.selectedServices.length > 0) {
+			serviceIds = state.selectedServices.map(function(s) { return s.id; });
+		} else if (state.selectedService) {
+			serviceIds = [state.selectedService.id];
+		}
+
+		loadStaffNearestSlots(serviceIds);
 	}
 
 	/**
@@ -728,36 +738,244 @@
 	}
 
 	/**
-	 * Render staff list
+	 * Load nearest available slots for staff members via AJAX
 	 */
-	function renderStaffList(staffData, isFirstStep) {
-		const staffList = document.getElementById('unbsb-staff-list');
+	function loadStaffNearestSlots(serviceIds) {
+		var staffList = document.getElementById('unbsb-staff-list');
 		if (!staffList) return;
 
-		let html = '';
+		var params = {};
+		if (serviceIds && serviceIds.length > 0) {
+			params.service_ids = serviceIds.join(',');
+		}
 
+		ajaxRequest('unbsb_get_staff_nearest_slots', params, function(response) {
+			if (response.success && response.data.length > 0) {
+				state.staffList = response.data;
+				renderStaffAvailability(response.data);
+			} else {
+				staffList.innerHTML = '<p class="unbsb-time-hint">' + (unbsbPublic.strings.no_staff || 'No staff available.') + '</p>';
+			}
+		});
+	}
+
+	/**
+	 * Render staff availability cards
+	 */
+	function renderStaffAvailability(staffData) {
+		var staffList = document.getElementById('unbsb-staff-list');
+		if (!staffList) return;
+
+		var html = '';
+		var strings = unbsbPublic.strings;
+
+		// "Any Staff" option
+		html += '<div class="unbsb-staff-avail-card unbsb-any-staff" data-staff-id="any">' +
+			'<div class="unbsb-staff-header">' +
+				'<div class="unbsb-staff-avatar">' +
+					'<span class="unbsb-any-staff-icon">' +
+						'<svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>' +
+					'</span>' +
+				'</div>' +
+				'<div class="unbsb-staff-info">' +
+					'<h4 class="unbsb-staff-name">' + (strings.any_staff || 'Any Staff') + '</h4>' +
+					'<p class="unbsb-staff-bio">' + (strings.any_staff_desc || 'We\'ll assign the first available staff member') + '</p>' +
+				'</div>' +
+			'</div>' +
+		'</div>';
+
+		// Staff cards with availability
 		staffData.forEach(function(staff) {
-			const avatar = staff.avatar_url
+			var avatar = staff.avatar_url
 				? '<img src="' + staff.avatar_url + '" alt="' + staff.name + '">'
 				: '<span class="unbsb-staff-avatar-placeholder">' + staff.name.charAt(0) + '</span>';
 
-			html += '<label class="unbsb-staff-item">' +
-				'<input type="radio" name="staff_id" value="' + staff.id + '">' +
-				'<div class="unbsb-staff-card">' +
+			html += '<div class="unbsb-staff-avail-card" data-staff-id="' + staff.staff_id + '">' +
+				'<div class="unbsb-staff-header">' +
 					'<div class="unbsb-staff-avatar">' + avatar + '</div>' +
-					'<h4 class="unbsb-staff-name">' + staff.name + '</h4>' +
+					'<div class="unbsb-staff-info">' +
+						'<h4 class="unbsb-staff-name">' + staff.staff_name + '</h4>' +
+						(staff.bio ? '<p class="unbsb-staff-bio">' + staff.bio + '</p>' : '') +
+					'</div>' +
+				'</div>';
+
+			if (staff.nearest_date && staff.slots && staff.slots.length > 0) {
+				html += '<div class="unbsb-staff-nearest-label">' +
+					'<svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>' +
+					(strings.nearest_available || 'Nearest available:') + ' ' + staff.nearest_date_formatted +
 				'</div>' +
-			'</label>';
+				'<div class="unbsb-staff-slots">';
+
+				staff.slots.forEach(function(slot) {
+					html += '<button type="button" class="unbsb-staff-slot" data-staff-id="' + staff.staff_id + '" data-date="' + staff.nearest_date + '" data-time="' + slot + '">' +
+						formatTime(slot) +
+					'</button>';
+				});
+
+				html += '<button type="button" class="unbsb-staff-more-dates" data-staff-id="' + staff.staff_id + '">' +
+					(strings.more_dates || 'More dates') +
+					' <svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z"/></svg>' +
+				'</button>' +
+				'</div>';
+			} else {
+				html += '<p class="unbsb-staff-no-slots">' + (strings.no_available_slots || 'No available slots this week') + '</p>';
+			}
+
+			html += '</div>';
 		});
 
 		staffList.innerHTML = html;
 
-		// Add event listeners
-		staffList.querySelectorAll('input[type="radio"]').forEach(function(input) {
-			input.addEventListener('change', function() {
+		// --- Event listeners ---
+
+		// Slot click: select staff + date + time
+		staffList.querySelectorAll('.unbsb-staff-slot').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				var staffId = this.dataset.staffId;
+				var date = this.dataset.date;
+				var time = this.dataset.time;
+
+				// Set state
+				state.selectedStaff = staffData.find(function(s) { return s.staff_id == staffId; });
+				state.selectedDate = date;
+				state.selectedTime = time;
+
+				// Set hidden fields
+				var dateInput = document.getElementById('booking-date');
+				var timeInput = document.getElementById('start-time');
+				if (dateInput) dateInput.value = date;
+				if (timeInput) timeInput.value = time;
+
+				// Update UI — highlight selected card and slot
+				staffList.querySelectorAll('.unbsb-staff-avail-card').forEach(function(card) {
+					card.classList.remove('unbsb-staff-selected');
+				});
+				this.closest('.unbsb-staff-avail-card').classList.add('unbsb-staff-selected');
+
+				staffList.querySelectorAll('.unbsb-staff-slot').forEach(function(s) {
+					s.classList.remove('active');
+				});
+				this.classList.add('active');
+
+				updateNextButton();
+			});
+		});
+
+		// "Any Staff" card click
+		var anyStaffCard = staffList.querySelector('.unbsb-any-staff');
+		if (anyStaffCard) {
+			anyStaffCard.addEventListener('click', function() {
+				// Set a marker so the system knows to auto-assign
+				state.selectedStaff = { id: 'any', name: unbsbPublic.strings.any_staff || 'Any Staff' };
+				state.selectedDate = null;
+				state.selectedTime = null;
+
+				// Clear hidden fields
+				var dateInput = document.getElementById('booking-date');
+				var timeInput = document.getElementById('start-time');
+				if (dateInput) dateInput.value = '';
+				if (timeInput) timeInput.value = '';
+
+				// Highlight "Any Staff" card
+				staffList.querySelectorAll('.unbsb-staff-avail-card').forEach(function(card) {
+					card.classList.remove('unbsb-staff-selected');
+				});
+				this.classList.add('unbsb-staff-selected');
+
+				staffList.querySelectorAll('.unbsb-staff-slot').forEach(function(s) {
+					s.classList.remove('active');
+				});
+
+				updateNextButton();
+			});
+		}
+
+		// "More dates" link → select staff and go to datetime step
+		staffList.querySelectorAll('.unbsb-staff-more-dates').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				var staffId = this.dataset.staffId;
+
+				state.selectedStaff = staffData.find(function(s) { return s.staff_id == staffId; });
+				state.selectedDate = null;
+				state.selectedTime = null;
+
+				// Highlight selected staff card
+				staffList.querySelectorAll('.unbsb-staff-avail-card').forEach(function(card) {
+					card.classList.remove('unbsb-staff-selected');
+				});
+				this.closest('.unbsb-staff-avail-card').classList.add('unbsb-staff-selected');
+
+				staffList.querySelectorAll('.unbsb-staff-slot').forEach(function(s) {
+					s.classList.remove('active');
+				});
+
+				// Jump to datetime step
+				var datetimeStep = getStepNumber('datetime');
+				if (datetimeStep) {
+					goToStep(datetimeStep);
+				}
+			});
+		});
+	}
+
+	/**
+	 * Render staff loading skeleton
+	 */
+	function renderStaffSkeleton() {
+		var html = '<div class="unbsb-staff-skeleton">';
+		for (var i = 0; i < 3; i++) {
+			html += '<div class="unbsb-staff-skeleton-card">' +
+				'<div class="unbsb-skeleton-header">' +
+					'<div class="unbsb-skeleton-avatar"></div>' +
+					'<div class="unbsb-skeleton-lines">' +
+						'<div class="unbsb-skeleton-line" style="width: 45%"></div>' +
+						'<div class="unbsb-skeleton-line" style="width: 70%"></div>' +
+					'</div>' +
+				'</div>' +
+				'<div class="unbsb-skeleton-slots">' +
+					'<div class="unbsb-skeleton-slot"></div>' +
+					'<div class="unbsb-skeleton-slot"></div>' +
+					'<div class="unbsb-skeleton-slot"></div>' +
+				'</div>' +
+			'</div>';
+		}
+		html += '</div>';
+		return html;
+	}
+
+	/**
+	 * Legacy renderStaffList — fallback for staff_first mode
+	 */
+	function renderStaffList(staffData, isFirstStep) {
+		var staffList = document.getElementById('unbsb-staff-list');
+		if (!staffList) return;
+
+		var html = '';
+
+		staffData.forEach(function(staff) {
+			var avatar = staff.avatar_url
+				? '<img src="' + staff.avatar_url + '" alt="' + staff.name + '">'
+				: '<span class="unbsb-staff-avatar-placeholder">' + staff.name.charAt(0) + '</span>';
+
+			html += '<div class="unbsb-staff-avail-card" data-staff-id="' + staff.id + '" style="cursor:pointer">' +
+				'<div class="unbsb-staff-header">' +
+					'<div class="unbsb-staff-avatar">' + avatar + '</div>' +
+					'<div class="unbsb-staff-info">' +
+						'<h4 class="unbsb-staff-name">' + staff.name + '</h4>' +
+					'</div>' +
+				'</div>' +
+			'</div>';
+		});
+
+		staffList.innerHTML = html;
+
+		// Click to select staff (simple mode without slots)
+		staffList.querySelectorAll('.unbsb-staff-avail-card').forEach(function(card) {
+			card.addEventListener('click', function() {
+				var staffId = this.dataset.staffId;
 				state.selectedStaff = staffData.find(function(s) {
-					return s.id == this.value;
-				}.bind(this));
+					return s.id == staffId;
+				});
 
 				// Reset date and time
 				state.selectedDate = null;
@@ -767,6 +985,12 @@
 				if (flowConfig.mode === 'staff_first') {
 					state.selectedService = null;
 				}
+
+				// Highlight
+				staffList.querySelectorAll('.unbsb-staff-avail-card').forEach(function(c) {
+					c.classList.remove('unbsb-staff-selected');
+				});
+				this.classList.add('unbsb-staff-selected');
 
 				updateNextButton();
 			});
