@@ -250,6 +250,77 @@
 }
 
 /* ========================================
+   Category Groups (Multi-service)
+   ======================================== */
+.unbsb-service-category-group {
+	margin-bottom: 8px;
+}
+
+.unbsb-service-category-group.unbsb-filtered-out {
+	display: none !important;
+}
+
+.unbsb-service-category-header {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 14px;
+	cursor: pointer;
+	border-radius: var(--unbsb-radius-xs);
+	background: var(--unbsb-bg);
+	border: 1px solid var(--unbsb-border-light);
+	transition: var(--unbsb-transition-fast);
+	user-select: none;
+}
+
+.unbsb-service-category-header:hover {
+	background: color-mix(in srgb, var(--unbsb-primary) 4%, var(--unbsb-bg));
+}
+
+.unbsb-category-dot {
+	width: 10px;
+	height: 10px;
+	min-width: 10px;
+	border-radius: 50%;
+	flex-shrink: 0;
+}
+
+.unbsb-category-title {
+	font-size: 13px;
+	font-weight: 700;
+	color: var(--unbsb-text);
+	flex: 1;
+	text-transform: uppercase;
+	letter-spacing: 0.3px;
+}
+
+.unbsb-category-selected-count {
+	font-size: 11px;
+	font-weight: 700;
+	color: var(--unbsb-white);
+	background: var(--unbsb-primary);
+	min-width: 20px;
+	height: 20px;
+	border-radius: 100px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 6px;
+	line-height: 1;
+}
+
+.unbsb-service-category-items {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 8px 0 0 0;
+}
+
+.unbsb-service-category-group.unbsb-collapsed .unbsb-service-category-items {
+	display: none;
+}
+
+/* ========================================
    Service Selection
    ======================================== */
 .unbsb-service-list {
@@ -274,13 +345,13 @@
 .unbsb-service-card {
 	display: flex;
 	align-items: center;
-	padding: 16px 20px;
+	padding: 12px 16px;
 	border: 2px solid var(--unbsb-border);
 	border-radius: var(--unbsb-radius);
 	transition: var(--unbsb-transition);
 	background: var(--unbsb-white);
 	position: relative;
-	gap: 14px;
+	gap: 12px;
 }
 
 .unbsb-service-item:hover .unbsb-service-card {
@@ -355,31 +426,38 @@
 	min-width: 0;
 }
 
+.unbsb-service-name-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
 .unbsb-service-name {
 	font-size: 15px;
 	font-weight: 600;
 	color: var(--unbsb-text);
-	display: block;
-	margin-bottom: 2px;
 }
 
 .unbsb-service-desc {
 	font-size: 12px;
 	color: var(--unbsb-text-muted);
-	margin: 0 0 4px 0;
+	margin: 2px 0 0 0;
 	line-height: 1.4;
 }
 
 .unbsb-service-duration {
 	display: inline-flex;
 	align-items: center;
-	gap: 4px;
-	font-size: 12px;
+	gap: 3px;
+	font-size: 11px;
 	color: var(--unbsb-text-muted);
+	opacity: 0.75;
+	white-space: nowrap;
+	flex-shrink: 0;
 }
 
 .unbsb-service-duration svg {
-	opacity: 0.6;
+	opacity: 0.5;
 }
 
 /* Price area - RIGHT side */

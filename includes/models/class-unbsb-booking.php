@@ -104,7 +104,20 @@ class UNBSB_Booking {
 		$service_model = new UNBSB_Service();
 		$staff_model   = new UNBSB_Staff();
 
+		// Validate staff-service relationship.
+		$staff_service_ids = array_map( 'absint', $staff_model->get_services( $sanitized['staff_id'] ) );
+
 		if ( $is_multi_service ) {
+			// Verify all selected services are offered by this staff member.
+			foreach ( $service_ids as $sid ) {
+				if ( ! in_array( absint( $sid ), $staff_service_ids, true ) ) {
+					return new WP_Error(
+						'invalid_staff_service',
+						__( 'One or more selected services are not available for this staff member.', 'unbelievable-salon-booking' )
+					);
+				}
+			}
+
 			$total_duration = 0;
 			$total_price    = 0;
 			$services_data  = array();
@@ -152,6 +165,14 @@ class UNBSB_Booking {
 			$start                 = strtotime( $sanitized['start_time'] );
 			$sanitized['end_time'] = gmdate( 'H:i:s', $start + ( $total_duration * 60 ) );
 		} elseif ( empty( $sanitized['end_time'] ) ) {
+			// Verify the service is offered by this staff member.
+			if ( ! in_array( absint( $sanitized['service_id'] ), $staff_service_ids, true ) ) {
+				return new WP_Error(
+					'invalid_staff_service',
+					__( 'The selected service is not available for this staff member.', 'unbelievable-salon-booking' )
+				);
+			}
+
 			// Single service - check for staff custom price/duration.
 			$service = $service_model->get( $sanitized['service_id'] );
 

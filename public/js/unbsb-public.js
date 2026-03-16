@@ -132,6 +132,7 @@
 
 		const filterBtns = filterContainer.querySelectorAll('.unbsb-filter-btn');
 		const serviceItems = document.querySelectorAll('.unbsb-service-item');
+		const categoryGroups = document.querySelectorAll('.unbsb-service-category-group');
 
 		filterBtns.forEach(function(btn) {
 			btn.addEventListener('click', function() {
@@ -143,22 +144,48 @@
 				});
 				this.classList.add('active');
 
-				// Servisleri filtrele
-				serviceItems.forEach(function(item) {
-					const itemCategoryId = item.dataset.categoryId;
-
-					if (categoryId === 'all') {
-						item.style.display = '';
-						item.classList.remove('unbsb-filtered-out');
-					} else if (itemCategoryId === categoryId) {
-						item.style.display = '';
-						item.classList.remove('unbsb-filtered-out');
-					} else {
-						item.style.display = 'none';
-						item.classList.add('unbsb-filtered-out');
-					}
-				});
+				// If we have category groups (multi-service mode), filter groups
+				if (categoryGroups.length > 0) {
+					categoryGroups.forEach(function(group) {
+						var groupCatId = group.dataset.categoryId;
+						if (categoryId === 'all') {
+							group.style.display = '';
+							group.classList.remove('unbsb-filtered-out');
+						} else if (groupCatId === categoryId) {
+							group.style.display = '';
+							group.classList.remove('unbsb-filtered-out');
+						} else {
+							group.style.display = 'none';
+							group.classList.add('unbsb-filtered-out');
+						}
+					});
+				} else {
+					// Flat list (single-service mode)
+					serviceItems.forEach(function(item) {
+						var itemCategoryId = item.dataset.categoryId;
+						if (categoryId === 'all') {
+							item.style.display = '';
+							item.classList.remove('unbsb-filtered-out');
+						} else if (itemCategoryId === categoryId) {
+							item.style.display = '';
+							item.classList.remove('unbsb-filtered-out');
+						} else {
+							item.style.display = 'none';
+							item.classList.add('unbsb-filtered-out');
+						}
+					});
+				}
 			});
+		});
+
+		// Category header click to toggle collapse
+		categoryGroups.forEach(function(group) {
+			var header = group.querySelector('.unbsb-service-category-header');
+			if (header) {
+				header.addEventListener('click', function() {
+					group.classList.toggle('unbsb-collapsed');
+				});
+			}
 		});
 	}
 
@@ -252,8 +279,27 @@
 
 				// Update summary
 				updateSelectedServicesSummary();
+				updateCategorySelectedCounts();
 				updateNextButton();
 			});
+		});
+	}
+
+	/**
+	 * Update category group selected count badges
+	 */
+	function updateCategorySelectedCounts() {
+		var groups = document.querySelectorAll('.unbsb-service-category-group');
+		groups.forEach(function(group) {
+			var checked = group.querySelectorAll('.unbsb-service-item input[type="checkbox"]:checked');
+			var badge = group.querySelector('.unbsb-category-selected-count');
+			if (!badge) return;
+			if (checked.length > 0) {
+				badge.textContent = checked.length;
+				badge.style.display = '';
+			} else {
+				badge.style.display = 'none';
+			}
 		});
 	}
 
@@ -685,12 +731,14 @@
 					'</span>' +
 					'<span class="unbsb-service-color" style="background-color: ' + (service.color || '#3788d8') + '"></span>' +
 					'<div class="unbsb-service-info">' +
-						'<strong class="unbsb-service-name">' + service.name + '</strong>' +
+						'<div class="unbsb-service-name-row">' +
+							'<strong class="unbsb-service-name">' + service.name + '</strong>' +
+							'<span class="unbsb-service-duration">' +
+								'<svg viewBox="0 0 24 24" width="12" height="12"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/></svg>' +
+								service.duration + ' ' + unbsbPublic.strings.minute_short +
+							'</span>' +
+						'</div>' +
 						(service.description ? '<p class="unbsb-service-desc">' + service.description + '</p>' : '') +
-						'<span class="unbsb-service-duration">' +
-							'<svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/></svg>' +
-							service.duration + ' ' + unbsbPublic.strings.minute_short +
-						'</span>' +
 					'</div>' +
 					priceAreaHtml +
 				'</div>' +

@@ -130,7 +130,7 @@ $has_staff_step   = isset( $step_numbers['staff'] );
 
 				<?php if ( ! empty( $services ) ) : ?>
 					<?php if ( ! empty( $categories ) ) : ?>
-					<!-- Kategori Filtresi -->
+					<!-- Category Filter -->
 					<div class="unbsb-category-filter" id="unbsb-category-filter">
 						<button type="button" class="unbsb-filter-btn active" data-category="all">
 							<?php esc_html_e( 'All', 'unbelievable-salon-booking' ); ?>
@@ -143,65 +143,79 @@ $has_staff_step   = isset( $step_numbers['staff'] );
 					</div>
 					<?php endif; ?>
 
+					<?php
+					// Group services by category for multi-service mode.
+					$grouped_services      = array();
+					$uncategorized_services = array();
+					$categories_map        = array();
+					if ( ! empty( $categories ) ) {
+						foreach ( $categories as $cat ) {
+							$categories_map[ $cat->id ] = $cat;
+						}
+					}
+					foreach ( $services as $svc ) {
+						if ( ! empty( $svc->category_id ) && isset( $categories_map[ $svc->category_id ] ) ) {
+							$grouped_services[ $svc->category_id ][] = $svc;
+						} else {
+							$uncategorized_services[] = $svc;
+						}
+					}
+					?>
+
 					<div class="unbsb-service-list<?php echo $multi_service ? ' unbsb-multi-service' : ''; ?>" id="unbsb-service-list">
-						<?php foreach ( $services as $service ) : ?>
-							<?php
-						$has_discount    = ! empty( $service->discounted_price ) && floatval( $service->discounted_price ) < floatval( $service->price );
-						$effective_price = $has_discount ? $service->discounted_price : $service->price;
-						?>
-						<label class="unbsb-service-item" data-service-id="<?php echo esc_attr( $service->id ); ?>" data-category-id="<?php echo esc_attr( ! empty( $service->category_id ) ? $service->category_id : '0' ); ?>" data-price="<?php echo esc_attr( $effective_price ); ?>" data-duration="<?php echo esc_attr( $service->duration ); ?>">
-								<input type="<?php echo esc_attr( $input_type ); ?>" name="<?php echo $multi_service ? 'service_ids[]' : 'service_id'; ?>" value="<?php echo esc_attr( $service->id ); ?>"<?php echo $multi_service ? '' : ' required'; ?>>
-								<div class="unbsb-service-card">
-									<span class="unbsb-service-check">
-										<svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-									</span>
-									<span class="unbsb-service-color" style="background-color: <?php echo esc_attr( $service->color ); ?>"></span>
-									<div class="unbsb-service-info">
-										<strong class="unbsb-service-name"><?php echo esc_html( $service->name ); ?></strong>
-										<?php if ( $service->description ) : ?>
-											<p class="unbsb-service-desc"><?php echo esc_html( $service->description ); ?></p>
-										<?php endif; ?>
-										<span class="unbsb-service-duration">
-											<svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/></svg>
-											<?php echo esc_html( $service->duration ); ?> <?php esc_html_e( 'min', 'unbelievable-salon-booking' ); ?>
-										</span>
+						<?php if ( $multi_service && ! empty( $categories ) ) : ?>
+							<?php foreach ( $grouped_services as $cat_id => $cat_services ) : ?>
+								<?php $cat = $categories_map[ $cat_id ]; ?>
+								<div class="unbsb-service-category-group" data-category-id="<?php echo esc_attr( $cat_id ); ?>">
+									<div class="unbsb-service-category-header">
+										<span class="unbsb-category-dot" style="background-color: <?php echo esc_attr( $cat->color ); ?>"></span>
+										<span class="unbsb-category-title"><?php echo esc_html( $cat->name ); ?></span>
+										<span class="unbsb-category-selected-count" style="display:none">0</span>
 									</div>
-									<div class="unbsb-service-price-area">
-										<?php if ( $has_discount ) : ?>
-											<span class="unbsb-price-original-top">
-												<?php if ( 'before' === $currency_position ) : ?>
-													<?php echo esc_html( $currency_symbol . number_format( $service->price, 0 ) ); ?>
-												<?php else : ?>
-													<?php echo esc_html( number_format( $service->price, 0 ) . ' ' . $currency_symbol ); ?>
-												<?php endif; ?>
-											</span>
-											<span class="unbsb-price-current unbsb-price-discounted-big">
-												<?php if ( 'before' === $currency_position ) : ?>
-													<?php echo esc_html( $currency_symbol . number_format( $service->discounted_price, 0 ) ); ?>
-												<?php else : ?>
-													<?php echo esc_html( number_format( $service->discounted_price, 0 ) ); ?><small><?php echo esc_html( ' ' . $currency_symbol ); ?></small>
-												<?php endif; ?>
-											</span>
-											<span class="unbsb-discount-badge">
-												<?php
-												$discount_pct = round( ( ( floatval( $service->price ) - floatval( $service->discounted_price ) ) / floatval( $service->price ) ) * 100 );
-												/* translators: %d: discount percentage */
-												echo esc_html( sprintf( __( '-%d%%', 'unbelievable-salon-booking' ), $discount_pct ) );
-												?>
-											</span>
-										<?php else : ?>
-											<span class="unbsb-price-current">
-												<?php if ( 'before' === $currency_position ) : ?>
-													<?php echo esc_html( $currency_symbol . number_format( $service->price, 0 ) ); ?>
-												<?php else : ?>
-													<?php echo esc_html( number_format( $service->price, 0 ) ); ?><small><?php echo esc_html( ' ' . $currency_symbol ); ?></small>
-												<?php endif; ?>
-											</span>
-										<?php endif; ?>
+									<div class="unbsb-service-category-items">
+										<?php foreach ( $cat_services as $service ) : ?>
+											<?php
+											$has_discount    = ! empty( $service->discounted_price ) && floatval( $service->discounted_price ) < floatval( $service->price );
+											$effective_price = $has_discount ? $service->discounted_price : $service->price;
+											?>
+											<label class="unbsb-service-item" data-service-id="<?php echo esc_attr( $service->id ); ?>" data-category-id="<?php echo esc_attr( $cat_id ); ?>" data-price="<?php echo esc_attr( $effective_price ); ?>" data-duration="<?php echo esc_attr( $service->duration ); ?>">
+												<?php include __DIR__ . '/service-card-inner.php'; ?>
+											</label>
+										<?php endforeach; ?>
 									</div>
 								</div>
-							</label>
-						<?php endforeach; ?>
+							<?php endforeach; ?>
+							<?php if ( ! empty( $uncategorized_services ) ) : ?>
+								<div class="unbsb-service-category-group" data-category-id="0">
+									<div class="unbsb-service-category-header">
+										<span class="unbsb-category-dot" style="background-color: #94a3b8"></span>
+										<span class="unbsb-category-title"><?php esc_html_e( 'Uncategorized', 'unbelievable-salon-booking' ); ?></span>
+										<span class="unbsb-category-selected-count" style="display:none">0</span>
+									</div>
+									<div class="unbsb-service-category-items">
+										<?php foreach ( $uncategorized_services as $service ) : ?>
+											<?php
+											$has_discount    = ! empty( $service->discounted_price ) && floatval( $service->discounted_price ) < floatval( $service->price );
+											$effective_price = $has_discount ? $service->discounted_price : $service->price;
+											?>
+											<label class="unbsb-service-item" data-service-id="<?php echo esc_attr( $service->id ); ?>" data-category-id="0" data-price="<?php echo esc_attr( $effective_price ); ?>" data-duration="<?php echo esc_attr( $service->duration ); ?>">
+												<?php include __DIR__ . '/service-card-inner.php'; ?>
+											</label>
+										<?php endforeach; ?>
+									</div>
+								</div>
+							<?php endif; ?>
+						<?php else : ?>
+							<?php foreach ( $services as $service ) : ?>
+								<?php
+								$has_discount    = ! empty( $service->discounted_price ) && floatval( $service->discounted_price ) < floatval( $service->price );
+								$effective_price = $has_discount ? $service->discounted_price : $service->price;
+								?>
+								<label class="unbsb-service-item" data-service-id="<?php echo esc_attr( $service->id ); ?>" data-category-id="<?php echo esc_attr( ! empty( $service->category_id ) ? $service->category_id : '0' ); ?>" data-price="<?php echo esc_attr( $effective_price ); ?>" data-duration="<?php echo esc_attr( $service->duration ); ?>">
+									<?php include __DIR__ . '/service-card-inner.php'; ?>
+								</label>
+							<?php endforeach; ?>
+						<?php endif; ?>
 					</div>
 
 					<?php if ( $multi_service ) : ?>
