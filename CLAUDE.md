@@ -1,107 +1,128 @@
-# Appointment General - WordPress Booking Plugin
+# Unbelievable Salon Booking - WordPress Booking Plugin
 
-## Proje Hakkında
-Berberler, güzellik salonları ve servis sağlayıcılar için geliştirilmiş WordPress randevu/booking sistemi.
+## About
+A WordPress booking/appointment system designed for barbershops, beauty salons, and service providers.
 
-## Teknoloji Stack
+**Plugin URI:** https://unbelievable.digital
+
+## Technology Stack
 - **Backend:** PHP 8.0+
-- **Frontend:** Vanilla JS, Alpine.js (opsiyonel)
-- **Veritabanı:** WordPress $wpdb (MySQL)
-- **CSS:** Tailwind CSS veya vanilla CSS
+- **Frontend:** Vanilla JS, Alpine.js (optional)
+- **Database:** WordPress $wpdb (MySQL)
+- **CSS:** Tailwind CSS or vanilla CSS
 
-## WordPress Kodlama Standartları
+## WordPress Coding Standards
 
-### PHP Standartları
-- WordPress PHP Coding Standards'a uy: https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/
-- Girintiler için **tab** kullan (space değil)
-- Açılış parantezi aynı satırda olmalı
-- Yoda conditions kullan: `if ( 'value' === $variable )`
-- Array syntax: `array()` kullan, `[]` değil (PHP 5.4+ uyumluluk için opsiyonel)
+### PHP Standards
+- Follow WordPress PHP Coding Standards: https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/
+- Use **tabs** for indentation (not spaces)
+- Opening brace should be on the same line
+- Use Yoda conditions: `if ( 'value' === $variable )`
+- Array syntax: use `array()`, not `[]` (optional for PHP 5.4+ compatibility)
 
-### Dosya İsimlendirme
-- Sınıf dosyaları: `class-{class-name}.php`
-- Admin dosyaları: `admin-{feature}.php`
-- Public dosyaları: `public-{feature}.php`
-- Template dosyaları: `template-{name}.php`
+### File Naming
+- Class files: `class-{class-name}.php`
+- Admin files: `admin-{feature}.php`
+- Public files: `public-{feature}.php`
+- Template files: `template-{name}.php`
 
-### Sınıf İsimlendirme
-- PascalCase kullan: `Appointment_General_Booking`
-- Prefix kullan: `AG_` veya `Appointment_General_`
+### Class Naming
+- Use PascalCase: `UNBSB_Booking`
+- Use prefix: `UNBSB_`
 
-### Fonksiyon İsimlendirme
-- snake_case kullan
-- Prefix kullan: `ag_` veya `appointment_general_`
-- Örnek: `ag_get_available_slots()`
+### Function Naming
+- Use snake_case
+- Use prefix: `unbsb_`
+- Example: `unbsb_get_available_slots()`
 
-### Hook İsimlendirme
-- Actions: `ag_{action_name}`
-- Filters: `ag_filter_{filter_name}`
+### Hook Naming
+- Actions: `unbsb_{action_name}`
+- Filters: `unbsb_filter_{filter_name}`
 
-## Dizin Yapısı
+## Directory Structure
 
 ```
-appointment-general/
-├── appointment-general.php          # Ana plugin dosyası
+unbelievable-salon-booking/
+├── unbelievable-salon-booking.php   # Main plugin file
 ├── uninstall.php                    # Uninstall hook
 ├── readme.txt                       # WordPress.org readme
-├── CLAUDE.md                        # Bu dosya
+├── CLAUDE.md                        # This file
 │
-├── includes/                        # Core PHP sınıfları
-│   ├── class-ag-loader.php         # Hook ve filter loader
-│   ├── class-ag-activator.php      # Aktivasyon işlemleri
-│   ├── class-ag-deactivator.php    # Deaktivasyon işlemleri
-│   ├── class-ag-i18n.php           # Internationalization
-│   ├── class-ag-booking.php        # Randevu CRUD işlemleri
-│   ├── class-ag-service.php        # Hizmet yönetimi
-│   ├── class-ag-staff.php          # Personel yönetimi
-│   ├── class-ag-customer.php       # Müşteri yönetimi
-│   ├── class-ag-calendar.php       # Takvim işlemleri
-│   ├── class-ag-notification.php   # E-posta/SMS bildirimleri
-│   └── class-ag-settings.php       # Ayarlar yönetimi
+├── includes/                        # Core PHP classes
+│   ├── class-unbsb-loader.php       # Hook and filter loader
+│   ├── class-unbsb-activator.php    # Activation operations
+│   ├── class-unbsb-deactivator.php  # Deactivation operations
+│   ├── class-unbsb-i18n.php         # Internationalization
+│   ├── class-unbsb-core.php         # Core plugin class
+│   ├── class-unbsb-database.php     # Database operations
+│   ├── class-unbsb-calendar.php     # Calendar operations
+│   ├── class-unbsb-notification.php # Email/SMS notifications
+│   ├── class-unbsb-sms-manager.php  # SMS management
+│   ├── class-unbsb-seo.php          # SEO features
+│   ├── class-unbsb-rest-api.php     # REST API
+│   ├── class-unbsb-booking-manager.php # Booking management
+│   ├── class-unbsb-ics-generator.php   # ICS calendar export
+│   ├── class-unbsb-encryption.php   # Data encryption
+│   ├── class-unbsb-rate-limiter.php # Rate limiting
+│   ├── class-unbsb-security-logger.php # Security logging
+│   ├── class-unbsb-captcha.php      # CAPTCHA integration
+│   ├── models/
+│   │   ├── class-unbsb-booking.php
+│   │   ├── class-unbsb-booking-service.php
+│   │   ├── class-unbsb-category.php
+│   │   ├── class-unbsb-customer.php
+│   │   ├── class-unbsb-service.php
+│   │   └── class-unbsb-staff.php
+│   └── sms/
+│       ├── class-unbsb-sms-provider.php
+│       └── class-unbsb-sms-netgsm.php
 │
 ├── admin/                           # Admin panel
-│   ├── class-ag-admin.php          # Admin ana sınıfı
-│   ├── partials/                   # Admin template parçaları
+│   ├── class-unbsb-admin.php        # Admin main class
+│   ├── partials/                    # Admin template parts
 │   │   ├── admin-dashboard.php
 │   │   ├── admin-bookings.php
+│   │   ├── admin-calendar.php
+│   │   ├── admin-categories.php
 │   │   ├── admin-services.php
 │   │   ├── admin-staff.php
-│   │   └── admin-settings.php
+│   │   ├── admin-staff-schedule.php
+│   │   ├── admin-customers.php
+│   │   ├── admin-settings.php
+│   │   └── admin-email-templates.php
 │   ├── css/
-│   │   └── ag-admin.css
+│   │   └── unbsb-admin.css
 │   └── js/
-│       └── ag-admin.js
+│       └── unbsb-admin.js
 │
 ├── public/                          # Frontend
-│   ├── class-ag-public.php         # Public ana sınıfı
-│   ├── partials/                   # Public template parçaları
+│   ├── class-unbsb-public.php       # Public main class
+│   ├── partials/                    # Public template parts
 │   │   ├── booking-form.php
-│   │   ├── booking-calendar.php
-│   │   └── booking-confirmation.php
+│   │   ├── booking-manage.php
+│   │   ├── services-list.php
+│   │   └── staff-list.php
 │   ├── css/
-│   │   └── ag-public.css
+│   │   └── unbsb-public.css
 │   └── js/
-│       └── ag-public.js
+│       └── unbsb-public.js
 │
-├── templates/                       # Override edilebilir temalar
-│   ├── single-booking.php
-│   └── archive-booking.php
-│
-├── languages/                       # Çeviri dosyaları
-│   └── appointment-general.pot
-│
-└── assets/                          # Statik dosyalar
-    └── images/
+└── languages/                       # Translation files
+    ├── unbelievable-salon-booking.pot       # POT template (English source)
+    ├── unbelievable-salon-booking-tr_TR.po  # Turkish translation
+    ├── unbelievable-salon-booking-tr_TR.mo  # Turkish compiled
+    ├── unbelievable-salon-booking-bg_BG.po  # Bulgarian translation
+    └── unbelievable-salon-booking-bg_BG.mo  # Bulgarian compiled
 ```
 
-## Veritabanı Şeması
+## Database Schema
 
-### Tablolar
-Prefix: `{wp_prefix}ag_`
+### Tables
+Prefix: `{wp_prefix}unbsb_`
 
-#### ag_categories (Kategoriler)
+#### unbsb_categories (Categories)
 ```sql
-CREATE TABLE {prefix}ag_categories (
+CREATE TABLE {prefix}unbsb_categories (
     id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     description TEXT,
@@ -115,17 +136,18 @@ CREATE TABLE {prefix}ag_categories (
 );
 ```
 
-#### ag_services (Hizmetler)
+#### unbsb_services (Services)
 ```sql
-CREATE TABLE {prefix}ag_services (
+CREATE TABLE {prefix}unbsb_services (
     id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-    category_id BIGINT(20) UNSIGNED,           -- Kategori ID (opsiyonel)
+    category_id BIGINT(20) UNSIGNED,
     name VARCHAR(255) NOT NULL,
     description TEXT,
-    duration INT NOT NULL DEFAULT 30,          -- dakika
+    duration INT NOT NULL DEFAULT 30,
     price DECIMAL(10,2) NOT NULL DEFAULT 0,
-    buffer_before INT DEFAULT 0,               -- dakika
-    buffer_after INT DEFAULT 0,                -- dakika
+    discounted_price DECIMAL(10,2) DEFAULT NULL,
+    buffer_before INT DEFAULT 0,
+    buffer_after INT DEFAULT 0,
     color VARCHAR(7) DEFAULT '#3788d8',
     status ENUM('active','inactive') DEFAULT 'active',
     sort_order INT DEFAULT 0,
@@ -136,11 +158,11 @@ CREATE TABLE {prefix}ag_services (
 );
 ```
 
-#### ag_staff (Personel)
+#### unbsb_staff (Staff)
 ```sql
-CREATE TABLE {prefix}ag_staff (
+CREATE TABLE {prefix}unbsb_staff (
     id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-    user_id BIGINT(20) UNSIGNED,               -- WP user ID (opsiyonel)
+    user_id BIGINT(20) UNSIGNED,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255),
     phone VARCHAR(50),
@@ -155,25 +177,25 @@ CREATE TABLE {prefix}ag_staff (
 );
 ```
 
-#### ag_staff_services (Personel-Hizmet İlişkisi)
+#### unbsb_staff_services (Staff-Service Relationship)
 ```sql
-CREATE TABLE {prefix}ag_staff_services (
+CREATE TABLE {prefix}unbsb_staff_services (
     id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
     staff_id BIGINT(20) UNSIGNED NOT NULL,
     service_id BIGINT(20) UNSIGNED NOT NULL,
-    custom_price DECIMAL(10,2),                -- NULL ise servis fiyatı
-    custom_duration INT,                        -- NULL ise servis süresi
+    custom_price DECIMAL(10,2),
+    custom_duration INT,
     PRIMARY KEY (id),
     UNIQUE KEY staff_service (staff_id, service_id)
 );
 ```
 
-#### ag_working_hours (Çalışma Saatleri)
+#### unbsb_working_hours (Working Hours)
 ```sql
-CREATE TABLE {prefix}ag_working_hours (
+CREATE TABLE {prefix}unbsb_working_hours (
     id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
     staff_id BIGINT(20) UNSIGNED NOT NULL,
-    day_of_week TINYINT NOT NULL,              -- 0=Pazar, 6=Cumartesi
+    day_of_week TINYINT NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
     is_working TINYINT(1) DEFAULT 1,
@@ -182,9 +204,9 @@ CREATE TABLE {prefix}ag_working_hours (
 );
 ```
 
-#### ag_breaks (Molalar)
+#### unbsb_breaks (Breaks)
 ```sql
-CREATE TABLE {prefix}ag_breaks (
+CREATE TABLE {prefix}unbsb_breaks (
     id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
     staff_id BIGINT(20) UNSIGNED NOT NULL,
     day_of_week TINYINT NOT NULL,
@@ -194,11 +216,11 @@ CREATE TABLE {prefix}ag_breaks (
 );
 ```
 
-#### ag_holidays (Tatiller/Kapalı Günler)
+#### unbsb_holidays (Holidays/Closed Days)
 ```sql
-CREATE TABLE {prefix}ag_holidays (
+CREATE TABLE {prefix}unbsb_holidays (
     id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-    staff_id BIGINT(20) UNSIGNED,              -- NULL ise tüm personel
+    staff_id BIGINT(20) UNSIGNED,
     date DATE NOT NULL,
     reason VARCHAR(255),
     PRIMARY KEY (id),
@@ -206,9 +228,9 @@ CREATE TABLE {prefix}ag_holidays (
 );
 ```
 
-#### ag_bookings (Randevular)
+#### unbsb_bookings (Bookings)
 ```sql
-CREATE TABLE {prefix}ag_bookings (
+CREATE TABLE {prefix}unbsb_bookings (
     id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
     service_id BIGINT(20) UNSIGNED NOT NULL,
     staff_id BIGINT(20) UNSIGNED NOT NULL,
@@ -220,10 +242,13 @@ CREATE TABLE {prefix}ag_bookings (
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
     price DECIMAL(10,2) NOT NULL,
+    total_duration INT DEFAULT 0,
     status ENUM('pending','confirmed','cancelled','completed','no_show') DEFAULT 'pending',
     notes TEXT,
     internal_notes TEXT,
-    token VARCHAR(64) UNIQUE,                  -- Yönetim linki için
+    token VARCHAR(64) UNIQUE,
+    reschedule_count INT DEFAULT 0,
+    original_booking_id BIGINT(20) UNSIGNED,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
@@ -235,9 +260,9 @@ CREATE TABLE {prefix}ag_bookings (
 );
 ```
 
-#### ag_customers (Müşteriler)
+#### unbsb_customers (Customers)
 ```sql
-CREATE TABLE {prefix}ag_customers (
+CREATE TABLE {prefix}unbsb_customers (
     id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
     user_id BIGINT(20) UNSIGNED,
     name VARCHAR(255) NOT NULL,
@@ -252,190 +277,277 @@ CREATE TABLE {prefix}ag_customers (
 );
 ```
 
-## Güvenlik Kuralları
+## Security Rules
 
-### Veri Doğrulama
-- Tüm inputlar için `sanitize_*` fonksiyonları kullan
-- `sanitize_text_field()` - text inputlar
-- `sanitize_email()` - email adresleri
-- `absint()` - pozitif integer
+### Data Validation
+- Use `sanitize_*` functions for all inputs
+- `sanitize_text_field()` - text inputs
+- `sanitize_email()` - email addresses
+- `absint()` - positive integers
 - `sanitize_textarea_field()` - textarea
-- `wp_kses_post()` - HTML içerik
+- `wp_kses_post()` - HTML content
 
-### SQL Güvenliği
-- **ASLA** raw SQL query yazma
-- Her zaman `$wpdb->prepare()` kullan
+### SQL Security
+- **NEVER** write raw SQL queries
+- Always use `$wpdb->prepare()`
 ```php
 $wpdb->prepare(
-    "SELECT * FROM {$wpdb->prefix}ag_bookings WHERE id = %d",
+    "SELECT * FROM {$wpdb->prefix}unbsb_bookings WHERE id = %d",
     $booking_id
 );
 ```
 
-### Nonce Kontrolü
-- Tüm form işlemlerinde nonce kullan
+### Nonce Verification
+- Use nonce for all form operations
 ```php
-// Oluşturma
-wp_nonce_field( 'ag_booking_action', 'ag_booking_nonce' );
+// Create
+wp_nonce_field( 'unbsb_booking_action', 'unbsb_booking_nonce' );
 
-// Doğrulama
-if ( ! wp_verify_nonce( $_POST['ag_booking_nonce'], 'ag_booking_action' ) ) {
+// Verify
+if ( ! wp_verify_nonce( $_POST['unbsb_booking_nonce'], 'unbsb_booking_action' ) ) {
     die( 'Security check failed' );
 }
 ```
 
-### Yetki Kontrolü
-- Admin işlemleri için `current_user_can()` kullan
+### Permission Check
+- Use `current_user_can()` for admin operations
 ```php
 if ( ! current_user_can( 'manage_options' ) ) {
     wp_die( 'Unauthorized access' );
 }
 ```
 
-### Escape Outputları
-- `esc_html()` - HTML içinde text
-- `esc_attr()` - HTML attribute
-- `esc_url()` - URL
-- `esc_js()` - JavaScript içinde
-- `wp_kses()` - Kontrollü HTML
+### Escape Outputs
+- `esc_html()` - text within HTML
+- `esc_attr()` - HTML attributes
+- `esc_url()` - URLs
+- `esc_js()` - within JavaScript
+- `wp_kses()` - controlled HTML
 
-## AJAX İşlemleri
+## AJAX Operations
 
 ### Admin AJAX
 ```php
-// Hook kaydı
-add_action( 'wp_ajax_ag_create_booking', array( $this, 'ajax_create_booking' ) );
-add_action( 'wp_ajax_nopriv_ag_create_booking', array( $this, 'ajax_create_booking' ) );
+// Hook registration
+add_action( 'wp_ajax_unbsb_create_booking', array( $this, 'ajax_create_booking' ) );
+add_action( 'wp_ajax_nopriv_unbsb_create_booking', array( $this, 'ajax_create_booking' ) );
 
 // Handler
 public function ajax_create_booking() {
-    check_ajax_referer( 'ag_ajax_nonce', 'nonce' );
+    check_ajax_referer( 'unbsb_ajax_nonce', 'nonce' );
 
-    // İşlem...
+    // Process...
 
     wp_send_json_success( $data );
-    // veya
+    // or
     wp_send_json_error( $message );
 }
 ```
 
-### REST API (Tercih Edilen)
+### REST API (Preferred)
 ```php
-// Endpoint kaydı
+// Endpoint registration
 add_action( 'rest_api_init', function() {
-    register_rest_route( 'ag/v1', '/bookings', array(
+    register_rest_route( 'unbsb/v1', '/bookings', array(
         'methods'             => 'POST',
-        'callback'            => 'ag_create_booking',
+        'callback'            => 'unbsb_create_booking',
         'permission_callback' => function() {
-            return true; // veya yetki kontrolü
+            return true; // or permission check
         },
     ) );
 } );
 ```
 
-## Shortcode Kullanımı
+## Shortcode Usage
 
-### Booking Formu
+### Booking Form
 ```
-[ag_booking_form]
-[ag_booking_form service="1" staff="2"]
-[ag_booking_form category="haircut"]
-```
-
-### Personel Listesi
-```
-[ag_staff_list]
-[ag_staff_list show_services="yes"]
+[unbsb_booking_form]
+[unbsb_booking_form service="1" staff="2"]
+[unbsb_booking_form category="haircut"]
 ```
 
-### Hizmet Listesi
+### Staff List
 ```
-[ag_services]
-[ag_services category="massage"]
+[unbsb_staff_list]
+[unbsb_staff_list show_services="yes"]
+```
+
+### Service List
+```
+[unbsb_services]
+[unbsb_services category="massage"]
 ```
 
 ## Hooks (Extensibility)
 
 ### Actions
 ```php
-do_action( 'ag_before_booking_created', $booking_data );
-do_action( 'ag_after_booking_created', $booking_id, $booking_data );
-do_action( 'ag_booking_status_changed', $booking_id, $new_status, $old_status );
-do_action( 'ag_before_send_notification', $booking_id, $type );
+do_action( 'unbsb_before_booking_created', $booking_data );
+do_action( 'unbsb_after_booking_created', $booking_id, $booking_data );
+do_action( 'unbsb_booking_status_changed', $booking_id, $new_status, $old_status );
+do_action( 'unbsb_before_send_notification', $booking_id, $type );
 ```
 
 ### Filters
 ```php
-apply_filters( 'ag_filter_available_slots', $slots, $date, $staff_id );
-apply_filters( 'ag_filter_booking_price', $price, $service_id, $staff_id );
-apply_filters( 'ag_filter_email_template', $template, $type );
-apply_filters( 'ag_filter_working_hours', $hours, $staff_id );
+apply_filters( 'unbsb_filter_available_slots', $slots, $date, $staff_id );
+apply_filters( 'unbsb_filter_booking_price', $price, $service_id, $staff_id );
+apply_filters( 'unbsb_filter_email_template', $template, $type );
+apply_filters( 'unbsb_filter_working_hours', $hours, $staff_id );
 ```
 
-## Settings API Kullanımı
+## Settings API Usage
 
-Options prefix: `ag_`
+Options prefix: `unbsb_`
 
-### Temel Ayarlar
-- `ag_time_slot_interval` - Slot aralığı (dakika)
-- `ag_booking_lead_time` - Minimum randevu süresi
-- `ag_booking_future_days` - Kaç gün ilerisi için randevu
-- `ag_currency` - Para birimi
-- `ag_date_format` - Tarih formatı
-- `ag_time_format` - Saat formatı
+### General Settings
+- `unbsb_time_slot_interval` - Slot interval (minutes)
+- `unbsb_booking_lead_time` - Minimum booking lead time
+- `unbsb_booking_future_days` - How many days ahead for booking
+- `unbsb_currency` - Currency
+- `unbsb_date_format` - Date format
+- `unbsb_time_format` - Time format
 
-### Bildirim Ayarları
-- `ag_admin_email` - Admin email
-- `ag_email_from_name` - Gönderen adı
-- `ag_email_from_address` - Gönderen email
-- `ag_sms_enabled` - SMS aktif mi
-- `ag_sms_provider` - SMS sağlayıcı
+### Notification Settings
+- `unbsb_admin_email` - Admin email
+- `unbsb_email_from_name` - Sender name
+- `unbsb_email_from_address` - Sender email
+- `unbsb_sms_enabled` - SMS enabled
+- `unbsb_sms_provider` - SMS provider
 
-## Test Gereksinimleri
+## Testing Requirements
 
-### Unit Testler
-- PHPUnit kullan
-- WordPress test framework entegrasyonu
-- Minimum %60 code coverage hedefle
+### Unit Tests
+- Use PHPUnit
+- WordPress test framework integration
+- Target minimum 60% code coverage
 
-### Test Edilecekler
-- Booking CRUD işlemleri
-- Slot hesaplama algoritması
-- Çakışma kontrolü
-- Email gönderimi
-- Nonce/yetki kontrolleri
+### Test Coverage
+- Booking CRUD operations
+- Slot calculation algorithm
+- Conflict detection
+- Email delivery
+- Nonce/permission checks
 
-## Performans Kuralları
+## Performance Guidelines
 
-- Transient API kullan sık değişmeyen veriler için
-- Object caching desteği ekle
-- Gereksiz query'lerden kaçın
-- Assets'leri sadece gerekli sayfalarda yükle
-- Lazy loading kullan
+- Use Transient API for infrequently changing data
+- Add object caching support
+- Avoid unnecessary queries
+- Load assets only on required pages
+- Use lazy loading
 
-## i18n (Çoklu Dil)
+## i18n (Internationalization)
 
-- Text domain: `appointment-general`
-- Tüm string'leri çevrilebilir yap:
+### Default Language
+**IMPORTANT:** The plugin's default language is **English**. All source code strings must be written in English.
+
+### Text Domain
+- Text domain: `unbelievable-salon-booking`
+- Load text domain in main plugin file
+
+### Writing Translatable Strings
+All user-facing strings must be wrapped in translation functions:
+
 ```php
-__( 'Book Now', 'appointment-general' );
-_e( 'Select Service', 'appointment-general' );
-sprintf( __( 'Booking #%d confirmed', 'appointment-general' ), $id );
+// Simple strings
+__( 'Book Now', 'unbelievable-salon-booking' );
+_e( 'Select Service', 'unbelievable-salon-booking' );
+
+// Strings with placeholders (add translators comment)
+/* translators: %d: booking ID number */
+sprintf( __( 'Booking #%d confirmed', 'unbelievable-salon-booking' ), $id );
+
+// Plural strings
+/* translators: %d: number of bookings */
+sprintf( _n( '%d booking', '%d bookings', $count, 'unbelievable-salon-booking' ), $count );
+
+// Escape and translate
+esc_html__( 'Settings', 'unbelievable-salon-booking' );
+esc_html_e( 'Save Changes', 'unbelievable-salon-booking' );
+esc_attr__( 'Enter name', 'unbelievable-salon-booking' );
 ```
 
-## Versiyon Geçmişi
+### JavaScript Localization
+Pass translatable strings to JavaScript via `wp_localize_script()`:
+
+```php
+wp_localize_script( 'unbsb-admin', 'unbsbAdmin', array(
+    'strings' => array(
+        'confirm_delete' => __( 'Are you sure?', 'unbelievable-salon-booking' ),
+        'saving'         => __( 'Saving...', 'unbelievable-salon-booking' ),
+        'saved'          => __( 'Saved!', 'unbelievable-salon-booking' ),
+    ),
+) );
+```
+
+Then use in JavaScript:
+```javascript
+alert( unbsbAdmin.strings.confirm_delete );
+```
+
+### Translation Files
+
+#### Supported Languages
+- **English** - Default/source language (in source code)
+- **Turkish (tr_TR)** - Translation
+- **Bulgarian (bg_BG)** - Translation
+
+#### File Structure
+```
+languages/
+├── unbelievable-salon-booking.pot       # POT template (English source, generated)
+├── unbelievable-salon-booking-tr_TR.po  # Turkish translation (source)
+├── unbelievable-salon-booking-tr_TR.mo  # Turkish translation (compiled)
+├── unbelievable-salon-booking-bg_BG.po  # Bulgarian translation (source)
+└── unbelievable-salon-booking-bg_BG.mo  # Bulgarian translation (compiled)
+```
+
+#### Generating POT File
+Use WP-CLI to generate/update the POT template:
+
+```bash
+# Navigate to plugin directory
+cd wp-content/plugins/unbelievable-salon-booking
+
+# Generate POT file
+wp i18n make-pot . languages/unbelievable-salon-booking.pot --domain=unbelievable-salon-booking --exclude=vendor,node_modules
+```
+
+#### Creating Translations
+1. Copy POT file and rename: `unbelievable-salon-booking-{locale}.po`
+2. Translate strings using Poedit or similar tool
+3. Generate MO file: `wp i18n make-mo languages/`
+
+#### Locale Codes
+- Turkish: `tr_TR`
+- Bulgarian: `bg_BG`
+
+### Best Practices
+1. **Never hard-code strings** - Always use translation functions
+2. **Use context when needed** - `_x( 'Post', 'noun', 'unbelievable-salon-booking' )`
+3. **Add translators comments** - For placeholders and ambiguous strings
+4. **Keep sentences together** - Don't split sentences across multiple translation calls
+5. **Avoid HTML in strings** - Use placeholders instead
+6. **Update POT file** - Regenerate after adding new strings
+
+## Version History
 
 ### v1.0.0
-- İlk sürüm
-- Temel booking işlevselliği
+- Initial release
+- Basic booking functionality
 - Admin panel
-- Email bildirimleri
+- Email notifications
+- SMS notifications
+- SEO features
+- Security features (CAPTCHA, rate limiting, encryption)
 
 ---
 
-**Önemli Notlar:**
-1. Her commit'te changelog güncelle
-2. Semantic versioning kullan
-3. WordPress coding standards'a uy
-4. Security audit'leri düzenli yap
-5. Backward compatibility'yi koru
+**Important Notes:**
+1. Update changelog with each commit
+2. Use semantic versioning
+3. Follow WordPress coding standards
+4. Perform security audits regularly
+5. Maintain backward compatibility

@@ -1,0 +1,2674 @@
+# Bulgarian translation for Unbelievable Salon Booking plugin.
+# Copyright (C) 2026 zgrkaralar
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Unbelievable Salon Booking 1.0.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/unbelievable-salon-booking\n"
+"Last-Translator: zgrkaralar\n"
+"Language-Team: Bulgarian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-03-07T13:22:15+00:00\n"
+"PO-Revision-Date: 2026-03-07T13:22:15+00:00\n"
+"Language: bg_BG\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: unbelievable-salon-booking\n"
+
+#. Plugin Name of the plugin
+#: unbelievable-salon-booking.php
+msgid "Unbelievable Salon Booking"
+msgstr "Unbelievable Salon Booking"
+
+#. Description of the plugin
+#: unbelievable-salon-booking.php
+msgid "Beautiful and easy to use salon booking plugin for WordPress"
+msgstr "Красив и лесен за използване плъгин за резервации в салони за WordPress"
+
+#. Author of the plugin
+#: unbelievable-salon-booking.php
+msgid "zgrkaralar"
+msgstr "zgrkaralar"
+
+#. Author URI of the plugin
+#: unbelievable-salon-booking.php
+msgid "https://unbelievable.digital"
+msgstr "https://unbelievable.digital"
+
+#: admin/class-unbsb-admin.php:38
+#: admin/class-unbsb-admin.php:39
+#: admin/class-unbsb-admin.php:58
+#: admin/class-unbsb-admin.php:59
+#: admin/class-unbsb-admin.php:321
+#: admin/partials/admin-bookings.php:28
+msgid "Bookings"
+msgstr "Резервации"
+
+#: admin/class-unbsb-admin.php:49
+#: admin/class-unbsb-admin.php:50
+#: admin/partials/admin-dashboard.php:20
+msgid "Dashboard"
+msgstr "Табло"
+
+#: admin/class-unbsb-admin.php:67
+#: admin/class-unbsb-admin.php:68
+#: admin/partials/admin-calendar.php:15
+#: admin/partials/admin-dashboard.php:246
+msgid "Calendar"
+msgstr "Календар"
+
+#: admin/class-unbsb-admin.php:76
+#: admin/class-unbsb-admin.php:77
+#: admin/partials/admin-categories.php:15
+msgid "Categories"
+msgstr "Категории"
+
+#: admin/class-unbsb-admin.php:85
+#: admin/class-unbsb-admin.php:86
+#: admin/partials/admin-dashboard.php:231
+#: admin/partials/admin-email-templates.php:213
+#: admin/partials/admin-services.php:17
+#: public/class-unbsb-public.php:92
+msgid "Services"
+msgstr "Услуги"
+
+#: admin/class-unbsb-admin.php:94
+#: admin/class-unbsb-admin.php:95
+#: admin/class-unbsb-admin.php:264
+#: admin/partials/admin-bookings.php:56
+#: admin/partials/admin-bookings.php:99
+#: admin/partials/admin-bookings.php:220
+#: admin/partials/admin-dashboard.php:236
+#: admin/partials/admin-email-templates.php:214
+#: admin/partials/admin-staff.php:15
+#: public/class-unbsb-public.php:88
+#: public/class-unbsb-public.php:94
+#: public/partials/booking-form.php:28
+#: public/partials/booking-form.php:42
+#: public/partials/booking-form.php:74
+#: public/partials/booking-manage.php:132
+msgid "Staff"
+msgstr "Персонал"
+
+#: admin/class-unbsb-admin.php:103
+#: admin/class-unbsb-admin.php:104
+#: admin/partials/admin-staff-schedule.php:36
+msgid "Work Schedule"
+msgstr "Работен график"
+
+#: admin/class-unbsb-admin.php:112
+#: admin/class-unbsb-admin.php:113
+#: admin/partials/admin-customers.php:15
+#: admin/partials/admin-dashboard.php:241
+msgid "Customers"
+msgstr "Клиенти"
+
+#: admin/class-unbsb-admin.php:121
+#: admin/class-unbsb-admin.php:122
+#: admin/partials/admin-settings.php:125
+#: admin/partials/admin-staff.php:170
+msgid "Settings"
+msgstr "Настройки"
+
+#: admin/class-unbsb-admin.php:130
+#: admin/class-unbsb-admin.php:131
+#: admin/partials/admin-email-templates.php:58
+msgid "Email Templates"
+msgstr "Имейл шаблони"
+
+#: admin/class-unbsb-admin.php:202
+msgid "Are you sure you want to delete?"
+msgstr "Сигурни ли сте, че искате да изтриете?"
+
+#: admin/class-unbsb-admin.php:203
+msgid "Saving..."
+msgstr "Запазване..."
+
+#: admin/class-unbsb-admin.php:204
+msgid "Saved!"
+msgstr "Запазено!"
+
+#: admin/class-unbsb-admin.php:205
+#: public/class-unbsb-public.php:283
+msgid "An error occurred."
+msgstr "Възникна грешка."
+
+#: admin/class-unbsb-admin.php:206
+#: public/class-unbsb-public.php:77
+#: public/class-unbsb-public.php:280
+msgid "Loading..."
+msgstr "Зареждане..."
+
+#: admin/class-unbsb-admin.php:207
+msgid "Sending..."
+msgstr "Изпращане..."
+
+#: admin/class-unbsb-admin.php:208
+msgid "Copied!"
+msgstr "Копирано!"
+
+#: admin/class-unbsb-admin.php:210
+#: admin/partials/admin-categories.php:18
+#: admin/partials/admin-categories.php:96
+msgid "New Category"
+msgstr "Нова категория"
+
+#: admin/class-unbsb-admin.php:211
+msgid "Edit Category"
+msgstr "Редактиране на категория"
+
+#: admin/class-unbsb-admin.php:212
+msgid "Category name is required."
+msgstr "Името на категорията е задължително."
+
+#: admin/class-unbsb-admin.php:213
+msgid "Category added."
+msgstr "Категорията е добавена."
+
+#. translators: %d: Number of services in the category
+#: admin/class-unbsb-admin.php:215
+#, php-format
+msgid "This category has %d services. Are you sure you want to delete it? (Services will become uncategorized)"
+msgstr "Тази категория има %d услуги. Сигурни ли сте, че искате да я изтриете? (Услугите ще станат некатегоризирани)"
+
+#: admin/class-unbsb-admin.php:217
+#: admin/partials/admin-services.php:20
+#: admin/partials/admin-services.php:106
+msgid "New Service"
+msgstr "Нова услуга"
+
+#: admin/class-unbsb-admin.php:218
+msgid "Edit Service"
+msgstr "Редактиране на услуга"
+
+#: admin/class-unbsb-admin.php:220
+#: admin/partials/admin-staff.php:18
+#: admin/partials/admin-staff.php:85
+msgid "New Staff"
+msgstr "Нов персонал"
+
+#: admin/class-unbsb-admin.php:221
+msgid "Edit Staff"
+msgstr "Редактиране на персонал"
+
+#: admin/class-unbsb-admin.php:223
+#: admin/class-unbsb-admin.php:971
+#: public/class-unbsb-public.php:83
+msgid "Please fill in all required fields."
+msgstr "Моля, попълнете всички задължителни полета."
+
+#: admin/class-unbsb-admin.php:224
+#: admin/partials/admin-bookings.php:398
+msgid "Create Booking"
+msgstr "Създаване на резервация"
+
+#: admin/class-unbsb-admin.php:226
+msgid "Please enter a test phone number"
+msgstr "Моля, въведете тестов телефонен номер"
+
+#: admin/class-unbsb-admin.php:227
+msgid "Please enter a test email address"
+msgstr "Моля, въведете тестов имейл адрес"
+
+#: admin/class-unbsb-admin.php:228
+msgid "Please select a template"
+msgstr "Моля, изберете шаблон"
+
+#: admin/class-unbsb-admin.php:229
+msgid "Querying..."
+msgstr "Запитване..."
+
+#: admin/class-unbsb-admin.php:230
+#: admin/partials/admin-email-templates.php:241
+msgid "Save Template"
+msgstr "Запази шаблон"
+
+#: admin/class-unbsb-admin.php:231
+#: admin/partials/admin-email-templates.php:245
+msgid "Preview"
+msgstr "Преглед"
+
+#: admin/class-unbsb-admin.php:232
+#: admin/partials/admin-email-templates.php:252
+msgid "Send Test"
+msgstr "Изпрати тест"
+
+#: admin/class-unbsb-admin.php:233
+#: admin/partials/admin-email-templates.php:135
+msgid "Save Settings"
+msgstr "Запази настройки"
+
+#: admin/class-unbsb-admin.php:234
+msgid "Variable added"
+msgstr "Променливата е добавена"
+
+#: admin/class-unbsb-admin.php:235
+#: admin/partials/admin-categories.php:56
+#: admin/partials/admin-categories.php:136
+#: admin/partials/admin-email-templates.php:83
+#: admin/partials/admin-email-templates.php:159
+#: admin/partials/admin-services.php:66
+#: admin/partials/admin-services.php:239
+#: admin/partials/admin-staff.php:180
+msgid "Active"
+msgstr "Активен"
+
+#: admin/class-unbsb-admin.php:236
+#: admin/partials/admin-categories.php:56
+#: admin/partials/admin-categories.php:143
+#: admin/partials/admin-email-templates.php:83
+#: admin/partials/admin-services.php:66
+#: admin/partials/admin-services.php:246
+#: admin/partials/admin-staff.php:187
+msgid "Inactive"
+msgstr "Неактивен"
+
+#: admin/class-unbsb-admin.php:239
+#: public/class-unbsb-public.php:101
+msgid "January"
+msgstr "Януари"
+
+#: admin/class-unbsb-admin.php:240
+#: public/class-unbsb-public.php:102
+msgid "February"
+msgstr "Февруари"
+
+#: admin/class-unbsb-admin.php:241
+#: public/class-unbsb-public.php:103
+msgid "March"
+msgstr "Март"
+
+#: admin/class-unbsb-admin.php:242
+#: public/class-unbsb-public.php:104
+msgid "April"
+msgstr "Април"
+
+#: admin/class-unbsb-admin.php:243
+#: public/class-unbsb-public.php:105
+msgid "May"
+msgstr "Май"
+
+#: admin/class-unbsb-admin.php:244
+#: public/class-unbsb-public.php:106
+msgid "June"
+msgstr "Юни"
+
+#: admin/class-unbsb-admin.php:245
+#: public/class-unbsb-public.php:107
+msgid "July"
+msgstr "Юли"
+
+#: admin/class-unbsb-admin.php:246
+#: public/class-unbsb-public.php:108
+msgid "August"
+msgstr "Август"
+
+#: admin/class-unbsb-admin.php:247
+#: public/class-unbsb-public.php:109
+msgid "September"
+msgstr "Септември"
+
+#: admin/class-unbsb-admin.php:248
+#: public/class-unbsb-public.php:110
+msgid "October"
+msgstr "Октомври"
+
+#: admin/class-unbsb-admin.php:249
+#: public/class-unbsb-public.php:111
+msgid "November"
+msgstr "Ноември"
+
+#: admin/class-unbsb-admin.php:250
+#: public/class-unbsb-public.php:112
+msgid "December"
+msgstr "Декември"
+
+#: admin/class-unbsb-admin.php:253
+#: admin/partials/admin-staff-schedule.php:143
+#: public/class-unbsb-public.php:115
+msgid "Mon"
+msgstr "Пон"
+
+#: admin/class-unbsb-admin.php:254
+#: admin/partials/admin-staff-schedule.php:144
+#: public/class-unbsb-public.php:116
+msgid "Tue"
+msgstr "Вт"
+
+#: admin/class-unbsb-admin.php:255
+#: admin/partials/admin-staff-schedule.php:145
+#: public/class-unbsb-public.php:117
+msgid "Wed"
+msgstr "Ср"
+
+#: admin/class-unbsb-admin.php:256
+#: admin/partials/admin-staff-schedule.php:146
+#: public/class-unbsb-public.php:118
+msgid "Thu"
+msgstr "Чет"
+
+#: admin/class-unbsb-admin.php:257
+#: admin/partials/admin-staff-schedule.php:147
+#: public/class-unbsb-public.php:119
+msgid "Fri"
+msgstr "Пет"
+
+#: admin/class-unbsb-admin.php:258
+#: admin/partials/admin-staff-schedule.php:148
+#: public/class-unbsb-public.php:120
+msgid "Sat"
+msgstr "Съб"
+
+#: admin/class-unbsb-admin.php:259
+#: admin/partials/admin-staff-schedule.php:149
+#: public/class-unbsb-public.php:121
+msgid "Sun"
+msgstr "Нед"
+
+#: admin/class-unbsb-admin.php:262
+#: admin/partials/admin-bookings.php:97
+#: admin/partials/admin-dashboard.php:184
+#: admin/partials/admin-email-templates.php:207
+msgid "Customer"
+msgstr "Клиент"
+
+#: admin/class-unbsb-admin.php:263
+#: admin/partials/admin-bookings.php:98
+#: admin/partials/admin-bookings.php:234
+#: admin/partials/admin-dashboard.php:185
+#: public/class-unbsb-public.php:87
+#: public/class-unbsb-public.php:93
+#: public/partials/booking-form.php:24
+#: public/partials/booking-form.php:46
+#: public/partials/booking-form.php:60
+#: public/partials/booking-manage.php:119
+msgid "Service"
+msgstr "Услуга"
+
+#: admin/class-unbsb-admin.php:265
+#: admin/partials/admin-bookings.php:45
+#: admin/partials/admin-bookings.php:102
+#: admin/partials/admin-bookings.php:345
+#: admin/partials/admin-categories.php:32
+#: admin/partials/admin-categories.php:130
+#: admin/partials/admin-dashboard.php:187
+#: admin/partials/admin-services.php:35
+#: admin/partials/admin-services.php:233
+#: admin/partials/admin-staff.php:174
+msgid "Status"
+msgstr "Статус"
+
+#: admin/class-unbsb-admin.php:266
+#: admin/partials/admin-bookings.php:101
+#: admin/partials/admin-email-templates.php:218
+#: admin/partials/admin-services.php:34
+#: admin/partials/admin-services.php:184
+#: public/partials/booking-manage.php:145
+msgid "Price"
+msgstr "Цена"
+
+#: admin/class-unbsb-admin.php:268
+msgid "Not working"
+msgstr "Не работи"
+
+#: admin/class-unbsb-admin.php:269
+msgid "No holidays registered"
+msgstr "Няма регистрирани празници"
+
+#: admin/class-unbsb-admin.php:270
+msgid "Do you want to delete this holiday?"
+msgstr "Искате ли да изтриете този празник?"
+
+#: admin/class-unbsb-admin.php:271
+msgid "Holiday added"
+msgstr "Празникът е добавен"
+
+#: admin/class-unbsb-admin.php:272
+msgid "Holiday deleted"
+msgstr "Празникът е изтрит"
+
+#: admin/class-unbsb-admin.php:274
+msgid "text"
+msgstr "текст"
+
+#: admin/class-unbsb-admin.php:275
+#: admin/partials/admin-email-templates.php:187
+msgid "Heading"
+msgstr "Заглавие"
+
+#: admin/class-unbsb-admin.php:276
+msgid "Paragraph text"
+msgstr "Параграф текст"
+
+#: admin/class-unbsb-admin.php:277
+msgid "Button Text"
+msgstr "Текст на бутона"
+
+#: admin/class-unbsb-admin.php:278
+msgid "View My Booking"
+msgstr "Виж моята резервация"
+
+#: admin/class-unbsb-admin.php:279
+msgid "link text"
+msgstr "текст на връзка"
+
+#: admin/class-unbsb-admin.php:322
+msgid "Revenue"
+msgstr "Приходи"
+
+#: admin/class-unbsb-admin.php:704
+#: admin/class-unbsb-admin.php:744
+#: admin/class-unbsb-admin.php:770
+#: admin/class-unbsb-admin.php:813
+#: admin/class-unbsb-admin.php:839
+#: admin/class-unbsb-admin.php:879
+#: admin/class-unbsb-admin.php:905
+#: admin/class-unbsb-admin.php:932
+#: admin/class-unbsb-admin.php:952
+#: admin/class-unbsb-admin.php:1010
+#: admin/class-unbsb-admin.php:1112
+#: admin/class-unbsb-admin.php:1136
+#: admin/class-unbsb-admin.php:1162
+#: admin/class-unbsb-admin.php:1182
+#: admin/class-unbsb-admin.php:1216
+#: admin/class-unbsb-admin.php:1250
+#: admin/class-unbsb-admin.php:1281
+#: admin/class-unbsb-admin.php:1338
+#: admin/class-unbsb-admin.php:1368
+#: admin/class-unbsb-admin.php:1406
+#: admin/class-unbsb-admin.php:1447
+#: admin/class-unbsb-admin.php:1485
+msgid "Unauthorized access."
+msgstr "Неоторизиран достъп."
+
+#: admin/class-unbsb-admin.php:728
+msgid "Category saved."
+msgstr "Категорията е запазена."
+
+#: admin/class-unbsb-admin.php:733
+#: admin/class-unbsb-admin.php:802
+#: admin/class-unbsb-admin.php:868
+msgid "Save error."
+msgstr "Грешка при запазване."
+
+#: admin/class-unbsb-admin.php:750
+#: admin/class-unbsb-admin.php:819
+#: admin/class-unbsb-admin.php:885
+msgid "Invalid ID."
+msgstr "Невалиден идентификатор."
+
+#: admin/class-unbsb-admin.php:757
+msgid "Category deleted."
+msgstr "Категорията е изтрита."
+
+#: admin/class-unbsb-admin.php:759
+#: admin/class-unbsb-admin.php:828
+#: admin/class-unbsb-admin.php:894
+msgid "Delete error."
+msgstr "Грешка при изтриване."
+
+#: admin/class-unbsb-admin.php:797
+msgid "Service saved."
+msgstr "Услугата е запазена."
+
+#: admin/class-unbsb-admin.php:826
+msgid "Service deleted."
+msgstr "Услугата е изтрита."
+
+#: admin/class-unbsb-admin.php:863
+msgid "Staff saved."
+msgstr "Персоналът е запазен."
+
+#: admin/class-unbsb-admin.php:892
+msgid "Staff deleted."
+msgstr "Персоналът е изтрит."
+
+#: admin/class-unbsb-admin.php:912
+msgid "Invalid parameters."
+msgstr "Невалидни параметри."
+
+#: admin/class-unbsb-admin.php:919
+msgid "Status updated."
+msgstr "Статусът е актуализиран."
+
+#: admin/class-unbsb-admin.php:921
+msgid "Update error."
+msgstr "Грешка при актуализация."
+
+#: admin/class-unbsb-admin.php:976
+msgid "Invalid email address."
+msgstr "Невалиден имейл адрес."
+
+#: admin/class-unbsb-admin.php:981
+#: admin/class-unbsb-admin.php:1460
+#: includes/class-unbsb-booking-manager.php:308
+msgid "Invalid date format."
+msgstr "Невалиден формат на дата."
+
+#: admin/class-unbsb-admin.php:994
+msgid "Booking created successfully."
+msgstr "Резервацията е създадена успешно."
+
+#: admin/class-unbsb-admin.php:999
+msgid "An error occurred while creating the booking."
+msgstr "Възникна грешка при създаването на резервацията."
+
+#: admin/class-unbsb-admin.php:1102
+msgid "Settings saved."
+msgstr "Настройките са запазени."
+
+#: admin/class-unbsb-admin.php:1120
+#: admin/class-unbsb-admin.php:1374
+#: admin/class-unbsb-admin.php:1412
+msgid "Invalid staff."
+msgstr "Невалиден персонал."
+
+#: admin/class-unbsb-admin.php:1126
+msgid "Working hours saved."
+msgstr "Работното време е запазено."
+
+#: admin/class-unbsb-admin.php:1142
+msgid "Phone number is required."
+msgstr "Телефонният номер е задължителен."
+
+#: admin/class-unbsb-admin.php:1190
+#: admin/class-unbsb-admin.php:1223
+msgid "Invalid template data."
+msgstr "Невалидни данни за шаблон."
+
+#: admin/class-unbsb-admin.php:1206
+msgid "SMS templates saved."
+msgstr "SMS шаблоните са запазени."
+
+#: admin/class-unbsb-admin.php:1240
+msgid "Email templates saved."
+msgstr "Имейл шаблоните са запазени."
+
+#: admin/class-unbsb-admin.php:1257
+msgid "Please enter a valid email address."
+msgstr "Моля, въведете валиден имейл адрес."
+
+#: admin/class-unbsb-admin.php:1261
+#: admin/class-unbsb-admin.php:1287
+msgid "Template type is required."
+msgstr "Типът на шаблона е задължителен."
+
+#: admin/class-unbsb-admin.php:1294
+#: includes/class-unbsb-notification.php:841
+msgid "Template not found."
+msgstr "Шаблонът не е намерен."
+
+#: admin/class-unbsb-admin.php:1358
+msgid "Email settings saved."
+msgstr "Имейл настройките са запазени."
+
+#: admin/class-unbsb-admin.php:1437
+msgid "Schedule saved."
+msgstr "Графикът е запазен."
+
+#: admin/class-unbsb-admin.php:1455
+#: admin/class-unbsb-admin.php:1492
+msgid "Invalid data."
+msgstr "Невалидни данни."
+
+#: admin/class-unbsb-admin.php:1469
+msgid "Holiday added."
+msgstr "Празникът е добавен."
+
+#: admin/class-unbsb-admin.php:1474
+msgid "A holiday already exists on this date."
+msgstr "На тази дата вече има регистриран празник."
+
+#: admin/class-unbsb-admin.php:1498
+msgid "Holiday deleted."
+msgstr "Празникът е изтрит."
+
+#: admin/partials/admin-bookings.php:17
+msgid "All Statuses"
+msgstr "Всички статуси"
+
+#: admin/partials/admin-bookings.php:18
+#: admin/partials/admin-bookings.php:353
+#: admin/partials/admin-dashboard.php:49
+#: admin/partials/admin-dashboard.php:273
+#: includes/class-unbsb-notification.php:759
+#: public/partials/booking-manage.php:64
+msgid "Pending"
+msgstr "Изчакващ"
+
+#: admin/partials/admin-bookings.php:19
+#: admin/partials/admin-bookings.php:360
+#: admin/partials/admin-dashboard.php:274
+#: includes/class-unbsb-notification.php:760
+#: public/partials/booking-manage.php:65
+msgid "Confirmed"
+msgstr "Потвърден"
+
+#: admin/partials/admin-bookings.php:20
+#: admin/partials/admin-dashboard.php:275
+#: includes/class-unbsb-notification.php:761
+#: public/partials/booking-manage.php:66
+msgid "Cancelled"
+msgstr "Отказан"
+
+#: admin/partials/admin-bookings.php:21
+#: admin/partials/admin-dashboard.php:276
+#: includes/class-unbsb-notification.php:762
+#: public/partials/booking-manage.php:67
+msgid "Completed"
+msgstr "Завършен"
+
+#: admin/partials/admin-bookings.php:22
+#: admin/partials/admin-dashboard.php:277
+#: includes/class-unbsb-notification.php:763
+#: public/partials/booking-manage.php:68
+msgid "No Show"
+msgstr "Неявяване"
+
+#: admin/partials/admin-bookings.php:31
+#: admin/partials/admin-dashboard.php:26
+#: admin/partials/admin-settings.php:530
+msgid "New Booking"
+msgstr "Нова резервация"
+
+#: admin/partials/admin-bookings.php:37
+#: admin/partials/admin-bookings.php:79
+msgid "Filter"
+msgstr "Филтър"
+
+#: admin/partials/admin-bookings.php:58
+#: admin/partials/admin-calendar.php:35
+msgid "All Staff"
+msgstr "Целият персонал"
+
+#: admin/partials/admin-bookings.php:68
+msgid "Start Date"
+msgstr "Начална дата"
+
+#: admin/partials/admin-bookings.php:73
+msgid "End Date"
+msgstr "Крайна дата"
+
+#: admin/partials/admin-bookings.php:82
+#: admin/partials/admin-staff.php:283
+msgid "Clear"
+msgstr "Изчисти"
+
+#: admin/partials/admin-bookings.php:96
+msgid "ID"
+msgstr "Ид."
+
+#: admin/partials/admin-bookings.php:100
+#: public/class-unbsb-public.php:89
+#: public/partials/booking-form.php:32
+#: public/partials/booking-form.php:50
+#: public/partials/booking-form.php:64
+#: public/partials/booking-form.php:78
+msgid "Date/Time"
+msgstr "Дата/Час"
+
+#: admin/partials/admin-bookings.php:103
+#: admin/partials/admin-categories.php:33
+#: admin/partials/admin-customers.php:28
+#: admin/partials/admin-services.php:36
+msgid "Actions"
+msgstr "Действия"
+
+#: admin/partials/admin-bookings.php:148
+#: admin/partials/admin-dashboard.php:247
+msgid "View"
+msgstr "Преглед"
+
+#: admin/partials/admin-bookings.php:160
+msgid "No bookings found."
+msgstr "Няма намерени резервации."
+
+#: admin/partials/admin-bookings.php:177
+#: admin/partials/admin-calendar.php:65
+#: admin/partials/admin-email-templates.php:273
+#: public/partials/booking-manage.php:77
+msgid "Booking Details"
+msgstr "Детайли на резервацията"
+
+#: admin/partials/admin-bookings.php:199
+msgid "Create New Booking"
+msgstr "Създай нова резервация"
+
+#: admin/partials/admin-bookings.php:200
+msgid "Create a booking for a customer"
+msgstr "Създай резервация за клиент"
+
+#: admin/partials/admin-bookings.php:213
+msgid "Booking Information"
+msgstr "Информация за резервацията"
+
+#: admin/partials/admin-bookings.php:223
+msgid "-- Select Staff --"
+msgstr "-- Избери персонал --"
+
+#: admin/partials/admin-bookings.php:237
+msgid "-- Select Service --"
+msgstr "-- Избери услуга --"
+
+#: admin/partials/admin-bookings.php:267
+msgid "Other"
+msgstr "Друго"
+
+#: admin/partials/admin-bookings.php:286
+#: admin/partials/admin-dashboard.php:186
+#: admin/partials/admin-email-templates.php:215
+#: public/class-unbsb-public.php:95
+msgid "Date"
+msgstr "Дата"
+
+#: admin/partials/admin-bookings.php:293
+#: admin/partials/admin-email-templates.php:216
+#: public/class-unbsb-public.php:96
+msgid "Time"
+msgstr "Час"
+
+#: admin/partials/admin-bookings.php:318
+#: admin/partials/admin-email-templates.php:267
+msgid "Customer Information"
+msgstr "Информация за клиента"
+
+#: admin/partials/admin-bookings.php:323
+#: admin/partials/admin-customers.php:24
+#: admin/partials/admin-staff.php:105
+#: public/partials/booking-form.php:254
+msgid "Full Name"
+msgstr "Пълно име"
+
+#: admin/partials/admin-bookings.php:324
+msgid "Customer full name"
+msgstr "Пълно име на клиента"
+
+#: admin/partials/admin-bookings.php:327
+#: admin/partials/admin-customers.php:25
+#: admin/partials/admin-settings.php:89
+#: admin/partials/admin-staff.php:113
+#: public/partials/booking-form.php:260
+msgid "Email"
+msgstr "Имейл"
+
+#: admin/partials/admin-bookings.php:333
+#: admin/partials/admin-customers.php:26
+#: admin/partials/admin-staff.php:120
+#: public/partials/booking-form.php:264
+msgid "Phone"
+msgstr "Телефон"
+
+#: admin/partials/admin-bookings.php:370
+#: public/partials/booking-form.php:270
+msgid "Notes"
+msgstr "Бележки"
+
+#: admin/partials/admin-bookings.php:374
+msgid "Customer Note"
+msgstr "Бележка за клиента"
+
+#: admin/partials/admin-bookings.php:375
+msgid "Note visible to customer..."
+msgstr "Бележка, видима за клиента..."
+
+#: admin/partials/admin-bookings.php:380
+msgid "Internal Note"
+msgstr "Вътрешна бележка"
+
+#: admin/partials/admin-bookings.php:381
+msgid "Private"
+msgstr "Лична"
+
+#: admin/partials/admin-bookings.php:383
+msgid "Only admin can see..."
+msgstr "Само администраторът може да види..."
+
+#: admin/partials/admin-bookings.php:394
+#: admin/partials/admin-categories.php:166
+#: admin/partials/admin-services.php:260
+#: admin/partials/admin-staff-schedule.php:216
+#: admin/partials/admin-staff.php:208
+#: admin/partials/admin-staff.php:291
+msgid "Cancel"
+msgstr "Отказ"
+
+#: admin/partials/admin-calendar.php:26
+#: admin/partials/admin-dashboard.php:59
+#: admin/partials/admin-staff-schedule.php:162
+msgid "Today"
+msgstr "Днес"
+
+#: admin/partials/admin-calendar.php:42
+msgid "Month"
+msgstr "Месец"
+
+#: admin/partials/admin-calendar.php:45
+msgid "Week"
+msgstr "Седмица"
+
+#: admin/partials/admin-calendar.php:48
+msgid "Day"
+msgstr "Ден"
+
+#: admin/partials/admin-categories.php:29
+#: admin/partials/admin-categories.php:107
+msgid "Category Name"
+msgstr "Име на категория"
+
+#: admin/partials/admin-categories.php:30
+msgid "Service Count"
+msgstr "Брой услуги"
+
+#: admin/partials/admin-categories.php:31
+msgid "Order"
+msgstr "Ред"
+
+#: admin/partials/admin-categories.php:61
+#: admin/partials/admin-services.php:71
+msgid "Edit"
+msgstr "Редактирай"
+
+#: admin/partials/admin-categories.php:64
+#: admin/partials/admin-services.php:74
+msgid "Delete"
+msgstr "Изтрий"
+
+#: admin/partials/admin-categories.php:76
+msgid "No categories added yet."
+msgstr "Все още няма добавени категории."
+
+#: admin/partials/admin-categories.php:78
+msgid "Add First Category"
+msgstr "Добави първа категория"
+
+#: admin/partials/admin-categories.php:97
+msgid "Add a category to group services"
+msgstr "Добави категория за групиране на услуги"
+
+#: admin/partials/admin-categories.php:108
+msgid "e.g. Hair Care, Manicure, Massage"
+msgstr "напр. Грижа за коса, Маникюр, Масаж"
+
+#: admin/partials/admin-categories.php:112
+#: admin/partials/admin-services.php:158
+msgid "Description"
+msgstr "Описание"
+
+#: admin/partials/admin-categories.php:113
+msgid "Short description about the category..."
+msgstr "Кратко описание на категорията..."
+
+#: admin/partials/admin-categories.php:118
+#: admin/partials/admin-services.php:146
+#: admin/partials/admin-services.php:225
+msgid "Color"
+msgstr "Цвят"
+
+#: admin/partials/admin-categories.php:125
+msgid "Sort Order"
+msgstr "Ред на сортиране"
+
+#: admin/partials/admin-categories.php:127
+msgid "Lower value first"
+msgstr "Първо по-ниската стойност"
+
+#: admin/partials/admin-categories.php:151
+msgid "Quick Colors:"
+msgstr "Бързи цветове:"
+
+#: admin/partials/admin-categories.php:170
+#: admin/partials/admin-services.php:264
+#: admin/partials/admin-staff.php:212
+#: admin/partials/admin-staff.php:295
+msgid "Save"
+msgstr "Запази"
+
+#: admin/partials/admin-customers.php:27
+msgid "Registration Date"
+msgstr "Дата на регистрация"
+
+#: admin/partials/admin-customers.php:44
+msgid "View Bookings"
+msgstr "Виж резервациите"
+
+#: admin/partials/admin-customers.php:54
+msgid "No customers found yet."
+msgstr "Все още няма намерени клиенти."
+
+#: admin/partials/admin-dashboard.php:39
+msgid "Total Bookings"
+msgstr "Общо резервации"
+
+#: admin/partials/admin-dashboard.php:69
+#: admin/partials/admin-dashboard.php:94
+msgid "Monthly Revenue"
+msgstr "Месечни приходи"
+
+#: admin/partials/admin-dashboard.php:81
+msgid "Last 7 Days"
+msgstr "Последните 7 дни"
+
+#: admin/partials/admin-dashboard.php:107
+msgid "Popular Services"
+msgstr "Популярни услуги"
+
+#: admin/partials/admin-dashboard.php:116
+msgid "No data yet"
+msgstr "Все още няма данни"
+
+#: admin/partials/admin-dashboard.php:130
+msgid "Today's Bookings"
+msgstr "Днешни резервации"
+
+#: admin/partials/admin-dashboard.php:162
+msgid "No bookings today"
+msgstr "Няма резервации за днес"
+
+#: admin/partials/admin-dashboard.php:173
+msgid "Recent Bookings"
+msgstr "Последни резервации"
+
+#: admin/partials/admin-dashboard.php:176
+#: public/partials/booking-form.php:136
+msgid "All"
+msgstr "Всички"
+
+#: admin/partials/admin-dashboard.php:213
+msgid "No bookings yet."
+msgstr "Все още няма резервации."
+
+#: admin/partials/admin-dashboard.php:224
+msgid "Quick Access"
+msgstr "Бърз достъп"
+
+#: admin/partials/admin-dashboard.php:252
+msgid "Shortcode:"
+msgstr "Кратък код:"
+
+#: admin/partials/admin-dashboard.php:254
+msgid "Copy"
+msgstr "Копирай"
+
+#: admin/partials/admin-email-templates.php:42
+msgid "Sent when a customer creates a booking request."
+msgstr "Изпраща се, когато клиент създаде заявка за резервация."
+
+#: admin/partials/admin-email-templates.php:43
+msgid "Sent when a booking is confirmed by admin."
+msgstr "Изпраща се, когато резервацията бъде потвърдена от администратора."
+
+#: admin/partials/admin-email-templates.php:44
+msgid "Sent when a booking is cancelled."
+msgstr "Изпраща се, когато резервацията бъде отказана."
+
+#: admin/partials/admin-email-templates.php:45
+msgid "Sent as a reminder before the booking."
+msgstr "Изпраща се като напомняне преди резервацията."
+
+#: admin/partials/admin-email-templates.php:46
+msgid "Sent to admin when a new booking arrives."
+msgstr "Изпраща се на администратора при нова резервация."
+
+#: admin/partials/admin-email-templates.php:59
+msgid "Customize emails sent to customers and administrators."
+msgstr "Персонализирайте имейлите, изпращани до клиенти и администратори."
+
+#: admin/partials/admin-email-templates.php:69
+msgid "Templates"
+msgstr "Шаблони"
+
+#: admin/partials/admin-email-templates.php:95
+#: admin/partials/admin-settings.php:322
+msgid "Email Settings"
+msgstr "Имейл настройки"
+
+#: admin/partials/admin-email-templates.php:99
+#: admin/partials/admin-settings.php:690
+msgid "Logo URL"
+msgstr "URL на логото"
+
+#: admin/partials/admin-email-templates.php:101
+msgid "If left empty, business name will be shown"
+msgstr "Ако се остави празно, ще се покаже името на фирмата"
+
+#: admin/partials/admin-email-templates.php:105
+msgid "Primary Color"
+msgstr "Основен цвят"
+
+#: admin/partials/admin-email-templates.php:117
+msgid "Send Reminder Email"
+msgstr "Изпрати имейл за напомняне"
+
+#: admin/partials/admin-email-templates.php:122
+#: admin/partials/admin-settings.php:571
+msgid "Reminder Time"
+msgstr "Време за напомняне"
+
+#: admin/partials/admin-email-templates.php:124
+#: admin/partials/admin-email-templates.php:125
+#: admin/partials/admin-email-templates.php:126
+#: admin/partials/admin-email-templates.php:127
+msgid "hours before"
+msgstr "часа преди"
+
+#: admin/partials/admin-email-templates.php:128
+#: admin/partials/admin-email-templates.php:129
+msgid "days before"
+msgstr "дни преди"
+
+#: admin/partials/admin-email-templates.php:165
+msgid "Email Subject"
+msgstr "Тема на имейла"
+
+#: admin/partials/admin-email-templates.php:171
+msgid "Email Content"
+msgstr "Съдържание на имейла"
+
+#: admin/partials/admin-email-templates.php:175
+msgid "Bold"
+msgstr "Удебелен"
+
+#: admin/partials/admin-email-templates.php:178
+msgid "Italic"
+msgstr "Курсив"
+
+#: admin/partials/admin-email-templates.php:181
+msgid "Link"
+msgstr "Връзка"
+
+#: admin/partials/admin-email-templates.php:190
+msgid "Paragraph"
+msgstr "Параграф"
+
+#: admin/partials/admin-email-templates.php:196
+msgid "Details Table"
+msgstr "Таблица с детайли"
+
+#: admin/partials/admin-email-templates.php:199
+msgid "Action Button"
+msgstr "Бутон за действие"
+
+#: admin/partials/admin-email-templates.php:206
+msgid "Insert Variable"
+msgstr "Вмъкни променлива"
+
+#: admin/partials/admin-email-templates.php:208
+msgid "Customer Name"
+msgstr "Име на клиента"
+
+#: admin/partials/admin-email-templates.php:209
+msgid "Customer Email"
+msgstr "Имейл на клиента"
+
+#: admin/partials/admin-email-templates.php:210
+msgid "Customer Phone"
+msgstr "Телефон на клиента"
+
+#: admin/partials/admin-email-templates.php:212
+#: admin/partials/admin-settings.php:93
+#: includes/class-unbsb-seo.php:150
+msgid "Booking"
+msgstr "Резервация"
+
+#: admin/partials/admin-email-templates.php:217
+#: admin/partials/admin-services.php:33
+#: admin/partials/admin-services.php:174
+#: public/class-unbsb-public.php:97
+msgid "Duration"
+msgstr "Продължителност"
+
+#: admin/partials/admin-email-templates.php:220
+#: admin/partials/admin-settings.php:81
+msgid "Business"
+msgstr "Фирма"
+
+#: admin/partials/admin-email-templates.php:221
+#: admin/partials/admin-settings.php:231
+msgid "Business Name"
+msgstr "Име на фирмата"
+
+#: admin/partials/admin-email-templates.php:222
+#: admin/partials/admin-settings.php:238
+msgid "Business Phone"
+msgstr "Телефон на фирмата"
+
+#: admin/partials/admin-email-templates.php:223
+#: admin/partials/admin-settings.php:245
+msgid "Business Address"
+msgstr "Адрес на фирмата"
+
+#: admin/partials/admin-email-templates.php:225
+msgid "Links"
+msgstr "Връзки"
+
+#: admin/partials/admin-email-templates.php:226
+msgid "Booking Management Link"
+msgstr "Връзка за управление на резервацията"
+
+#: admin/partials/admin-email-templates.php:227
+msgid "Calendar Links"
+msgstr "Връзки към календар"
+
+#: admin/partials/admin-email-templates.php:262
+msgid "Available Variables"
+msgstr "Налични променливи"
+
+#: admin/partials/admin-email-templates.php:282
+#: admin/partials/admin-settings.php:224
+msgid "Business Information"
+msgstr "Информация за фирмата"
+
+#: admin/partials/admin-email-templates.php:288
+msgid "Special"
+msgstr "Специални"
+
+#: admin/partials/admin-email-templates.php:307
+msgid "Email Preview"
+msgstr "Преглед на имейла"
+
+#: admin/partials/admin-services.php:31
+#: admin/partials/admin-services.php:126
+msgid "Service Name"
+msgstr "Име на услугата"
+
+#: admin/partials/admin-services.php:32
+#: admin/partials/admin-services.php:131
+msgid "Category"
+msgstr "Категория"
+
+#: admin/partials/admin-services.php:62
+#: admin/partials/admin-services.php:178
+#: admin/partials/admin-services.php:208
+#: admin/partials/admin-services.php:217
+#: admin/partials/admin-staff.php:147
+#: includes/class-unbsb-notification.php:588
+#: public/class-unbsb-public.php:85
+#: public/partials/booking-form.php:160
+#: public/partials/booking-form.php:188
+msgid "min"
+msgstr "мин"
+
+#: admin/partials/admin-services.php:86
+msgid "No services added yet."
+msgstr "Все още няма добавени услуги."
+
+#: admin/partials/admin-services.php:88
+msgid "Add First Service"
+msgstr "Добави първа услуга"
+
+#: admin/partials/admin-services.php:107
+msgid "Enter service details"
+msgstr "Въведете детайли за услугата"
+
+#: admin/partials/admin-services.php:122
+msgid "Basic Information"
+msgstr "Основна информация"
+
+#: admin/partials/admin-services.php:127
+msgid "e.g. Haircut"
+msgstr "напр. Подстригване"
+
+#: admin/partials/admin-services.php:134
+msgid "-- Select Category --"
+msgstr "-- Избери категория --"
+
+#: admin/partials/admin-services.php:139
+msgid "Add New Category"
+msgstr "Добави нова категория"
+
+#: admin/partials/admin-services.php:145
+msgid "Category name"
+msgstr "Име на категория"
+
+#: admin/partials/admin-services.php:159
+msgid "Short description about the service..."
+msgstr "Кратко описание на услугата..."
+
+#: admin/partials/admin-services.php:167
+msgid "Duration & Price"
+msgstr "Продължителност и цена"
+
+#: admin/partials/admin-services.php:201
+msgid "Additional Settings"
+msgstr "Допълнителни настройки"
+
+#: admin/partials/admin-services.php:205
+msgid "Buffer Before"
+msgstr "Буфер преди"
+
+#: admin/partials/admin-services.php:210
+msgid "Preparation time"
+msgstr "Време за подготовка"
+
+#: admin/partials/admin-services.php:214
+msgid "Buffer After"
+msgstr "Буфер след"
+
+#: admin/partials/admin-services.php:219
+msgid "Cleanup time"
+msgstr "Време за почистване"
+
+#: admin/partials/admin-settings.php:77
+msgid "General"
+msgstr "Общи"
+
+#: admin/partials/admin-settings.php:85
+msgid "Currency & Date"
+msgstr "Валута и дата"
+
+#: admin/partials/admin-settings.php:97
+msgid "SMS"
+msgstr "SMS"
+
+#: admin/partials/admin-settings.php:101
+msgid "SEO"
+msgstr "SEO"
+
+#: admin/partials/admin-settings.php:105
+msgid "Security"
+msgstr "Сигурност"
+
+#: admin/partials/admin-settings.php:126
+msgid "Customize and configure your booking system."
+msgstr "Персонализирайте и конфигурирайте вашата система за резервации."
+
+#: admin/partials/admin-settings.php:153
+msgid "Booking Settings"
+msgstr "Настройки за резервации"
+
+#: admin/partials/admin-settings.php:154
+msgid "Set the basic operating parameters for the booking system."
+msgstr "Задайте основните работни параметри за системата за резервации."
+
+#: admin/partials/admin-settings.php:160
+msgid "Time Slot Interval"
+msgstr "Интервал на времевите слотове"
+
+#: admin/partials/admin-settings.php:161
+msgid "Duration between booking slots"
+msgstr "Продължителност между слотовете за резервация"
+
+#: admin/partials/admin-settings.php:165
+msgid "15 minutes"
+msgstr "15 минути"
+
+#: admin/partials/admin-settings.php:166
+msgid "30 minutes"
+msgstr "30 минути"
+
+#: admin/partials/admin-settings.php:167
+msgid "60 minutes"
+msgstr "60 минути"
+
+#: admin/partials/admin-settings.php:174
+msgid "Minimum Booking Lead Time"
+msgstr "Минимално време преди резервация"
+
+#: admin/partials/admin-settings.php:175
+msgid "Minimum minutes before a booking can be made"
+msgstr "Минимални минути преди да може да се направи резервация"
+
+#: admin/partials/admin-settings.php:179
+#: public/partials/services-list.php:29
+msgid "minutes"
+msgstr "минути"
+
+#: admin/partials/admin-settings.php:185
+msgid "Future Booking Limit"
+msgstr "Лимит за бъдещи резервации"
+
+#: admin/partials/admin-settings.php:186
+msgid "How many days ahead bookings can be made"
+msgstr "Колко дни напред могат да се правят резервации"
+
+#: admin/partials/admin-settings.php:190
+msgid "days"
+msgstr "дни"
+
+#: admin/partials/admin-settings.php:196
+msgid "Booking Flow Mode"
+msgstr "Режим на поток на резервация"
+
+#: admin/partials/admin-settings.php:197
+msgid "The step order the customer will follow"
+msgstr "Редът на стъпките, които клиентът ще следва"
+
+#: admin/partials/admin-settings.php:200
+msgid "Service First"
+msgstr "Първо услуга"
+
+#: admin/partials/admin-settings.php:201
+msgid "Staff First"
+msgstr "Първо персонал"
+
+#: admin/partials/admin-settings.php:202
+msgid "Service Only (Auto Staff)"
+msgstr "Само услуга (автоматичен персонал)"
+
+#: admin/partials/admin-settings.php:203
+msgid "Staff Only (All Services)"
+msgstr "Само персонал (всички услуги)"
+
+#: admin/partials/admin-settings.php:210
+msgid "Multiple Services"
+msgstr "Множество услуги"
+
+#: admin/partials/admin-settings.php:211
+msgid "Customers can select multiple services in one booking"
+msgstr "Клиентите могат да избират множество услуги в една резервация"
+
+#: admin/partials/admin-settings.php:225
+msgid "Enter business information that will appear in email and SMS notifications."
+msgstr "Въведете информация за фирмата, която ще се показва в имейл и SMS известията."
+
+#: admin/partials/admin-settings.php:233
+msgid "e.g. Elite Hair Salon"
+msgstr "напр. Елит Салон за Коса"
+
+#: admin/partials/admin-settings.php:240
+msgid "+1 555 555 5555"
+msgstr "+359 888 888 888"
+
+#: admin/partials/admin-settings.php:247
+msgid "Full address..."
+msgstr "Пълен адрес..."
+
+#: admin/partials/admin-settings.php:256
+msgid "Currency"
+msgstr "Валута"
+
+#: admin/partials/admin-settings.php:257
+msgid "Set how prices are displayed."
+msgstr "Задайте как се показват цените."
+
+#: admin/partials/admin-settings.php:263
+msgid "Currency Code"
+msgstr "Код на валутата"
+
+#: admin/partials/admin-settings.php:270
+msgid "Currency Symbol"
+msgstr "Символ на валутата"
+
+#: admin/partials/admin-settings.php:277
+msgid "Currency Position"
+msgstr "Позиция на валутата"
+
+#: admin/partials/admin-settings.php:280
+msgid "Before ($100)"
+msgstr "Преди ($100)"
+
+#: admin/partials/admin-settings.php:281
+msgid "After (100$)"
+msgstr "След (100$)"
+
+#: admin/partials/admin-settings.php:289
+msgid "Date and Time Format"
+msgstr "Формат на дата и час"
+
+#: admin/partials/admin-settings.php:290
+msgid "Choose how dates and times are displayed."
+msgstr "Изберете как да се показват датите и часовете."
+
+#: admin/partials/admin-settings.php:296
+msgid "Date Format"
+msgstr "Формат на дата"
+
+#: admin/partials/admin-settings.php:308
+msgid "Time Format"
+msgstr "Формат на час"
+
+#: admin/partials/admin-settings.php:323
+msgid "Configure the sending settings for booking notification emails."
+msgstr "Конфигурирайте настройките за изпращане на имейли за известия за резервации."
+
+#: admin/partials/admin-settings.php:329
+msgid "Admin Email"
+msgstr "Имейл на администратора"
+
+#: admin/partials/admin-settings.php:330
+msgid "New booking notifications will be sent to this address"
+msgstr "Известията за нови резервации ще бъдат изпращани на този адрес"
+
+#: admin/partials/admin-settings.php:337
+msgid "Sender Name"
+msgstr "Име на подателя"
+
+#: admin/partials/admin-settings.php:338
+msgid "Sender name that will appear in emails"
+msgstr "Име на подателя, което ще се показва в имейлите"
+
+#: admin/partials/admin-settings.php:345
+msgid "Sender Email"
+msgstr "Имейл на подателя"
+
+#: admin/partials/admin-settings.php:346
+msgid "Email address that emails will be sent from"
+msgstr "Имейл адрес, от който ще се изпращат имейлите"
+
+#: admin/partials/admin-settings.php:354
+msgid "To edit email templates, go to the \"Email Templates\" page from the left menu."
+msgstr "За да редактирате имейл шаблоните, отидете на страницата \"Имейл шаблони\" от лявото меню."
+
+#: admin/partials/admin-settings.php:362
+msgid "Cancellation and Rescheduling"
+msgstr "Отказ и пренасрочване"
+
+#: admin/partials/admin-settings.php:363
+msgid "Set the rules for customer booking cancellation and rescheduling."
+msgstr "Задайте правилата за отказ и пренасрочване на резервации от клиенти."
+
+#: admin/partials/admin-settings.php:368
+msgid "Customer Cancellation"
+msgstr "Отказ от клиента"
+
+#: admin/partials/admin-settings.php:369
+msgid "Customers can cancel their bookings"
+msgstr "Клиентите могат да отказват своите резервации"
+
+#: admin/partials/admin-settings.php:379
+msgid "Customer Rescheduling"
+msgstr "Пренасрочване от клиента"
+
+#: admin/partials/admin-settings.php:380
+msgid "Customers can reschedule their bookings"
+msgstr "Клиентите могат да пренасрочват своите резервации"
+
+#: admin/partials/admin-settings.php:391
+msgid "Cancellation Deadline"
+msgstr "Краен срок за отказ"
+
+#: admin/partials/admin-settings.php:392
+#: admin/partials/admin-settings.php:403
+msgid "Hours before the booking"
+msgstr "Часове преди резервацията"
+
+#: admin/partials/admin-settings.php:396
+#: admin/partials/admin-settings.php:407
+msgid "hours"
+msgstr "часа"
+
+#: admin/partials/admin-settings.php:402
+msgid "Rescheduling Deadline"
+msgstr "Краен срок за пренасрочване"
+
+#: admin/partials/admin-settings.php:413
+msgid "Max. Reschedules"
+msgstr "Макс. пренасрочвания"
+
+#: admin/partials/admin-settings.php:414
+msgid "How many times a booking can be rescheduled"
+msgstr "Колко пъти може да се пренасрочи резервация"
+
+#: admin/partials/admin-settings.php:418
+msgid "times"
+msgstr "пъти"
+
+#: admin/partials/admin-settings.php:426
+msgid "Calendar Integration"
+msgstr "Интеграция с календар"
+
+#: admin/partials/admin-settings.php:427
+msgid "Configure the ability to add bookings to calendar apps."
+msgstr "Конфигурирайте възможността за добавяне на резервации към календарни приложения."
+
+#: admin/partials/admin-settings.php:432
+msgid "Calendar File (ICS)"
+msgstr "Календарен файл (ICS)"
+
+#: admin/partials/admin-settings.php:433
+msgid "Attach .ics file and calendar links to emails"
+msgstr "Прикачи .ics файл и връзки към календар в имейлите"
+
+#: admin/partials/admin-settings.php:465
+msgid "SMS Notifications"
+msgstr "SMS известия"
+
+#: admin/partials/admin-settings.php:466
+msgid "Configure SMS notification settings with NetGSM."
+msgstr "Конфигурирайте настройките за SMS известия с NetGSM."
+
+#: admin/partials/admin-settings.php:471
+msgid "Enable SMS Notifications"
+msgstr "Активирай SMS известия"
+
+#: admin/partials/admin-settings.php:472
+msgid "Booking notifications will be sent via SMS"
+msgstr "Известията за резервации ще бъдат изпращани чрез SMS"
+
+#: admin/partials/admin-settings.php:482
+msgid "NetGSM API Credentials"
+msgstr "Данни за достъп до NetGSM API"
+
+#: admin/partials/admin-settings.php:487
+msgid "Username"
+msgstr "Потребителско име"
+
+#: admin/partials/admin-settings.php:494
+msgid "Password"
+msgstr "Парола"
+
+#: admin/partials/admin-settings.php:501
+msgid "Sender ID"
+msgstr "Идентификатор на подателя"
+
+#: admin/partials/admin-settings.php:510
+msgid "Check Balance"
+msgstr "Провери баланс"
+
+#: admin/partials/admin-settings.php:518
+msgid "Test SMS"
+msgstr "Тестов SMS"
+
+#: admin/partials/admin-settings.php:525
+msgid "Notification Triggers"
+msgstr "Тригери за известия"
+
+#: admin/partials/admin-settings.php:540
+msgid "Booking Confirmation"
+msgstr "Потвърждение на резервация"
+
+#: admin/partials/admin-settings.php:550
+msgid "Booking Cancellation"
+msgstr "Отказ на резервация"
+
+#: admin/partials/admin-settings.php:560
+msgid "Reminder"
+msgstr "Напомняне"
+
+#: admin/partials/admin-settings.php:574
+msgid "1 hour before"
+msgstr "1 час преди"
+
+#: admin/partials/admin-settings.php:575
+msgid "2 hours before"
+msgstr "2 часа преди"
+
+#: admin/partials/admin-settings.php:576
+msgid "3 hours before"
+msgstr "3 часа преди"
+
+#: admin/partials/admin-settings.php:577
+msgid "6 hours before"
+msgstr "6 часа преди"
+
+#: admin/partials/admin-settings.php:578
+msgid "12 hours before"
+msgstr "12 часа преди"
+
+#: admin/partials/admin-settings.php:579
+msgid "1 day before"
+msgstr "1 ден преди"
+
+#: admin/partials/admin-settings.php:580
+msgid "2 days before"
+msgstr "2 дни преди"
+
+#: admin/partials/admin-settings.php:587
+msgid "SMS Templates"
+msgstr "SMS шаблони"
+
+#: admin/partials/admin-settings.php:589
+msgid "Variables:"
+msgstr "Променливи:"
+
+#: admin/partials/admin-settings.php:610
+msgid "Save Templates"
+msgstr "Запази шаблоните"
+
+#: admin/partials/admin-settings.php:624
+msgid "SEO Settings"
+msgstr "SEO настройки"
+
+#: admin/partials/admin-settings.php:625
+msgid "Search engine optimization and social media settings."
+msgstr "Настройки за оптимизация за търсачки и социални медии."
+
+#: admin/partials/admin-settings.php:630
+msgid "Schema.org & Structured Data"
+msgstr "Schema.org и структурирани данни"
+
+#: admin/partials/admin-settings.php:632
+msgid "Help Google and other search engines better understand your business."
+msgstr "Помогнете на Google и други търсачки да разберат по-добре вашия бизнес."
+
+#: admin/partials/admin-settings.php:637
+msgid "SEO Enabled"
+msgstr "SEO активирано"
+
+#: admin/partials/admin-settings.php:638
+msgid "Enable Schema.org and Open Graph tags."
+msgstr "Активирай Schema.org и Open Graph тагове."
+
+#: admin/partials/admin-settings.php:649
+msgid "Business Type"
+msgstr "Тип бизнес"
+
+#: admin/partials/admin-settings.php:650
+msgid "Schema.org business category."
+msgstr "Категория бизнес по Schema.org."
+
+#: admin/partials/admin-settings.php:653
+msgid "Beauty Salon"
+msgstr "Салон за красота"
+
+#: admin/partials/admin-settings.php:654
+msgid "Hair Salon / Barber"
+msgstr "Фризьорски салон / Бръснарница"
+
+#: admin/partials/admin-settings.php:655
+msgid "Nail Salon"
+msgstr "Салон за маникюр"
+
+#: admin/partials/admin-settings.php:656
+msgid "Spa"
+msgstr "Спа"
+
+#: admin/partials/admin-settings.php:657
+msgid "Health & Beauty"
+msgstr "Здраве и красота"
+
+#: admin/partials/admin-settings.php:658
+msgid "Dental Clinic"
+msgstr "Зъболекарска клиника"
+
+#: admin/partials/admin-settings.php:659
+msgid "Physician"
+msgstr "Лекар"
+
+#: admin/partials/admin-settings.php:660
+msgid "Optician"
+msgstr "Оптик"
+
+#: admin/partials/admin-settings.php:661
+msgid "Tattoo Parlor"
+msgstr "Студио за татуировки"
+
+#: admin/partials/admin-settings.php:662
+msgid "General Business"
+msgstr "Общ бизнес"
+
+#: admin/partials/admin-settings.php:668
+msgid "Price Range"
+msgstr "Ценови диапазон"
+
+#: admin/partials/admin-settings.php:669
+msgid "Your general price level."
+msgstr "Вашето общо ценово ниво."
+
+#: admin/partials/admin-settings.php:672
+msgid "$ - Budget"
+msgstr "$ - Бюджетен"
+
+#: admin/partials/admin-settings.php:673
+msgid "$$ - Moderate"
+msgstr "$$ - Умерен"
+
+#: admin/partials/admin-settings.php:674
+msgid "$$$ - High"
+msgstr "$$$ - Висок"
+
+#: admin/partials/admin-settings.php:675
+msgid "$$$$ - Luxury"
+msgstr "$$$$ - Луксозен"
+
+#: admin/partials/admin-settings.php:682
+msgid "SEO Description"
+msgstr "SEO описание"
+
+#: admin/partials/admin-settings.php:683
+msgid "Description displayed in social media shares."
+msgstr "Описание, показвано при споделяне в социалните медии."
+
+#: admin/partials/admin-settings.php:685
+msgid "Book an appointment online - quick and easy!"
+msgstr "Запазете час онлайн - бързо и лесно!"
+
+#: admin/partials/admin-settings.php:691
+msgid "Logo displayed in social media and search results."
+msgstr "Лого, показвано в социалните медии и резултатите от търсенето."
+
+#: admin/partials/admin-settings.php:698
+msgid "Location Information"
+msgstr "Информация за местоположението"
+
+#: admin/partials/admin-settings.php:700
+msgid "Enter your location details for local SEO."
+msgstr "Въведете данните за местоположението ви за локално SEO."
+
+#: admin/partials/admin-settings.php:706
+msgid "City"
+msgstr "Град"
+
+#: admin/partials/admin-settings.php:708
+msgid "e.g. New York"
+msgstr "напр. София"
+
+#: admin/partials/admin-settings.php:713
+msgid "Postal Code"
+msgstr "Пощенски код"
+
+#: admin/partials/admin-settings.php:720
+msgid "Country Code"
+msgstr "Код на държавата"
+
+#: admin/partials/admin-settings.php:728
+msgid "Social Media"
+msgstr "Социални медии"
+
+#: admin/partials/admin-settings.php:730
+msgid "Connect your social media accounts."
+msgstr "Свържете вашите акаунти в социалните медии."
+
+#: admin/partials/admin-settings.php:738
+msgid "Facebook"
+msgstr "Facebook"
+
+#: admin/partials/admin-settings.php:748
+msgid "Instagram"
+msgstr "Instagram"
+
+#: admin/partials/admin-settings.php:760
+msgid "Twitter/X URL"
+msgstr "Twitter/X URL"
+
+#: admin/partials/admin-settings.php:769
+msgid "Twitter Username"
+msgstr "Twitter потребителско име"
+
+#: admin/partials/admin-settings.php:771
+msgid "Enter without @."
+msgstr "Въведете без @."
+
+#: admin/partials/admin-settings.php:781
+msgid "How Does SEO Work?"
+msgstr "Как работи SEO?"
+
+#: admin/partials/admin-settings.php:782
+msgid "These settings add Schema.org structured data and Open Graph tags to your booking page. Google uses this information to display your business better in search results."
+msgstr "Тези настройки добавят Schema.org структурирани данни и Open Graph тагове към вашата страница за резервации. Google използва тази информация, за да покаже бизнеса ви по-добре в резултатите от търсенето."
+
+#: admin/partials/admin-settings.php:794
+msgid "Security Settings"
+msgstr "Настройки за сигурност"
+
+#: admin/partials/admin-settings.php:795
+msgid "CAPTCHA and security logging settings."
+msgstr "Настройки за CAPTCHA и журнал за сигурност."
+
+#: admin/partials/admin-settings.php:800
+msgid "CAPTCHA Protection"
+msgstr "CAPTCHA защита"
+
+#: admin/partials/admin-settings.php:802
+msgid "Protect the booking form from spam and bot attacks."
+msgstr "Защитете формата за резервация от спам и бот атаки."
+
+#: admin/partials/admin-settings.php:807
+msgid "CAPTCHA Provider"
+msgstr "CAPTCHA доставчик"
+
+#: admin/partials/admin-settings.php:808
+msgid "Select the CAPTCHA service you want to use."
+msgstr "Изберете CAPTCHA услугата, която искате да използвате."
+
+#: admin/partials/admin-settings.php:811
+#: includes/class-unbsb-captcha.php:363
+msgid "Disabled"
+msgstr "Деактивирано"
+
+#: admin/partials/admin-settings.php:812
+#: includes/class-unbsb-captcha.php:364
+msgid "Google reCAPTCHA v3"
+msgstr "Google reCAPTCHA v3"
+
+#: admin/partials/admin-settings.php:813
+#: includes/class-unbsb-captcha.php:365
+msgid "hCaptcha"
+msgstr "hCaptcha"
+
+#: admin/partials/admin-settings.php:821
+msgid "Site Key"
+msgstr "Ключ на сайта"
+
+#: admin/partials/admin-settings.php:828
+msgid "Secret Key"
+msgstr "Секретен ключ"
+
+#: admin/partials/admin-settings.php:836
+msgid "Minimum Score (reCAPTCHA v3)"
+msgstr "Минимален резултат (reCAPTCHA v3)"
+
+#: admin/partials/admin-settings.php:837
+msgid "Range 0.0 - 1.0. Lower score = stricter control."
+msgstr "Диапазон 0.0 - 1.0. По-нисък резултат = по-строг контрол."
+
+#: admin/partials/admin-settings.php:840
+msgid "Very Lenient"
+msgstr "Много мек"
+
+#: admin/partials/admin-settings.php:841
+msgid "Normal (Recommended)"
+msgstr "Нормален (Препоръчително)"
+
+#: admin/partials/admin-settings.php:842
+msgid "Strict"
+msgstr "Строг"
+
+#: admin/partials/admin-settings.php:843
+msgid "Very Strict"
+msgstr "Много строг"
+
+#: admin/partials/admin-settings.php:851
+msgid "Where to Get CAPTCHA Keys?"
+msgstr "Откъде да получите CAPTCHA ключове?"
+
+#: admin/partials/admin-settings.php:861
+msgid "Security Logging"
+msgstr "Журнал за сигурност"
+
+#: admin/partials/admin-settings.php:863
+msgid "Record and monitor security events."
+msgstr "Записвайте и наблюдавайте събития за сигурност."
+
+#: admin/partials/admin-settings.php:868
+msgid "Enable Security Logging"
+msgstr "Активирай журнал за сигурност"
+
+#: admin/partials/admin-settings.php:869
+msgid "Log rate limit, spam, and suspicious activities."
+msgstr "Записвайте ограничения на заявки, спам и подозрителни дейности."
+
+#: admin/partials/admin-settings.php:884
+msgid "Save Changes"
+msgstr "Запази промените"
+
+#: admin/partials/admin-staff-schedule.php:18
+#: admin/partials/admin-staff.php:241
+msgid "Monday"
+msgstr "Понеделник"
+
+#: admin/partials/admin-staff-schedule.php:19
+#: admin/partials/admin-staff.php:242
+msgid "Tuesday"
+msgstr "Вторник"
+
+#: admin/partials/admin-staff-schedule.php:20
+#: admin/partials/admin-staff.php:243
+msgid "Wednesday"
+msgstr "Сряда"
+
+#: admin/partials/admin-staff-schedule.php:21
+#: admin/partials/admin-staff.php:244
+msgid "Thursday"
+msgstr "Четвъртък"
+
+#: admin/partials/admin-staff-schedule.php:22
+#: admin/partials/admin-staff.php:245
+msgid "Friday"
+msgstr "Петък"
+
+#: admin/partials/admin-staff-schedule.php:23
+#: admin/partials/admin-staff.php:246
+msgid "Saturday"
+msgstr "Събота"
+
+#: admin/partials/admin-staff-schedule.php:24
+#: admin/partials/admin-staff.php:247
+msgid "Sunday"
+msgstr "Неделя"
+
+#: admin/partials/admin-staff-schedule.php:37
+msgid "Manage staff working hours, breaks, and days off."
+msgstr "Управлявайте работното време, почивките и почивните дни на персонала."
+
+#: admin/partials/admin-staff-schedule.php:46
+msgid "No staff added yet"
+msgstr "Все още няма добавен персонал"
+
+#: admin/partials/admin-staff-schedule.php:47
+msgid "You must add staff first to set up the work schedule."
+msgstr "Трябва първо да добавите персонал, за да настроите работния график."
+
+#: admin/partials/admin-staff-schedule.php:50
+msgid "Add Staff"
+msgstr "Добави персонал"
+
+#: admin/partials/admin-staff-schedule.php:58
+msgid "Select Staff:"
+msgstr "Избери персонал:"
+
+#: admin/partials/admin-staff-schedule.php:74
+msgid "Weekly Work Schedule"
+msgstr "Седмичен работен график"
+
+#: admin/partials/admin-staff-schedule.php:91
+msgid "Working:"
+msgstr "Работи:"
+
+#: admin/partials/admin-staff-schedule.php:99
+msgid "Breaks"
+msgstr "Почивки"
+
+#: admin/partials/admin-staff-schedule.php:116
+msgid "Save Schedule"
+msgstr "Запази графика"
+
+#: admin/partials/admin-staff-schedule.php:128
+msgid "Days Off Calendar"
+msgstr "Календар с почивни дни"
+
+#: admin/partials/admin-staff-schedule.php:158
+msgid "Day Off"
+msgstr "Почивен ден"
+
+#: admin/partials/admin-staff-schedule.php:173
+msgid "Recorded Days Off"
+msgstr "Записани почивни дни"
+
+#: admin/partials/admin-staff-schedule.php:181
+msgid "No recorded days off"
+msgstr "Няма записани почивни дни"
+
+#: admin/partials/admin-staff-schedule.php:199
+#: admin/partials/admin-staff-schedule.php:220
+msgid "Add Day Off"
+msgstr "Добави почивен ден"
+
+#: admin/partials/admin-staff-schedule.php:210
+msgid "Reason (optional)"
+msgstr "Причина (по избор)"
+
+#: admin/partials/admin-staff-schedule.php:211
+msgid "e.g. Annual leave, Sick leave..."
+msgstr "напр. Годишен отпуск, Болничен..."
+
+#: admin/partials/admin-staff.php:50
+msgid "Hours"
+msgstr "Часове"
+
+#: admin/partials/admin-staff.php:65
+msgid "No staff added yet."
+msgstr "Все още няма добавен персонал."
+
+#: admin/partials/admin-staff.php:67
+msgid "Add First Staff"
+msgstr "Добави първи персонал"
+
+#: admin/partials/admin-staff.php:86
+msgid "Enter staff details"
+msgstr "Въведете данни за персонала"
+
+#: admin/partials/admin-staff.php:101
+msgid "Personal Information"
+msgstr "Лична информация"
+
+#: admin/partials/admin-staff.php:106
+msgid "e.g. John Doe"
+msgstr "напр. Иван Иванов"
+
+#: admin/partials/admin-staff.php:127
+msgid "Biography"
+msgstr "Биография"
+
+#: admin/partials/admin-staff.php:128
+msgid "A short introduction..."
+msgstr "Кратко представяне..."
+
+#: admin/partials/admin-staff.php:136
+msgid "Offered Services"
+msgstr "Предлагани услуги"
+
+#: admin/partials/admin-staff.php:158
+msgid "No services added yet. Please add services first."
+msgstr "Все още няма добавени услуги. Моля, първо добавете услуги."
+
+#: admin/partials/admin-staff.php:197
+msgid "You can edit working hours from the \"Hours\" button after saving the staff member."
+msgstr "Можете да редактирате работното време от бутона \"Часове\" след запазване на члена на персонала."
+
+#: admin/partials/admin-staff.php:228
+msgid "Working Hours"
+msgstr "Работно време"
+
+#: admin/partials/admin-staff.php:258
+msgid "Open"
+msgstr "Отворено"
+
+#: admin/partials/admin-staff.php:259
+msgid "Closed"
+msgstr "Затворено"
+
+#: admin/partials/admin-staff.php:275
+msgid "Quick Set:"
+msgstr "Бързо задаване:"
+
+#: admin/partials/admin-staff.php:277
+msgid "Weekdays (09-18)"
+msgstr "Делнични дни (09-18)"
+
+#: admin/partials/admin-staff.php:280
+msgid "All Days"
+msgstr "Всички дни"
+
+#: includes/class-unbsb-booking-manager.php:58
+msgid "Booking cancellation is disabled."
+msgstr "Отказването на резервации е деактивирано."
+
+#: includes/class-unbsb-booking-manager.php:66
+msgid "This booking has already been cancelled."
+msgstr "Тази резервация вече е отказана."
+
+#: includes/class-unbsb-booking-manager.php:74
+msgid "Completed bookings cannot be cancelled."
+msgstr "Завършените резервации не могат да бъдат отказани."
+
+#. translators: %d: Number of hours
+#: includes/class-unbsb-booking-manager.php:87
+#, php-format
+msgid "Cannot cancel because less than %d hours remain until the booking."
+msgstr "Не може да се откаже, защото остават по-малко от %d часа до резервацията."
+
+#: includes/class-unbsb-booking-manager.php:111
+msgid "Booking rescheduling is disabled."
+msgstr "Пренасрочването на резервации е деактивирано."
+
+#: includes/class-unbsb-booking-manager.php:119
+msgid "Cancelled bookings cannot be rescheduled."
+msgstr "Отказаните резервации не могат да бъдат пренасрочени."
+
+#: includes/class-unbsb-booking-manager.php:127
+msgid "Completed bookings cannot be rescheduled."
+msgstr "Завършените резервации не могат да бъдат пренасрочени."
+
+#. translators: %d: Maximum number of reschedules
+#: includes/class-unbsb-booking-manager.php:140
+#, php-format
+msgid "A booking can be rescheduled at most %d times."
+msgstr "Резервацията може да бъде пренасрочена най-много %d пъти."
+
+#. translators: %d: Number of hours
+#: includes/class-unbsb-booking-manager.php:155
+#, php-format
+msgid "Cannot reschedule because less than %d hours remain until the booking."
+msgstr "Не може да се пренасрочи, защото остават по-малко от %d часа до резервацията."
+
+#: includes/class-unbsb-booking-manager.php:217
+#: includes/class-unbsb-booking-manager.php:289
+#: includes/class-unbsb-rest-api.php:395
+#: includes/class-unbsb-rest-api.php:505
+#: public/partials/booking-manage.php:36
+msgid "Booking not found."
+msgstr "Резервацията не е намерена."
+
+#. translators: 1: Date/time, 2: Cancellation reason
+#: includes/class-unbsb-booking-manager.php:235
+#, php-format
+msgid "[%1$s] Cancelled by customer. Reason: %2$s"
+msgstr "[%1$s] Отказана от клиента. Причина: %2$s"
+
+#: includes/class-unbsb-booking-manager.php:263
+msgid "Your booking has been cancelled successfully."
+msgstr "Вашата резервация е отказана успешно."
+
+#: includes/class-unbsb-booking-manager.php:269
+msgid "An error occurred while cancelling the booking."
+msgstr "Възникна грешка при отказване на резервацията."
+
+#: includes/class-unbsb-booking-manager.php:316
+msgid "Invalid time format."
+msgstr "Невалиден формат на час."
+
+#: includes/class-unbsb-booking-manager.php:337
+msgid "The selected date and time is not available."
+msgstr "Избраните дата и час не са налични."
+
+#: includes/class-unbsb-booking-manager.php:349
+msgid "Service information not found."
+msgstr "Информацията за услугата не е намерена."
+
+#. translators: 1: Date/time, 2: Old date, 3: Old time, 4: New date, 5: New time
+#: includes/class-unbsb-booking-manager.php:380
+#, php-format
+msgid "[%1$s] Rescheduled: %2$s %3$s -> %4$s %5$s"
+msgstr "[%1$s] Пренасрочена: %2$s %3$s -> %4$s %5$s"
+
+#: includes/class-unbsb-booking-manager.php:407
+msgid "Your booking has been updated successfully."
+msgstr "Вашата резервация е актуализирана успешно."
+
+#: includes/class-unbsb-booking-manager.php:414
+msgid "An error occurred while updating the booking."
+msgstr "Възникна грешка при актуализиране на резервацията."
+
+#: includes/class-unbsb-captcha.php:192
+msgid "CAPTCHA verification is required."
+msgstr "Необходима е CAPTCHA верификация."
+
+#: includes/class-unbsb-captcha.php:253
+#: includes/class-unbsb-captcha.php:320
+msgid "CAPTCHA verification failed."
+msgstr "CAPTCHA верификацията е неуспешна."
+
+#: includes/class-unbsb-captcha.php:268
+msgid "Security verification failed. Please try again."
+msgstr "Верификацията за сигурност е неуспешна. Моля, опитайте отново."
+
+#: includes/class-unbsb-database.php:203
+msgid "Direct SQL queries are deprecated. Use prepared_query() instead."
+msgstr "Директните SQL заявки са отхвърлени. Използвайте prepared_query() вместо това."
+
+#. translators: 1: Service name, 2: Company name
+#: includes/class-unbsb-ics-generator.php:49
+#, php-format
+msgid "%1$s - %2$s"
+msgstr "%1$s - %2$s"
+
+#. translators: %s: Staff name
+#: includes/class-unbsb-ics-generator.php:57
+#: includes/class-unbsb-ics-generator.php:200
+#: includes/class-unbsb-ics-generator.php:264
+#: includes/class-unbsb-ics-generator.php:327
+#, php-format
+msgid "Staff: %s"
+msgstr "Персонал: %s"
+
+#. translators: %s: Price with currency
+#: includes/class-unbsb-ics-generator.php:64
+#: includes/class-unbsb-ics-generator.php:205
+#: includes/class-unbsb-ics-generator.php:269
+#: includes/class-unbsb-ics-generator.php:332
+#, php-format
+msgid "Price: %s"
+msgstr "Цена: %s"
+
+#. translators: %s: Phone number
+#: includes/class-unbsb-ics-generator.php:71
+#: includes/class-unbsb-ics-generator.php:210
+#: includes/class-unbsb-ics-generator.php:274
+#: includes/class-unbsb-ics-generator.php:337
+#, php-format
+msgid "Phone: %s"
+msgstr "Телефон: %s"
+
+#: includes/class-unbsb-ics-generator.php:104
+#: includes/class-unbsb-notification.php:355
+#: includes/class-unbsb-notification.php:357
+msgid "Booking Reminder"
+msgstr "Напомняне за резервация"
+
+#: includes/class-unbsb-ics-generator.php:111
+msgid "You have a booking tomorrow"
+msgstr "Имате резервация утре"
+
+#: includes/class-unbsb-ics-generator.php:367
+msgid "Add to your calendar:"
+msgstr "Добавете в календара си:"
+
+#: includes/class-unbsb-ics-generator.php:374
+msgid "Google Calendar"
+msgstr "Google Календар"
+
+#: includes/class-unbsb-ics-generator.php:381
+msgid "Outlook"
+msgstr "Outlook"
+
+#: includes/class-unbsb-ics-generator.php:388
+msgid "Yahoo Calendar"
+msgstr "Yahoo Календар"
+
+#: includes/class-unbsb-ics-generator.php:392
+msgid "Apple Calendar users can use the .ics file attached to the email."
+msgstr "Потребителите на Apple Календар могат да използват .ics файла, прикачен към имейла."
+
+#: includes/class-unbsb-notification.php:337
+msgid "Booking Received"
+msgstr "Резервация получена"
+
+#: includes/class-unbsb-notification.php:339
+msgid "Your Booking Request Has Been Received"
+msgstr "Вашата заявка за резервация е получена"
+
+#: includes/class-unbsb-notification.php:343
+msgid "Booking Confirmed"
+msgstr "Резервация потвърдена"
+
+#: includes/class-unbsb-notification.php:345
+msgid "Your Booking Has Been Confirmed"
+msgstr "Вашата резервация е потвърдена"
+
+#: includes/class-unbsb-notification.php:349
+#: includes/class-unbsb-security-logger.php:503
+msgid "Booking Cancelled"
+msgstr "Резервация отказана"
+
+#: includes/class-unbsb-notification.php:351
+msgid "Your Booking Has Been Cancelled"
+msgstr "Вашата резервация е отказана"
+
+#: includes/class-unbsb-notification.php:361
+msgid "Admin: New Booking"
+msgstr "Админ: Нова резервация"
+
+#: includes/class-unbsb-notification.php:363
+msgid "New Booking Request"
+msgstr "Нова заявка за резервация"
+
+#. translators: %s: Company name
+#: includes/class-unbsb-notification.php:713
+#, php-format
+msgid "This email was sent by %s."
+msgstr "Този имейл е изпратен от %s."
+
+#: includes/class-unbsb-notification.php:872
+msgid "Test email sent."
+msgstr "Тестовият имейл е изпратен."
+
+#: includes/class-unbsb-notification.php:877
+msgid "Email could not be sent."
+msgstr "Имейлът не можа да бъде изпратен."
+
+#. translators: %d: seconds to wait
+#: includes/class-unbsb-rate-limiter.php:72
+#, php-format
+msgid "Too many requests. Please try again in %d seconds."
+msgstr "Твърде много заявки. Моля, опитайте отново след %d секунди."
+
+#: includes/class-unbsb-rest-api.php:361
+#: public/class-unbsb-public.php:333
+msgid "Spam detected."
+msgstr "Открит е спам."
+
+#: includes/class-unbsb-rest-api.php:376
+msgid "Your booking has been created successfully."
+msgstr "Вашата резервация е създадена успешно."
+
+#: includes/class-unbsb-rest-api.php:458
+msgid "Date and time are required."
+msgstr "Датата и часът са задължителни."
+
+#. translators: %s: parameter name
+#: includes/class-unbsb-rest-api.php:597
+#, php-format
+msgid "Invalid date format (%s). Format must be: YYYY-MM-DD."
+msgstr "Невалиден формат на дата (%s). Форматът трябва да бъде: YYYY-MM-DD."
+
+#: includes/class-unbsb-rest-api.php:609
+msgid "Invalid date value."
+msgstr "Невалидна стойност на дата."
+
+#. translators: %s: parameter name
+#: includes/class-unbsb-rest-api.php:633
+#, php-format
+msgid "Invalid month format (%s). Format must be: YYYY-MM."
+msgstr "Невалиден формат на месец (%s). Форматът трябва да бъде: YYYY-MM."
+
+#: includes/class-unbsb-rest-api.php:646
+msgid "Invalid month value (must be between 1-12)."
+msgstr "Невалидна стойност на месец (трябва да бъде между 1-12)."
+
+#: includes/class-unbsb-security-logger.php:496
+msgid "Rate Limit"
+msgstr "Ограничение на заявки"
+
+#: includes/class-unbsb-security-logger.php:497
+msgid "Invalid Token"
+msgstr "Невалиден токен"
+
+#: includes/class-unbsb-security-logger.php:498
+msgid "Spam Detected"
+msgstr "Открит спам"
+
+#: includes/class-unbsb-security-logger.php:499
+msgid "Invalid Input"
+msgstr "Невалиден вход"
+
+#: includes/class-unbsb-security-logger.php:500
+msgid "Auth Failure"
+msgstr "Грешка при оторизация"
+
+#: includes/class-unbsb-security-logger.php:501
+msgid "Suspicious"
+msgstr "Подозрително"
+
+#: includes/class-unbsb-security-logger.php:502
+msgid "Booking Created"
+msgstr "Резервация създадена"
+
+#: includes/class-unbsb-security-logger.php:518
+msgid "Info"
+msgstr "Информация"
+
+#: includes/class-unbsb-security-logger.php:519
+msgid "Warning"
+msgstr "Предупреждение"
+
+#: includes/class-unbsb-security-logger.php:520
+msgid "Error"
+msgstr "Грешка"
+
+#: includes/class-unbsb-security-logger.php:521
+msgid "Critical"
+msgstr "Критично"
+
+#: includes/class-unbsb-seo.php:195
+msgid "Our Services"
+msgstr "Нашите услуги"
+
+#: includes/class-unbsb-seo.php:267
+msgid "Book online - fast and easy!"
+msgstr "Резервирайте онлайн - бързо и лесно!"
+
+#: includes/class-unbsb-sms-manager.php:104
+msgid "Every Minute"
+msgstr "Всяка минута"
+
+#: includes/class-unbsb-sms-manager.php:529
+msgid "Provider not found."
+msgstr "Доставчикът не е намерен."
+
+#: includes/models/class-unbsb-booking.php:69
+msgid "Invalid service list."
+msgstr "Невалиден списък с услуги."
+
+#. translators: %s: Field name
+#: includes/models/class-unbsb-booking.php:85
+#, php-format
+msgid "%s field is required."
+msgstr "Полето %s е задължително."
+
+#: includes/models/class-unbsb-booking.php:94
+msgid "Another booking exists in this time slot."
+msgstr "Друга резервация съществува в този времеви интервал."
+
+#: includes/models/class-unbsb-service.php:186
+msgid "Uncategorized"
+msgstr "Некатегоризирано"
+
+#: includes/sms/class-unbsb-sms-netgsm.php:79
+#: includes/sms/class-unbsb-sms-netgsm.php:122
+msgid "NetGSM credentials are missing."
+msgstr "Данните за достъп до NetGSM липсват."
+
+#. translators: 1: TL amount, 2: Credit count
+#: includes/sms/class-unbsb-sms-netgsm.php:159
+#, php-format
+msgid "Balance: %1$s TL, %2$d Credits"
+msgstr "Баланс: %1$s TL, %2$d кредита"
+
+#: includes/sms/class-unbsb-sms-netgsm.php:190
+msgid "SMS sent successfully."
+msgstr "SMS е изпратен успешно."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:208
+msgid "Message sending failed: Invalid message."
+msgstr "Изпращането на съобщението е неуспешно: Невалидно съобщение."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:209
+msgid "Invalid username or password."
+msgstr "Невалидно потребителско име или парола."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:210
+msgid "Account is not defined."
+msgstr "Акаунтът не е дефиниран."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:211
+msgid "Account is unauthorized or suspended."
+msgstr "Акаунтът е неоторизиран или спрян."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:212
+msgid "Campaign limit exceeded."
+msgstr "Лимитът за кампании е надхвърлен."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:213
+msgid "Invalid sender ID."
+msgstr "Невалиден идентификатор на подателя."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:214
+msgid "Invalid parameter or character."
+msgstr "Невалиден параметър или символ."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:215
+msgid "Query error."
+msgstr "Грешка при заявка."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:216
+msgid "Same SMS was sent multiple times."
+msgstr "Същият SMS е изпратен многократно."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:217
+#: includes/sms/class-unbsb-sms-netgsm.php:218
+msgid "System error."
+msgstr "Системна грешка."
+
+#. translators: %s: Error code
+#: includes/sms/class-unbsb-sms-netgsm.php:224
+#, php-format
+msgid "Unknown error: %s"
+msgstr "Неизвестна грешка: %s"
+
+#. translators: %s: Company name
+#: includes/sms/class-unbsb-sms-netgsm.php:247
+#, php-format
+msgid "This is a test message. %s booking system SMS integration is working successfully."
+msgstr "Това е тестово съобщение. SMS интеграцията на системата за резервации %s работи успешно."
+
+#: public/class-unbsb-public.php:73
+msgid "Select a service"
+msgstr "Изберете услуга"
+
+#: public/class-unbsb-public.php:74
+msgid "Select a staff member"
+msgstr "Изберете член на персонала"
+
+#: public/class-unbsb-public.php:75
+msgid "Select a date"
+msgstr "Изберете дата"
+
+#: public/class-unbsb-public.php:76
+#: public/class-unbsb-public.php:281
+msgid "Select a time"
+msgstr "Изберете час"
+
+#: public/class-unbsb-public.php:78
+msgid "No available time slots for this date."
+msgstr "Няма налични часове за тази дата."
+
+#: public/class-unbsb-public.php:79
+msgid "No services found for this staff member."
+msgstr "Не са намерени услуги за този член на персонала."
+
+#: public/class-unbsb-public.php:80
+msgid "No staff available."
+msgstr "Няма наличен персонал."
+
+#: public/class-unbsb-public.php:81
+#: public/class-unbsb-public.php:398
+msgid "Your booking has been created successfully!"
+msgstr "Вашата резервация е създадена успешно!"
+
+#: public/class-unbsb-public.php:82
+msgid "An error occurred. Please try again."
+msgstr "Възникна грешка. Моля, опитайте отново."
+
+#: public/class-unbsb-public.php:84
+#: public/partials/booking-form.php:315
+msgid "Book Now"
+msgstr "Резервирай сега"
+
+#: public/class-unbsb-public.php:90
+#: public/partials/booking-form.php:36
+#: public/partials/booking-form.php:54
+#: public/partials/booking-form.php:68
+#: public/partials/booking-form.php:82
+msgid "Details"
+msgstr "Детайли"
+
+#: public/class-unbsb-public.php:98
+msgid "Total"
+msgstr "Общо"
+
+#: public/class-unbsb-public.php:282
+msgid "No available slots"
+msgstr "Няма налични часове"
+
+#: public/class-unbsb-public.php:284
+msgid "Your booking has been updated!"
+msgstr "Вашата резервация е актуализирана!"
+
+#: public/class-unbsb-public.php:285
+msgid "Your booking has been cancelled!"
+msgstr "Вашата резервация е отказана!"
+
+#: public/class-unbsb-public.php:307
+msgid "Missing parameters."
+msgstr "Липсващи параметри."
+
+#: public/class-unbsb-public.php:413
+msgid "Service ID is required."
+msgstr "Идентификаторът на услугата е задължителен."
+
+#: public/class-unbsb-public.php:443
+msgid "Staff ID is required."
+msgstr "Идентификаторът на персонала е задължителен."
+
+#: public/partials/booking-form.php:125
+msgid "Select Services (You can select multiple)"
+msgstr "Изберете услуги (Можете да изберете няколко)"
+
+#: public/partials/booking-form.php:127
+msgid "Select a Service"
+msgstr "Изберете услуга"
+
+#: public/partials/booking-form.php:183
+msgid "Selected Services"
+msgstr "Избрани услуги"
+
+#: public/partials/booking-form.php:188
+msgid "Total:"
+msgstr "Общо:"
+
+#: public/partials/booking-form.php:201
+#: public/partials/services-list.php:44
+msgid "No services available yet."
+msgstr "Все още няма налични услуги."
+
+#: public/partials/booking-form.php:209
+msgid "Select Staff"
+msgstr "Изберете персонал"
+
+#: public/partials/booking-form.php:219
+msgid "Select Date and Time"
+msgstr "Изберете дата и час"
+
+#: public/partials/booking-form.php:239
+msgid "Available Times"
+msgstr "Налични часове"
+
+#: public/partials/booking-form.php:241
+#: public/partials/booking-manage.php:211
+msgid "Select a date first"
+msgstr "Първо изберете дата"
+
+#: public/partials/booking-form.php:250
+msgid "Enter Your Information"
+msgstr "Въведете вашата информация"
+
+#: public/partials/booking-form.php:255
+msgid "Your full name"
+msgstr "Вашето пълно име"
+
+#: public/partials/booking-form.php:261
+msgid "example@email.com"
+msgstr "example@email.com"
+
+#: public/partials/booking-form.php:265
+msgid "+1 XXX XXX XXXX"
+msgstr "+359 XXX XXX XXX"
+
+#: public/partials/booking-form.php:271
+msgid "Any additional notes (optional)"
+msgstr "Допълнителни бележки (по избор)"
+
+#: public/partials/booking-form.php:284
+msgid "Booking Summary"
+msgstr "Обобщение на резервацията"
+
+#: public/partials/booking-form.php:296
+msgid "Your Booking is Received!"
+msgstr "Вашата резервация е получена!"
+
+#: public/partials/booking-form.php:297
+msgid "Your booking details will be sent to your email address."
+msgstr "Детайлите за вашата резервация ще бъдат изпратени на вашия имейл адрес."
+
+#: public/partials/booking-form.php:307
+msgid "Back"
+msgstr "Назад"
+
+#: public/partials/booking-form.php:310
+msgid "Continue"
+msgstr "Продължи"
+
+#: public/partials/booking-manage.php:18
+msgid "Invalid booking link."
+msgstr "Невалидна връзка за резервация."
+
+#. translators: %d: Booking ID
+#: public/partials/booking-manage.php:89
+#, php-format
+msgid "Booking #%d"
+msgstr "Резервация #%d"
+
+#: public/partials/booking-manage.php:106
+msgid "Date and Time"
+msgstr "Дата и час"
+
+#: public/partials/booking-manage.php:162
+#: public/partials/booking-manage.php:192
+msgid "Reschedule Booking"
+msgstr "Пренасрочи резервация"
+
+#: public/partials/booking-manage.php:177
+#: public/partials/booking-manage.php:233
+msgid "Cancel Booking"
+msgstr "Откажи резервация"
+
+#: public/partials/booking-manage.php:202
+msgid "New Date"
+msgstr "Нова дата"
+
+#: public/partials/booking-manage.php:209
+msgid "New Time"
+msgstr "Нов час"
+
+#: public/partials/booking-manage.php:217
+#: public/partials/booking-manage.php:256
+msgid "Go Back"
+msgstr "Върни се"
+
+#: public/partials/booking-manage.php:220
+msgid "Update Booking"
+msgstr "Актуализирай резервация"
+
+#: public/partials/booking-manage.php:243
+msgid "This action cannot be undone. Your booking will be cancelled."
+msgstr "Това действие не може да бъде отменено. Вашата резервация ще бъде отказана."
+
+#: public/partials/booking-manage.php:250
+msgid "Cancellation Reason (optional)"
+msgstr "Причина за отказ (по избор)"
+
+#: public/partials/booking-manage.php:251
+msgid "Why do you want to cancel?"
+msgstr "Защо искате да откажете?"
+
+#: public/partials/booking-manage.php:259
+msgid "Yes, Cancel"
+msgstr "Да, откажи"
+
+#: public/partials/staff-list.php:51
+msgid "No staff available yet."
+msgstr "Все още няма наличен персонал."
+

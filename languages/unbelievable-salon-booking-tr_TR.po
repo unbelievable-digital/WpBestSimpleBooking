@@ -1,0 +1,2675 @@
+# Turkish translation for Unbelievable Salon Booking plugin.
+# Copyright (C) 2026 zgrkaralar
+# This file is distributed under the GPL-2.0+.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Unbelievable Salon Booking 1.0.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/unbelievable-salon-booking\n"
+"Last-Translator: zgrkaralar\n"
+"Language-Team: Turkish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-03-07T13:22:15+00:00\n"
+"PO-Revision-Date: 2026-03-07T13:22:15+00:00\n"
+"Language: tr_TR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: unbelievable-salon-booking\n"
+
+
+#. Plugin Name of the plugin
+#: unbelievable-salon-booking.php
+msgid "Unbelievable Salon Booking"
+msgstr "Unbelievable Salon Booking"
+
+#. Description of the plugin
+#: unbelievable-salon-booking.php
+msgid "Beautiful and easy to use salon booking plugin for WordPress"
+msgstr "WordPress için güzel ve kullanımı kolay salon randevu eklentisi"
+
+#. Author of the plugin
+#: unbelievable-salon-booking.php
+msgid "zgrkaralar"
+msgstr "zgrkaralar"
+
+#. Author URI of the plugin
+#: unbelievable-salon-booking.php
+msgid "https://unbelievable.digital"
+msgstr "https://unbelievable.digital"
+
+#: admin/class-unbsb-admin.php:38
+#: admin/class-unbsb-admin.php:39
+#: admin/class-unbsb-admin.php:58
+#: admin/class-unbsb-admin.php:59
+#: admin/class-unbsb-admin.php:321
+#: admin/partials/admin-bookings.php:28
+msgid "Bookings"
+msgstr "Randevular"
+
+#: admin/class-unbsb-admin.php:49
+#: admin/class-unbsb-admin.php:50
+#: admin/partials/admin-dashboard.php:20
+msgid "Dashboard"
+msgstr "Kontrol Paneli"
+
+#: admin/class-unbsb-admin.php:67
+#: admin/class-unbsb-admin.php:68
+#: admin/partials/admin-calendar.php:15
+#: admin/partials/admin-dashboard.php:246
+msgid "Calendar"
+msgstr "Takvim"
+
+#: admin/class-unbsb-admin.php:76
+#: admin/class-unbsb-admin.php:77
+#: admin/partials/admin-categories.php:15
+msgid "Categories"
+msgstr "Kategoriler"
+
+#: admin/class-unbsb-admin.php:85
+#: admin/class-unbsb-admin.php:86
+#: admin/partials/admin-dashboard.php:231
+#: admin/partials/admin-email-templates.php:213
+#: admin/partials/admin-services.php:17
+#: public/class-unbsb-public.php:92
+msgid "Services"
+msgstr "Hizmetler"
+
+#: admin/class-unbsb-admin.php:94
+#: admin/class-unbsb-admin.php:95
+#: admin/class-unbsb-admin.php:264
+#: admin/partials/admin-bookings.php:56
+#: admin/partials/admin-bookings.php:99
+#: admin/partials/admin-bookings.php:220
+#: admin/partials/admin-dashboard.php:236
+#: admin/partials/admin-email-templates.php:214
+#: admin/partials/admin-staff.php:15
+#: public/class-unbsb-public.php:88
+#: public/class-unbsb-public.php:94
+#: public/partials/booking-form.php:28
+#: public/partials/booking-form.php:42
+#: public/partials/booking-form.php:74
+#: public/partials/booking-manage.php:132
+msgid "Staff"
+msgstr "Personel"
+
+#: admin/class-unbsb-admin.php:103
+#: admin/class-unbsb-admin.php:104
+#: admin/partials/admin-staff-schedule.php:36
+msgid "Work Schedule"
+msgstr "Çalışma Programı"
+
+#: admin/class-unbsb-admin.php:112
+#: admin/class-unbsb-admin.php:113
+#: admin/partials/admin-customers.php:15
+#: admin/partials/admin-dashboard.php:241
+msgid "Customers"
+msgstr "Müşteriler"
+
+#: admin/class-unbsb-admin.php:121
+#: admin/class-unbsb-admin.php:122
+#: admin/partials/admin-settings.php:125
+#: admin/partials/admin-staff.php:170
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: admin/class-unbsb-admin.php:130
+#: admin/class-unbsb-admin.php:131
+#: admin/partials/admin-email-templates.php:58
+msgid "Email Templates"
+msgstr "E-posta Şablonları"
+
+#: admin/class-unbsb-admin.php:202
+msgid "Are you sure you want to delete?"
+msgstr "Silmek istediğinizden emin misiniz?"
+
+#: admin/class-unbsb-admin.php:203
+msgid "Saving..."
+msgstr "Kaydediliyor..."
+
+#: admin/class-unbsb-admin.php:204
+msgid "Saved!"
+msgstr "Kaydedildi!"
+
+#: admin/class-unbsb-admin.php:205
+#: public/class-unbsb-public.php:283
+msgid "An error occurred."
+msgstr "Bir hata oluştu."
+
+#: admin/class-unbsb-admin.php:206
+#: public/class-unbsb-public.php:77
+#: public/class-unbsb-public.php:280
+msgid "Loading..."
+msgstr "Yükleniyor..."
+
+#: admin/class-unbsb-admin.php:207
+msgid "Sending..."
+msgstr "Gönderiliyor..."
+
+#: admin/class-unbsb-admin.php:208
+msgid "Copied!"
+msgstr "Kopyalandı!"
+
+#: admin/class-unbsb-admin.php:210
+#: admin/partials/admin-categories.php:18
+#: admin/partials/admin-categories.php:96
+msgid "New Category"
+msgstr "Yeni Kategori"
+
+#: admin/class-unbsb-admin.php:211
+msgid "Edit Category"
+msgstr "Kategori Düzenle"
+
+#: admin/class-unbsb-admin.php:212
+msgid "Category name is required."
+msgstr "Kategori adı gereklidir."
+
+#: admin/class-unbsb-admin.php:213
+msgid "Category added."
+msgstr "Kategori eklendi."
+
+#. translators: %d: Number of services in the category
+#: admin/class-unbsb-admin.php:215
+#, php-format
+msgid "This category has %d services. Are you sure you want to delete it? (Services will become uncategorized)"
+msgstr "Bu kategoride %d hizmet bulunuyor. Silmek istediğinizden emin misiniz? (Hizmetler kategorisiz olacak)"
+
+#: admin/class-unbsb-admin.php:217
+#: admin/partials/admin-services.php:20
+#: admin/partials/admin-services.php:106
+msgid "New Service"
+msgstr "Yeni Hizmet"
+
+#: admin/class-unbsb-admin.php:218
+msgid "Edit Service"
+msgstr "Hizmet Düzenle"
+
+#: admin/class-unbsb-admin.php:220
+#: admin/partials/admin-staff.php:18
+#: admin/partials/admin-staff.php:85
+msgid "New Staff"
+msgstr "Yeni Personel"
+
+#: admin/class-unbsb-admin.php:221
+msgid "Edit Staff"
+msgstr "Personel Düzenle"
+
+#: admin/class-unbsb-admin.php:223
+#: admin/class-unbsb-admin.php:971
+#: public/class-unbsb-public.php:83
+msgid "Please fill in all required fields."
+msgstr "Lütfen tüm zorunlu alanları doldurun."
+
+#: admin/class-unbsb-admin.php:224
+#: admin/partials/admin-bookings.php:398
+msgid "Create Booking"
+msgstr "Randevu Oluştur"
+
+#: admin/class-unbsb-admin.php:226
+msgid "Please enter a test phone number"
+msgstr "Lütfen bir test telefon numarası girin"
+
+#: admin/class-unbsb-admin.php:227
+msgid "Please enter a test email address"
+msgstr "Lütfen bir test e-posta adresi girin"
+
+#: admin/class-unbsb-admin.php:228
+msgid "Please select a template"
+msgstr "Lütfen bir şablon seçin"
+
+#: admin/class-unbsb-admin.php:229
+msgid "Querying..."
+msgstr "Sorgulanıyor..."
+
+#: admin/class-unbsb-admin.php:230
+#: admin/partials/admin-email-templates.php:241
+msgid "Save Template"
+msgstr "Şablonu Kaydet"
+
+#: admin/class-unbsb-admin.php:231
+#: admin/partials/admin-email-templates.php:245
+msgid "Preview"
+msgstr "Önizleme"
+
+#: admin/class-unbsb-admin.php:232
+#: admin/partials/admin-email-templates.php:252
+msgid "Send Test"
+msgstr "Test Gönder"
+
+#: admin/class-unbsb-admin.php:233
+#: admin/partials/admin-email-templates.php:135
+msgid "Save Settings"
+msgstr "Ayarları Kaydet"
+
+#: admin/class-unbsb-admin.php:234
+msgid "Variable added"
+msgstr "Değişken eklendi"
+
+#: admin/class-unbsb-admin.php:235
+#: admin/partials/admin-categories.php:56
+#: admin/partials/admin-categories.php:136
+#: admin/partials/admin-email-templates.php:83
+#: admin/partials/admin-email-templates.php:159
+#: admin/partials/admin-services.php:66
+#: admin/partials/admin-services.php:239
+#: admin/partials/admin-staff.php:180
+msgid "Active"
+msgstr "Aktif"
+
+#: admin/class-unbsb-admin.php:236
+#: admin/partials/admin-categories.php:56
+#: admin/partials/admin-categories.php:143
+#: admin/partials/admin-email-templates.php:83
+#: admin/partials/admin-services.php:66
+#: admin/partials/admin-services.php:246
+#: admin/partials/admin-staff.php:187
+msgid "Inactive"
+msgstr "Pasif"
+
+#: admin/class-unbsb-admin.php:239
+#: public/class-unbsb-public.php:101
+msgid "January"
+msgstr "Ocak"
+
+#: admin/class-unbsb-admin.php:240
+#: public/class-unbsb-public.php:102
+msgid "February"
+msgstr "Şubat"
+
+#: admin/class-unbsb-admin.php:241
+#: public/class-unbsb-public.php:103
+msgid "March"
+msgstr "Mart"
+
+#: admin/class-unbsb-admin.php:242
+#: public/class-unbsb-public.php:104
+msgid "April"
+msgstr "Nisan"
+
+#: admin/class-unbsb-admin.php:243
+#: public/class-unbsb-public.php:105
+msgid "May"
+msgstr "Mayıs"
+
+#: admin/class-unbsb-admin.php:244
+#: public/class-unbsb-public.php:106
+msgid "June"
+msgstr "Haziran"
+
+#: admin/class-unbsb-admin.php:245
+#: public/class-unbsb-public.php:107
+msgid "July"
+msgstr "Temmuz"
+
+#: admin/class-unbsb-admin.php:246
+#: public/class-unbsb-public.php:108
+msgid "August"
+msgstr "Ağustos"
+
+#: admin/class-unbsb-admin.php:247
+#: public/class-unbsb-public.php:109
+msgid "September"
+msgstr "Eylül"
+
+#: admin/class-unbsb-admin.php:248
+#: public/class-unbsb-public.php:110
+msgid "October"
+msgstr "Ekim"
+
+#: admin/class-unbsb-admin.php:249
+#: public/class-unbsb-public.php:111
+msgid "November"
+msgstr "Kasım"
+
+#: admin/class-unbsb-admin.php:250
+#: public/class-unbsb-public.php:112
+msgid "December"
+msgstr "Aralık"
+
+#: admin/class-unbsb-admin.php:253
+#: admin/partials/admin-staff-schedule.php:143
+#: public/class-unbsb-public.php:115
+msgid "Mon"
+msgstr "Pzt"
+
+#: admin/class-unbsb-admin.php:254
+#: admin/partials/admin-staff-schedule.php:144
+#: public/class-unbsb-public.php:116
+msgid "Tue"
+msgstr "Sal"
+
+#: admin/class-unbsb-admin.php:255
+#: admin/partials/admin-staff-schedule.php:145
+#: public/class-unbsb-public.php:117
+msgid "Wed"
+msgstr "Çar"
+
+#: admin/class-unbsb-admin.php:256
+#: admin/partials/admin-staff-schedule.php:146
+#: public/class-unbsb-public.php:118
+msgid "Thu"
+msgstr "Per"
+
+#: admin/class-unbsb-admin.php:257
+#: admin/partials/admin-staff-schedule.php:147
+#: public/class-unbsb-public.php:119
+msgid "Fri"
+msgstr "Cum"
+
+#: admin/class-unbsb-admin.php:258
+#: admin/partials/admin-staff-schedule.php:148
+#: public/class-unbsb-public.php:120
+msgid "Sat"
+msgstr "Cmt"
+
+#: admin/class-unbsb-admin.php:259
+#: admin/partials/admin-staff-schedule.php:149
+#: public/class-unbsb-public.php:121
+msgid "Sun"
+msgstr "Paz"
+
+#: admin/class-unbsb-admin.php:262
+#: admin/partials/admin-bookings.php:97
+#: admin/partials/admin-dashboard.php:184
+#: admin/partials/admin-email-templates.php:207
+msgid "Customer"
+msgstr "Müşteri"
+
+#: admin/class-unbsb-admin.php:263
+#: admin/partials/admin-bookings.php:98
+#: admin/partials/admin-bookings.php:234
+#: admin/partials/admin-dashboard.php:185
+#: public/class-unbsb-public.php:87
+#: public/class-unbsb-public.php:93
+#: public/partials/booking-form.php:24
+#: public/partials/booking-form.php:46
+#: public/partials/booking-form.php:60
+#: public/partials/booking-manage.php:119
+msgid "Service"
+msgstr "Hizmet"
+
+#: admin/class-unbsb-admin.php:265
+#: admin/partials/admin-bookings.php:45
+#: admin/partials/admin-bookings.php:102
+#: admin/partials/admin-bookings.php:345
+#: admin/partials/admin-categories.php:32
+#: admin/partials/admin-categories.php:130
+#: admin/partials/admin-dashboard.php:187
+#: admin/partials/admin-services.php:35
+#: admin/partials/admin-services.php:233
+#: admin/partials/admin-staff.php:174
+msgid "Status"
+msgstr "Durum"
+
+#: admin/class-unbsb-admin.php:266
+#: admin/partials/admin-bookings.php:101
+#: admin/partials/admin-email-templates.php:218
+#: admin/partials/admin-services.php:34
+#: admin/partials/admin-services.php:184
+#: public/partials/booking-manage.php:145
+msgid "Price"
+msgstr "Fiyat"
+
+#: admin/class-unbsb-admin.php:268
+msgid "Not working"
+msgstr "Çalışmıyor"
+
+#: admin/class-unbsb-admin.php:269
+msgid "No holidays registered"
+msgstr "Kayıtlı tatil yok"
+
+#: admin/class-unbsb-admin.php:270
+msgid "Do you want to delete this holiday?"
+msgstr "Bu tatili silmek istiyor musunuz?"
+
+#: admin/class-unbsb-admin.php:271
+msgid "Holiday added"
+msgstr "Tatil eklendi"
+
+#: admin/class-unbsb-admin.php:272
+msgid "Holiday deleted"
+msgstr "Tatil silindi"
+
+#: admin/class-unbsb-admin.php:274
+msgid "text"
+msgstr "metin"
+
+#: admin/class-unbsb-admin.php:275
+#: admin/partials/admin-email-templates.php:187
+msgid "Heading"
+msgstr "Başlık"
+
+#: admin/class-unbsb-admin.php:276
+msgid "Paragraph text"
+msgstr "Paragraf metni"
+
+#: admin/class-unbsb-admin.php:277
+msgid "Button Text"
+msgstr "Buton Metni"
+
+#: admin/class-unbsb-admin.php:278
+msgid "View My Booking"
+msgstr "Randevumu Görüntüle"
+
+#: admin/class-unbsb-admin.php:279
+msgid "link text"
+msgstr "bağlantı metni"
+
+#: admin/class-unbsb-admin.php:322
+msgid "Revenue"
+msgstr "Gelir"
+
+#: admin/class-unbsb-admin.php:704
+#: admin/class-unbsb-admin.php:744
+#: admin/class-unbsb-admin.php:770
+#: admin/class-unbsb-admin.php:813
+#: admin/class-unbsb-admin.php:839
+#: admin/class-unbsb-admin.php:879
+#: admin/class-unbsb-admin.php:905
+#: admin/class-unbsb-admin.php:932
+#: admin/class-unbsb-admin.php:952
+#: admin/class-unbsb-admin.php:1010
+#: admin/class-unbsb-admin.php:1112
+#: admin/class-unbsb-admin.php:1136
+#: admin/class-unbsb-admin.php:1162
+#: admin/class-unbsb-admin.php:1182
+#: admin/class-unbsb-admin.php:1216
+#: admin/class-unbsb-admin.php:1250
+#: admin/class-unbsb-admin.php:1281
+#: admin/class-unbsb-admin.php:1338
+#: admin/class-unbsb-admin.php:1368
+#: admin/class-unbsb-admin.php:1406
+#: admin/class-unbsb-admin.php:1447
+#: admin/class-unbsb-admin.php:1485
+msgid "Unauthorized access."
+msgstr "Yetkisiz erişim."
+
+#: admin/class-unbsb-admin.php:728
+msgid "Category saved."
+msgstr "Kategori kaydedildi."
+
+#: admin/class-unbsb-admin.php:733
+#: admin/class-unbsb-admin.php:802
+#: admin/class-unbsb-admin.php:868
+msgid "Save error."
+msgstr "Kaydetme hatası."
+
+#: admin/class-unbsb-admin.php:750
+#: admin/class-unbsb-admin.php:819
+#: admin/class-unbsb-admin.php:885
+msgid "Invalid ID."
+msgstr "Geçersiz ID."
+
+#: admin/class-unbsb-admin.php:757
+msgid "Category deleted."
+msgstr "Kategori silindi."
+
+#: admin/class-unbsb-admin.php:759
+#: admin/class-unbsb-admin.php:828
+#: admin/class-unbsb-admin.php:894
+msgid "Delete error."
+msgstr "Silme hatası."
+
+#: admin/class-unbsb-admin.php:797
+msgid "Service saved."
+msgstr "Hizmet kaydedildi."
+
+#: admin/class-unbsb-admin.php:826
+msgid "Service deleted."
+msgstr "Hizmet silindi."
+
+#: admin/class-unbsb-admin.php:863
+msgid "Staff saved."
+msgstr "Personel kaydedildi."
+
+#: admin/class-unbsb-admin.php:892
+msgid "Staff deleted."
+msgstr "Personel silindi."
+
+#: admin/class-unbsb-admin.php:912
+msgid "Invalid parameters."
+msgstr "Geçersiz parametreler."
+
+#: admin/class-unbsb-admin.php:919
+msgid "Status updated."
+msgstr "Durum güncellendi."
+
+#: admin/class-unbsb-admin.php:921
+msgid "Update error."
+msgstr "Güncelleme hatası."
+
+#: admin/class-unbsb-admin.php:976
+msgid "Invalid email address."
+msgstr "Geçersiz e-posta adresi."
+
+#: admin/class-unbsb-admin.php:981
+#: admin/class-unbsb-admin.php:1460
+#: includes/class-unbsb-booking-manager.php:308
+msgid "Invalid date format."
+msgstr "Geçersiz tarih formatı."
+
+#: admin/class-unbsb-admin.php:994
+msgid "Booking created successfully."
+msgstr "Randevu başarıyla oluşturuldu."
+
+#: admin/class-unbsb-admin.php:999
+msgid "An error occurred while creating the booking."
+msgstr "Randevu oluşturulurken bir hata oluştu."
+
+#: admin/class-unbsb-admin.php:1102
+msgid "Settings saved."
+msgstr "Ayarlar kaydedildi."
+
+#: admin/class-unbsb-admin.php:1120
+#: admin/class-unbsb-admin.php:1374
+#: admin/class-unbsb-admin.php:1412
+msgid "Invalid staff."
+msgstr "Geçersiz personel."
+
+#: admin/class-unbsb-admin.php:1126
+msgid "Working hours saved."
+msgstr "Çalışma saatleri kaydedildi."
+
+#: admin/class-unbsb-admin.php:1142
+msgid "Phone number is required."
+msgstr "Telefon numarası gereklidir."
+
+#: admin/class-unbsb-admin.php:1190
+#: admin/class-unbsb-admin.php:1223
+msgid "Invalid template data."
+msgstr "Geçersiz şablon verisi."
+
+#: admin/class-unbsb-admin.php:1206
+msgid "SMS templates saved."
+msgstr "SMS şablonları kaydedildi."
+
+#: admin/class-unbsb-admin.php:1240
+msgid "Email templates saved."
+msgstr "E-posta şablonları kaydedildi."
+
+#: admin/class-unbsb-admin.php:1257
+msgid "Please enter a valid email address."
+msgstr "Lütfen geçerli bir e-posta adresi girin."
+
+#: admin/class-unbsb-admin.php:1261
+#: admin/class-unbsb-admin.php:1287
+msgid "Template type is required."
+msgstr "Şablon türü gereklidir."
+
+#: admin/class-unbsb-admin.php:1294
+#: includes/class-unbsb-notification.php:841
+msgid "Template not found."
+msgstr "Şablon bulunamadı."
+
+#: admin/class-unbsb-admin.php:1358
+msgid "Email settings saved."
+msgstr "E-posta ayarları kaydedildi."
+
+#: admin/class-unbsb-admin.php:1437
+msgid "Schedule saved."
+msgstr "Program kaydedildi."
+
+#: admin/class-unbsb-admin.php:1455
+#: admin/class-unbsb-admin.php:1492
+msgid "Invalid data."
+msgstr "Geçersiz veri."
+
+#: admin/class-unbsb-admin.php:1469
+msgid "Holiday added."
+msgstr "Tatil eklendi."
+
+#: admin/class-unbsb-admin.php:1474
+msgid "A holiday already exists on this date."
+msgstr "Bu tarihte zaten bir tatil mevcut."
+
+#: admin/class-unbsb-admin.php:1498
+msgid "Holiday deleted."
+msgstr "Tatil silindi."
+
+#: admin/partials/admin-bookings.php:17
+msgid "All Statuses"
+msgstr "Tüm Durumlar"
+
+#: admin/partials/admin-bookings.php:18
+#: admin/partials/admin-bookings.php:353
+#: admin/partials/admin-dashboard.php:49
+#: admin/partials/admin-dashboard.php:273
+#: includes/class-unbsb-notification.php:759
+#: public/partials/booking-manage.php:64
+msgid "Pending"
+msgstr "Beklemede"
+
+#: admin/partials/admin-bookings.php:19
+#: admin/partials/admin-bookings.php:360
+#: admin/partials/admin-dashboard.php:274
+#: includes/class-unbsb-notification.php:760
+#: public/partials/booking-manage.php:65
+msgid "Confirmed"
+msgstr "Onaylandı"
+
+#: admin/partials/admin-bookings.php:20
+#: admin/partials/admin-dashboard.php:275
+#: includes/class-unbsb-notification.php:761
+#: public/partials/booking-manage.php:66
+msgid "Cancelled"
+msgstr "İptal Edildi"
+
+#: admin/partials/admin-bookings.php:21
+#: admin/partials/admin-dashboard.php:276
+#: includes/class-unbsb-notification.php:762
+#: public/partials/booking-manage.php:67
+msgid "Completed"
+msgstr "Tamamlandı"
+
+#: admin/partials/admin-bookings.php:22
+#: admin/partials/admin-dashboard.php:277
+#: includes/class-unbsb-notification.php:763
+#: public/partials/booking-manage.php:68
+msgid "No Show"
+msgstr "Gelmedi"
+
+#: admin/partials/admin-bookings.php:31
+#: admin/partials/admin-dashboard.php:26
+#: admin/partials/admin-settings.php:530
+msgid "New Booking"
+msgstr "Yeni Randevu"
+
+#: admin/partials/admin-bookings.php:37
+#: admin/partials/admin-bookings.php:79
+msgid "Filter"
+msgstr "Filtrele"
+
+#: admin/partials/admin-bookings.php:58
+#: admin/partials/admin-calendar.php:35
+msgid "All Staff"
+msgstr "Tüm Personel"
+
+#: admin/partials/admin-bookings.php:68
+msgid "Start Date"
+msgstr "Başlangıç Tarihi"
+
+#: admin/partials/admin-bookings.php:73
+msgid "End Date"
+msgstr "Bitiş Tarihi"
+
+#: admin/partials/admin-bookings.php:82
+#: admin/partials/admin-staff.php:283
+msgid "Clear"
+msgstr "Temizle"
+
+#: admin/partials/admin-bookings.php:96
+msgid "ID"
+msgstr "ID"
+
+#: admin/partials/admin-bookings.php:100
+#: public/class-unbsb-public.php:89
+#: public/partials/booking-form.php:32
+#: public/partials/booking-form.php:50
+#: public/partials/booking-form.php:64
+#: public/partials/booking-form.php:78
+msgid "Date/Time"
+msgstr "Tarih/Saat"
+
+#: admin/partials/admin-bookings.php:103
+#: admin/partials/admin-categories.php:33
+#: admin/partials/admin-customers.php:28
+#: admin/partials/admin-services.php:36
+msgid "Actions"
+msgstr "İşlemler"
+
+#: admin/partials/admin-bookings.php:148
+#: admin/partials/admin-dashboard.php:247
+msgid "View"
+msgstr "Görüntüle"
+
+#: admin/partials/admin-bookings.php:160
+msgid "No bookings found."
+msgstr "Randevu bulunamadı."
+
+#: admin/partials/admin-bookings.php:177
+#: admin/partials/admin-calendar.php:65
+#: admin/partials/admin-email-templates.php:273
+#: public/partials/booking-manage.php:77
+msgid "Booking Details"
+msgstr "Randevu Detayları"
+
+#: admin/partials/admin-bookings.php:199
+msgid "Create New Booking"
+msgstr "Yeni Randevu Oluştur"
+
+#: admin/partials/admin-bookings.php:200
+msgid "Create a booking for a customer"
+msgstr "Bir müşteri için randevu oluştur"
+
+#: admin/partials/admin-bookings.php:213
+msgid "Booking Information"
+msgstr "Randevu Bilgileri"
+
+#: admin/partials/admin-bookings.php:223
+msgid "-- Select Staff --"
+msgstr "-- Personel Seçin --"
+
+#: admin/partials/admin-bookings.php:237
+msgid "-- Select Service --"
+msgstr "-- Hizmet Seçin --"
+
+#: admin/partials/admin-bookings.php:267
+msgid "Other"
+msgstr "Diğer"
+
+#: admin/partials/admin-bookings.php:286
+#: admin/partials/admin-dashboard.php:186
+#: admin/partials/admin-email-templates.php:215
+#: public/class-unbsb-public.php:95
+msgid "Date"
+msgstr "Tarih"
+
+#: admin/partials/admin-bookings.php:293
+#: admin/partials/admin-email-templates.php:216
+#: public/class-unbsb-public.php:96
+msgid "Time"
+msgstr "Saat"
+
+#: admin/partials/admin-bookings.php:318
+#: admin/partials/admin-email-templates.php:267
+msgid "Customer Information"
+msgstr "Müşteri Bilgileri"
+
+#: admin/partials/admin-bookings.php:323
+#: admin/partials/admin-customers.php:24
+#: admin/partials/admin-staff.php:105
+#: public/partials/booking-form.php:254
+msgid "Full Name"
+msgstr "Ad Soyad"
+
+#: admin/partials/admin-bookings.php:324
+msgid "Customer full name"
+msgstr "Müşteri ad soyad"
+
+#: admin/partials/admin-bookings.php:327
+#: admin/partials/admin-customers.php:25
+#: admin/partials/admin-settings.php:89
+#: admin/partials/admin-staff.php:113
+#: public/partials/booking-form.php:260
+msgid "Email"
+msgstr "E-posta"
+
+#: admin/partials/admin-bookings.php:333
+#: admin/partials/admin-customers.php:26
+#: admin/partials/admin-staff.php:120
+#: public/partials/booking-form.php:264
+msgid "Phone"
+msgstr "Telefon"
+
+#: admin/partials/admin-bookings.php:370
+#: public/partials/booking-form.php:270
+msgid "Notes"
+msgstr "Notlar"
+
+#: admin/partials/admin-bookings.php:374
+msgid "Customer Note"
+msgstr "Müşteri Notu"
+
+#: admin/partials/admin-bookings.php:375
+msgid "Note visible to customer..."
+msgstr "Müşteriye görünür not..."
+
+#: admin/partials/admin-bookings.php:380
+msgid "Internal Note"
+msgstr "Dahili Not"
+
+#: admin/partials/admin-bookings.php:381
+msgid "Private"
+msgstr "Özel"
+
+#: admin/partials/admin-bookings.php:383
+msgid "Only admin can see..."
+msgstr "Yalnızca yönetici görebilir..."
+
+#: admin/partials/admin-bookings.php:394
+#: admin/partials/admin-categories.php:166
+#: admin/partials/admin-services.php:260
+#: admin/partials/admin-staff-schedule.php:216
+#: admin/partials/admin-staff.php:208
+#: admin/partials/admin-staff.php:291
+msgid "Cancel"
+msgstr "İptal"
+
+#: admin/partials/admin-calendar.php:26
+#: admin/partials/admin-dashboard.php:59
+#: admin/partials/admin-staff-schedule.php:162
+msgid "Today"
+msgstr "Bugün"
+
+#: admin/partials/admin-calendar.php:42
+msgid "Month"
+msgstr "Ay"
+
+#: admin/partials/admin-calendar.php:45
+msgid "Week"
+msgstr "Hafta"
+
+#: admin/partials/admin-calendar.php:48
+msgid "Day"
+msgstr "Gün"
+
+#: admin/partials/admin-categories.php:29
+#: admin/partials/admin-categories.php:107
+msgid "Category Name"
+msgstr "Kategori Adı"
+
+#: admin/partials/admin-categories.php:30
+msgid "Service Count"
+msgstr "Hizmet Sayısı"
+
+#: admin/partials/admin-categories.php:31
+msgid "Order"
+msgstr "Sıra"
+
+#: admin/partials/admin-categories.php:61
+#: admin/partials/admin-services.php:71
+msgid "Edit"
+msgstr "Düzenle"
+
+#: admin/partials/admin-categories.php:64
+#: admin/partials/admin-services.php:74
+msgid "Delete"
+msgstr "Sil"
+
+#: admin/partials/admin-categories.php:76
+msgid "No categories added yet."
+msgstr "Henüz kategori eklenmedi."
+
+#: admin/partials/admin-categories.php:78
+msgid "Add First Category"
+msgstr "İlk Kategoriyi Ekle"
+
+#: admin/partials/admin-categories.php:97
+msgid "Add a category to group services"
+msgstr "Hizmetleri gruplamak için bir kategori ekleyin"
+
+#: admin/partials/admin-categories.php:108
+msgid "e.g. Hair Care, Manicure, Massage"
+msgstr "ör. Saç Bakımı, Manikür, Masaj"
+
+#: admin/partials/admin-categories.php:112
+#: admin/partials/admin-services.php:158
+msgid "Description"
+msgstr "Açıklama"
+
+#: admin/partials/admin-categories.php:113
+msgid "Short description about the category..."
+msgstr "Kategori hakkında kısa açıklama..."
+
+#: admin/partials/admin-categories.php:118
+#: admin/partials/admin-services.php:146
+#: admin/partials/admin-services.php:225
+msgid "Color"
+msgstr "Renk"
+
+#: admin/partials/admin-categories.php:125
+msgid "Sort Order"
+msgstr "Sıralama"
+
+#: admin/partials/admin-categories.php:127
+msgid "Lower value first"
+msgstr "Düşük değer önce"
+
+#: admin/partials/admin-categories.php:151
+msgid "Quick Colors:"
+msgstr "Hızlı Renkler:"
+
+#: admin/partials/admin-categories.php:170
+#: admin/partials/admin-services.php:264
+#: admin/partials/admin-staff.php:212
+#: admin/partials/admin-staff.php:295
+msgid "Save"
+msgstr "Kaydet"
+
+#: admin/partials/admin-customers.php:27
+msgid "Registration Date"
+msgstr "Kayıt Tarihi"
+
+#: admin/partials/admin-customers.php:44
+msgid "View Bookings"
+msgstr "Randevuları Görüntüle"
+
+#: admin/partials/admin-customers.php:54
+msgid "No customers found yet."
+msgstr "Henüz müşteri bulunamadı."
+
+#: admin/partials/admin-dashboard.php:39
+msgid "Total Bookings"
+msgstr "Toplam Randevu"
+
+#: admin/partials/admin-dashboard.php:69
+#: admin/partials/admin-dashboard.php:94
+msgid "Monthly Revenue"
+msgstr "Aylık Gelir"
+
+#: admin/partials/admin-dashboard.php:81
+msgid "Last 7 Days"
+msgstr "Son 7 Gün"
+
+#: admin/partials/admin-dashboard.php:107
+msgid "Popular Services"
+msgstr "Popüler Hizmetler"
+
+#: admin/partials/admin-dashboard.php:116
+msgid "No data yet"
+msgstr "Henüz veri yok"
+
+#: admin/partials/admin-dashboard.php:130
+msgid "Today's Bookings"
+msgstr "Bugünkü Randevular"
+
+#: admin/partials/admin-dashboard.php:162
+msgid "No bookings today"
+msgstr "Bugün randevu yok"
+
+#: admin/partials/admin-dashboard.php:173
+msgid "Recent Bookings"
+msgstr "Son Randevular"
+
+#: admin/partials/admin-dashboard.php:176
+#: public/partials/booking-form.php:136
+msgid "All"
+msgstr "Tümü"
+
+#: admin/partials/admin-dashboard.php:213
+msgid "No bookings yet."
+msgstr "Henüz randevu yok."
+
+#: admin/partials/admin-dashboard.php:224
+msgid "Quick Access"
+msgstr "Hızlı Erişim"
+
+#: admin/partials/admin-dashboard.php:252
+msgid "Shortcode:"
+msgstr "Kısa Kod:"
+
+#: admin/partials/admin-dashboard.php:254
+msgid "Copy"
+msgstr "Kopyala"
+
+#: admin/partials/admin-email-templates.php:42
+msgid "Sent when a customer creates a booking request."
+msgstr "Müşteri bir randevu talebi oluşturduğunda gönderilir."
+
+#: admin/partials/admin-email-templates.php:43
+msgid "Sent when a booking is confirmed by admin."
+msgstr "Randevu yönetici tarafından onaylandığında gönderilir."
+
+#: admin/partials/admin-email-templates.php:44
+msgid "Sent when a booking is cancelled."
+msgstr "Randevu iptal edildiğinde gönderilir."
+
+#: admin/partials/admin-email-templates.php:45
+msgid "Sent as a reminder before the booking."
+msgstr "Randevudan önce hatırlatma olarak gönderilir."
+
+#: admin/partials/admin-email-templates.php:46
+msgid "Sent to admin when a new booking arrives."
+msgstr "Yeni bir randevu geldiğinde yöneticiye gönderilir."
+
+#: admin/partials/admin-email-templates.php:59
+msgid "Customize emails sent to customers and administrators."
+msgstr "Müşterilere ve yöneticilere gönderilen e-postaları özelleştirin."
+
+#: admin/partials/admin-email-templates.php:69
+msgid "Templates"
+msgstr "Şablonlar"
+
+#: admin/partials/admin-email-templates.php:95
+#: admin/partials/admin-settings.php:322
+msgid "Email Settings"
+msgstr "E-posta Ayarları"
+
+#: admin/partials/admin-email-templates.php:99
+#: admin/partials/admin-settings.php:690
+msgid "Logo URL"
+msgstr "Logo URL"
+
+#: admin/partials/admin-email-templates.php:101
+msgid "If left empty, business name will be shown"
+msgstr "Boş bırakılırsa işletme adı gösterilir"
+
+#: admin/partials/admin-email-templates.php:105
+msgid "Primary Color"
+msgstr "Ana Renk"
+
+#: admin/partials/admin-email-templates.php:117
+msgid "Send Reminder Email"
+msgstr "Hatırlatma E-postası Gönder"
+
+#: admin/partials/admin-email-templates.php:122
+#: admin/partials/admin-settings.php:571
+msgid "Reminder Time"
+msgstr "Hatırlatma Zamanı"
+
+#: admin/partials/admin-email-templates.php:124
+#: admin/partials/admin-email-templates.php:125
+#: admin/partials/admin-email-templates.php:126
+#: admin/partials/admin-email-templates.php:127
+msgid "hours before"
+msgstr "saat önce"
+
+#: admin/partials/admin-email-templates.php:128
+#: admin/partials/admin-email-templates.php:129
+msgid "days before"
+msgstr "gün önce"
+
+#: admin/partials/admin-email-templates.php:165
+msgid "Email Subject"
+msgstr "E-posta Konusu"
+
+#: admin/partials/admin-email-templates.php:171
+msgid "Email Content"
+msgstr "E-posta İçeriği"
+
+#: admin/partials/admin-email-templates.php:175
+msgid "Bold"
+msgstr "Kalın"
+
+#: admin/partials/admin-email-templates.php:178
+msgid "Italic"
+msgstr "İtalik"
+
+#: admin/partials/admin-email-templates.php:181
+msgid "Link"
+msgstr "Bağlantı"
+
+#: admin/partials/admin-email-templates.php:190
+msgid "Paragraph"
+msgstr "Paragraf"
+
+#: admin/partials/admin-email-templates.php:196
+msgid "Details Table"
+msgstr "Detay Tablosu"
+
+#: admin/partials/admin-email-templates.php:199
+msgid "Action Button"
+msgstr "İşlem Butonu"
+
+#: admin/partials/admin-email-templates.php:206
+msgid "Insert Variable"
+msgstr "Değişken Ekle"
+
+#: admin/partials/admin-email-templates.php:208
+msgid "Customer Name"
+msgstr "Müşteri Adı"
+
+#: admin/partials/admin-email-templates.php:209
+msgid "Customer Email"
+msgstr "Müşteri E-postası"
+
+#: admin/partials/admin-email-templates.php:210
+msgid "Customer Phone"
+msgstr "Müşteri Telefonu"
+
+#: admin/partials/admin-email-templates.php:212
+#: admin/partials/admin-settings.php:93
+#: includes/class-unbsb-seo.php:150
+msgid "Booking"
+msgstr "Randevu"
+
+#: admin/partials/admin-email-templates.php:217
+#: admin/partials/admin-services.php:33
+#: admin/partials/admin-services.php:174
+#: public/class-unbsb-public.php:97
+msgid "Duration"
+msgstr "Süre"
+
+#: admin/partials/admin-email-templates.php:220
+#: admin/partials/admin-settings.php:81
+msgid "Business"
+msgstr "İşletme"
+
+#: admin/partials/admin-email-templates.php:221
+#: admin/partials/admin-settings.php:231
+msgid "Business Name"
+msgstr "İşletme Adı"
+
+#: admin/partials/admin-email-templates.php:222
+#: admin/partials/admin-settings.php:238
+msgid "Business Phone"
+msgstr "İşletme Telefonu"
+
+#: admin/partials/admin-email-templates.php:223
+#: admin/partials/admin-settings.php:245
+msgid "Business Address"
+msgstr "İşletme Adresi"
+
+#: admin/partials/admin-email-templates.php:225
+msgid "Links"
+msgstr "Bağlantılar"
+
+#: admin/partials/admin-email-templates.php:226
+msgid "Booking Management Link"
+msgstr "Randevu Yönetim Bağlantısı"
+
+#: admin/partials/admin-email-templates.php:227
+msgid "Calendar Links"
+msgstr "Takvim Bağlantıları"
+
+#: admin/partials/admin-email-templates.php:262
+msgid "Available Variables"
+msgstr "Kullanılabilir Değişkenler"
+
+#: admin/partials/admin-email-templates.php:282
+#: admin/partials/admin-settings.php:224
+msgid "Business Information"
+msgstr "İşletme Bilgileri"
+
+#: admin/partials/admin-email-templates.php:288
+msgid "Special"
+msgstr "Özel"
+
+#: admin/partials/admin-email-templates.php:307
+msgid "Email Preview"
+msgstr "E-posta Önizleme"
+
+#: admin/partials/admin-services.php:31
+#: admin/partials/admin-services.php:126
+msgid "Service Name"
+msgstr "Hizmet Adı"
+
+#: admin/partials/admin-services.php:32
+#: admin/partials/admin-services.php:131
+msgid "Category"
+msgstr "Kategori"
+
+#: admin/partials/admin-services.php:62
+#: admin/partials/admin-services.php:178
+#: admin/partials/admin-services.php:208
+#: admin/partials/admin-services.php:217
+#: admin/partials/admin-staff.php:147
+#: includes/class-unbsb-notification.php:588
+#: public/class-unbsb-public.php:85
+#: public/partials/booking-form.php:160
+#: public/partials/booking-form.php:188
+msgid "min"
+msgstr "dk"
+
+#: admin/partials/admin-services.php:86
+msgid "No services added yet."
+msgstr "Henüz hizmet eklenmedi."
+
+#: admin/partials/admin-services.php:88
+msgid "Add First Service"
+msgstr "İlk Hizmeti Ekle"
+
+#: admin/partials/admin-services.php:107
+msgid "Enter service details"
+msgstr "Hizmet detaylarını girin"
+
+#: admin/partials/admin-services.php:122
+msgid "Basic Information"
+msgstr "Temel Bilgiler"
+
+#: admin/partials/admin-services.php:127
+msgid "e.g. Haircut"
+msgstr "ör. Saç Kesimi"
+
+#: admin/partials/admin-services.php:134
+msgid "-- Select Category --"
+msgstr "-- Kategori Seçin --"
+
+#: admin/partials/admin-services.php:139
+msgid "Add New Category"
+msgstr "Yeni Kategori Ekle"
+
+#: admin/partials/admin-services.php:145
+msgid "Category name"
+msgstr "Kategori adı"
+
+#: admin/partials/admin-services.php:159
+msgid "Short description about the service..."
+msgstr "Hizmet hakkında kısa açıklama..."
+
+#: admin/partials/admin-services.php:167
+msgid "Duration & Price"
+msgstr "Süre ve Fiyat"
+
+#: admin/partials/admin-services.php:201
+msgid "Additional Settings"
+msgstr "Ek Ayarlar"
+
+#: admin/partials/admin-services.php:205
+msgid "Buffer Before"
+msgstr "Öncesi Tampon Süresi"
+
+#: admin/partials/admin-services.php:210
+msgid "Preparation time"
+msgstr "Hazırlık süresi"
+
+#: admin/partials/admin-services.php:214
+msgid "Buffer After"
+msgstr "Sonrası Tampon Süresi"
+
+#: admin/partials/admin-services.php:219
+msgid "Cleanup time"
+msgstr "Temizlik süresi"
+
+#: admin/partials/admin-settings.php:77
+msgid "General"
+msgstr "Genel"
+
+#: admin/partials/admin-settings.php:85
+msgid "Currency & Date"
+msgstr "Para Birimi ve Tarih"
+
+#: admin/partials/admin-settings.php:97
+msgid "SMS"
+msgstr "SMS"
+
+#: admin/partials/admin-settings.php:101
+msgid "SEO"
+msgstr "SEO"
+
+#: admin/partials/admin-settings.php:105
+msgid "Security"
+msgstr "Güvenlik"
+
+#: admin/partials/admin-settings.php:126
+msgid "Customize and configure your booking system."
+msgstr "Randevu sisteminizi özelleştirin ve yapılandırın."
+
+#: admin/partials/admin-settings.php:153
+msgid "Booking Settings"
+msgstr "Randevu Ayarları"
+
+#: admin/partials/admin-settings.php:154
+msgid "Set the basic operating parameters for the booking system."
+msgstr "Randevu sistemi için temel çalışma parametrelerini ayarlayın."
+
+#: admin/partials/admin-settings.php:160
+msgid "Time Slot Interval"
+msgstr "Zaman Dilimi Aralığı"
+
+#: admin/partials/admin-settings.php:161
+msgid "Duration between booking slots"
+msgstr "Randevu aralıkları arasındaki süre"
+
+#: admin/partials/admin-settings.php:165
+msgid "15 minutes"
+msgstr "15 dakika"
+
+#: admin/partials/admin-settings.php:166
+msgid "30 minutes"
+msgstr "30 dakika"
+
+#: admin/partials/admin-settings.php:167
+msgid "60 minutes"
+msgstr "60 dakika"
+
+#: admin/partials/admin-settings.php:174
+msgid "Minimum Booking Lead Time"
+msgstr "Minimum Randevu Ön Süresi"
+
+#: admin/partials/admin-settings.php:175
+msgid "Minimum minutes before a booking can be made"
+msgstr "Randevu alınabilmesi için minimum dakika"
+
+#: admin/partials/admin-settings.php:179
+#: public/partials/services-list.php:29
+msgid "minutes"
+msgstr "dakika"
+
+#: admin/partials/admin-settings.php:185
+msgid "Future Booking Limit"
+msgstr "İleri Tarih Randevu Limiti"
+
+#: admin/partials/admin-settings.php:186
+msgid "How many days ahead bookings can be made"
+msgstr "Kaç gün ilerisi için randevu alınabilir"
+
+#: admin/partials/admin-settings.php:190
+msgid "days"
+msgstr "gün"
+
+#: admin/partials/admin-settings.php:196
+msgid "Booking Flow Mode"
+msgstr "Randevu Akış Modu"
+
+#: admin/partials/admin-settings.php:197
+msgid "The step order the customer will follow"
+msgstr "Müşterinin izleyeceği adım sırası"
+
+#: admin/partials/admin-settings.php:200
+msgid "Service First"
+msgstr "Önce Hizmet"
+
+#: admin/partials/admin-settings.php:201
+msgid "Staff First"
+msgstr "Önce Personel"
+
+#: admin/partials/admin-settings.php:202
+msgid "Service Only (Auto Staff)"
+msgstr "Sadece Hizmet (Otomatik Personel)"
+
+#: admin/partials/admin-settings.php:203
+msgid "Staff Only (All Services)"
+msgstr "Sadece Personel (Tüm Hizmetler)"
+
+#: admin/partials/admin-settings.php:210
+msgid "Multiple Services"
+msgstr "Çoklu Hizmet"
+
+#: admin/partials/admin-settings.php:211
+msgid "Customers can select multiple services in one booking"
+msgstr "Müşteriler bir randevuda birden fazla hizmet seçebilir"
+
+#: admin/partials/admin-settings.php:225
+msgid "Enter business information that will appear in email and SMS notifications."
+msgstr "E-posta ve SMS bildirimlerinde görünecek işletme bilgilerini girin."
+
+#: admin/partials/admin-settings.php:233
+msgid "e.g. Elite Hair Salon"
+msgstr "ör. Elit Kuaför Salonu"
+
+#: admin/partials/admin-settings.php:240
+msgid "+1 555 555 5555"
+msgstr "+90 555 555 5555"
+
+#: admin/partials/admin-settings.php:247
+msgid "Full address..."
+msgstr "Tam adres..."
+
+#: admin/partials/admin-settings.php:256
+msgid "Currency"
+msgstr "Para Birimi"
+
+#: admin/partials/admin-settings.php:257
+msgid "Set how prices are displayed."
+msgstr "Fiyatların nasıl görüntüleneceğini ayarlayın."
+
+#: admin/partials/admin-settings.php:263
+msgid "Currency Code"
+msgstr "Para Birimi Kodu"
+
+#: admin/partials/admin-settings.php:270
+msgid "Currency Symbol"
+msgstr "Para Birimi Simgesi"
+
+#: admin/partials/admin-settings.php:277
+msgid "Currency Position"
+msgstr "Para Birimi Konumu"
+
+#: admin/partials/admin-settings.php:280
+msgid "Before ($100)"
+msgstr "Önce ($100)"
+
+#: admin/partials/admin-settings.php:281
+msgid "After (100$)"
+msgstr "Sonra (100$)"
+
+#: admin/partials/admin-settings.php:289
+msgid "Date and Time Format"
+msgstr "Tarih ve Saat Formatı"
+
+#: admin/partials/admin-settings.php:290
+msgid "Choose how dates and times are displayed."
+msgstr "Tarih ve saatlerin nasıl görüntüleneceğini seçin."
+
+#: admin/partials/admin-settings.php:296
+msgid "Date Format"
+msgstr "Tarih Formatı"
+
+#: admin/partials/admin-settings.php:308
+msgid "Time Format"
+msgstr "Saat Formatı"
+
+#: admin/partials/admin-settings.php:323
+msgid "Configure the sending settings for booking notification emails."
+msgstr "Randevu bildirim e-postaları için gönderim ayarlarını yapılandırın."
+
+#: admin/partials/admin-settings.php:329
+msgid "Admin Email"
+msgstr "Yönetici E-postası"
+
+#: admin/partials/admin-settings.php:330
+msgid "New booking notifications will be sent to this address"
+msgstr "Yeni randevu bildirimleri bu adrese gönderilecek"
+
+#: admin/partials/admin-settings.php:337
+msgid "Sender Name"
+msgstr "Gönderen Adı"
+
+#: admin/partials/admin-settings.php:338
+msgid "Sender name that will appear in emails"
+msgstr "E-postalarda görünecek gönderen adı"
+
+#: admin/partials/admin-settings.php:345
+msgid "Sender Email"
+msgstr "Gönderen E-postası"
+
+#: admin/partials/admin-settings.php:346
+msgid "Email address that emails will be sent from"
+msgstr "E-postaların gönderileceği e-posta adresi"
+
+#: admin/partials/admin-settings.php:354
+msgid "To edit email templates, go to the \"Email Templates\" page from the left menu."
+msgstr "E-posta şablonlarını düzenlemek için sol menüden \"E-posta Şablonları\" sayfasına gidin."
+
+#: admin/partials/admin-settings.php:362
+msgid "Cancellation and Rescheduling"
+msgstr "İptal ve Yeniden Planlama"
+
+#: admin/partials/admin-settings.php:363
+msgid "Set the rules for customer booking cancellation and rescheduling."
+msgstr "Müşteri randevu iptali ve yeniden planlama kurallarını belirleyin."
+
+#: admin/partials/admin-settings.php:368
+msgid "Customer Cancellation"
+msgstr "Müşteri İptali"
+
+#: admin/partials/admin-settings.php:369
+msgid "Customers can cancel their bookings"
+msgstr "Müşteriler randevularını iptal edebilir"
+
+#: admin/partials/admin-settings.php:379
+msgid "Customer Rescheduling"
+msgstr "Müşteri Yeniden Planlama"
+
+#: admin/partials/admin-settings.php:380
+msgid "Customers can reschedule their bookings"
+msgstr "Müşteriler randevularını yeniden planlayabilir"
+
+#: admin/partials/admin-settings.php:391
+msgid "Cancellation Deadline"
+msgstr "İptal Son Tarihi"
+
+#: admin/partials/admin-settings.php:392
+#: admin/partials/admin-settings.php:403
+msgid "Hours before the booking"
+msgstr "Randevudan önceki saat"
+
+#: admin/partials/admin-settings.php:396
+#: admin/partials/admin-settings.php:407
+msgid "hours"
+msgstr "saat"
+
+#: admin/partials/admin-settings.php:402
+msgid "Rescheduling Deadline"
+msgstr "Yeniden Planlama Son Tarihi"
+
+#: admin/partials/admin-settings.php:413
+msgid "Max. Reschedules"
+msgstr "Maks. Yeniden Planlama"
+
+#: admin/partials/admin-settings.php:414
+msgid "How many times a booking can be rescheduled"
+msgstr "Bir randevu kaç kez yeniden planlanabilir"
+
+#: admin/partials/admin-settings.php:418
+msgid "times"
+msgstr "kez"
+
+#: admin/partials/admin-settings.php:426
+msgid "Calendar Integration"
+msgstr "Takvim Entegrasyonu"
+
+#: admin/partials/admin-settings.php:427
+msgid "Configure the ability to add bookings to calendar apps."
+msgstr "Randevuların takvim uygulamalarına eklenmesini yapılandırın."
+
+#: admin/partials/admin-settings.php:432
+msgid "Calendar File (ICS)"
+msgstr "Takvim Dosyası (ICS)"
+
+#: admin/partials/admin-settings.php:433
+msgid "Attach .ics file and calendar links to emails"
+msgstr "E-postalara .ics dosyası ve takvim bağlantıları ekle"
+
+#: admin/partials/admin-settings.php:465
+msgid "SMS Notifications"
+msgstr "SMS Bildirimleri"
+
+#: admin/partials/admin-settings.php:466
+msgid "Configure SMS notification settings with NetGSM."
+msgstr "NetGSM ile SMS bildirim ayarlarını yapılandırın."
+
+#: admin/partials/admin-settings.php:471
+msgid "Enable SMS Notifications"
+msgstr "SMS Bildirimlerini Etkinleştir"
+
+#: admin/partials/admin-settings.php:472
+msgid "Booking notifications will be sent via SMS"
+msgstr "Randevu bildirimleri SMS ile gönderilecek"
+
+#: admin/partials/admin-settings.php:482
+msgid "NetGSM API Credentials"
+msgstr "NetGSM API Kimlik Bilgileri"
+
+#: admin/partials/admin-settings.php:487
+msgid "Username"
+msgstr "Kullanıcı Adı"
+
+#: admin/partials/admin-settings.php:494
+msgid "Password"
+msgstr "Şifre"
+
+#: admin/partials/admin-settings.php:501
+msgid "Sender ID"
+msgstr "Gönderici ID"
+
+#: admin/partials/admin-settings.php:510
+msgid "Check Balance"
+msgstr "Bakiye Sorgula"
+
+#: admin/partials/admin-settings.php:518
+msgid "Test SMS"
+msgstr "Test SMS"
+
+#: admin/partials/admin-settings.php:525
+msgid "Notification Triggers"
+msgstr "Bildirim Tetikleyicileri"
+
+#: admin/partials/admin-settings.php:540
+msgid "Booking Confirmation"
+msgstr "Randevu Onayı"
+
+#: admin/partials/admin-settings.php:550
+msgid "Booking Cancellation"
+msgstr "Randevu İptali"
+
+#: admin/partials/admin-settings.php:560
+msgid "Reminder"
+msgstr "Hatırlatma"
+
+#: admin/partials/admin-settings.php:574
+msgid "1 hour before"
+msgstr "1 saat önce"
+
+#: admin/partials/admin-settings.php:575
+msgid "2 hours before"
+msgstr "2 saat önce"
+
+#: admin/partials/admin-settings.php:576
+msgid "3 hours before"
+msgstr "3 saat önce"
+
+#: admin/partials/admin-settings.php:577
+msgid "6 hours before"
+msgstr "6 saat önce"
+
+#: admin/partials/admin-settings.php:578
+msgid "12 hours before"
+msgstr "12 saat önce"
+
+#: admin/partials/admin-settings.php:579
+msgid "1 day before"
+msgstr "1 gün önce"
+
+#: admin/partials/admin-settings.php:580
+msgid "2 days before"
+msgstr "2 gün önce"
+
+#: admin/partials/admin-settings.php:587
+msgid "SMS Templates"
+msgstr "SMS Şablonları"
+
+#: admin/partials/admin-settings.php:589
+msgid "Variables:"
+msgstr "Değişkenler:"
+
+#: admin/partials/admin-settings.php:610
+msgid "Save Templates"
+msgstr "Şablonları Kaydet"
+
+#: admin/partials/admin-settings.php:624
+msgid "SEO Settings"
+msgstr "SEO Ayarları"
+
+#: admin/partials/admin-settings.php:625
+msgid "Search engine optimization and social media settings."
+msgstr "Arama motoru optimizasyonu ve sosyal medya ayarları."
+
+#: admin/partials/admin-settings.php:630
+msgid "Schema.org & Structured Data"
+msgstr "Schema.org ve Yapılandırılmış Veri"
+
+#: admin/partials/admin-settings.php:632
+msgid "Help Google and other search engines better understand your business."
+msgstr "Google ve diğer arama motorlarının işletmenizi daha iyi anlamasına yardımcı olun."
+
+#: admin/partials/admin-settings.php:637
+msgid "SEO Enabled"
+msgstr "SEO Etkin"
+
+#: admin/partials/admin-settings.php:638
+msgid "Enable Schema.org and Open Graph tags."
+msgstr "Schema.org ve Open Graph etiketlerini etkinleştir."
+
+#: admin/partials/admin-settings.php:649
+msgid "Business Type"
+msgstr "İşletme Türü"
+
+#: admin/partials/admin-settings.php:650
+msgid "Schema.org business category."
+msgstr "Schema.org işletme kategorisi."
+
+#: admin/partials/admin-settings.php:653
+msgid "Beauty Salon"
+msgstr "Güzellik Salonu"
+
+#: admin/partials/admin-settings.php:654
+msgid "Hair Salon / Barber"
+msgstr "Kuaför / Berber"
+
+#: admin/partials/admin-settings.php:655
+msgid "Nail Salon"
+msgstr "Tırnak Bakım Salonu"
+
+#: admin/partials/admin-settings.php:656
+msgid "Spa"
+msgstr "Spa"
+
+#: admin/partials/admin-settings.php:657
+msgid "Health & Beauty"
+msgstr "Sağlık ve Güzellik"
+
+#: admin/partials/admin-settings.php:658
+msgid "Dental Clinic"
+msgstr "Diş Kliniği"
+
+#: admin/partials/admin-settings.php:659
+msgid "Physician"
+msgstr "Doktor"
+
+#: admin/partials/admin-settings.php:660
+msgid "Optician"
+msgstr "Optisyen"
+
+#: admin/partials/admin-settings.php:661
+msgid "Tattoo Parlor"
+msgstr "Dövme Salonu"
+
+#: admin/partials/admin-settings.php:662
+msgid "General Business"
+msgstr "Genel İşletme"
+
+#: admin/partials/admin-settings.php:668
+msgid "Price Range"
+msgstr "Fiyat Aralığı"
+
+#: admin/partials/admin-settings.php:669
+msgid "Your general price level."
+msgstr "Genel fiyat seviyeniz."
+
+#: admin/partials/admin-settings.php:672
+msgid "$ - Budget"
+msgstr "$ - Ekonomik"
+
+#: admin/partials/admin-settings.php:673
+msgid "$$ - Moderate"
+msgstr "$$ - Orta"
+
+#: admin/partials/admin-settings.php:674
+msgid "$$$ - High"
+msgstr "$$$ - Yüksek"
+
+#: admin/partials/admin-settings.php:675
+msgid "$$$$ - Luxury"
+msgstr "$$$$ - Lüks"
+
+#: admin/partials/admin-settings.php:682
+msgid "SEO Description"
+msgstr "SEO Açıklaması"
+
+#: admin/partials/admin-settings.php:683
+msgid "Description displayed in social media shares."
+msgstr "Sosyal medya paylaşımlarında görüntülenen açıklama."
+
+#: admin/partials/admin-settings.php:685
+msgid "Book an appointment online - quick and easy!"
+msgstr "Çevrimiçi randevu alın - hızlı ve kolay!"
+
+#: admin/partials/admin-settings.php:691
+msgid "Logo displayed in social media and search results."
+msgstr "Sosyal medya ve arama sonuçlarında görüntülenen logo."
+
+#: admin/partials/admin-settings.php:698
+msgid "Location Information"
+msgstr "Konum Bilgileri"
+
+#: admin/partials/admin-settings.php:700
+msgid "Enter your location details for local SEO."
+msgstr "Yerel SEO için konum bilgilerinizi girin."
+
+#: admin/partials/admin-settings.php:706
+msgid "City"
+msgstr "Şehir"
+
+#: admin/partials/admin-settings.php:708
+msgid "e.g. New York"
+msgstr "ör. İstanbul"
+
+#: admin/partials/admin-settings.php:713
+msgid "Postal Code"
+msgstr "Posta Kodu"
+
+#: admin/partials/admin-settings.php:720
+msgid "Country Code"
+msgstr "Ülke Kodu"
+
+#: admin/partials/admin-settings.php:728
+msgid "Social Media"
+msgstr "Sosyal Medya"
+
+#: admin/partials/admin-settings.php:730
+msgid "Connect your social media accounts."
+msgstr "Sosyal medya hesaplarınızı bağlayın."
+
+#: admin/partials/admin-settings.php:738
+msgid "Facebook"
+msgstr "Facebook"
+
+#: admin/partials/admin-settings.php:748
+msgid "Instagram"
+msgstr "Instagram"
+
+#: admin/partials/admin-settings.php:760
+msgid "Twitter/X URL"
+msgstr "Twitter/X URL"
+
+#: admin/partials/admin-settings.php:769
+msgid "Twitter Username"
+msgstr "Twitter Kullanıcı Adı"
+
+#: admin/partials/admin-settings.php:771
+msgid "Enter without @."
+msgstr "@ olmadan girin."
+
+#: admin/partials/admin-settings.php:781
+msgid "How Does SEO Work?"
+msgstr "SEO Nasıl Çalışır?"
+
+#: admin/partials/admin-settings.php:782
+msgid "These settings add Schema.org structured data and Open Graph tags to your booking page. Google uses this information to display your business better in search results."
+msgstr "Bu ayarlar, randevu sayfanıza Schema.org yapılandırılmış verisi ve Open Graph etiketleri ekler. Google bu bilgileri arama sonuçlarında işletmenizi daha iyi göstermek için kullanır."
+
+#: admin/partials/admin-settings.php:794
+msgid "Security Settings"
+msgstr "Güvenlik Ayarları"
+
+#: admin/partials/admin-settings.php:795
+msgid "CAPTCHA and security logging settings."
+msgstr "CAPTCHA ve güvenlik günlüğü ayarları."
+
+#: admin/partials/admin-settings.php:800
+msgid "CAPTCHA Protection"
+msgstr "CAPTCHA Koruması"
+
+#: admin/partials/admin-settings.php:802
+msgid "Protect the booking form from spam and bot attacks."
+msgstr "Randevu formunu spam ve bot saldırılarından koruyun."
+
+#: admin/partials/admin-settings.php:807
+msgid "CAPTCHA Provider"
+msgstr "CAPTCHA Sağlayıcı"
+
+#: admin/partials/admin-settings.php:808
+msgid "Select the CAPTCHA service you want to use."
+msgstr "Kullanmak istediğiniz CAPTCHA hizmetini seçin."
+
+#: admin/partials/admin-settings.php:811
+#: includes/class-unbsb-captcha.php:363
+msgid "Disabled"
+msgstr "Devre Dışı"
+
+#: admin/partials/admin-settings.php:812
+#: includes/class-unbsb-captcha.php:364
+msgid "Google reCAPTCHA v3"
+msgstr "Google reCAPTCHA v3"
+
+#: admin/partials/admin-settings.php:813
+#: includes/class-unbsb-captcha.php:365
+msgid "hCaptcha"
+msgstr "hCaptcha"
+
+#: admin/partials/admin-settings.php:821
+msgid "Site Key"
+msgstr "Site Anahtarı"
+
+#: admin/partials/admin-settings.php:828
+msgid "Secret Key"
+msgstr "Gizli Anahtar"
+
+#: admin/partials/admin-settings.php:836
+msgid "Minimum Score (reCAPTCHA v3)"
+msgstr "Minimum Puan (reCAPTCHA v3)"
+
+#: admin/partials/admin-settings.php:837
+msgid "Range 0.0 - 1.0. Lower score = stricter control."
+msgstr "Aralık 0.0 - 1.0. Düşük puan = daha sıkı kontrol."
+
+#: admin/partials/admin-settings.php:840
+msgid "Very Lenient"
+msgstr "Çok Esnek"
+
+#: admin/partials/admin-settings.php:841
+msgid "Normal (Recommended)"
+msgstr "Normal (Önerilen)"
+
+#: admin/partials/admin-settings.php:842
+msgid "Strict"
+msgstr "Sıkı"
+
+#: admin/partials/admin-settings.php:843
+msgid "Very Strict"
+msgstr "Çok Sıkı"
+
+#: admin/partials/admin-settings.php:851
+msgid "Where to Get CAPTCHA Keys?"
+msgstr "CAPTCHA Anahtarları Nereden Alınır?"
+
+#: admin/partials/admin-settings.php:861
+msgid "Security Logging"
+msgstr "Güvenlik Günlüğü"
+
+#: admin/partials/admin-settings.php:863
+msgid "Record and monitor security events."
+msgstr "Güvenlik olaylarını kaydedin ve izleyin."
+
+#: admin/partials/admin-settings.php:868
+msgid "Enable Security Logging"
+msgstr "Güvenlik Günlüğünü Etkinleştir"
+
+#: admin/partials/admin-settings.php:869
+msgid "Log rate limit, spam, and suspicious activities."
+msgstr "Hız sınırı, spam ve şüpheli etkinlikleri kaydedin."
+
+#: admin/partials/admin-settings.php:884
+msgid "Save Changes"
+msgstr "Değişiklikleri Kaydet"
+
+#: admin/partials/admin-staff-schedule.php:18
+#: admin/partials/admin-staff.php:241
+msgid "Monday"
+msgstr "Pazartesi"
+
+#: admin/partials/admin-staff-schedule.php:19
+#: admin/partials/admin-staff.php:242
+msgid "Tuesday"
+msgstr "Salı"
+
+#: admin/partials/admin-staff-schedule.php:20
+#: admin/partials/admin-staff.php:243
+msgid "Wednesday"
+msgstr "Çarşamba"
+
+#: admin/partials/admin-staff-schedule.php:21
+#: admin/partials/admin-staff.php:244
+msgid "Thursday"
+msgstr "Perşembe"
+
+#: admin/partials/admin-staff-schedule.php:22
+#: admin/partials/admin-staff.php:245
+msgid "Friday"
+msgstr "Cuma"
+
+#: admin/partials/admin-staff-schedule.php:23
+#: admin/partials/admin-staff.php:246
+msgid "Saturday"
+msgstr "Cumartesi"
+
+#: admin/partials/admin-staff-schedule.php:24
+#: admin/partials/admin-staff.php:247
+msgid "Sunday"
+msgstr "Pazar"
+
+#: admin/partials/admin-staff-schedule.php:37
+msgid "Manage staff working hours, breaks, and days off."
+msgstr "Personel çalışma saatlerini, molaları ve izinleri yönetin."
+
+#: admin/partials/admin-staff-schedule.php:46
+msgid "No staff added yet"
+msgstr "Henüz personel eklenmedi"
+
+#: admin/partials/admin-staff-schedule.php:47
+msgid "You must add staff first to set up the work schedule."
+msgstr "Çalışma programını ayarlamak için önce personel eklemeniz gerekir."
+
+#: admin/partials/admin-staff-schedule.php:50
+msgid "Add Staff"
+msgstr "Personel Ekle"
+
+#: admin/partials/admin-staff-schedule.php:58
+msgid "Select Staff:"
+msgstr "Personel Seçin:"
+
+#: admin/partials/admin-staff-schedule.php:74
+msgid "Weekly Work Schedule"
+msgstr "Haftalık Çalışma Programı"
+
+#: admin/partials/admin-staff-schedule.php:91
+msgid "Working:"
+msgstr "Çalışıyor:"
+
+#: admin/partials/admin-staff-schedule.php:99
+msgid "Breaks"
+msgstr "Molalar"
+
+#: admin/partials/admin-staff-schedule.php:116
+msgid "Save Schedule"
+msgstr "Programı Kaydet"
+
+#: admin/partials/admin-staff-schedule.php:128
+msgid "Days Off Calendar"
+msgstr "İzin Takvimi"
+
+#: admin/partials/admin-staff-schedule.php:158
+msgid "Day Off"
+msgstr "İzin Günü"
+
+#: admin/partials/admin-staff-schedule.php:173
+msgid "Recorded Days Off"
+msgstr "Kayıtlı İzin Günleri"
+
+#: admin/partials/admin-staff-schedule.php:181
+msgid "No recorded days off"
+msgstr "Kayıtlı izin günü yok"
+
+#: admin/partials/admin-staff-schedule.php:199
+#: admin/partials/admin-staff-schedule.php:220
+msgid "Add Day Off"
+msgstr "İzin Günü Ekle"
+
+#: admin/partials/admin-staff-schedule.php:210
+msgid "Reason (optional)"
+msgstr "Sebep (isteğe bağlı)"
+
+#: admin/partials/admin-staff-schedule.php:211
+msgid "e.g. Annual leave, Sick leave..."
+msgstr "ör. Yıllık izin, Hastalık izni..."
+
+#: admin/partials/admin-staff.php:50
+msgid "Hours"
+msgstr "Saatler"
+
+#: admin/partials/admin-staff.php:65
+msgid "No staff added yet."
+msgstr "Henüz personel eklenmedi."
+
+#: admin/partials/admin-staff.php:67
+msgid "Add First Staff"
+msgstr "İlk Personeli Ekle"
+
+#: admin/partials/admin-staff.php:86
+msgid "Enter staff details"
+msgstr "Personel bilgilerini girin"
+
+#: admin/partials/admin-staff.php:101
+msgid "Personal Information"
+msgstr "Kişisel Bilgiler"
+
+#: admin/partials/admin-staff.php:106
+msgid "e.g. John Doe"
+msgstr "ör. Ahmet Yılmaz"
+
+#: admin/partials/admin-staff.php:127
+msgid "Biography"
+msgstr "Biyografi"
+
+#: admin/partials/admin-staff.php:128
+msgid "A short introduction..."
+msgstr "Kısa bir tanıtım..."
+
+#: admin/partials/admin-staff.php:136
+msgid "Offered Services"
+msgstr "Sunulan Hizmetler"
+
+#: admin/partials/admin-staff.php:158
+msgid "No services added yet. Please add services first."
+msgstr "Henüz hizmet eklenmedi. Lütfen önce hizmet ekleyin."
+
+#: admin/partials/admin-staff.php:197
+msgid "You can edit working hours from the \"Hours\" button after saving the staff member."
+msgstr "Personeli kaydettikten sonra \"Saatler\" butonundan çalışma saatlerini düzenleyebilirsiniz."
+
+#: admin/partials/admin-staff.php:228
+msgid "Working Hours"
+msgstr "Çalışma Saatleri"
+
+#: admin/partials/admin-staff.php:258
+msgid "Open"
+msgstr "Açık"
+
+#: admin/partials/admin-staff.php:259
+msgid "Closed"
+msgstr "Kapalı"
+
+#: admin/partials/admin-staff.php:275
+msgid "Quick Set:"
+msgstr "Hızlı Ayarla:"
+
+#: admin/partials/admin-staff.php:277
+msgid "Weekdays (09-18)"
+msgstr "Hafta İçi (09-18)"
+
+#: admin/partials/admin-staff.php:280
+msgid "All Days"
+msgstr "Tüm Günler"
+
+#: includes/class-unbsb-booking-manager.php:58
+msgid "Booking cancellation is disabled."
+msgstr "Randevu iptali devre dışı."
+
+#: includes/class-unbsb-booking-manager.php:66
+msgid "This booking has already been cancelled."
+msgstr "Bu randevu zaten iptal edilmiş."
+
+#: includes/class-unbsb-booking-manager.php:74
+msgid "Completed bookings cannot be cancelled."
+msgstr "Tamamlanmış randevular iptal edilemez."
+
+#. translators: %d: Number of hours
+#: includes/class-unbsb-booking-manager.php:87
+#, php-format
+msgid "Cannot cancel because less than %d hours remain until the booking."
+msgstr "Randevuya %d saatten az kaldığı için iptal edilemez."
+
+#: includes/class-unbsb-booking-manager.php:111
+msgid "Booking rescheduling is disabled."
+msgstr "Randevu yeniden planlama devre dışı."
+
+#: includes/class-unbsb-booking-manager.php:119
+msgid "Cancelled bookings cannot be rescheduled."
+msgstr "İptal edilmiş randevular yeniden planlanamaz."
+
+#: includes/class-unbsb-booking-manager.php:127
+msgid "Completed bookings cannot be rescheduled."
+msgstr "Tamamlanmış randevular yeniden planlanamaz."
+
+#. translators: %d: Maximum number of reschedules
+#: includes/class-unbsb-booking-manager.php:140
+#, php-format
+msgid "A booking can be rescheduled at most %d times."
+msgstr "Bir randevu en fazla %d kez yeniden planlanabilir."
+
+#. translators: %d: Number of hours
+#: includes/class-unbsb-booking-manager.php:155
+#, php-format
+msgid "Cannot reschedule because less than %d hours remain until the booking."
+msgstr "Randevuya %d saatten az kaldığı için yeniden planlanamaz."
+
+#: includes/class-unbsb-booking-manager.php:217
+#: includes/class-unbsb-booking-manager.php:289
+#: includes/class-unbsb-rest-api.php:395
+#: includes/class-unbsb-rest-api.php:505
+#: public/partials/booking-manage.php:36
+msgid "Booking not found."
+msgstr "Randevu bulunamadı."
+
+#. translators: 1: Date/time, 2: Cancellation reason
+#: includes/class-unbsb-booking-manager.php:235
+#, php-format
+msgid "[%1$s] Cancelled by customer. Reason: %2$s"
+msgstr "[%1$s] Müşteri tarafından iptal edildi. Sebep: %2$s"
+
+#: includes/class-unbsb-booking-manager.php:263
+msgid "Your booking has been cancelled successfully."
+msgstr "Randevunuz başarıyla iptal edildi."
+
+#: includes/class-unbsb-booking-manager.php:269
+msgid "An error occurred while cancelling the booking."
+msgstr "Randevu iptal edilirken bir hata oluştu."
+
+#: includes/class-unbsb-booking-manager.php:316
+msgid "Invalid time format."
+msgstr "Geçersiz saat formatı."
+
+#: includes/class-unbsb-booking-manager.php:337
+msgid "The selected date and time is not available."
+msgstr "Seçilen tarih ve saat müsait değil."
+
+#: includes/class-unbsb-booking-manager.php:349
+msgid "Service information not found."
+msgstr "Hizmet bilgisi bulunamadı."
+
+#. translators: 1: Date/time, 2: Old date, 3: Old time, 4: New date, 5: New time
+#: includes/class-unbsb-booking-manager.php:380
+#, php-format
+msgid "[%1$s] Rescheduled: %2$s %3$s -> %4$s %5$s"
+msgstr "[%1$s] Yeniden planlandı: %2$s %3$s -> %4$s %5$s"
+
+#: includes/class-unbsb-booking-manager.php:407
+msgid "Your booking has been updated successfully."
+msgstr "Randevunuz başarıyla güncellendi."
+
+#: includes/class-unbsb-booking-manager.php:414
+msgid "An error occurred while updating the booking."
+msgstr "Randevu güncellenirken bir hata oluştu."
+
+#: includes/class-unbsb-captcha.php:192
+msgid "CAPTCHA verification is required."
+msgstr "CAPTCHA doğrulaması gereklidir."
+
+#: includes/class-unbsb-captcha.php:253
+#: includes/class-unbsb-captcha.php:320
+msgid "CAPTCHA verification failed."
+msgstr "CAPTCHA doğrulaması başarısız oldu."
+
+#: includes/class-unbsb-captcha.php:268
+msgid "Security verification failed. Please try again."
+msgstr "Güvenlik doğrulaması başarısız oldu. Lütfen tekrar deneyin."
+
+#: includes/class-unbsb-database.php:203
+msgid "Direct SQL queries are deprecated. Use prepared_query() instead."
+msgstr "Doğrudan SQL sorguları kullanımdan kaldırılmıştır. Bunun yerine prepared_query() kullanın."
+
+#. translators: 1: Service name, 2: Company name
+#: includes/class-unbsb-ics-generator.php:49
+#, php-format
+msgid "%1$s - %2$s"
+msgstr "%1$s - %2$s"
+
+#. translators: %s: Staff name
+#: includes/class-unbsb-ics-generator.php:57
+#: includes/class-unbsb-ics-generator.php:200
+#: includes/class-unbsb-ics-generator.php:264
+#: includes/class-unbsb-ics-generator.php:327
+#, php-format
+msgid "Staff: %s"
+msgstr "Personel: %s"
+
+#. translators: %s: Price with currency
+#: includes/class-unbsb-ics-generator.php:64
+#: includes/class-unbsb-ics-generator.php:205
+#: includes/class-unbsb-ics-generator.php:269
+#: includes/class-unbsb-ics-generator.php:332
+#, php-format
+msgid "Price: %s"
+msgstr "Fiyat: %s"
+
+#. translators: %s: Phone number
+#: includes/class-unbsb-ics-generator.php:71
+#: includes/class-unbsb-ics-generator.php:210
+#: includes/class-unbsb-ics-generator.php:274
+#: includes/class-unbsb-ics-generator.php:337
+#, php-format
+msgid "Phone: %s"
+msgstr "Telefon: %s"
+
+#: includes/class-unbsb-ics-generator.php:104
+#: includes/class-unbsb-notification.php:355
+#: includes/class-unbsb-notification.php:357
+msgid "Booking Reminder"
+msgstr "Randevu Hatırlatması"
+
+#: includes/class-unbsb-ics-generator.php:111
+msgid "You have a booking tomorrow"
+msgstr "Yarın bir randevunuz var"
+
+#: includes/class-unbsb-ics-generator.php:367
+msgid "Add to your calendar:"
+msgstr "Takviminize ekleyin:"
+
+#: includes/class-unbsb-ics-generator.php:374
+msgid "Google Calendar"
+msgstr "Google Takvim"
+
+#: includes/class-unbsb-ics-generator.php:381
+msgid "Outlook"
+msgstr "Outlook"
+
+#: includes/class-unbsb-ics-generator.php:388
+msgid "Yahoo Calendar"
+msgstr "Yahoo Takvim"
+
+#: includes/class-unbsb-ics-generator.php:392
+msgid "Apple Calendar users can use the .ics file attached to the email."
+msgstr "Apple Takvim kullanıcıları e-postaya eklenmiş .ics dosyasını kullanabilir."
+
+#: includes/class-unbsb-notification.php:337
+msgid "Booking Received"
+msgstr "Randevu Alındı"
+
+#: includes/class-unbsb-notification.php:339
+msgid "Your Booking Request Has Been Received"
+msgstr "Randevu Talebiniz Alındı"
+
+#: includes/class-unbsb-notification.php:343
+msgid "Booking Confirmed"
+msgstr "Randevu Onaylandı"
+
+#: includes/class-unbsb-notification.php:345
+msgid "Your Booking Has Been Confirmed"
+msgstr "Randevunuz Onaylandı"
+
+#: includes/class-unbsb-notification.php:349
+#: includes/class-unbsb-security-logger.php:503
+msgid "Booking Cancelled"
+msgstr "Randevu İptal Edildi"
+
+#: includes/class-unbsb-notification.php:351
+msgid "Your Booking Has Been Cancelled"
+msgstr "Randevunuz İptal Edildi"
+
+#: includes/class-unbsb-notification.php:361
+msgid "Admin: New Booking"
+msgstr "Yönetici: Yeni Randevu"
+
+#: includes/class-unbsb-notification.php:363
+msgid "New Booking Request"
+msgstr "Yeni Randevu Talebi"
+
+#. translators: %s: Company name
+#: includes/class-unbsb-notification.php:713
+#, php-format
+msgid "This email was sent by %s."
+msgstr "Bu e-posta %s tarafından gönderilmiştir."
+
+#: includes/class-unbsb-notification.php:872
+msgid "Test email sent."
+msgstr "Test e-postası gönderildi."
+
+#: includes/class-unbsb-notification.php:877
+msgid "Email could not be sent."
+msgstr "E-posta gönderilemedi."
+
+#. translators: %d: seconds to wait
+#: includes/class-unbsb-rate-limiter.php:72
+#, php-format
+msgid "Too many requests. Please try again in %d seconds."
+msgstr "Çok fazla istek. Lütfen %d saniye sonra tekrar deneyin."
+
+#: includes/class-unbsb-rest-api.php:361
+#: public/class-unbsb-public.php:333
+msgid "Spam detected."
+msgstr "Spam tespit edildi."
+
+#: includes/class-unbsb-rest-api.php:376
+msgid "Your booking has been created successfully."
+msgstr "Randevunuz başarıyla oluşturuldu."
+
+#: includes/class-unbsb-rest-api.php:458
+msgid "Date and time are required."
+msgstr "Tarih ve saat gereklidir."
+
+#. translators: %s: parameter name
+#: includes/class-unbsb-rest-api.php:597
+#, php-format
+msgid "Invalid date format (%s). Format must be: YYYY-MM-DD."
+msgstr "Geçersiz tarih formatı (%s). Format şu şekilde olmalıdır: YYYY-MM-DD."
+
+#: includes/class-unbsb-rest-api.php:609
+msgid "Invalid date value."
+msgstr "Geçersiz tarih değeri."
+
+#. translators: %s: parameter name
+#: includes/class-unbsb-rest-api.php:633
+#, php-format
+msgid "Invalid month format (%s). Format must be: YYYY-MM."
+msgstr "Geçersiz ay formatı (%s). Format şu şekilde olmalıdır: YYYY-MM."
+
+#: includes/class-unbsb-rest-api.php:646
+msgid "Invalid month value (must be between 1-12)."
+msgstr "Geçersiz ay değeri (1-12 arasında olmalıdır)."
+
+#: includes/class-unbsb-security-logger.php:496
+msgid "Rate Limit"
+msgstr "Hız Sınırı"
+
+#: includes/class-unbsb-security-logger.php:497
+msgid "Invalid Token"
+msgstr "Geçersiz Token"
+
+#: includes/class-unbsb-security-logger.php:498
+msgid "Spam Detected"
+msgstr "Spam Tespit Edildi"
+
+#: includes/class-unbsb-security-logger.php:499
+msgid "Invalid Input"
+msgstr "Geçersiz Girdi"
+
+#: includes/class-unbsb-security-logger.php:500
+msgid "Auth Failure"
+msgstr "Kimlik Doğrulama Hatası"
+
+#: includes/class-unbsb-security-logger.php:501
+msgid "Suspicious"
+msgstr "Şüpheli"
+
+#: includes/class-unbsb-security-logger.php:502
+msgid "Booking Created"
+msgstr "Randevu Oluşturuldu"
+
+#: includes/class-unbsb-security-logger.php:518
+msgid "Info"
+msgstr "Bilgi"
+
+#: includes/class-unbsb-security-logger.php:519
+msgid "Warning"
+msgstr "Uyarı"
+
+#: includes/class-unbsb-security-logger.php:520
+msgid "Error"
+msgstr "Hata"
+
+#: includes/class-unbsb-security-logger.php:521
+msgid "Critical"
+msgstr "Kritik"
+
+#: includes/class-unbsb-seo.php:195
+msgid "Our Services"
+msgstr "Hizmetlerimiz"
+
+#: includes/class-unbsb-seo.php:267
+msgid "Book online - fast and easy!"
+msgstr "Çevrimiçi randevu alın - hızlı ve kolay!"
+
+#: includes/class-unbsb-sms-manager.php:104
+msgid "Every Minute"
+msgstr "Her Dakika"
+
+#: includes/class-unbsb-sms-manager.php:529
+msgid "Provider not found."
+msgstr "Sağlayıcı bulunamadı."
+
+#: includes/models/class-unbsb-booking.php:69
+msgid "Invalid service list."
+msgstr "Geçersiz hizmet listesi."
+
+#. translators: %s: Field name
+#: includes/models/class-unbsb-booking.php:85
+#, php-format
+msgid "%s field is required."
+msgstr "%s alanı gereklidir."
+
+#: includes/models/class-unbsb-booking.php:94
+msgid "Another booking exists in this time slot."
+msgstr "Bu zaman diliminde başka bir randevu mevcut."
+
+#: includes/models/class-unbsb-service.php:186
+msgid "Uncategorized"
+msgstr "Kategorisiz"
+
+#: includes/sms/class-unbsb-sms-netgsm.php:79
+#: includes/sms/class-unbsb-sms-netgsm.php:122
+msgid "NetGSM credentials are missing."
+msgstr "NetGSM kimlik bilgileri eksik."
+
+#. translators: 1: TL amount, 2: Credit count
+#: includes/sms/class-unbsb-sms-netgsm.php:159
+#, php-format
+msgid "Balance: %1$s TL, %2$d Credits"
+msgstr "Bakiye: %1$s TL, %2$d Kredi"
+
+#: includes/sms/class-unbsb-sms-netgsm.php:190
+msgid "SMS sent successfully."
+msgstr "SMS başarıyla gönderildi."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:208
+msgid "Message sending failed: Invalid message."
+msgstr "Mesaj gönderimi başarısız: Geçersiz mesaj."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:209
+msgid "Invalid username or password."
+msgstr "Geçersiz kullanıcı adı veya şifre."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:210
+msgid "Account is not defined."
+msgstr "Hesap tanımlı değil."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:211
+msgid "Account is unauthorized or suspended."
+msgstr "Hesap yetkisiz veya askıya alınmış."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:212
+msgid "Campaign limit exceeded."
+msgstr "Kampanya limiti aşıldı."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:213
+msgid "Invalid sender ID."
+msgstr "Geçersiz gönderici ID."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:214
+msgid "Invalid parameter or character."
+msgstr "Geçersiz parametre veya karakter."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:215
+msgid "Query error."
+msgstr "Sorgu hatası."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:216
+msgid "Same SMS was sent multiple times."
+msgstr "Aynı SMS birden fazla kez gönderildi."
+
+#: includes/sms/class-unbsb-sms-netgsm.php:217
+#: includes/sms/class-unbsb-sms-netgsm.php:218
+msgid "System error."
+msgstr "Sistem hatası."
+
+#. translators: %s: Error code
+#: includes/sms/class-unbsb-sms-netgsm.php:224
+#, php-format
+msgid "Unknown error: %s"
+msgstr "Bilinmeyen hata: %s"
+
+#. translators: %s: Company name
+#: includes/sms/class-unbsb-sms-netgsm.php:247
+#, php-format
+msgid "This is a test message. %s booking system SMS integration is working successfully."
+msgstr "Bu bir test mesajıdır. %s randevu sistemi SMS entegrasyonu başarıyla çalışıyor."
+
+#: public/class-unbsb-public.php:73
+msgid "Select a service"
+msgstr "Bir hizmet seçin"
+
+#: public/class-unbsb-public.php:74
+msgid "Select a staff member"
+msgstr "Bir personel seçin"
+
+#: public/class-unbsb-public.php:75
+msgid "Select a date"
+msgstr "Bir tarih seçin"
+
+#: public/class-unbsb-public.php:76
+#: public/class-unbsb-public.php:281
+msgid "Select a time"
+msgstr "Bir saat seçin"
+
+#: public/class-unbsb-public.php:78
+msgid "No available time slots for this date."
+msgstr "Bu tarih için müsait zaman dilimi yok."
+
+#: public/class-unbsb-public.php:79
+msgid "No services found for this staff member."
+msgstr "Bu personel için hizmet bulunamadı."
+
+#: public/class-unbsb-public.php:80
+msgid "No staff available."
+msgstr "Müsait personel yok."
+
+#: public/class-unbsb-public.php:81
+#: public/class-unbsb-public.php:398
+msgid "Your booking has been created successfully!"
+msgstr "Randevunuz başarıyla oluşturuldu!"
+
+#: public/class-unbsb-public.php:82
+msgid "An error occurred. Please try again."
+msgstr "Bir hata oluştu. Lütfen tekrar deneyin."
+
+#: public/class-unbsb-public.php:84
+#: public/partials/booking-form.php:315
+msgid "Book Now"
+msgstr "Hemen Randevu Al"
+
+#: public/class-unbsb-public.php:90
+#: public/partials/booking-form.php:36
+#: public/partials/booking-form.php:54
+#: public/partials/booking-form.php:68
+#: public/partials/booking-form.php:82
+msgid "Details"
+msgstr "Detaylar"
+
+#: public/class-unbsb-public.php:98
+msgid "Total"
+msgstr "Toplam"
+
+#: public/class-unbsb-public.php:282
+msgid "No available slots"
+msgstr "Müsait zaman dilimi yok"
+
+#: public/class-unbsb-public.php:284
+msgid "Your booking has been updated!"
+msgstr "Randevunuz güncellendi!"
+
+#: public/class-unbsb-public.php:285
+msgid "Your booking has been cancelled!"
+msgstr "Randevunuz iptal edildi!"
+
+#: public/class-unbsb-public.php:307
+msgid "Missing parameters."
+msgstr "Eksik parametreler."
+
+#: public/class-unbsb-public.php:413
+msgid "Service ID is required."
+msgstr "Hizmet ID gereklidir."
+
+#: public/class-unbsb-public.php:443
+msgid "Staff ID is required."
+msgstr "Personel ID gereklidir."
+
+#: public/partials/booking-form.php:125
+msgid "Select Services (You can select multiple)"
+msgstr "Hizmet Seçin (Birden fazla seçebilirsiniz)"
+
+#: public/partials/booking-form.php:127
+msgid "Select a Service"
+msgstr "Hizmet Seçin"
+
+#: public/partials/booking-form.php:183
+msgid "Selected Services"
+msgstr "Seçilen Hizmetler"
+
+#: public/partials/booking-form.php:188
+msgid "Total:"
+msgstr "Toplam:"
+
+#: public/partials/booking-form.php:201
+#: public/partials/services-list.php:44
+msgid "No services available yet."
+msgstr "Henüz hizmet mevcut değil."
+
+#: public/partials/booking-form.php:209
+msgid "Select Staff"
+msgstr "Personel Seçin"
+
+#: public/partials/booking-form.php:219
+msgid "Select Date and Time"
+msgstr "Tarih ve Saat Seçin"
+
+#: public/partials/booking-form.php:239
+msgid "Available Times"
+msgstr "Müsait Saatler"
+
+#: public/partials/booking-form.php:241
+#: public/partials/booking-manage.php:211
+msgid "Select a date first"
+msgstr "Önce bir tarih seçin"
+
+#: public/partials/booking-form.php:250
+msgid "Enter Your Information"
+msgstr "Bilgilerinizi Girin"
+
+#: public/partials/booking-form.php:255
+msgid "Your full name"
+msgstr "Adınız soyadınız"
+
+#: public/partials/booking-form.php:261
+msgid "example@email.com"
+msgstr "ornek@email.com"
+
+#: public/partials/booking-form.php:265
+msgid "+1 XXX XXX XXXX"
+msgstr "+90 XXX XXX XXXX"
+
+#: public/partials/booking-form.php:271
+msgid "Any additional notes (optional)"
+msgstr "Ek notlar (isteğe bağlı)"
+
+#: public/partials/booking-form.php:284
+msgid "Booking Summary"
+msgstr "Randevu Özeti"
+
+#: public/partials/booking-form.php:296
+msgid "Your Booking is Received!"
+msgstr "Randevunuz Alındı!"
+
+#: public/partials/booking-form.php:297
+msgid "Your booking details will be sent to your email address."
+msgstr "Randevu detaylarınız e-posta adresinize gönderilecektir."
+
+#: public/partials/booking-form.php:307
+msgid "Back"
+msgstr "Geri"
+
+#: public/partials/booking-form.php:310
+msgid "Continue"
+msgstr "Devam"
+
+#: public/partials/booking-manage.php:18
+msgid "Invalid booking link."
+msgstr "Geçersiz randevu bağlantısı."
+
+#. translators: %d: Booking ID
+#: public/partials/booking-manage.php:89
+#, php-format
+msgid "Booking #%d"
+msgstr "Randevu #%d"
+
+#: public/partials/booking-manage.php:106
+msgid "Date and Time"
+msgstr "Tarih ve Saat"
+
+#: public/partials/booking-manage.php:162
+#: public/partials/booking-manage.php:192
+msgid "Reschedule Booking"
+msgstr "Randevuyu Yeniden Planla"
+
+#: public/partials/booking-manage.php:177
+#: public/partials/booking-manage.php:233
+msgid "Cancel Booking"
+msgstr "Randevuyu İptal Et"
+
+#: public/partials/booking-manage.php:202
+msgid "New Date"
+msgstr "Yeni Tarih"
+
+#: public/partials/booking-manage.php:209
+msgid "New Time"
+msgstr "Yeni Saat"
+
+#: public/partials/booking-manage.php:217
+#: public/partials/booking-manage.php:256
+msgid "Go Back"
+msgstr "Geri Dön"
+
+#: public/partials/booking-manage.php:220
+msgid "Update Booking"
+msgstr "Randevuyu Güncelle"
+
+#: public/partials/booking-manage.php:243
+msgid "This action cannot be undone. Your booking will be cancelled."
+msgstr "Bu işlem geri alınamaz. Randevunuz iptal edilecektir."
+
+#: public/partials/booking-manage.php:250
+msgid "Cancellation Reason (optional)"
+msgstr "İptal Sebebi (isteğe bağlı)"
+
+#: public/partials/booking-manage.php:251
+msgid "Why do you want to cancel?"
+msgstr "Neden iptal etmek istiyorsunuz?"
+
+#: public/partials/booking-manage.php:259
+msgid "Yes, Cancel"
+msgstr "Evet, İptal Et"
+
+#: public/partials/staff-list.php:51
+msgid "No staff available yet."
+msgstr "Henüz müsait personel yok."

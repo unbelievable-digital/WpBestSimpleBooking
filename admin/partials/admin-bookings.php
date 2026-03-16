@@ -2,47 +2,47 @@
 /**
  * Admin Bookings Template
  *
- * @package Appointment_General
+ * @package Unbelievable_Salon_Booking
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$currency_symbol = get_option( 'ag_currency_symbol', '₺' );
-$date_format     = get_option( 'ag_date_format', 'd.m.Y' );
-$time_format     = get_option( 'ag_time_format', 'H:i' );
+$currency_symbol = get_option( 'unbsb_currency_symbol', '₺' );
+$date_format     = get_option( 'unbsb_date_format', 'd.m.Y' );
+$time_format     = get_option( 'unbsb_time_format', 'H:i' );
 
 $statuses = array(
-	''          => __( 'Tüm Durumlar', 'appointment-general' ),
-	'pending'   => __( 'Beklemede', 'appointment-general' ),
-	'confirmed' => __( 'Onaylandı', 'appointment-general' ),
-	'cancelled' => __( 'İptal', 'appointment-general' ),
-	'completed' => __( 'Tamamlandı', 'appointment-general' ),
-	'no_show'   => __( 'Gelmedi', 'appointment-general' ),
+	''          => __( 'All Statuses', 'unbelievable-salon-booking' ),
+	'pending'   => __( 'Pending', 'unbelievable-salon-booking' ),
+	'confirmed' => __( 'Confirmed', 'unbelievable-salon-booking' ),
+	'cancelled' => __( 'Cancelled', 'unbelievable-salon-booking' ),
+	'completed' => __( 'Completed', 'unbelievable-salon-booking' ),
+	'no_show'   => __( 'No Show', 'unbelievable-salon-booking' ),
 );
 ?>
 
-<div class="ag-admin-wrap">
-	<div class="ag-admin-header">
-		<h1><?php esc_html_e( 'Randevular', 'appointment-general' ); ?></h1>
-		<button type="button" class="ag-btn ag-btn-primary" id="ag-add-booking">
+<div class="unbsb-admin-wrap">
+	<div class="unbsb-admin-header">
+		<h1><?php esc_html_e( 'Bookings', 'unbelievable-salon-booking' ); ?></h1>
+		<button type="button" class="unbsb-btn unbsb-btn-primary" id="unbsb-add-booking">
 			<span class="dashicons dashicons-plus-alt"></span>
-			<?php esc_html_e( 'Yeni Randevu', 'appointment-general' ); ?>
+			<?php esc_html_e( 'New Booking', 'unbelievable-salon-booking' ); ?>
 		</button>
 	</div>
 
-	<div class="ag-card">
-		<div class="ag-card-header">
-			<h2><?php esc_html_e( 'Filtrele', 'appointment-general' ); ?></h2>
+	<div class="unbsb-card">
+		<div class="unbsb-card-header">
+			<h2><?php esc_html_e( 'Filter', 'unbelievable-salon-booking' ); ?></h2>
 		</div>
-		<div class="ag-card-body">
-			<form method="get" class="ag-filter-form">
-				<input type="hidden" name="page" value="ag-bookings">
+		<div class="unbsb-card-body">
+			<form method="get" class="unbsb-filter-form">
+				<input type="hidden" name="page" value="unbsb-bookings">
 
-				<div class="ag-filter-row">
-					<div class="ag-filter-field">
-						<label for="status"><?php esc_html_e( 'Durum', 'appointment-general' ); ?></label>
+				<div class="unbsb-filter-row">
+					<div class="unbsb-filter-field">
+						<label for="status"><?php esc_html_e( 'Status', 'unbelievable-salon-booking' ); ?></label>
 						<select name="status" id="status">
 							<?php foreach ( $statuses as $value => $label ) : ?>
 								<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $status, $value ); ?>>
@@ -52,34 +52,34 @@ $statuses = array(
 						</select>
 					</div>
 
-					<div class="ag-filter-field">
-						<label for="staff_id"><?php esc_html_e( 'Personel', 'appointment-general' ); ?></label>
+					<div class="unbsb-filter-field">
+						<label for="staff_id"><?php esc_html_e( 'Staff', 'unbelievable-salon-booking' ); ?></label>
 						<select name="staff_id" id="staff_id">
-							<option value=""><?php esc_html_e( 'Tüm Personel', 'appointment-general' ); ?></option>
-							<?php foreach ( $staff as $s ) : ?>
-								<option value="<?php echo esc_attr( $s->id ); ?>" <?php selected( $staff_id, $s->id ); ?>>
-									<?php echo esc_html( $s->name ); ?>
+							<option value=""><?php esc_html_e( 'All Staff', 'unbelievable-salon-booking' ); ?></option>
+							<?php foreach ( $staff as $staff_member ) : ?>
+								<option value="<?php echo esc_attr( $staff_member->id ); ?>" <?php selected( $staff_id, $staff_member->id ); ?>>
+									<?php echo esc_html( $staff_member->name ); ?>
 								</option>
 							<?php endforeach; ?>
 						</select>
 					</div>
 
-					<div class="ag-filter-field">
-						<label for="date_from"><?php esc_html_e( 'Başlangıç Tarihi', 'appointment-general' ); ?></label>
+					<div class="unbsb-filter-field">
+						<label for="date_from"><?php esc_html_e( 'Start Date', 'unbelievable-salon-booking' ); ?></label>
 						<input type="date" name="date_from" id="date_from" value="<?php echo esc_attr( $date_from ); ?>">
 					</div>
 
-					<div class="ag-filter-field">
-						<label for="date_to"><?php esc_html_e( 'Bitiş Tarihi', 'appointment-general' ); ?></label>
+					<div class="unbsb-filter-field">
+						<label for="date_to"><?php esc_html_e( 'End Date', 'unbelievable-salon-booking' ); ?></label>
 						<input type="date" name="date_to" id="date_to" value="<?php echo esc_attr( $date_to ); ?>">
 					</div>
 
-					<div class="ag-filter-actions">
-						<button type="submit" class="ag-btn ag-btn-primary">
-							<?php esc_html_e( 'Filtrele', 'appointment-general' ); ?>
+					<div class="unbsb-filter-actions">
+						<button type="submit" class="unbsb-btn unbsb-btn-primary">
+							<?php esc_html_e( 'Filter', 'unbelievable-salon-booking' ); ?>
 						</button>
-						<a href="<?php echo esc_url( admin_url( 'admin.php?page=ag-bookings' ) ); ?>" class="ag-btn ag-btn-secondary">
-							<?php esc_html_e( 'Temizle', 'appointment-general' ); ?>
+						<a href="<?php echo esc_url( admin_url( 'admin.php?page=unbsb-bookings' ) ); ?>" class="unbsb-btn unbsb-btn-secondary">
+							<?php esc_html_e( 'Clear', 'unbelievable-salon-booking' ); ?>
 						</a>
 					</div>
 				</div>
@@ -87,20 +87,20 @@ $statuses = array(
 		</div>
 	</div>
 
-	<div class="ag-card">
-		<div class="ag-card-body">
+	<div class="unbsb-card">
+		<div class="unbsb-card-body">
 			<?php if ( ! empty( $bookings ) ) : ?>
-				<table class="ag-table ag-table-striped">
+				<table class="unbsb-table unbsb-table-striped">
 					<thead>
 						<tr>
-							<th><?php esc_html_e( 'ID', 'appointment-general' ); ?></th>
-							<th><?php esc_html_e( 'Müşteri', 'appointment-general' ); ?></th>
-							<th><?php esc_html_e( 'Hizmet', 'appointment-general' ); ?></th>
-							<th><?php esc_html_e( 'Personel', 'appointment-general' ); ?></th>
-							<th><?php esc_html_e( 'Tarih/Saat', 'appointment-general' ); ?></th>
-							<th><?php esc_html_e( 'Ücret', 'appointment-general' ); ?></th>
-							<th><?php esc_html_e( 'Durum', 'appointment-general' ); ?></th>
-							<th><?php esc_html_e( 'İşlemler', 'appointment-general' ); ?></th>
+							<th><?php esc_html_e( 'ID', 'unbelievable-salon-booking' ); ?></th>
+							<th><?php esc_html_e( 'Customer', 'unbelievable-salon-booking' ); ?></th>
+							<th><?php esc_html_e( 'Service', 'unbelievable-salon-booking' ); ?></th>
+							<th><?php esc_html_e( 'Staff', 'unbelievable-salon-booking' ); ?></th>
+							<th><?php esc_html_e( 'Date/Time', 'unbelievable-salon-booking' ); ?></th>
+							<th><?php esc_html_e( 'Price', 'unbelievable-salon-booking' ); ?></th>
+							<th><?php esc_html_e( 'Status', 'unbelievable-salon-booking' ); ?></th>
+							<th><?php esc_html_e( 'Actions', 'unbelievable-salon-booking' ); ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -109,7 +109,7 @@ $statuses = array(
 								<td>#<?php echo esc_html( $booking->id ); ?></td>
 								<td>
 									<strong><?php echo esc_html( $booking->customer_name ); ?></strong>
-									<div class="ag-text-small">
+									<div class="unbsb-text-small">
 										<?php echo esc_html( $booking->customer_email ); ?>
 										<?php if ( $booking->customer_phone ) : ?>
 											<br><?php echo esc_html( $booking->customer_phone ); ?>
@@ -117,14 +117,14 @@ $statuses = array(
 									</div>
 								</td>
 								<td>
-									<span class="ag-service-badge" style="border-left-color: <?php echo esc_attr( $booking->service_color ?? '#3788d8' ); ?>">
+									<span class="unbsb-service-badge" style="border-left-color: <?php echo esc_attr( $booking->service_color ?? '#3788d8' ); ?>">
 										<?php echo esc_html( $booking->service_name ); ?>
 									</span>
 								</td>
 								<td><?php echo esc_html( $booking->staff_name ); ?></td>
 								<td>
 									<strong><?php echo esc_html( date_i18n( $date_format, strtotime( $booking->booking_date ) ) ); ?></strong>
-									<div class="ag-text-small">
+									<div class="unbsb-text-small">
 										<?php echo esc_html( date_i18n( $time_format, strtotime( $booking->start_time ) ) ); ?> -
 										<?php echo esc_html( date_i18n( $time_format, strtotime( $booking->end_time ) ) ); ?>
 									</div>
@@ -133,7 +133,7 @@ $statuses = array(
 									<?php echo esc_html( number_format( $booking->price, 2 ) ); ?> <?php echo esc_html( $currency_symbol ); ?>
 								</td>
 								<td>
-									<select class="ag-status-select" data-id="<?php echo esc_attr( $booking->id ); ?>">
+									<select class="unbsb-status-select" data-id="<?php echo esc_attr( $booking->id ); ?>">
 										<?php foreach ( $statuses as $value => $label ) : ?>
 											<?php if ( '' !== $value ) : ?>
 												<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $booking->status, $value ); ?>>
@@ -144,8 +144,8 @@ $statuses = array(
 									</select>
 								</td>
 								<td>
-									<div class="ag-actions">
-										<button type="button" class="ag-btn ag-btn-sm ag-btn-icon ag-view-booking" data-id="<?php echo esc_attr( $booking->id ); ?>" title="<?php esc_attr_e( 'Görüntüle', 'appointment-general' ); ?>">
+									<div class="unbsb-actions">
+										<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-icon unbsb-view-booking" data-id="<?php echo esc_attr( $booking->id ); ?>" title="<?php esc_attr_e( 'View', 'unbelievable-salon-booking' ); ?>">
 											<span class="dashicons dashicons-visibility"></span>
 										</button>
 									</div>
@@ -155,9 +155,9 @@ $statuses = array(
 					</tbody>
 				</table>
 			<?php else : ?>
-				<div class="ag-empty-state">
+				<div class="unbsb-empty-state">
 					<span class="dashicons dashicons-calendar-alt"></span>
-					<p><?php esc_html_e( 'Randevu bulunamadı.', 'appointment-general' ); ?></p>
+					<p><?php esc_html_e( 'No bookings found.', 'unbelievable-salon-booking' ); ?></p>
 				</div>
 			<?php endif; ?>
 		</div>
@@ -165,106 +165,238 @@ $statuses = array(
 </div>
 
 <!-- Booking Detail Modal -->
-<div id="ag-booking-modal" class="ag-modal" style="display: none;">
-	<div class="ag-modal-overlay"></div>
-	<div class="ag-modal-content">
-		<div class="ag-modal-header">
-			<h3><?php esc_html_e( 'Randevu Detayı', 'appointment-general' ); ?></h3>
-			<button type="button" class="ag-modal-close">&times;</button>
+<div id="unbsb-booking-modal" class="unbsb-modal unbsb-modal-booking-detail" style="display: none;">
+	<div class="unbsb-modal-overlay"></div>
+	<div class="unbsb-modal-content unbsb-modal-medium">
+		<div class="unbsb-modal-header unbsb-modal-header-gradient unbsb-modal-header-booking">
+			<div class="unbsb-modal-header-content">
+				<div class="unbsb-modal-icon">
+					<span class="dashicons dashicons-calendar-alt"></span>
+				</div>
+				<div>
+					<h3><?php esc_html_e( 'Booking Details', 'unbelievable-salon-booking' ); ?></h3>
+					<p class="unbsb-modal-subtitle" id="unbsb-booking-detail-id"></p>
+				</div>
+			</div>
+			<button type="button" class="unbsb-modal-close">&times;</button>
 		</div>
-		<div class="ag-modal-body" id="ag-booking-detail">
-			<!-- AJAX ile doldurulacak -->
+		<div class="unbsb-modal-body" id="unbsb-booking-detail">
+			<!-- Populated via AJAX -->
 		</div>
 	</div>
 </div>
 
 <!-- Add Booking Modal -->
-<div id="ag-add-booking-modal" class="ag-modal" style="display: none;">
-	<div class="ag-modal-overlay"></div>
-	<div class="ag-modal-content ag-modal-lg">
-		<div class="ag-modal-header">
-			<h3><?php esc_html_e( 'Yeni Randevu Oluştur', 'appointment-general' ); ?></h3>
-			<button type="button" class="ag-modal-close">&times;</button>
+<div id="unbsb-add-booking-modal" class="unbsb-modal unbsb-modal-booking" style="display: none;">
+	<div class="unbsb-modal-overlay"></div>
+	<div class="unbsb-modal-content unbsb-modal-wide">
+		<div class="unbsb-modal-header unbsb-modal-header-gradient unbsb-modal-header-booking">
+			<div class="unbsb-modal-header-content">
+				<div class="unbsb-modal-icon">
+					<span class="dashicons dashicons-plus-alt"></span>
+				</div>
+				<div>
+					<h3><?php esc_html_e( 'Create New Booking', 'unbelievable-salon-booking' ); ?></h3>
+					<p class="unbsb-modal-subtitle"><?php esc_html_e( 'Create a booking for a customer', 'unbelievable-salon-booking' ); ?></p>
+				</div>
+			</div>
+			<button type="button" class="unbsb-modal-close">&times;</button>
 		</div>
-		<div class="ag-modal-body">
-			<form id="ag-add-booking-form">
-				<div class="ag-form-row">
-					<div class="ag-form-group ag-form-group-half">
-						<label for="booking-staff"><?php esc_html_e( 'Personel', 'appointment-general' ); ?> <span class="required">*</span></label>
-						<select id="booking-staff" name="staff_id" required>
-							<option value=""><?php esc_html_e( 'Personel Seçin', 'appointment-general' ); ?></option>
-							<?php foreach ( $staff as $s ) : ?>
-								<option value="<?php echo esc_attr( $s->id ); ?>">
-									<?php echo esc_html( $s->name ); ?>
-								</option>
-							<?php endforeach; ?>
-						</select>
-					</div>
-					<div class="ag-form-group ag-form-group-half">
-						<label for="booking-service"><?php esc_html_e( 'Hizmet', 'appointment-general' ); ?> <span class="required">*</span></label>
-						<select id="booking-service" name="service_id" required>
-							<option value=""><?php esc_html_e( 'Hizmet Seçin', 'appointment-general' ); ?></option>
-							<?php foreach ( $services as $service ) : ?>
-								<option value="<?php echo esc_attr( $service->id ); ?>" data-duration="<?php echo esc_attr( $service->duration ); ?>" data-price="<?php echo esc_attr( $service->price ); ?>">
-									<?php echo esc_html( $service->name ); ?> (<?php echo esc_html( $service->duration ); ?> dk - <?php echo esc_html( number_format( $service->price, 2 ) ); ?> <?php echo esc_html( $currency_symbol ); ?>)
-								</option>
-							<?php endforeach; ?>
-						</select>
-					</div>
-				</div>
+		<div class="unbsb-modal-body unbsb-modal-body-sections">
+			<form id="unbsb-add-booking-form">
+				<div class="unbsb-modal-columns">
+					<!-- Left Column - Booking Information -->
+					<div class="unbsb-modal-column unbsb-modal-column-main">
+						<div class="unbsb-form-section">
+							<div class="unbsb-form-section-header">
+								<span class="dashicons dashicons-calendar-alt"></span>
+								<h4><?php esc_html_e( 'Booking Information', 'unbelievable-salon-booking' ); ?></h4>
+							</div>
+							<div class="unbsb-form-section-body">
+								<div class="unbsb-form-row-2">
+									<div class="unbsb-form-group">
+										<label for="booking-staff">
+											<span class="dashicons dashicons-businessman" style="font-size: 14px; width: 14px; height: 14px; margin-right: 4px; color: var(--unbsb-primary);"></span>
+											<?php esc_html_e( 'Staff', 'unbelievable-salon-booking' ); ?> <span class="required">*</span>
+										</label>
+										<select id="booking-staff" name="staff_id" required>
+											<option value=""><?php esc_html_e( '-- Select Staff --', 'unbelievable-salon-booking' ); ?></option>
+											<?php foreach ( $staff as $staff_member ) : ?>
+												<option value="<?php echo esc_attr( $staff_member->id ); ?>">
+													<?php echo esc_html( $staff_member->name ); ?>
+												</option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+									<div class="unbsb-form-group">
+										<label for="booking-service">
+											<span class="dashicons dashicons-admin-tools" style="font-size: 14px; width: 14px; height: 14px; margin-right: 4px; color: var(--unbsb-success);"></span>
+											<?php esc_html_e( 'Service', 'unbelievable-salon-booking' ); ?> <span class="required">*</span>
+										</label>
+										<select id="booking-service" name="service_id" required>
+											<option value=""><?php esc_html_e( '-- Select Service --', 'unbelievable-salon-booking' ); ?></option>
+											<?php
+											// Group services by categories.
+											$grouped_services = array();
+											$uncategorized    = array();
 
-				<div class="ag-form-row">
-					<div class="ag-form-group ag-form-group-half">
-						<label for="booking-date"><?php esc_html_e( 'Tarih', 'appointment-general' ); ?> <span class="required">*</span></label>
-						<input type="date" id="booking-date" name="booking_date" required min="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>">
-					</div>
-					<div class="ag-form-group ag-form-group-half">
-						<label for="booking-time"><?php esc_html_e( 'Saat', 'appointment-general' ); ?> <span class="required">*</span></label>
-						<input type="time" id="booking-time" name="start_time" required>
-					</div>
-				</div>
+											foreach ( $services as $service ) {
+												if ( ! empty( $service->category_id ) && ! empty( $service->category_name ) ) {
+													$grouped_services[ $service->category_id ]['name']       = $service->category_name;
+													$grouped_services[ $service->category_id ]['services'][] = $service;
+												} else {
+													$uncategorized[] = $service;
+												}
+											}
 
-				<div class="ag-form-section-title"><?php esc_html_e( 'Müşteri Bilgileri', 'appointment-general' ); ?></div>
+											// Categorized services.
+											foreach ( $grouped_services as $category_id => $cat_data ) :
+												?>
+												<optgroup label="<?php echo esc_attr( $cat_data['name'] ); ?>">
+													<?php foreach ( $cat_data['services'] as $service ) : ?>
+														<option value="<?php echo esc_attr( $service->id ); ?>" data-duration="<?php echo esc_attr( $service->duration ); ?>" data-price="<?php echo esc_attr( $service->price ); ?>">
+															<?php echo esc_html( $service->name ); ?> (<?php echo esc_html( $service->duration ); ?> min)
+														</option>
+													<?php endforeach; ?>
+												</optgroup>
+											<?php endforeach; ?>
 
-				<div class="ag-form-row">
-					<div class="ag-form-group ag-form-group-half">
-						<label for="booking-customer-name"><?php esc_html_e( 'Ad Soyad', 'appointment-general' ); ?> <span class="required">*</span></label>
-						<input type="text" id="booking-customer-name" name="customer_name" required>
-					</div>
-					<div class="ag-form-group ag-form-group-half">
-						<label for="booking-customer-email"><?php esc_html_e( 'E-posta', 'appointment-general' ); ?> <span class="required">*</span></label>
-						<input type="email" id="booking-customer-email" name="customer_email" required>
-					</div>
-				</div>
+											<?php // Uncategorized services. ?>
+											<?php if ( ! empty( $uncategorized ) ) : ?>
+												<?php if ( ! empty( $grouped_services ) ) : ?>
+													<optgroup label="<?php esc_attr_e( 'Other', 'unbelievable-salon-booking' ); ?>">
+												<?php endif; ?>
+													<?php foreach ( $uncategorized as $service ) : ?>
+														<option value="<?php echo esc_attr( $service->id ); ?>" data-duration="<?php echo esc_attr( $service->duration ); ?>" data-price="<?php echo esc_attr( $service->price ); ?>">
+															<?php echo esc_html( $service->name ); ?> (<?php echo esc_html( $service->duration ); ?> min)
+														</option>
+													<?php endforeach; ?>
+												<?php if ( ! empty( $grouped_services ) ) : ?>
+													</optgroup>
+												<?php endif; ?>
+											<?php endif; ?>
+										</select>
+									</div>
+								</div>
 
-				<div class="ag-form-row">
-					<div class="ag-form-group ag-form-group-half">
-						<label for="booking-customer-phone"><?php esc_html_e( 'Telefon', 'appointment-general' ); ?></label>
-						<input type="tel" id="booking-customer-phone" name="customer_phone">
-					</div>
-					<div class="ag-form-group ag-form-group-half">
-						<label for="booking-status"><?php esc_html_e( 'Durum', 'appointment-general' ); ?></label>
-						<select id="booking-status" name="status">
-							<option value="pending"><?php esc_html_e( 'Beklemede', 'appointment-general' ); ?></option>
-							<option value="confirmed"><?php esc_html_e( 'Onaylandı', 'appointment-general' ); ?></option>
-						</select>
-					</div>
-				</div>
+								<div class="unbsb-form-row-2">
+									<div class="unbsb-form-group">
+										<label for="booking-date">
+											<span class="dashicons dashicons-calendar" style="font-size: 14px; width: 14px; height: 14px; margin-right: 4px; color: var(--unbsb-warning);"></span>
+											<?php esc_html_e( 'Date', 'unbelievable-salon-booking' ); ?> <span class="required">*</span>
+										</label>
+										<input type="date" id="booking-date" name="booking_date" required min="<?php echo esc_attr( gmdate( 'Y-m-d' ) ); ?>">
+									</div>
+									<div class="unbsb-form-group">
+										<label for="booking-time">
+											<span class="dashicons dashicons-clock" style="font-size: 14px; width: 14px; height: 14px; margin-right: 4px; color: var(--unbsb-info);"></span>
+											<?php esc_html_e( 'Time', 'unbelievable-salon-booking' ); ?> <span class="required">*</span>
+										</label>
+										<input type="time" id="booking-time" name="start_time" required>
+									</div>
+								</div>
 
-				<div class="ag-form-group">
-					<label for="booking-notes"><?php esc_html_e( 'Notlar', 'appointment-general' ); ?></label>
-					<textarea id="booking-notes" name="notes" rows="3"></textarea>
-				</div>
+								<!-- Selected service info -->
+								<div class="unbsb-selected-service-info" id="booking-service-info" style="display: none;">
+									<div class="unbsb-service-info-content">
+										<span class="unbsb-service-info-duration">
+											<span class="dashicons dashicons-clock"></span>
+											<span id="booking-service-duration">30</span> min
+										</span>
+										<span class="unbsb-service-info-price">
+											<span class="dashicons dashicons-money-alt"></span>
+											<span id="booking-service-price">0.00</span> <?php echo esc_html( $currency_symbol ); ?>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
 
-				<div class="ag-form-group">
-					<label for="booking-internal-notes"><?php esc_html_e( 'Dahili Notlar', 'appointment-general' ); ?> <span class="ag-text-small">(<?php esc_html_e( 'Sadece admin görür', 'appointment-general' ); ?>)</span></label>
-					<textarea id="booking-internal-notes" name="internal_notes" rows="2"></textarea>
+						<div class="unbsb-form-section">
+							<div class="unbsb-form-section-header">
+								<span class="dashicons dashicons-admin-users"></span>
+								<h4><?php esc_html_e( 'Customer Information', 'unbelievable-salon-booking' ); ?></h4>
+							</div>
+							<div class="unbsb-form-section-body">
+								<div class="unbsb-form-row-2">
+									<div class="unbsb-form-group">
+										<label for="booking-customer-name"><?php esc_html_e( 'Full Name', 'unbelievable-salon-booking' ); ?> <span class="required">*</span></label>
+										<input type="text" id="booking-customer-name" name="customer_name" placeholder="<?php esc_attr_e( 'Customer full name', 'unbelievable-salon-booking' ); ?>" required>
+									</div>
+									<div class="unbsb-form-group">
+										<label for="booking-customer-email"><?php esc_html_e( 'Email', 'unbelievable-salon-booking' ); ?> <span class="required">*</span></label>
+										<input type="email" id="booking-customer-email" name="customer_email" placeholder="example@email.com" required>
+									</div>
+								</div>
+
+								<div class="unbsb-form-group">
+									<label for="booking-customer-phone"><?php esc_html_e( 'Phone', 'unbelievable-salon-booking' ); ?></label>
+									<input type="tel" id="booking-customer-phone" name="customer_phone" placeholder="0532 xxx xx xx">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Right Column - Status and Notes -->
+					<div class="unbsb-modal-column unbsb-modal-column-side">
+						<div class="unbsb-form-section unbsb-form-section-alt">
+							<div class="unbsb-form-section-header">
+								<span class="dashicons dashicons-flag"></span>
+								<h4><?php esc_html_e( 'Status', 'unbelievable-salon-booking' ); ?></h4>
+							</div>
+							<div class="unbsb-form-section-body">
+								<div class="unbsb-status-options">
+									<label class="unbsb-status-option">
+										<input type="radio" name="status" value="pending" checked>
+										<span class="unbsb-status-option-content unbsb-status-option-pending">
+											<span class="dashicons dashicons-clock"></span>
+											<span><?php esc_html_e( 'Pending', 'unbelievable-salon-booking' ); ?></span>
+										</span>
+									</label>
+									<label class="unbsb-status-option">
+										<input type="radio" name="status" value="confirmed">
+										<span class="unbsb-status-option-content unbsb-status-option-confirmed">
+											<span class="dashicons dashicons-yes-alt"></span>
+											<span><?php esc_html_e( 'Confirmed', 'unbelievable-salon-booking' ); ?></span>
+										</span>
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="unbsb-form-section unbsb-form-section-alt">
+							<div class="unbsb-form-section-header">
+								<span class="dashicons dashicons-edit-page"></span>
+								<h4><?php esc_html_e( 'Notes', 'unbelievable-salon-booking' ); ?></h4>
+							</div>
+							<div class="unbsb-form-section-body">
+								<div class="unbsb-form-group">
+									<label for="booking-notes"><?php esc_html_e( 'Customer Note', 'unbelievable-salon-booking' ); ?></label>
+									<textarea id="booking-notes" name="notes" rows="2" placeholder="<?php esc_attr_e( 'Note visible to customer...', 'unbelievable-salon-booking' ); ?>"></textarea>
+								</div>
+
+								<div class="unbsb-form-group">
+									<label for="booking-internal-notes">
+										<?php esc_html_e( 'Internal Note', 'unbelievable-salon-booking' ); ?>
+										<span class="unbsb-badge unbsb-badge-sm unbsb-badge-muted"><?php esc_html_e( 'Private', 'unbelievable-salon-booking' ); ?></span>
+									</label>
+									<textarea id="booking-internal-notes" name="internal_notes" rows="2" placeholder="<?php esc_attr_e( 'Only admin can see...', 'unbelievable-salon-booking' ); ?>"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</form>
 		</div>
-		<div class="ag-modal-footer">
-			<button type="button" class="ag-btn ag-btn-secondary ag-modal-close"><?php esc_html_e( 'İptal', 'appointment-general' ); ?></button>
-			<button type="button" class="ag-btn ag-btn-primary" id="ag-save-booking"><?php esc_html_e( 'Randevu Oluştur', 'appointment-general' ); ?></button>
+		<div class="unbsb-modal-footer">
+			<button type="button" class="unbsb-btn unbsb-btn-ghost unbsb-modal-close">
+				<span class="dashicons dashicons-no-alt"></span>
+				<?php esc_html_e( 'Cancel', 'unbelievable-salon-booking' ); ?>
+			</button>
+			<button type="button" class="unbsb-btn unbsb-btn-primary unbsb-btn-lg" id="unbsb-save-booking">
+				<span class="dashicons dashicons-saved"></span>
+				<?php esc_html_e( 'Create Booking', 'unbelievable-salon-booking' ); ?>
+			</button>
 		</div>
 	</div>
 </div>

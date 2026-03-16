@@ -1,0 +1,2670 @@
+# Copyright (C) 2026 zgrkaralar
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Unbelievable Salon Booking 1.0.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/unbelievable-salon-booking\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-03-07T13:22:15+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: unbelievable-salon-booking\n"
+
+#. Plugin Name of the plugin
+#: unbelievable-salon-booking.php
+msgid "Unbelievable Salon Booking"
+msgstr ""
+
+#. Description of the plugin
+#: unbelievable-salon-booking.php
+msgid "Beautiful and easy to use salon booking plugin for WordPress"
+msgstr ""
+
+#. Author of the plugin
+#: unbelievable-salon-booking.php
+msgid "zgrkaralar"
+msgstr ""
+
+#. Author URI of the plugin
+#: unbelievable-salon-booking.php
+msgid "https://unbelievable.digital"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:38
+#: admin/class-unbsb-admin.php:39
+#: admin/class-unbsb-admin.php:58
+#: admin/class-unbsb-admin.php:59
+#: admin/class-unbsb-admin.php:321
+#: admin/partials/admin-bookings.php:28
+msgid "Bookings"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:49
+#: admin/class-unbsb-admin.php:50
+#: admin/partials/admin-dashboard.php:20
+msgid "Dashboard"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:67
+#: admin/class-unbsb-admin.php:68
+#: admin/partials/admin-calendar.php:15
+#: admin/partials/admin-dashboard.php:246
+msgid "Calendar"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:76
+#: admin/class-unbsb-admin.php:77
+#: admin/partials/admin-categories.php:15
+msgid "Categories"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:85
+#: admin/class-unbsb-admin.php:86
+#: admin/partials/admin-dashboard.php:231
+#: admin/partials/admin-email-templates.php:213
+#: admin/partials/admin-services.php:17
+#: public/class-unbsb-public.php:92
+msgid "Services"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:94
+#: admin/class-unbsb-admin.php:95
+#: admin/class-unbsb-admin.php:264
+#: admin/partials/admin-bookings.php:56
+#: admin/partials/admin-bookings.php:99
+#: admin/partials/admin-bookings.php:220
+#: admin/partials/admin-dashboard.php:236
+#: admin/partials/admin-email-templates.php:214
+#: admin/partials/admin-staff.php:15
+#: public/class-unbsb-public.php:88
+#: public/class-unbsb-public.php:94
+#: public/partials/booking-form.php:28
+#: public/partials/booking-form.php:42
+#: public/partials/booking-form.php:74
+#: public/partials/booking-manage.php:132
+msgid "Staff"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:103
+#: admin/class-unbsb-admin.php:104
+#: admin/partials/admin-staff-schedule.php:36
+msgid "Work Schedule"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:112
+#: admin/class-unbsb-admin.php:113
+#: admin/partials/admin-customers.php:15
+#: admin/partials/admin-dashboard.php:241
+msgid "Customers"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:121
+#: admin/class-unbsb-admin.php:122
+#: admin/partials/admin-settings.php:125
+#: admin/partials/admin-staff.php:170
+msgid "Settings"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:130
+#: admin/class-unbsb-admin.php:131
+#: admin/partials/admin-email-templates.php:58
+msgid "Email Templates"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:202
+msgid "Are you sure you want to delete?"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:203
+msgid "Saving..."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:204
+msgid "Saved!"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:205
+#: public/class-unbsb-public.php:283
+msgid "An error occurred."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:206
+#: public/class-unbsb-public.php:77
+#: public/class-unbsb-public.php:280
+msgid "Loading..."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:207
+msgid "Sending..."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:208
+msgid "Copied!"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:210
+#: admin/partials/admin-categories.php:18
+#: admin/partials/admin-categories.php:96
+msgid "New Category"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:211
+msgid "Edit Category"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:212
+msgid "Category name is required."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:213
+msgid "Category added."
+msgstr ""
+
+#. translators: %d: Number of services in the category
+#: admin/class-unbsb-admin.php:215
+#, php-format
+msgid "This category has %d services. Are you sure you want to delete it? (Services will become uncategorized)"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:217
+#: admin/partials/admin-services.php:20
+#: admin/partials/admin-services.php:106
+msgid "New Service"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:218
+msgid "Edit Service"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:220
+#: admin/partials/admin-staff.php:18
+#: admin/partials/admin-staff.php:85
+msgid "New Staff"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:221
+msgid "Edit Staff"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:223
+#: admin/class-unbsb-admin.php:971
+#: public/class-unbsb-public.php:83
+msgid "Please fill in all required fields."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:224
+#: admin/partials/admin-bookings.php:398
+msgid "Create Booking"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:226
+msgid "Please enter a test phone number"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:227
+msgid "Please enter a test email address"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:228
+msgid "Please select a template"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:229
+msgid "Querying..."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:230
+#: admin/partials/admin-email-templates.php:241
+msgid "Save Template"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:231
+#: admin/partials/admin-email-templates.php:245
+msgid "Preview"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:232
+#: admin/partials/admin-email-templates.php:252
+msgid "Send Test"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:233
+#: admin/partials/admin-email-templates.php:135
+msgid "Save Settings"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:234
+msgid "Variable added"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:235
+#: admin/partials/admin-categories.php:56
+#: admin/partials/admin-categories.php:136
+#: admin/partials/admin-email-templates.php:83
+#: admin/partials/admin-email-templates.php:159
+#: admin/partials/admin-services.php:66
+#: admin/partials/admin-services.php:239
+#: admin/partials/admin-staff.php:180
+msgid "Active"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:236
+#: admin/partials/admin-categories.php:56
+#: admin/partials/admin-categories.php:143
+#: admin/partials/admin-email-templates.php:83
+#: admin/partials/admin-services.php:66
+#: admin/partials/admin-services.php:246
+#: admin/partials/admin-staff.php:187
+msgid "Inactive"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:239
+#: public/class-unbsb-public.php:101
+msgid "January"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:240
+#: public/class-unbsb-public.php:102
+msgid "February"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:241
+#: public/class-unbsb-public.php:103
+msgid "March"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:242
+#: public/class-unbsb-public.php:104
+msgid "April"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:243
+#: public/class-unbsb-public.php:105
+msgid "May"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:244
+#: public/class-unbsb-public.php:106
+msgid "June"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:245
+#: public/class-unbsb-public.php:107
+msgid "July"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:246
+#: public/class-unbsb-public.php:108
+msgid "August"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:247
+#: public/class-unbsb-public.php:109
+msgid "September"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:248
+#: public/class-unbsb-public.php:110
+msgid "October"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:249
+#: public/class-unbsb-public.php:111
+msgid "November"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:250
+#: public/class-unbsb-public.php:112
+msgid "December"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:253
+#: admin/partials/admin-staff-schedule.php:143
+#: public/class-unbsb-public.php:115
+msgid "Mon"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:254
+#: admin/partials/admin-staff-schedule.php:144
+#: public/class-unbsb-public.php:116
+msgid "Tue"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:255
+#: admin/partials/admin-staff-schedule.php:145
+#: public/class-unbsb-public.php:117
+msgid "Wed"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:256
+#: admin/partials/admin-staff-schedule.php:146
+#: public/class-unbsb-public.php:118
+msgid "Thu"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:257
+#: admin/partials/admin-staff-schedule.php:147
+#: public/class-unbsb-public.php:119
+msgid "Fri"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:258
+#: admin/partials/admin-staff-schedule.php:148
+#: public/class-unbsb-public.php:120
+msgid "Sat"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:259
+#: admin/partials/admin-staff-schedule.php:149
+#: public/class-unbsb-public.php:121
+msgid "Sun"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:262
+#: admin/partials/admin-bookings.php:97
+#: admin/partials/admin-dashboard.php:184
+#: admin/partials/admin-email-templates.php:207
+msgid "Customer"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:263
+#: admin/partials/admin-bookings.php:98
+#: admin/partials/admin-bookings.php:234
+#: admin/partials/admin-dashboard.php:185
+#: public/class-unbsb-public.php:87
+#: public/class-unbsb-public.php:93
+#: public/partials/booking-form.php:24
+#: public/partials/booking-form.php:46
+#: public/partials/booking-form.php:60
+#: public/partials/booking-manage.php:119
+msgid "Service"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:265
+#: admin/partials/admin-bookings.php:45
+#: admin/partials/admin-bookings.php:102
+#: admin/partials/admin-bookings.php:345
+#: admin/partials/admin-categories.php:32
+#: admin/partials/admin-categories.php:130
+#: admin/partials/admin-dashboard.php:187
+#: admin/partials/admin-services.php:35
+#: admin/partials/admin-services.php:233
+#: admin/partials/admin-staff.php:174
+msgid "Status"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:266
+#: admin/partials/admin-bookings.php:101
+#: admin/partials/admin-email-templates.php:218
+#: admin/partials/admin-services.php:34
+#: admin/partials/admin-services.php:184
+#: public/partials/booking-manage.php:145
+msgid "Price"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:268
+msgid "Not working"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:269
+msgid "No holidays registered"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:270
+msgid "Do you want to delete this holiday?"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:271
+msgid "Holiday added"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:272
+msgid "Holiday deleted"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:274
+msgid "text"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:275
+#: admin/partials/admin-email-templates.php:187
+msgid "Heading"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:276
+msgid "Paragraph text"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:277
+msgid "Button Text"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:278
+msgid "View My Booking"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:279
+msgid "link text"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:322
+msgid "Revenue"
+msgstr ""
+
+#: admin/class-unbsb-admin.php:704
+#: admin/class-unbsb-admin.php:744
+#: admin/class-unbsb-admin.php:770
+#: admin/class-unbsb-admin.php:813
+#: admin/class-unbsb-admin.php:839
+#: admin/class-unbsb-admin.php:879
+#: admin/class-unbsb-admin.php:905
+#: admin/class-unbsb-admin.php:932
+#: admin/class-unbsb-admin.php:952
+#: admin/class-unbsb-admin.php:1010
+#: admin/class-unbsb-admin.php:1112
+#: admin/class-unbsb-admin.php:1136
+#: admin/class-unbsb-admin.php:1162
+#: admin/class-unbsb-admin.php:1182
+#: admin/class-unbsb-admin.php:1216
+#: admin/class-unbsb-admin.php:1250
+#: admin/class-unbsb-admin.php:1281
+#: admin/class-unbsb-admin.php:1338
+#: admin/class-unbsb-admin.php:1368
+#: admin/class-unbsb-admin.php:1406
+#: admin/class-unbsb-admin.php:1447
+#: admin/class-unbsb-admin.php:1485
+msgid "Unauthorized access."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:728
+msgid "Category saved."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:733
+#: admin/class-unbsb-admin.php:802
+#: admin/class-unbsb-admin.php:868
+msgid "Save error."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:750
+#: admin/class-unbsb-admin.php:819
+#: admin/class-unbsb-admin.php:885
+msgid "Invalid ID."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:757
+msgid "Category deleted."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:759
+#: admin/class-unbsb-admin.php:828
+#: admin/class-unbsb-admin.php:894
+msgid "Delete error."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:797
+msgid "Service saved."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:826
+msgid "Service deleted."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:863
+msgid "Staff saved."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:892
+msgid "Staff deleted."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:912
+msgid "Invalid parameters."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:919
+msgid "Status updated."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:921
+msgid "Update error."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:976
+msgid "Invalid email address."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:981
+#: admin/class-unbsb-admin.php:1460
+#: includes/class-unbsb-booking-manager.php:308
+msgid "Invalid date format."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:994
+msgid "Booking created successfully."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:999
+msgid "An error occurred while creating the booking."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1102
+msgid "Settings saved."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1120
+#: admin/class-unbsb-admin.php:1374
+#: admin/class-unbsb-admin.php:1412
+msgid "Invalid staff."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1126
+msgid "Working hours saved."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1142
+msgid "Phone number is required."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1190
+#: admin/class-unbsb-admin.php:1223
+msgid "Invalid template data."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1206
+msgid "SMS templates saved."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1240
+msgid "Email templates saved."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1257
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1261
+#: admin/class-unbsb-admin.php:1287
+msgid "Template type is required."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1294
+#: includes/class-unbsb-notification.php:841
+msgid "Template not found."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1358
+msgid "Email settings saved."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1437
+msgid "Schedule saved."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1455
+#: admin/class-unbsb-admin.php:1492
+msgid "Invalid data."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1469
+msgid "Holiday added."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1474
+msgid "A holiday already exists on this date."
+msgstr ""
+
+#: admin/class-unbsb-admin.php:1498
+msgid "Holiday deleted."
+msgstr ""
+
+#: admin/partials/admin-bookings.php:17
+msgid "All Statuses"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:18
+#: admin/partials/admin-bookings.php:353
+#: admin/partials/admin-dashboard.php:49
+#: admin/partials/admin-dashboard.php:273
+#: includes/class-unbsb-notification.php:759
+#: public/partials/booking-manage.php:64
+msgid "Pending"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:19
+#: admin/partials/admin-bookings.php:360
+#: admin/partials/admin-dashboard.php:274
+#: includes/class-unbsb-notification.php:760
+#: public/partials/booking-manage.php:65
+msgid "Confirmed"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:20
+#: admin/partials/admin-dashboard.php:275
+#: includes/class-unbsb-notification.php:761
+#: public/partials/booking-manage.php:66
+msgid "Cancelled"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:21
+#: admin/partials/admin-dashboard.php:276
+#: includes/class-unbsb-notification.php:762
+#: public/partials/booking-manage.php:67
+msgid "Completed"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:22
+#: admin/partials/admin-dashboard.php:277
+#: includes/class-unbsb-notification.php:763
+#: public/partials/booking-manage.php:68
+msgid "No Show"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:31
+#: admin/partials/admin-dashboard.php:26
+#: admin/partials/admin-settings.php:530
+msgid "New Booking"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:37
+#: admin/partials/admin-bookings.php:79
+msgid "Filter"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:58
+#: admin/partials/admin-calendar.php:35
+msgid "All Staff"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:68
+msgid "Start Date"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:73
+msgid "End Date"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:82
+#: admin/partials/admin-staff.php:283
+msgid "Clear"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:96
+msgid "ID"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:100
+#: public/class-unbsb-public.php:89
+#: public/partials/booking-form.php:32
+#: public/partials/booking-form.php:50
+#: public/partials/booking-form.php:64
+#: public/partials/booking-form.php:78
+msgid "Date/Time"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:103
+#: admin/partials/admin-categories.php:33
+#: admin/partials/admin-customers.php:28
+#: admin/partials/admin-services.php:36
+msgid "Actions"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:148
+#: admin/partials/admin-dashboard.php:247
+msgid "View"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:160
+msgid "No bookings found."
+msgstr ""
+
+#: admin/partials/admin-bookings.php:177
+#: admin/partials/admin-calendar.php:65
+#: admin/partials/admin-email-templates.php:273
+#: public/partials/booking-manage.php:77
+msgid "Booking Details"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:199
+msgid "Create New Booking"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:200
+msgid "Create a booking for a customer"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:213
+msgid "Booking Information"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:223
+msgid "-- Select Staff --"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:237
+msgid "-- Select Service --"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:267
+msgid "Other"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:286
+#: admin/partials/admin-dashboard.php:186
+#: admin/partials/admin-email-templates.php:215
+#: public/class-unbsb-public.php:95
+msgid "Date"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:293
+#: admin/partials/admin-email-templates.php:216
+#: public/class-unbsb-public.php:96
+msgid "Time"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:318
+#: admin/partials/admin-email-templates.php:267
+msgid "Customer Information"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:323
+#: admin/partials/admin-customers.php:24
+#: admin/partials/admin-staff.php:105
+#: public/partials/booking-form.php:254
+msgid "Full Name"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:324
+msgid "Customer full name"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:327
+#: admin/partials/admin-customers.php:25
+#: admin/partials/admin-settings.php:89
+#: admin/partials/admin-staff.php:113
+#: public/partials/booking-form.php:260
+msgid "Email"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:333
+#: admin/partials/admin-customers.php:26
+#: admin/partials/admin-staff.php:120
+#: public/partials/booking-form.php:264
+msgid "Phone"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:370
+#: public/partials/booking-form.php:270
+msgid "Notes"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:374
+msgid "Customer Note"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:375
+msgid "Note visible to customer..."
+msgstr ""
+
+#: admin/partials/admin-bookings.php:380
+msgid "Internal Note"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:381
+msgid "Private"
+msgstr ""
+
+#: admin/partials/admin-bookings.php:383
+msgid "Only admin can see..."
+msgstr ""
+
+#: admin/partials/admin-bookings.php:394
+#: admin/partials/admin-categories.php:166
+#: admin/partials/admin-services.php:260
+#: admin/partials/admin-staff-schedule.php:216
+#: admin/partials/admin-staff.php:208
+#: admin/partials/admin-staff.php:291
+msgid "Cancel"
+msgstr ""
+
+#: admin/partials/admin-calendar.php:26
+#: admin/partials/admin-dashboard.php:59
+#: admin/partials/admin-staff-schedule.php:162
+msgid "Today"
+msgstr ""
+
+#: admin/partials/admin-calendar.php:42
+msgid "Month"
+msgstr ""
+
+#: admin/partials/admin-calendar.php:45
+msgid "Week"
+msgstr ""
+
+#: admin/partials/admin-calendar.php:48
+msgid "Day"
+msgstr ""
+
+#: admin/partials/admin-categories.php:29
+#: admin/partials/admin-categories.php:107
+msgid "Category Name"
+msgstr ""
+
+#: admin/partials/admin-categories.php:30
+msgid "Service Count"
+msgstr ""
+
+#: admin/partials/admin-categories.php:31
+msgid "Order"
+msgstr ""
+
+#: admin/partials/admin-categories.php:61
+#: admin/partials/admin-services.php:71
+msgid "Edit"
+msgstr ""
+
+#: admin/partials/admin-categories.php:64
+#: admin/partials/admin-services.php:74
+msgid "Delete"
+msgstr ""
+
+#: admin/partials/admin-categories.php:76
+msgid "No categories added yet."
+msgstr ""
+
+#: admin/partials/admin-categories.php:78
+msgid "Add First Category"
+msgstr ""
+
+#: admin/partials/admin-categories.php:97
+msgid "Add a category to group services"
+msgstr ""
+
+#: admin/partials/admin-categories.php:108
+msgid "e.g. Hair Care, Manicure, Massage"
+msgstr ""
+
+#: admin/partials/admin-categories.php:112
+#: admin/partials/admin-services.php:158
+msgid "Description"
+msgstr ""
+
+#: admin/partials/admin-categories.php:113
+msgid "Short description about the category..."
+msgstr ""
+
+#: admin/partials/admin-categories.php:118
+#: admin/partials/admin-services.php:146
+#: admin/partials/admin-services.php:225
+msgid "Color"
+msgstr ""
+
+#: admin/partials/admin-categories.php:125
+msgid "Sort Order"
+msgstr ""
+
+#: admin/partials/admin-categories.php:127
+msgid "Lower value first"
+msgstr ""
+
+#: admin/partials/admin-categories.php:151
+msgid "Quick Colors:"
+msgstr ""
+
+#: admin/partials/admin-categories.php:170
+#: admin/partials/admin-services.php:264
+#: admin/partials/admin-staff.php:212
+#: admin/partials/admin-staff.php:295
+msgid "Save"
+msgstr ""
+
+#: admin/partials/admin-customers.php:27
+msgid "Registration Date"
+msgstr ""
+
+#: admin/partials/admin-customers.php:44
+msgid "View Bookings"
+msgstr ""
+
+#: admin/partials/admin-customers.php:54
+msgid "No customers found yet."
+msgstr ""
+
+#: admin/partials/admin-dashboard.php:39
+msgid "Total Bookings"
+msgstr ""
+
+#: admin/partials/admin-dashboard.php:69
+#: admin/partials/admin-dashboard.php:94
+msgid "Monthly Revenue"
+msgstr ""
+
+#: admin/partials/admin-dashboard.php:81
+msgid "Last 7 Days"
+msgstr ""
+
+#: admin/partials/admin-dashboard.php:107
+msgid "Popular Services"
+msgstr ""
+
+#: admin/partials/admin-dashboard.php:116
+msgid "No data yet"
+msgstr ""
+
+#: admin/partials/admin-dashboard.php:130
+msgid "Today's Bookings"
+msgstr ""
+
+#: admin/partials/admin-dashboard.php:162
+msgid "No bookings today"
+msgstr ""
+
+#: admin/partials/admin-dashboard.php:173
+msgid "Recent Bookings"
+msgstr ""
+
+#: admin/partials/admin-dashboard.php:176
+#: public/partials/booking-form.php:136
+msgid "All"
+msgstr ""
+
+#: admin/partials/admin-dashboard.php:213
+msgid "No bookings yet."
+msgstr ""
+
+#: admin/partials/admin-dashboard.php:224
+msgid "Quick Access"
+msgstr ""
+
+#: admin/partials/admin-dashboard.php:252
+msgid "Shortcode:"
+msgstr ""
+
+#: admin/partials/admin-dashboard.php:254
+msgid "Copy"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:42
+msgid "Sent when a customer creates a booking request."
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:43
+msgid "Sent when a booking is confirmed by admin."
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:44
+msgid "Sent when a booking is cancelled."
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:45
+msgid "Sent as a reminder before the booking."
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:46
+msgid "Sent to admin when a new booking arrives."
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:59
+msgid "Customize emails sent to customers and administrators."
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:69
+msgid "Templates"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:95
+#: admin/partials/admin-settings.php:322
+msgid "Email Settings"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:99
+#: admin/partials/admin-settings.php:690
+msgid "Logo URL"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:101
+msgid "If left empty, business name will be shown"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:105
+msgid "Primary Color"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:117
+msgid "Send Reminder Email"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:122
+#: admin/partials/admin-settings.php:571
+msgid "Reminder Time"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:124
+#: admin/partials/admin-email-templates.php:125
+#: admin/partials/admin-email-templates.php:126
+#: admin/partials/admin-email-templates.php:127
+msgid "hours before"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:128
+#: admin/partials/admin-email-templates.php:129
+msgid "days before"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:165
+msgid "Email Subject"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:171
+msgid "Email Content"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:175
+msgid "Bold"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:178
+msgid "Italic"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:181
+msgid "Link"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:190
+msgid "Paragraph"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:196
+msgid "Details Table"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:199
+msgid "Action Button"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:206
+msgid "Insert Variable"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:208
+msgid "Customer Name"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:209
+msgid "Customer Email"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:210
+msgid "Customer Phone"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:212
+#: admin/partials/admin-settings.php:93
+#: includes/class-unbsb-seo.php:150
+msgid "Booking"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:217
+#: admin/partials/admin-services.php:33
+#: admin/partials/admin-services.php:174
+#: public/class-unbsb-public.php:97
+msgid "Duration"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:220
+#: admin/partials/admin-settings.php:81
+msgid "Business"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:221
+#: admin/partials/admin-settings.php:231
+msgid "Business Name"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:222
+#: admin/partials/admin-settings.php:238
+msgid "Business Phone"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:223
+#: admin/partials/admin-settings.php:245
+msgid "Business Address"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:225
+msgid "Links"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:226
+msgid "Booking Management Link"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:227
+msgid "Calendar Links"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:262
+msgid "Available Variables"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:282
+#: admin/partials/admin-settings.php:224
+msgid "Business Information"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:288
+msgid "Special"
+msgstr ""
+
+#: admin/partials/admin-email-templates.php:307
+msgid "Email Preview"
+msgstr ""
+
+#: admin/partials/admin-services.php:31
+#: admin/partials/admin-services.php:126
+msgid "Service Name"
+msgstr ""
+
+#: admin/partials/admin-services.php:32
+#: admin/partials/admin-services.php:131
+msgid "Category"
+msgstr ""
+
+#: admin/partials/admin-services.php:62
+#: admin/partials/admin-services.php:178
+#: admin/partials/admin-services.php:208
+#: admin/partials/admin-services.php:217
+#: admin/partials/admin-staff.php:147
+#: includes/class-unbsb-notification.php:588
+#: public/class-unbsb-public.php:85
+#: public/partials/booking-form.php:160
+#: public/partials/booking-form.php:188
+msgid "min"
+msgstr ""
+
+#: admin/partials/admin-services.php:86
+msgid "No services added yet."
+msgstr ""
+
+#: admin/partials/admin-services.php:88
+msgid "Add First Service"
+msgstr ""
+
+#: admin/partials/admin-services.php:107
+msgid "Enter service details"
+msgstr ""
+
+#: admin/partials/admin-services.php:122
+msgid "Basic Information"
+msgstr ""
+
+#: admin/partials/admin-services.php:127
+msgid "e.g. Haircut"
+msgstr ""
+
+#: admin/partials/admin-services.php:134
+msgid "-- Select Category --"
+msgstr ""
+
+#: admin/partials/admin-services.php:139
+msgid "Add New Category"
+msgstr ""
+
+#: admin/partials/admin-services.php:145
+msgid "Category name"
+msgstr ""
+
+#: admin/partials/admin-services.php:159
+msgid "Short description about the service..."
+msgstr ""
+
+#: admin/partials/admin-services.php:167
+msgid "Duration & Price"
+msgstr ""
+
+#: admin/partials/admin-services.php:201
+msgid "Additional Settings"
+msgstr ""
+
+#: admin/partials/admin-services.php:205
+msgid "Buffer Before"
+msgstr ""
+
+#: admin/partials/admin-services.php:210
+msgid "Preparation time"
+msgstr ""
+
+#: admin/partials/admin-services.php:214
+msgid "Buffer After"
+msgstr ""
+
+#: admin/partials/admin-services.php:219
+msgid "Cleanup time"
+msgstr ""
+
+#: admin/partials/admin-settings.php:77
+msgid "General"
+msgstr ""
+
+#: admin/partials/admin-settings.php:85
+msgid "Currency & Date"
+msgstr ""
+
+#: admin/partials/admin-settings.php:97
+msgid "SMS"
+msgstr ""
+
+#: admin/partials/admin-settings.php:101
+msgid "SEO"
+msgstr ""
+
+#: admin/partials/admin-settings.php:105
+msgid "Security"
+msgstr ""
+
+#: admin/partials/admin-settings.php:126
+msgid "Customize and configure your booking system."
+msgstr ""
+
+#: admin/partials/admin-settings.php:153
+msgid "Booking Settings"
+msgstr ""
+
+#: admin/partials/admin-settings.php:154
+msgid "Set the basic operating parameters for the booking system."
+msgstr ""
+
+#: admin/partials/admin-settings.php:160
+msgid "Time Slot Interval"
+msgstr ""
+
+#: admin/partials/admin-settings.php:161
+msgid "Duration between booking slots"
+msgstr ""
+
+#: admin/partials/admin-settings.php:165
+msgid "15 minutes"
+msgstr ""
+
+#: admin/partials/admin-settings.php:166
+msgid "30 minutes"
+msgstr ""
+
+#: admin/partials/admin-settings.php:167
+msgid "60 minutes"
+msgstr ""
+
+#: admin/partials/admin-settings.php:174
+msgid "Minimum Booking Lead Time"
+msgstr ""
+
+#: admin/partials/admin-settings.php:175
+msgid "Minimum minutes before a booking can be made"
+msgstr ""
+
+#: admin/partials/admin-settings.php:179
+#: public/partials/services-list.php:29
+msgid "minutes"
+msgstr ""
+
+#: admin/partials/admin-settings.php:185
+msgid "Future Booking Limit"
+msgstr ""
+
+#: admin/partials/admin-settings.php:186
+msgid "How many days ahead bookings can be made"
+msgstr ""
+
+#: admin/partials/admin-settings.php:190
+msgid "days"
+msgstr ""
+
+#: admin/partials/admin-settings.php:196
+msgid "Booking Flow Mode"
+msgstr ""
+
+#: admin/partials/admin-settings.php:197
+msgid "The step order the customer will follow"
+msgstr ""
+
+#: admin/partials/admin-settings.php:200
+msgid "Service First"
+msgstr ""
+
+#: admin/partials/admin-settings.php:201
+msgid "Staff First"
+msgstr ""
+
+#: admin/partials/admin-settings.php:202
+msgid "Service Only (Auto Staff)"
+msgstr ""
+
+#: admin/partials/admin-settings.php:203
+msgid "Staff Only (All Services)"
+msgstr ""
+
+#: admin/partials/admin-settings.php:210
+msgid "Multiple Services"
+msgstr ""
+
+#: admin/partials/admin-settings.php:211
+msgid "Customers can select multiple services in one booking"
+msgstr ""
+
+#: admin/partials/admin-settings.php:225
+msgid "Enter business information that will appear in email and SMS notifications."
+msgstr ""
+
+#: admin/partials/admin-settings.php:233
+msgid "e.g. Elite Hair Salon"
+msgstr ""
+
+#: admin/partials/admin-settings.php:240
+msgid "+1 555 555 5555"
+msgstr ""
+
+#: admin/partials/admin-settings.php:247
+msgid "Full address..."
+msgstr ""
+
+#: admin/partials/admin-settings.php:256
+msgid "Currency"
+msgstr ""
+
+#: admin/partials/admin-settings.php:257
+msgid "Set how prices are displayed."
+msgstr ""
+
+#: admin/partials/admin-settings.php:263
+msgid "Currency Code"
+msgstr ""
+
+#: admin/partials/admin-settings.php:270
+msgid "Currency Symbol"
+msgstr ""
+
+#: admin/partials/admin-settings.php:277
+msgid "Currency Position"
+msgstr ""
+
+#: admin/partials/admin-settings.php:280
+msgid "Before ($100)"
+msgstr ""
+
+#: admin/partials/admin-settings.php:281
+msgid "After (100$)"
+msgstr ""
+
+#: admin/partials/admin-settings.php:289
+msgid "Date and Time Format"
+msgstr ""
+
+#: admin/partials/admin-settings.php:290
+msgid "Choose how dates and times are displayed."
+msgstr ""
+
+#: admin/partials/admin-settings.php:296
+msgid "Date Format"
+msgstr ""
+
+#: admin/partials/admin-settings.php:308
+msgid "Time Format"
+msgstr ""
+
+#: admin/partials/admin-settings.php:323
+msgid "Configure the sending settings for booking notification emails."
+msgstr ""
+
+#: admin/partials/admin-settings.php:329
+msgid "Admin Email"
+msgstr ""
+
+#: admin/partials/admin-settings.php:330
+msgid "New booking notifications will be sent to this address"
+msgstr ""
+
+#: admin/partials/admin-settings.php:337
+msgid "Sender Name"
+msgstr ""
+
+#: admin/partials/admin-settings.php:338
+msgid "Sender name that will appear in emails"
+msgstr ""
+
+#: admin/partials/admin-settings.php:345
+msgid "Sender Email"
+msgstr ""
+
+#: admin/partials/admin-settings.php:346
+msgid "Email address that emails will be sent from"
+msgstr ""
+
+#: admin/partials/admin-settings.php:354
+msgid "To edit email templates, go to the \"Email Templates\" page from the left menu."
+msgstr ""
+
+#: admin/partials/admin-settings.php:362
+msgid "Cancellation and Rescheduling"
+msgstr ""
+
+#: admin/partials/admin-settings.php:363
+msgid "Set the rules for customer booking cancellation and rescheduling."
+msgstr ""
+
+#: admin/partials/admin-settings.php:368
+msgid "Customer Cancellation"
+msgstr ""
+
+#: admin/partials/admin-settings.php:369
+msgid "Customers can cancel their bookings"
+msgstr ""
+
+#: admin/partials/admin-settings.php:379
+msgid "Customer Rescheduling"
+msgstr ""
+
+#: admin/partials/admin-settings.php:380
+msgid "Customers can reschedule their bookings"
+msgstr ""
+
+#: admin/partials/admin-settings.php:391
+msgid "Cancellation Deadline"
+msgstr ""
+
+#: admin/partials/admin-settings.php:392
+#: admin/partials/admin-settings.php:403
+msgid "Hours before the booking"
+msgstr ""
+
+#: admin/partials/admin-settings.php:396
+#: admin/partials/admin-settings.php:407
+msgid "hours"
+msgstr ""
+
+#: admin/partials/admin-settings.php:402
+msgid "Rescheduling Deadline"
+msgstr ""
+
+#: admin/partials/admin-settings.php:413
+msgid "Max. Reschedules"
+msgstr ""
+
+#: admin/partials/admin-settings.php:414
+msgid "How many times a booking can be rescheduled"
+msgstr ""
+
+#: admin/partials/admin-settings.php:418
+msgid "times"
+msgstr ""
+
+#: admin/partials/admin-settings.php:426
+msgid "Calendar Integration"
+msgstr ""
+
+#: admin/partials/admin-settings.php:427
+msgid "Configure the ability to add bookings to calendar apps."
+msgstr ""
+
+#: admin/partials/admin-settings.php:432
+msgid "Calendar File (ICS)"
+msgstr ""
+
+#: admin/partials/admin-settings.php:433
+msgid "Attach .ics file and calendar links to emails"
+msgstr ""
+
+#: admin/partials/admin-settings.php:465
+msgid "SMS Notifications"
+msgstr ""
+
+#: admin/partials/admin-settings.php:466
+msgid "Configure SMS notification settings with NetGSM."
+msgstr ""
+
+#: admin/partials/admin-settings.php:471
+msgid "Enable SMS Notifications"
+msgstr ""
+
+#: admin/partials/admin-settings.php:472
+msgid "Booking notifications will be sent via SMS"
+msgstr ""
+
+#: admin/partials/admin-settings.php:482
+msgid "NetGSM API Credentials"
+msgstr ""
+
+#: admin/partials/admin-settings.php:487
+msgid "Username"
+msgstr ""
+
+#: admin/partials/admin-settings.php:494
+msgid "Password"
+msgstr ""
+
+#: admin/partials/admin-settings.php:501
+msgid "Sender ID"
+msgstr ""
+
+#: admin/partials/admin-settings.php:510
+msgid "Check Balance"
+msgstr ""
+
+#: admin/partials/admin-settings.php:518
+msgid "Test SMS"
+msgstr ""
+
+#: admin/partials/admin-settings.php:525
+msgid "Notification Triggers"
+msgstr ""
+
+#: admin/partials/admin-settings.php:540
+msgid "Booking Confirmation"
+msgstr ""
+
+#: admin/partials/admin-settings.php:550
+msgid "Booking Cancellation"
+msgstr ""
+
+#: admin/partials/admin-settings.php:560
+msgid "Reminder"
+msgstr ""
+
+#: admin/partials/admin-settings.php:574
+msgid "1 hour before"
+msgstr ""
+
+#: admin/partials/admin-settings.php:575
+msgid "2 hours before"
+msgstr ""
+
+#: admin/partials/admin-settings.php:576
+msgid "3 hours before"
+msgstr ""
+
+#: admin/partials/admin-settings.php:577
+msgid "6 hours before"
+msgstr ""
+
+#: admin/partials/admin-settings.php:578
+msgid "12 hours before"
+msgstr ""
+
+#: admin/partials/admin-settings.php:579
+msgid "1 day before"
+msgstr ""
+
+#: admin/partials/admin-settings.php:580
+msgid "2 days before"
+msgstr ""
+
+#: admin/partials/admin-settings.php:587
+msgid "SMS Templates"
+msgstr ""
+
+#: admin/partials/admin-settings.php:589
+msgid "Variables:"
+msgstr ""
+
+#: admin/partials/admin-settings.php:610
+msgid "Save Templates"
+msgstr ""
+
+#: admin/partials/admin-settings.php:624
+msgid "SEO Settings"
+msgstr ""
+
+#: admin/partials/admin-settings.php:625
+msgid "Search engine optimization and social media settings."
+msgstr ""
+
+#: admin/partials/admin-settings.php:630
+msgid "Schema.org & Structured Data"
+msgstr ""
+
+#: admin/partials/admin-settings.php:632
+msgid "Help Google and other search engines better understand your business."
+msgstr ""
+
+#: admin/partials/admin-settings.php:637
+msgid "SEO Enabled"
+msgstr ""
+
+#: admin/partials/admin-settings.php:638
+msgid "Enable Schema.org and Open Graph tags."
+msgstr ""
+
+#: admin/partials/admin-settings.php:649
+msgid "Business Type"
+msgstr ""
+
+#: admin/partials/admin-settings.php:650
+msgid "Schema.org business category."
+msgstr ""
+
+#: admin/partials/admin-settings.php:653
+msgid "Beauty Salon"
+msgstr ""
+
+#: admin/partials/admin-settings.php:654
+msgid "Hair Salon / Barber"
+msgstr ""
+
+#: admin/partials/admin-settings.php:655
+msgid "Nail Salon"
+msgstr ""
+
+#: admin/partials/admin-settings.php:656
+msgid "Spa"
+msgstr ""
+
+#: admin/partials/admin-settings.php:657
+msgid "Health & Beauty"
+msgstr ""
+
+#: admin/partials/admin-settings.php:658
+msgid "Dental Clinic"
+msgstr ""
+
+#: admin/partials/admin-settings.php:659
+msgid "Physician"
+msgstr ""
+
+#: admin/partials/admin-settings.php:660
+msgid "Optician"
+msgstr ""
+
+#: admin/partials/admin-settings.php:661
+msgid "Tattoo Parlor"
+msgstr ""
+
+#: admin/partials/admin-settings.php:662
+msgid "General Business"
+msgstr ""
+
+#: admin/partials/admin-settings.php:668
+msgid "Price Range"
+msgstr ""
+
+#: admin/partials/admin-settings.php:669
+msgid "Your general price level."
+msgstr ""
+
+#: admin/partials/admin-settings.php:672
+msgid "$ - Budget"
+msgstr ""
+
+#: admin/partials/admin-settings.php:673
+msgid "$$ - Moderate"
+msgstr ""
+
+#: admin/partials/admin-settings.php:674
+msgid "$$$ - High"
+msgstr ""
+
+#: admin/partials/admin-settings.php:675
+msgid "$$$$ - Luxury"
+msgstr ""
+
+#: admin/partials/admin-settings.php:682
+msgid "SEO Description"
+msgstr ""
+
+#: admin/partials/admin-settings.php:683
+msgid "Description displayed in social media shares."
+msgstr ""
+
+#: admin/partials/admin-settings.php:685
+msgid "Book an appointment online - quick and easy!"
+msgstr ""
+
+#: admin/partials/admin-settings.php:691
+msgid "Logo displayed in social media and search results."
+msgstr ""
+
+#: admin/partials/admin-settings.php:698
+msgid "Location Information"
+msgstr ""
+
+#: admin/partials/admin-settings.php:700
+msgid "Enter your location details for local SEO."
+msgstr ""
+
+#: admin/partials/admin-settings.php:706
+msgid "City"
+msgstr ""
+
+#: admin/partials/admin-settings.php:708
+msgid "e.g. New York"
+msgstr ""
+
+#: admin/partials/admin-settings.php:713
+msgid "Postal Code"
+msgstr ""
+
+#: admin/partials/admin-settings.php:720
+msgid "Country Code"
+msgstr ""
+
+#: admin/partials/admin-settings.php:728
+msgid "Social Media"
+msgstr ""
+
+#: admin/partials/admin-settings.php:730
+msgid "Connect your social media accounts."
+msgstr ""
+
+#: admin/partials/admin-settings.php:738
+msgid "Facebook"
+msgstr ""
+
+#: admin/partials/admin-settings.php:748
+msgid "Instagram"
+msgstr ""
+
+#: admin/partials/admin-settings.php:760
+msgid "Twitter/X URL"
+msgstr ""
+
+#: admin/partials/admin-settings.php:769
+msgid "Twitter Username"
+msgstr ""
+
+#: admin/partials/admin-settings.php:771
+msgid "Enter without @."
+msgstr ""
+
+#: admin/partials/admin-settings.php:781
+msgid "How Does SEO Work?"
+msgstr ""
+
+#: admin/partials/admin-settings.php:782
+msgid "These settings add Schema.org structured data and Open Graph tags to your booking page. Google uses this information to display your business better in search results."
+msgstr ""
+
+#: admin/partials/admin-settings.php:794
+msgid "Security Settings"
+msgstr ""
+
+#: admin/partials/admin-settings.php:795
+msgid "CAPTCHA and security logging settings."
+msgstr ""
+
+#: admin/partials/admin-settings.php:800
+msgid "CAPTCHA Protection"
+msgstr ""
+
+#: admin/partials/admin-settings.php:802
+msgid "Protect the booking form from spam and bot attacks."
+msgstr ""
+
+#: admin/partials/admin-settings.php:807
+msgid "CAPTCHA Provider"
+msgstr ""
+
+#: admin/partials/admin-settings.php:808
+msgid "Select the CAPTCHA service you want to use."
+msgstr ""
+
+#: admin/partials/admin-settings.php:811
+#: includes/class-unbsb-captcha.php:363
+msgid "Disabled"
+msgstr ""
+
+#: admin/partials/admin-settings.php:812
+#: includes/class-unbsb-captcha.php:364
+msgid "Google reCAPTCHA v3"
+msgstr ""
+
+#: admin/partials/admin-settings.php:813
+#: includes/class-unbsb-captcha.php:365
+msgid "hCaptcha"
+msgstr ""
+
+#: admin/partials/admin-settings.php:821
+msgid "Site Key"
+msgstr ""
+
+#: admin/partials/admin-settings.php:828
+msgid "Secret Key"
+msgstr ""
+
+#: admin/partials/admin-settings.php:836
+msgid "Minimum Score (reCAPTCHA v3)"
+msgstr ""
+
+#: admin/partials/admin-settings.php:837
+msgid "Range 0.0 - 1.0. Lower score = stricter control."
+msgstr ""
+
+#: admin/partials/admin-settings.php:840
+msgid "Very Lenient"
+msgstr ""
+
+#: admin/partials/admin-settings.php:841
+msgid "Normal (Recommended)"
+msgstr ""
+
+#: admin/partials/admin-settings.php:842
+msgid "Strict"
+msgstr ""
+
+#: admin/partials/admin-settings.php:843
+msgid "Very Strict"
+msgstr ""
+
+#: admin/partials/admin-settings.php:851
+msgid "Where to Get CAPTCHA Keys?"
+msgstr ""
+
+#: admin/partials/admin-settings.php:861
+msgid "Security Logging"
+msgstr ""
+
+#: admin/partials/admin-settings.php:863
+msgid "Record and monitor security events."
+msgstr ""
+
+#: admin/partials/admin-settings.php:868
+msgid "Enable Security Logging"
+msgstr ""
+
+#: admin/partials/admin-settings.php:869
+msgid "Log rate limit, spam, and suspicious activities."
+msgstr ""
+
+#: admin/partials/admin-settings.php:884
+msgid "Save Changes"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:18
+#: admin/partials/admin-staff.php:241
+msgid "Monday"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:19
+#: admin/partials/admin-staff.php:242
+msgid "Tuesday"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:20
+#: admin/partials/admin-staff.php:243
+msgid "Wednesday"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:21
+#: admin/partials/admin-staff.php:244
+msgid "Thursday"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:22
+#: admin/partials/admin-staff.php:245
+msgid "Friday"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:23
+#: admin/partials/admin-staff.php:246
+msgid "Saturday"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:24
+#: admin/partials/admin-staff.php:247
+msgid "Sunday"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:37
+msgid "Manage staff working hours, breaks, and days off."
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:46
+msgid "No staff added yet"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:47
+msgid "You must add staff first to set up the work schedule."
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:50
+msgid "Add Staff"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:58
+msgid "Select Staff:"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:74
+msgid "Weekly Work Schedule"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:91
+msgid "Working:"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:99
+msgid "Breaks"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:116
+msgid "Save Schedule"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:128
+msgid "Days Off Calendar"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:158
+msgid "Day Off"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:173
+msgid "Recorded Days Off"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:181
+msgid "No recorded days off"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:199
+#: admin/partials/admin-staff-schedule.php:220
+msgid "Add Day Off"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:210
+msgid "Reason (optional)"
+msgstr ""
+
+#: admin/partials/admin-staff-schedule.php:211
+msgid "e.g. Annual leave, Sick leave..."
+msgstr ""
+
+#: admin/partials/admin-staff.php:50
+msgid "Hours"
+msgstr ""
+
+#: admin/partials/admin-staff.php:65
+msgid "No staff added yet."
+msgstr ""
+
+#: admin/partials/admin-staff.php:67
+msgid "Add First Staff"
+msgstr ""
+
+#: admin/partials/admin-staff.php:86
+msgid "Enter staff details"
+msgstr ""
+
+#: admin/partials/admin-staff.php:101
+msgid "Personal Information"
+msgstr ""
+
+#: admin/partials/admin-staff.php:106
+msgid "e.g. John Doe"
+msgstr ""
+
+#: admin/partials/admin-staff.php:127
+msgid "Biography"
+msgstr ""
+
+#: admin/partials/admin-staff.php:128
+msgid "A short introduction..."
+msgstr ""
+
+#: admin/partials/admin-staff.php:136
+msgid "Offered Services"
+msgstr ""
+
+#: admin/partials/admin-staff.php:158
+msgid "No services added yet. Please add services first."
+msgstr ""
+
+#: admin/partials/admin-staff.php:197
+msgid "You can edit working hours from the \"Hours\" button after saving the staff member."
+msgstr ""
+
+#: admin/partials/admin-staff.php:228
+msgid "Working Hours"
+msgstr ""
+
+#: admin/partials/admin-staff.php:258
+msgid "Open"
+msgstr ""
+
+#: admin/partials/admin-staff.php:259
+msgid "Closed"
+msgstr ""
+
+#: admin/partials/admin-staff.php:275
+msgid "Quick Set:"
+msgstr ""
+
+#: admin/partials/admin-staff.php:277
+msgid "Weekdays (09-18)"
+msgstr ""
+
+#: admin/partials/admin-staff.php:280
+msgid "All Days"
+msgstr ""
+
+#: includes/class-unbsb-booking-manager.php:58
+msgid "Booking cancellation is disabled."
+msgstr ""
+
+#: includes/class-unbsb-booking-manager.php:66
+msgid "This booking has already been cancelled."
+msgstr ""
+
+#: includes/class-unbsb-booking-manager.php:74
+msgid "Completed bookings cannot be cancelled."
+msgstr ""
+
+#. translators: %d: Number of hours
+#: includes/class-unbsb-booking-manager.php:87
+#, php-format
+msgid "Cannot cancel because less than %d hours remain until the booking."
+msgstr ""
+
+#: includes/class-unbsb-booking-manager.php:111
+msgid "Booking rescheduling is disabled."
+msgstr ""
+
+#: includes/class-unbsb-booking-manager.php:119
+msgid "Cancelled bookings cannot be rescheduled."
+msgstr ""
+
+#: includes/class-unbsb-booking-manager.php:127
+msgid "Completed bookings cannot be rescheduled."
+msgstr ""
+
+#. translators: %d: Maximum number of reschedules
+#: includes/class-unbsb-booking-manager.php:140
+#, php-format
+msgid "A booking can be rescheduled at most %d times."
+msgstr ""
+
+#. translators: %d: Number of hours
+#: includes/class-unbsb-booking-manager.php:155
+#, php-format
+msgid "Cannot reschedule because less than %d hours remain until the booking."
+msgstr ""
+
+#: includes/class-unbsb-booking-manager.php:217
+#: includes/class-unbsb-booking-manager.php:289
+#: includes/class-unbsb-rest-api.php:395
+#: includes/class-unbsb-rest-api.php:505
+#: public/partials/booking-manage.php:36
+msgid "Booking not found."
+msgstr ""
+
+#. translators: 1: Date/time, 2: Cancellation reason
+#: includes/class-unbsb-booking-manager.php:235
+#, php-format
+msgid "[%1$s] Cancelled by customer. Reason: %2$s"
+msgstr ""
+
+#: includes/class-unbsb-booking-manager.php:263
+msgid "Your booking has been cancelled successfully."
+msgstr ""
+
+#: includes/class-unbsb-booking-manager.php:269
+msgid "An error occurred while cancelling the booking."
+msgstr ""
+
+#: includes/class-unbsb-booking-manager.php:316
+msgid "Invalid time format."
+msgstr ""
+
+#: includes/class-unbsb-booking-manager.php:337
+msgid "The selected date and time is not available."
+msgstr ""
+
+#: includes/class-unbsb-booking-manager.php:349
+msgid "Service information not found."
+msgstr ""
+
+#. translators: 1: Date/time, 2: Old date, 3: Old time, 4: New date, 5: New time
+#: includes/class-unbsb-booking-manager.php:380
+#, php-format
+msgid "[%1$s] Rescheduled: %2$s %3$s -> %4$s %5$s"
+msgstr ""
+
+#: includes/class-unbsb-booking-manager.php:407
+msgid "Your booking has been updated successfully."
+msgstr ""
+
+#: includes/class-unbsb-booking-manager.php:414
+msgid "An error occurred while updating the booking."
+msgstr ""
+
+#: includes/class-unbsb-captcha.php:192
+msgid "CAPTCHA verification is required."
+msgstr ""
+
+#: includes/class-unbsb-captcha.php:253
+#: includes/class-unbsb-captcha.php:320
+msgid "CAPTCHA verification failed."
+msgstr ""
+
+#: includes/class-unbsb-captcha.php:268
+msgid "Security verification failed. Please try again."
+msgstr ""
+
+#: includes/class-unbsb-database.php:203
+msgid "Direct SQL queries are deprecated. Use prepared_query() instead."
+msgstr ""
+
+#. translators: 1: Service name, 2: Company name
+#: includes/class-unbsb-ics-generator.php:49
+#, php-format
+msgid "%1$s - %2$s"
+msgstr ""
+
+#. translators: %s: Staff name
+#: includes/class-unbsb-ics-generator.php:57
+#: includes/class-unbsb-ics-generator.php:200
+#: includes/class-unbsb-ics-generator.php:264
+#: includes/class-unbsb-ics-generator.php:327
+#, php-format
+msgid "Staff: %s"
+msgstr ""
+
+#. translators: %s: Price with currency
+#: includes/class-unbsb-ics-generator.php:64
+#: includes/class-unbsb-ics-generator.php:205
+#: includes/class-unbsb-ics-generator.php:269
+#: includes/class-unbsb-ics-generator.php:332
+#, php-format
+msgid "Price: %s"
+msgstr ""
+
+#. translators: %s: Phone number
+#: includes/class-unbsb-ics-generator.php:71
+#: includes/class-unbsb-ics-generator.php:210
+#: includes/class-unbsb-ics-generator.php:274
+#: includes/class-unbsb-ics-generator.php:337
+#, php-format
+msgid "Phone: %s"
+msgstr ""
+
+#: includes/class-unbsb-ics-generator.php:104
+#: includes/class-unbsb-notification.php:355
+#: includes/class-unbsb-notification.php:357
+msgid "Booking Reminder"
+msgstr ""
+
+#: includes/class-unbsb-ics-generator.php:111
+msgid "You have a booking tomorrow"
+msgstr ""
+
+#: includes/class-unbsb-ics-generator.php:367
+msgid "Add to your calendar:"
+msgstr ""
+
+#: includes/class-unbsb-ics-generator.php:374
+msgid "Google Calendar"
+msgstr ""
+
+#: includes/class-unbsb-ics-generator.php:381
+msgid "Outlook"
+msgstr ""
+
+#: includes/class-unbsb-ics-generator.php:388
+msgid "Yahoo Calendar"
+msgstr ""
+
+#: includes/class-unbsb-ics-generator.php:392
+msgid "Apple Calendar users can use the .ics file attached to the email."
+msgstr ""
+
+#: includes/class-unbsb-notification.php:337
+msgid "Booking Received"
+msgstr ""
+
+#: includes/class-unbsb-notification.php:339
+msgid "Your Booking Request Has Been Received"
+msgstr ""
+
+#: includes/class-unbsb-notification.php:343
+msgid "Booking Confirmed"
+msgstr ""
+
+#: includes/class-unbsb-notification.php:345
+msgid "Your Booking Has Been Confirmed"
+msgstr ""
+
+#: includes/class-unbsb-notification.php:349
+#: includes/class-unbsb-security-logger.php:503
+msgid "Booking Cancelled"
+msgstr ""
+
+#: includes/class-unbsb-notification.php:351
+msgid "Your Booking Has Been Cancelled"
+msgstr ""
+
+#: includes/class-unbsb-notification.php:361
+msgid "Admin: New Booking"
+msgstr ""
+
+#: includes/class-unbsb-notification.php:363
+msgid "New Booking Request"
+msgstr ""
+
+#. translators: %s: Company name
+#: includes/class-unbsb-notification.php:713
+#, php-format
+msgid "This email was sent by %s."
+msgstr ""
+
+#: includes/class-unbsb-notification.php:872
+msgid "Test email sent."
+msgstr ""
+
+#: includes/class-unbsb-notification.php:877
+msgid "Email could not be sent."
+msgstr ""
+
+#. translators: %d: seconds to wait
+#: includes/class-unbsb-rate-limiter.php:72
+#, php-format
+msgid "Too many requests. Please try again in %d seconds."
+msgstr ""
+
+#: includes/class-unbsb-rest-api.php:361
+#: public/class-unbsb-public.php:333
+msgid "Spam detected."
+msgstr ""
+
+#: includes/class-unbsb-rest-api.php:376
+msgid "Your booking has been created successfully."
+msgstr ""
+
+#: includes/class-unbsb-rest-api.php:458
+msgid "Date and time are required."
+msgstr ""
+
+#. translators: %s: parameter name
+#: includes/class-unbsb-rest-api.php:597
+#, php-format
+msgid "Invalid date format (%s). Format must be: YYYY-MM-DD."
+msgstr ""
+
+#: includes/class-unbsb-rest-api.php:609
+msgid "Invalid date value."
+msgstr ""
+
+#. translators: %s: parameter name
+#: includes/class-unbsb-rest-api.php:633
+#, php-format
+msgid "Invalid month format (%s). Format must be: YYYY-MM."
+msgstr ""
+
+#: includes/class-unbsb-rest-api.php:646
+msgid "Invalid month value (must be between 1-12)."
+msgstr ""
+
+#: includes/class-unbsb-security-logger.php:496
+msgid "Rate Limit"
+msgstr ""
+
+#: includes/class-unbsb-security-logger.php:497
+msgid "Invalid Token"
+msgstr ""
+
+#: includes/class-unbsb-security-logger.php:498
+msgid "Spam Detected"
+msgstr ""
+
+#: includes/class-unbsb-security-logger.php:499
+msgid "Invalid Input"
+msgstr ""
+
+#: includes/class-unbsb-security-logger.php:500
+msgid "Auth Failure"
+msgstr ""
+
+#: includes/class-unbsb-security-logger.php:501
+msgid "Suspicious"
+msgstr ""
+
+#: includes/class-unbsb-security-logger.php:502
+msgid "Booking Created"
+msgstr ""
+
+#: includes/class-unbsb-security-logger.php:518
+msgid "Info"
+msgstr ""
+
+#: includes/class-unbsb-security-logger.php:519
+msgid "Warning"
+msgstr ""
+
+#: includes/class-unbsb-security-logger.php:520
+msgid "Error"
+msgstr ""
+
+#: includes/class-unbsb-security-logger.php:521
+msgid "Critical"
+msgstr ""
+
+#: includes/class-unbsb-seo.php:195
+msgid "Our Services"
+msgstr ""
+
+#: includes/class-unbsb-seo.php:267
+msgid "Book online - fast and easy!"
+msgstr ""
+
+#: includes/class-unbsb-sms-manager.php:104
+msgid "Every Minute"
+msgstr ""
+
+#: includes/class-unbsb-sms-manager.php:529
+msgid "Provider not found."
+msgstr ""
+
+#: includes/models/class-unbsb-booking.php:69
+msgid "Invalid service list."
+msgstr ""
+
+#. translators: %s: Field name
+#: includes/models/class-unbsb-booking.php:85
+#, php-format
+msgid "%s field is required."
+msgstr ""
+
+#: includes/models/class-unbsb-booking.php:94
+msgid "Another booking exists in this time slot."
+msgstr ""
+
+#: includes/models/class-unbsb-service.php:186
+msgid "Uncategorized"
+msgstr ""
+
+#: includes/sms/class-unbsb-sms-netgsm.php:79
+#: includes/sms/class-unbsb-sms-netgsm.php:122
+msgid "NetGSM credentials are missing."
+msgstr ""
+
+#. translators: 1: TL amount, 2: Credit count
+#: includes/sms/class-unbsb-sms-netgsm.php:159
+#, php-format
+msgid "Balance: %1$s TL, %2$d Credits"
+msgstr ""
+
+#: includes/sms/class-unbsb-sms-netgsm.php:190
+msgid "SMS sent successfully."
+msgstr ""
+
+#: includes/sms/class-unbsb-sms-netgsm.php:208
+msgid "Message sending failed: Invalid message."
+msgstr ""
+
+#: includes/sms/class-unbsb-sms-netgsm.php:209
+msgid "Invalid username or password."
+msgstr ""
+
+#: includes/sms/class-unbsb-sms-netgsm.php:210
+msgid "Account is not defined."
+msgstr ""
+
+#: includes/sms/class-unbsb-sms-netgsm.php:211
+msgid "Account is unauthorized or suspended."
+msgstr ""
+
+#: includes/sms/class-unbsb-sms-netgsm.php:212
+msgid "Campaign limit exceeded."
+msgstr ""
+
+#: includes/sms/class-unbsb-sms-netgsm.php:213
+msgid "Invalid sender ID."
+msgstr ""
+
+#: includes/sms/class-unbsb-sms-netgsm.php:214
+msgid "Invalid parameter or character."
+msgstr ""
+
+#: includes/sms/class-unbsb-sms-netgsm.php:215
+msgid "Query error."
+msgstr ""
+
+#: includes/sms/class-unbsb-sms-netgsm.php:216
+msgid "Same SMS was sent multiple times."
+msgstr ""
+
+#: includes/sms/class-unbsb-sms-netgsm.php:217
+#: includes/sms/class-unbsb-sms-netgsm.php:218
+msgid "System error."
+msgstr ""
+
+#. translators: %s: Error code
+#: includes/sms/class-unbsb-sms-netgsm.php:224
+#, php-format
+msgid "Unknown error: %s"
+msgstr ""
+
+#. translators: %s: Company name
+#: includes/sms/class-unbsb-sms-netgsm.php:247
+#, php-format
+msgid "This is a test message. %s booking system SMS integration is working successfully."
+msgstr ""
+
+#: public/class-unbsb-public.php:73
+msgid "Select a service"
+msgstr ""
+
+#: public/class-unbsb-public.php:74
+msgid "Select a staff member"
+msgstr ""
+
+#: public/class-unbsb-public.php:75
+msgid "Select a date"
+msgstr ""
+
+#: public/class-unbsb-public.php:76
+#: public/class-unbsb-public.php:281
+msgid "Select a time"
+msgstr ""
+
+#: public/class-unbsb-public.php:78
+msgid "No available time slots for this date."
+msgstr ""
+
+#: public/class-unbsb-public.php:79
+msgid "No services found for this staff member."
+msgstr ""
+
+#: public/class-unbsb-public.php:80
+msgid "No staff available."
+msgstr ""
+
+#: public/class-unbsb-public.php:81
+#: public/class-unbsb-public.php:398
+msgid "Your booking has been created successfully!"
+msgstr ""
+
+#: public/class-unbsb-public.php:82
+msgid "An error occurred. Please try again."
+msgstr ""
+
+#: public/class-unbsb-public.php:84
+#: public/partials/booking-form.php:315
+msgid "Book Now"
+msgstr ""
+
+#: public/class-unbsb-public.php:90
+#: public/partials/booking-form.php:36
+#: public/partials/booking-form.php:54
+#: public/partials/booking-form.php:68
+#: public/partials/booking-form.php:82
+msgid "Details"
+msgstr ""
+
+#: public/class-unbsb-public.php:98
+msgid "Total"
+msgstr ""
+
+#: public/class-unbsb-public.php:282
+msgid "No available slots"
+msgstr ""
+
+#: public/class-unbsb-public.php:284
+msgid "Your booking has been updated!"
+msgstr ""
+
+#: public/class-unbsb-public.php:285
+msgid "Your booking has been cancelled!"
+msgstr ""
+
+#: public/class-unbsb-public.php:307
+msgid "Missing parameters."
+msgstr ""
+
+#: public/class-unbsb-public.php:413
+msgid "Service ID is required."
+msgstr ""
+
+#: public/class-unbsb-public.php:443
+msgid "Staff ID is required."
+msgstr ""
+
+#: public/partials/booking-form.php:125
+msgid "Select Services (You can select multiple)"
+msgstr ""
+
+#: public/partials/booking-form.php:127
+msgid "Select a Service"
+msgstr ""
+
+#: public/partials/booking-form.php:183
+msgid "Selected Services"
+msgstr ""
+
+#: public/partials/booking-form.php:188
+msgid "Total:"
+msgstr ""
+
+#: public/partials/booking-form.php:201
+#: public/partials/services-list.php:44
+msgid "No services available yet."
+msgstr ""
+
+#: public/partials/booking-form.php:209
+msgid "Select Staff"
+msgstr ""
+
+#: public/partials/booking-form.php:219
+msgid "Select Date and Time"
+msgstr ""
+
+#: public/partials/booking-form.php:239
+msgid "Available Times"
+msgstr ""
+
+#: public/partials/booking-form.php:241
+#: public/partials/booking-manage.php:211
+msgid "Select a date first"
+msgstr ""
+
+#: public/partials/booking-form.php:250
+msgid "Enter Your Information"
+msgstr ""
+
+#: public/partials/booking-form.php:255
+msgid "Your full name"
+msgstr ""
+
+#: public/partials/booking-form.php:261
+msgid "example@email.com"
+msgstr ""
+
+#: public/partials/booking-form.php:265
+msgid "+1 XXX XXX XXXX"
+msgstr ""
+
+#: public/partials/booking-form.php:271
+msgid "Any additional notes (optional)"
+msgstr ""
+
+#: public/partials/booking-form.php:284
+msgid "Booking Summary"
+msgstr ""
+
+#: public/partials/booking-form.php:296
+msgid "Your Booking is Received!"
+msgstr ""
+
+#: public/partials/booking-form.php:297
+msgid "Your booking details will be sent to your email address."
+msgstr ""
+
+#: public/partials/booking-form.php:307
+msgid "Back"
+msgstr ""
+
+#: public/partials/booking-form.php:310
+msgid "Continue"
+msgstr ""
+
+#: public/partials/booking-manage.php:18
+msgid "Invalid booking link."
+msgstr ""
+
+#. translators: %d: Booking ID
+#: public/partials/booking-manage.php:89
+#, php-format
+msgid "Booking #%d"
+msgstr ""
+
+#: public/partials/booking-manage.php:106
+msgid "Date and Time"
+msgstr ""
+
+#: public/partials/booking-manage.php:162
+#: public/partials/booking-manage.php:192
+msgid "Reschedule Booking"
+msgstr ""
+
+#: public/partials/booking-manage.php:177
+#: public/partials/booking-manage.php:233
+msgid "Cancel Booking"
+msgstr ""
+
+#: public/partials/booking-manage.php:202
+msgid "New Date"
+msgstr ""
+
+#: public/partials/booking-manage.php:209
+msgid "New Time"
+msgstr ""
+
+#: public/partials/booking-manage.php:217
+#: public/partials/booking-manage.php:256
+msgid "Go Back"
+msgstr ""
+
+#: public/partials/booking-manage.php:220
+msgid "Update Booking"
+msgstr ""
+
+#: public/partials/booking-manage.php:243
+msgid "This action cannot be undone. Your booking will be cancelled."
+msgstr ""
+
+#: public/partials/booking-manage.php:250
+msgid "Cancellation Reason (optional)"
+msgstr ""
+
+#: public/partials/booking-manage.php:251
+msgid "Why do you want to cancel?"
+msgstr ""
+
+#: public/partials/booking-manage.php:259
+msgid "Yes, Cancel"
+msgstr ""
+
+#: public/partials/staff-list.php:51
+msgid "No staff available yet."
+msgstr ""
