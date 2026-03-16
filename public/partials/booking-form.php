@@ -131,19 +131,31 @@ $has_staff_step   = isset( $step_numbers['staff'] );
 				<?php if ( ! empty( $services ) ) : ?>
 					<?php if ( ! empty( $categories ) ) : ?>
 					<!-- Category Filter -->
-					<div class="unbsb-category-filter" id="unbsb-category-filter">
-						<button type="button" class="unbsb-filter-btn active" data-category="all">
-							<span class="unbsb-filter-icon">
-								<svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
-							</span>
-							<?php esc_html_e( 'All', 'unbelievable-salon-booking' ); ?>
+					<div class="unbsb-filter-wrapper" id="unbsb-filter-wrapper">
+						<button type="button" class="unbsb-filter-arrow unbsb-filter-arrow-left" id="unbsb-filter-arrow-left" aria-label="<?php esc_attr_e( 'Scroll left', 'unbelievable-salon-booking' ); ?>">
+							<svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12l4.58-4.59z"/></svg>
 						</button>
-						<?php foreach ( $categories as $category ) : ?>
-							<button type="button" class="unbsb-filter-btn" data-category="<?php echo esc_attr( $category->id ); ?>" style="--filter-color: <?php echo esc_attr( $category->color ); ?>">
-								<span class="unbsb-filter-dot"></span>
-								<?php echo esc_html( $category->name ); ?>
+						<div class="unbsb-category-filter" id="unbsb-category-filter">
+							<button type="button" class="unbsb-filter-btn active" data-category="all">
+								<span class="unbsb-filter-icon">
+									<svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
+								</span>
+								<?php esc_html_e( 'All', 'unbelievable-salon-booking' ); ?>
 							</button>
-						<?php endforeach; ?>
+							<?php foreach ( $categories as $category ) : ?>
+								<button type="button" class="unbsb-filter-btn" data-category="<?php echo esc_attr( $category->id ); ?>" style="--filter-color: <?php echo esc_attr( $category->color ); ?>">
+									<span class="unbsb-filter-dot"></span>
+									<?php echo esc_html( $category->name ); ?>
+								</button>
+							<?php endforeach; ?>
+						</div>
+						<button type="button" class="unbsb-filter-arrow unbsb-filter-arrow-right" id="unbsb-filter-arrow-right" aria-label="<?php esc_attr_e( 'Scroll right', 'unbelievable-salon-booking' ); ?>">
+							<svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z"/></svg>
+						</button>
+						<div class="unbsb-filter-swipe-hint" id="unbsb-filter-swipe-hint">
+							<svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M18.89 12.44l-4.53-4.53c-.29-.29-.77-.29-1.06 0l-.07.07c-.29.29-.29.77 0 1.06l3.18 3.18H4c-.55 0-1 .45-1 1s.45 1 1 1h12.41l-3.18 3.18c-.29.29-.29.77 0 1.06l.07.07c.29.29.77.29 1.06 0l4.53-4.53c.28-.29.28-.77 0-1.06z" opacity="0.5"/><path fill="currentColor" d="M9.71 17.46l3.18-3.18c.29-.29.29-.77 0-1.06l-3.18-3.18c-.29-.29-.77-.29-1.06 0l-.07.07c-.29.29-.29.77 0 1.06L10.76 13H4c-.55 0-1-.45-1-1" opacity="0"/></svg>
+						</div>
+						<div class="unbsb-filter-dots" id="unbsb-filter-dots"></div>
 					</div>
 					<?php endif; ?>
 

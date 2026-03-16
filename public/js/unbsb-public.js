@@ -127,27 +127,113 @@
 	 * Category Filter
 	 */
 	function initCategoryFilter() {
-		const filterContainer = document.getElementById('unbsb-category-filter');
+		var filterContainer = document.getElementById('unbsb-category-filter');
 		if (!filterContainer) return;
 
-		// Detect horizontal overflow for fade mask
-		function checkOverflow() {
-			if (filterContainer.scrollWidth > filterContainer.clientWidth) {
-				filterContainer.classList.add('unbsb-overflowing');
-			} else {
-				filterContainer.classList.remove('unbsb-overflowing');
+		var wrapper = document.getElementById('unbsb-filter-wrapper');
+		var arrowLeft = document.getElementById('unbsb-filter-arrow-left');
+		var arrowRight = document.getElementById('unbsb-filter-arrow-right');
+		var dotsContainer = document.getElementById('unbsb-filter-dots');
+		var filterBtns = filterContainer.querySelectorAll('.unbsb-filter-btn');
+		var serviceItems = document.querySelectorAll('.unbsb-service-item');
+		var categoryGroups = document.querySelectorAll('.unbsb-service-category-group');
+		var scrollAmount = 150;
+		var hasSwiped = false;
+
+		// --- Overflow detection & scroll position tracking ---
+		function updateScrollState() {
+			if (!wrapper) return;
+			var isOverflowing = filterContainer.scrollWidth > filterContainer.clientWidth + 1;
+			var scrollLeft = filterContainer.scrollLeft;
+			var maxScroll = filterContainer.scrollWidth - filterContainer.clientWidth;
+			var atStart = scrollLeft <= 2;
+			var atEnd = scrollLeft >= maxScroll - 2;
+
+			wrapper.classList.toggle('unbsb-overflowing', isOverflowing);
+			wrapper.classList.toggle('unbsb-scroll-start', atStart);
+			wrapper.classList.toggle('unbsb-scroll-end', atEnd);
+
+			updateDots();
+		}
+
+		updateScrollState();
+		window.addEventListener('resize', updateScrollState);
+		filterContainer.addEventListener('scroll', updateScrollState, { passive: true });
+
+		// --- Arrow buttons ---
+		if (arrowLeft) {
+			arrowLeft.addEventListener('click', function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				filterContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+			});
+		}
+		if (arrowRight) {
+			arrowRight.addEventListener('click', function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				filterContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+			});
+		}
+
+		// --- Nudge animation (once, on load, if overflowing) ---
+		setTimeout(function() {
+			if (filterContainer.scrollWidth > filterContainer.clientWidth + 1) {
+				filterContainer.classList.add('unbsb-nudge');
+				filterContainer.addEventListener('animationend', function() {
+					filterContainer.classList.remove('unbsb-nudge');
+				}, { once: true });
+			}
+		}, 600);
+
+		// --- Mobile swipe hint — hide after first user scroll ---
+		filterContainer.addEventListener('scroll', function() {
+			if (!hasSwiped && wrapper) {
+				hasSwiped = true;
+				wrapper.classList.add('unbsb-swiped');
+			}
+		}, { passive: true, once: true });
+
+		// --- Scroll indicator dots (mobile) ---
+		function buildDots() {
+			if (!dotsContainer) return;
+			dotsContainer.innerHTML = '';
+			if (filterContainer.scrollWidth <= filterContainer.clientWidth + 1) return;
+
+			var visibleWidth = filterContainer.clientWidth;
+			var totalWidth = filterContainer.scrollWidth;
+			var dotCount = Math.max(2, Math.round(totalWidth / visibleWidth));
+
+			for (var i = 0; i < dotCount; i++) {
+				var dot = document.createElement('span');
+				dot.className = 'unbsb-dot';
+				if (0 === i) dot.classList.add('active');
+				dotsContainer.appendChild(dot);
 			}
 		}
-		checkOverflow();
-		window.addEventListener('resize', checkOverflow);
 
-		const filterBtns = filterContainer.querySelectorAll('.unbsb-filter-btn');
-		const serviceItems = document.querySelectorAll('.unbsb-service-item');
-		const categoryGroups = document.querySelectorAll('.unbsb-service-category-group');
+		function updateDots() {
+			if (!dotsContainer) return;
+			var dots = dotsContainer.querySelectorAll('.unbsb-dot');
+			if (0 === dots.length) return;
 
+			var maxScroll = filterContainer.scrollWidth - filterContainer.clientWidth;
+			if (maxScroll <= 0) return;
+			var progress = filterContainer.scrollLeft / maxScroll;
+			var activeIndex = Math.round(progress * (dots.length - 1));
+
+			dots.forEach(function(dot, i) {
+				dot.classList.toggle('active', i === activeIndex);
+			});
+		}
+
+		buildDots();
+		window.addEventListener('resize', buildDots);
+
+		// --- Filter button click logic ---
 		filterBtns.forEach(function(btn) {
 			btn.addEventListener('click', function() {
-				const categoryId = this.dataset.category;
+				var categoryId = this.dataset.category;
 
 				// Update active state
 				filterBtns.forEach(function(b) {
@@ -189,7 +275,7 @@
 			});
 		});
 
-		// Category header click to toggle collapse
+		// --- Category header click to toggle collapse ---
 		categoryGroups.forEach(function(group) {
 			var header = group.querySelector('.unbsb-service-category-header');
 			if (header) {

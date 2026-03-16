@@ -200,31 +200,206 @@
 }
 
 /* ========================================
-   Category Filter
+   Category Filter — Wrapper
+   ======================================== */
+.unbsb-filter-wrapper {
+	position: relative;
+	margin-bottom: 24px;
+}
+
+/* ========================================
+   Category Filter — Scrollable Track
    ======================================== */
 .unbsb-category-filter {
 	display: flex;
 	gap: 8px;
-	margin-bottom: 24px;
-	padding: 6px 2px 6px 0;
+	padding: 6px 0;
 	overflow-x: auto;
 	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
 	scrollbar-width: none;
 	-webkit-overflow-scrolling: touch;
-	mask-image: linear-gradient(to right, black calc(100% - 24px), transparent 100%);
-	-webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent 100%);
 }
 
 .unbsb-category-filter::-webkit-scrollbar {
 	display: none;
 }
 
-/* Remove mask when not overflowing */
-.unbsb-category-filter:not(.unbsb-overflowing) {
-	mask-image: none;
-	-webkit-mask-image: none;
+/* ========================================
+   Category Filter — Arrow Buttons
+   ======================================== */
+.unbsb-filter-arrow {
+	display: none;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 3;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	border: 1px solid var(--unbsb-border);
+	background: var(--unbsb-white);
+	color: var(--unbsb-text-secondary);
+	cursor: pointer;
+	align-items: center;
+	justify-content: center;
+	box-shadow: var(--unbsb-shadow-md);
+	transition: var(--unbsb-transition);
+	padding: 0;
 }
 
+.unbsb-filter-arrow-left {
+	left: -6px;
+}
+
+.unbsb-filter-arrow-right {
+	right: -6px;
+}
+
+.unbsb-filter-arrow:hover {
+	background: var(--unbsb-primary-light);
+	border-color: var(--unbsb-primary);
+	color: var(--unbsb-primary);
+	box-shadow: var(--unbsb-shadow-lg);
+	transform: translateY(-50%) scale(1.08);
+}
+
+.unbsb-filter-arrow:active {
+	transform: translateY(-50%) scale(0.95);
+}
+
+/* Show arrows only when overflowing + at correct scroll edge */
+.unbsb-filter-wrapper.unbsb-overflowing .unbsb-filter-arrow {
+	display: flex;
+}
+
+.unbsb-filter-wrapper.unbsb-scroll-start .unbsb-filter-arrow-left {
+	display: none;
+}
+
+.unbsb-filter-wrapper.unbsb-scroll-end .unbsb-filter-arrow-right {
+	display: none;
+}
+
+/* Edge fade gradients on the wrapper */
+.unbsb-filter-wrapper.unbsb-overflowing .unbsb-category-filter {
+	mask-image: linear-gradient(to right, transparent 0px, black 28px, black calc(100% - 28px), transparent 100%);
+	-webkit-mask-image: linear-gradient(to right, transparent 0px, black 28px, black calc(100% - 28px), transparent 100%);
+}
+
+.unbsb-filter-wrapper.unbsb-overflowing.unbsb-scroll-start .unbsb-category-filter {
+	mask-image: linear-gradient(to right, black 0, black calc(100% - 28px), transparent 100%);
+	-webkit-mask-image: linear-gradient(to right, black 0, black calc(100% - 28px), transparent 100%);
+}
+
+.unbsb-filter-wrapper.unbsb-overflowing.unbsb-scroll-end .unbsb-category-filter {
+	mask-image: linear-gradient(to right, transparent 0px, black 28px, black 100%);
+	-webkit-mask-image: linear-gradient(to right, transparent 0px, black 28px, black 100%);
+}
+
+/* Hide arrows on mobile — swipe is natural */
+@media (max-width: 640px) {
+	.unbsb-filter-arrow {
+		display: none !important;
+	}
+
+	.unbsb-filter-wrapper.unbsb-overflowing .unbsb-category-filter {
+		mask-image: linear-gradient(to right, black 0, black calc(100% - 32px), transparent 100%);
+		-webkit-mask-image: linear-gradient(to right, black 0, black calc(100% - 32px), transparent 100%);
+	}
+
+	.unbsb-filter-wrapper.unbsb-overflowing.unbsb-scroll-end .unbsb-category-filter {
+		mask-image: none;
+		-webkit-mask-image: none;
+	}
+}
+
+/* ========================================
+   Category Filter — Mobile Swipe Hint
+   ======================================== */
+.unbsb-filter-swipe-hint {
+	display: none;
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+	z-index: 2;
+	pointer-events: none;
+	color: var(--unbsb-primary);
+	opacity: 0;
+	animation: unbsbSwipeHintPulse 1.8s ease-in-out infinite;
+}
+
+@media (max-width: 640px) {
+	.unbsb-filter-wrapper.unbsb-overflowing:not(.unbsb-scroll-end) .unbsb-filter-swipe-hint {
+		display: flex;
+		opacity: 1;
+	}
+
+	.unbsb-filter-wrapper.unbsb-swiped .unbsb-filter-swipe-hint {
+		display: none !important;
+	}
+}
+
+@keyframes unbsbSwipeHintPulse {
+	0%, 100% {
+		opacity: 0.5;
+		transform: translateY(-50%) translateX(0);
+	}
+	50% {
+		opacity: 1;
+		transform: translateY(-50%) translateX(-4px);
+	}
+}
+
+/* ========================================
+   Category Filter — Scroll Indicator Dots
+   ======================================== */
+.unbsb-filter-dots {
+	display: none;
+}
+
+@media (max-width: 640px) {
+	.unbsb-filter-wrapper.unbsb-overflowing .unbsb-filter-dots {
+		display: flex;
+		justify-content: center;
+		gap: 5px;
+		padding-top: 8px;
+	}
+}
+
+.unbsb-filter-dots .unbsb-dot {
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	background: var(--unbsb-border);
+	transition: var(--unbsb-transition-fast);
+}
+
+.unbsb-filter-dots .unbsb-dot.active {
+	background: var(--unbsb-primary);
+	width: 14px;
+	border-radius: 100px;
+}
+
+/* ========================================
+   Category Filter — Nudge Animation
+   ======================================== */
+@keyframes unbsbFilterNudge {
+	0% { transform: translateX(0); }
+	30% { transform: translateX(-40px); }
+	60% { transform: translateX(8px); }
+	80% { transform: translateX(-4px); }
+	100% { transform: translateX(0); }
+}
+
+.unbsb-category-filter.unbsb-nudge {
+	animation: unbsbFilterNudge 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1;
+}
+
+/* ========================================
+   Category Filter — Buttons
+   ======================================== */
 .unbsb-filter-btn {
 	display: inline-flex;
 	align-items: center;
