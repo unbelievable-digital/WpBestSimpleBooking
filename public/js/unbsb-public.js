@@ -895,8 +895,10 @@
 				// Set hidden fields
 				var dateInput = document.getElementById('booking-date');
 				var timeInput = document.getElementById('start-time');
+				var staffInput = document.getElementById('staff-id');
 				if (dateInput) dateInput.value = date;
 				if (timeInput) timeInput.value = time;
+				if (staffInput) staffInput.value = staffId;
 
 				// Update UI — highlight selected card and slot
 				staffList.querySelectorAll('.unbsb-staff-avail-card').forEach(function(card) {
@@ -950,6 +952,10 @@
 				state.selectedStaff = staffData.find(function(s) { return s.staff_id == staffId; });
 				state.selectedDate = null;
 				state.selectedTime = null;
+
+				// Set hidden staff_id field
+				var staffHidden = document.getElementById('staff-id');
+				if (staffHidden) staffHidden.value = staffId;
 
 				// Highlight selected staff card
 				staffList.querySelectorAll('.unbsb-staff-avail-card').forEach(function(card) {

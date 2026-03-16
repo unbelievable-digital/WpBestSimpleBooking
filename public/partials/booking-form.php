@@ -291,6 +291,7 @@ $has_staff_step   = isset( $step_numbers['staff'] );
 							<!-- Populated via JS -->
 						</div>
 						<input type="hidden" name="booking_date" id="booking-date" required>
+						<input type="hidden" name="staff_id" id="staff-id" value="">
 					</div>
 
 					<div class="unbsb-time-wrapper">
