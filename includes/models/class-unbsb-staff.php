@@ -131,6 +131,27 @@ class UNBSB_Staff {
 	}
 
 	/**
+	 * Get staff by WordPress user ID
+	 *
+	 * @param int $user_id WordPress user ID.
+	 *
+	 * @return object|null
+	 */
+	public function get_by_user_id( $user_id ) {
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'unbsb_staff';
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT * FROM {$table} WHERE user_id = %d",
+				absint( $user_id )
+			)
+		);
+	}
+
+	/**
 	 * Get active staff
 	 *
 	 * @return array

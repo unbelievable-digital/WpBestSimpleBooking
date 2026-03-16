@@ -154,6 +154,14 @@ class UNBSB_Core {
 
 		// Staff earnings on booking completion.
 		$this->loader->add_action( 'unbsb_booking_status_changed', $admin, 'handle_booking_earnings', 10, 3 );
+
+		// Staff portal AJAX handlers.
+		$this->loader->add_action( 'wp_ajax_unbsb_get_staff_own_bookings', $admin, 'ajax_get_staff_own_bookings' );
+		$this->loader->add_action( 'wp_ajax_unbsb_staff_confirm_booking', $admin, 'ajax_staff_confirm_booking' );
+		$this->loader->add_action( 'wp_ajax_unbsb_staff_reject_booking', $admin, 'ajax_staff_reject_booking' );
+		$this->loader->add_action( 'wp_ajax_unbsb_staff_add_holiday', $admin, 'ajax_staff_add_holiday' );
+		$this->loader->add_action( 'wp_ajax_unbsb_staff_remove_holiday', $admin, 'ajax_staff_remove_holiday' );
+		$this->loader->add_action( 'wp_ajax_unbsb_staff_get_holidays', $admin, 'ajax_staff_get_holidays' );
 	}
 
 	/**

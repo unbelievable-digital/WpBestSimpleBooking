@@ -22,6 +22,8 @@
 		initPromoCodes();
 		initExportImport();
 		initNewBookingPage();
+		initStaffBookings();
+		initStaffScheduleOwn();
 	});
 
 	/**
@@ -3681,6 +3683,292 @@
 
 		function escAttr(str) {
 			return (str || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+		}
+	}
+
+	/**
+	 * Staff Portal - My Bookings
+	 */
+	function initStaffBookings() {
+		var container = document.querySelector('.unbsb-sp-date-filter');
+		if (!container) return;
+
+		// Confirm booking.
+		document.querySelectorAll('.unbsb-sp-confirm-booking').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				var bookingId = this.dataset.id;
+				if (!confirm(unbsbAdmin.strings.sp_confirm_booking)) return;
+
+				var row = this.closest('tr');
+				btn.disabled = true;
+
+				ajaxRequest('unbsb_staff_confirm_booking', { booking_id: bookingId }, function(response) {
+					btn.disabled = false;
+					if (response.success) {
+						showToast(unbsbAdmin.strings.sp_booking_confirmed);
+						// Update row status.
+						var statusEl = row.querySelector('.unbsb-status');
+						if (statusEl) {
+							statusEl.className = 'unbsb-status unbsb-status-confirmed';
+							statusEl.textContent = unbsbAdmin.strings.active;
+						}
+						// Remove action buttons.
+						var actions = row.querySelector('.unbsb-actions');
+						if (actions) {
+							var confirmBtn = actions.querySelector('.unbsb-sp-confirm-booking');
+							var rejectBtn = actions.querySelector('.unbsb-sp-reject-booking');
+							if (confirmBtn) confirmBtn.remove();
+							if (rejectBtn) rejectBtn.remove();
+						}
+					} else {
+						showToast(response.data || unbsbAdmin.strings.error, 'error');
+					}
+				});
+			});
+		});
+
+		// Reject booking.
+		document.querySelectorAll('.unbsb-sp-reject-booking').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				var bookingId = this.dataset.id;
+				if (!confirm(unbsbAdmin.strings.sp_reject_booking)) return;
+
+				var row = this.closest('tr');
+				btn.disabled = true;
+
+				ajaxRequest('unbsb_staff_reject_booking', { booking_id: bookingId }, function(response) {
+					btn.disabled = false;
+					if (response.success) {
+						showToast(unbsbAdmin.strings.sp_booking_rejected);
+						var statusEl = row.querySelector('.unbsb-status');
+						if (statusEl) {
+							statusEl.className = 'unbsb-status unbsb-status-cancelled';
+							statusEl.textContent = statusEl.textContent;
+						}
+						var actions = row.querySelector('.unbsb-actions');
+						if (actions) {
+							var confirmBtn = actions.querySelector('.unbsb-sp-confirm-booking');
+							var rejectBtn = actions.querySelector('.unbsb-sp-reject-booking');
+							if (confirmBtn) confirmBtn.remove();
+							if (rejectBtn) rejectBtn.remove();
+						}
+					} else {
+						showToast(response.data || unbsbAdmin.strings.error, 'error');
+					}
+				});
+			});
+		});
+
+		// View booking detail.
+		document.querySelectorAll('.unbsb-sp-view-booking').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				var row = this.closest('tr');
+				var bookingId = this.dataset.id;
+				var modal = document.getElementById('unbsb-sp-booking-modal');
+				if (!modal) return;
+
+				var detailEl = document.getElementById('unbsb-sp-booking-detail');
+				var idEl = document.getElementById('unbsb-sp-booking-id');
+
+				if (idEl) {
+					idEl.textContent = '#' + bookingId;
+				}
+
+				// Build detail from row data.
+				var dateCell = row.cells[0];
+				var customerCell = row.cells[1];
+				var serviceCell = row.cells[2];
+				var priceCell = row.cells[3];
+				var statusCell = row.cells[4];
+
+				var html = '<div class="unbsb-sp-detail-grid">';
+				html += '<div class="unbsb-sp-detail-item"><strong>' + unbsbAdmin.strings.customer + '</strong><span>' + customerCell.innerHTML + '</span></div>';
+				html += '<div class="unbsb-sp-detail-item"><strong>' + unbsbAdmin.strings.service + '</strong><span>' + serviceCell.innerHTML + '</span></div>';
+				html += '<div class="unbsb-sp-detail-item"><strong>Date/Time</strong><span>' + dateCell.innerHTML + '</span></div>';
+				html += '<div class="unbsb-sp-detail-item"><strong>' + unbsbAdmin.strings.price + '</strong><span>' + priceCell.textContent.trim() + '</span></div>';
+				html += '<div class="unbsb-sp-detail-item"><strong>' + unbsbAdmin.strings.status + '</strong><span>' + statusCell.innerHTML + '</span></div>';
+				html += '</div>';
+
+				if (detailEl) {
+					detailEl.innerHTML = html;
+				}
+
+				openModal('unbsb-sp-booking-modal');
+			});
+		});
+	}
+
+	/**
+	 * Staff Portal - My Schedule (Own)
+	 */
+	function initStaffScheduleOwn() {
+		var hoursList = document.getElementById('unbsb-sp-hours-list');
+		var offdaysList = document.getElementById('unbsb-sp-offdays-list');
+		if (!hoursList || !offdaysList) return;
+
+		var staffId = typeof unbsbStaffPortal !== 'undefined' ? unbsbStaffPortal.staffId : null;
+		if (!staffId) return;
+
+		var dayNames = unbsbAdmin.strings.day_names || ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+		// Map day_of_week (0=Sun,1=Mon..6=Sat) to dayNames index (0=Mon..6=Sun).
+		var dayMap = { 1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 5, 0: 6 };
+
+		// Load schedule data.
+		loadSchedule();
+
+		// Add off day toggle.
+		var addBtn = document.getElementById('unbsb-sp-add-offday-btn');
+		var offForm = document.getElementById('unbsb-sp-offday-form');
+		var cancelBtn = document.getElementById('unbsb-sp-cancel-offday');
+		var saveBtn = document.getElementById('unbsb-sp-save-offday');
+
+		if (addBtn && offForm) {
+			addBtn.addEventListener('click', function() {
+				offForm.style.display = offForm.style.display === 'none' ? 'block' : 'none';
+			});
+		}
+
+		if (cancelBtn && offForm) {
+			cancelBtn.addEventListener('click', function() {
+				offForm.style.display = 'none';
+				document.getElementById('unbsb-sp-offday-date').value = '';
+				document.getElementById('unbsb-sp-offday-reason').value = '';
+			});
+		}
+
+		// Save off day.
+		if (saveBtn) {
+			saveBtn.addEventListener('click', function() {
+				var dateInput = document.getElementById('unbsb-sp-offday-date');
+				var reasonInput = document.getElementById('unbsb-sp-offday-reason');
+				var date = dateInput.value;
+				var reason = reasonInput.value;
+
+				if (!date) {
+					showToast(unbsbAdmin.strings.sp_date_required, 'error');
+					return;
+				}
+
+				saveBtn.disabled = true;
+
+				ajaxRequest('unbsb_staff_add_holiday', { date: date, reason: reason }, function(response) {
+					saveBtn.disabled = false;
+					if (response.success) {
+						showToast(unbsbAdmin.strings.sp_holiday_added);
+						offForm.style.display = 'none';
+						dateInput.value = '';
+						reasonInput.value = '';
+						loadSchedule();
+					} else {
+						showToast(response.data || unbsbAdmin.strings.error, 'error');
+					}
+				});
+			});
+		}
+
+		// Delete off day (delegated).
+		offdaysList.addEventListener('click', function(e) {
+			var deleteBtn = e.target.closest('.unbsb-sp-delete-offday');
+			if (!deleteBtn) return;
+
+			if (!confirm(unbsbAdmin.strings.sp_confirm_remove_holiday)) return;
+
+			var holidayId = deleteBtn.dataset.id;
+			deleteBtn.disabled = true;
+
+			ajaxRequest('unbsb_staff_remove_holiday', { holiday_id: holidayId }, function(response) {
+				deleteBtn.disabled = false;
+				if (response.success) {
+					showToast(unbsbAdmin.strings.sp_holiday_removed);
+					loadSchedule();
+				} else {
+					showToast(response.data || unbsbAdmin.strings.error, 'error');
+				}
+			});
+		});
+
+		/**
+		 * Load staff schedule and holidays.
+		 */
+		function loadSchedule() {
+			ajaxRequest('unbsb_get_staff_schedule', { staff_id: staffId }, function(response) {
+				if (response.success) {
+					renderWorkingHours(response.data.working_hours || []);
+					renderHolidays(response.data.holidays || []);
+				}
+			});
+		}
+
+		/**
+		 * Render working hours list (read-only for staff).
+		 */
+		function renderWorkingHours(workingHours) {
+			var defaultHours = {};
+			var dayOrder = [1, 2, 3, 4, 5, 6, 0]; // Mon-Sun
+
+			for (var i = 0; i <= 6; i++) {
+				defaultHours[i] = {
+					is_working: i !== 0 ? 1 : 0,
+					start_time: '09:00',
+					end_time: '18:00'
+				};
+			}
+
+			workingHours.forEach(function(wh) {
+				defaultHours[wh.day_of_week] = {
+					is_working: parseInt(wh.is_working),
+					start_time: wh.start_time.substring(0, 5),
+					end_time: wh.end_time.substring(0, 5)
+				};
+			});
+
+			var html = '';
+			dayOrder.forEach(function(dayNum) {
+				var day = defaultHours[dayNum];
+				var dayIndex = dayMap[dayNum];
+				var dayName = dayNames[dayIndex] || '';
+				var isWorking = parseInt(day.is_working);
+
+				html += '<div class="unbsb-sp-hours-item' + (isWorking ? '' : ' unbsb-sp-hours-off') + '">';
+				html += '<span class="unbsb-sp-hours-day">' + dayName + '</span>';
+				if (isWorking) {
+					html += '<span class="unbsb-sp-hours-time">' + day.start_time + ' - ' + day.end_time + '</span>';
+				} else {
+					html += '<span class="unbsb-sp-hours-closed">' + unbsbAdmin.strings.not_working + '</span>';
+				}
+				html += '</div>';
+			});
+
+			hoursList.innerHTML = html;
+		}
+
+		/**
+		 * Render holidays list.
+		 */
+		function renderHolidays(holidays) {
+			if (!holidays.length) {
+				offdaysList.innerHTML = '<div class="unbsb-sp-empty">' +
+					'<span class="dashicons dashicons-palmtree"></span>' +
+					'<p>' + unbsbAdmin.strings.sp_no_holidays + '</p></div>';
+				return;
+			}
+
+			var html = '';
+			holidays.forEach(function(h) {
+				html += '<div class="unbsb-sp-offday-item">';
+				html += '<div class="unbsb-sp-offday-info">';
+				html += '<span class="unbsb-sp-offday-date">' + h.date + '</span>';
+				if (h.reason) {
+					html += '<span class="unbsb-sp-offday-reason">' + h.reason + '</span>';
+				}
+				html += '</div>';
+				html += '<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-danger unbsb-sp-delete-offday" data-id="' + h.id + '" title="Delete">';
+				html += '<span class="dashicons dashicons-trash"></span>';
+				html += '</button>';
+				html += '</div>';
+			});
+
+			offdaysList.innerHTML = html;
 		}
 	}
 

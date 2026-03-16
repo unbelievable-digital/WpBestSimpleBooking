@@ -82,6 +82,9 @@ class UNBSB_Notification {
 
 		// Email to admin.
 		$this->send_admin_email( $booking, 'admin_new_booking' );
+
+		// Email to assigned staff.
+		$this->send_staff_email( $booking, 'staff_new_booking' );
 	}
 
 	/**
@@ -214,6 +217,44 @@ class UNBSB_Notification {
 		if ( $ics_filepath ) {
 			$this->ics_generator->delete_temp_file( $ics_filepath );
 		}
+	}
+
+	/**
+	 * Send email to assigned staff member
+	 *
+	 * @param object $booking       Booking.
+	 * @param string $template_type Template type.
+	 */
+	public function send_staff_email( $booking, $template_type ) {
+		if ( empty( $booking->staff_id ) ) {
+			return;
+		}
+
+		$template = $this->get_template( $template_type );
+
+		if ( ! $template || ! $template->is_active ) {
+			return;
+		}
+
+		// Get staff email.
+		$staff_model = new UNBSB_Staff();
+		$staff       = $staff_model->get( $booking->staff_id );
+
+		if ( ! $staff || empty( $staff->email ) ) {
+			return;
+		}
+
+		$to      = $staff->email;
+		$subject = $this->parse_placeholders( $template->subject, $booking );
+		$content = $this->parse_placeholders( $template->content, $booking );
+
+		// Clear calendar links.
+		$content = str_replace( '{calendar_links}', '', $content );
+
+		// Wrap with HTML wrapper.
+		$message = $this->wrap_email_content( $content, $template_type );
+
+		$this->send_email( $to, $subject, $message );
 	}
 
 	/**
@@ -362,6 +403,12 @@ class UNBSB_Notification {
 				'type'    => 'admin_new_booking',
 				'subject' => __( 'New Booking Request', 'unbelievable-salon-booking' ) . ': {customer_name}',
 				'content' => $this->get_default_admin_new_booking_template(),
+			),
+			array(
+				'name'    => __( 'Staff: New Booking', 'unbelievable-salon-booking' ),
+				'type'    => 'staff_new_booking',
+				'subject' => __( 'New Booking Assigned to You', 'unbelievable-salon-booking' ) . ' - {company_name}',
+				'content' => $this->get_default_staff_new_booking_template(),
 			),
 		);
 
@@ -519,6 +566,35 @@ class UNBSB_Notification {
 	}
 
 	/**
+	 * Default "Staff: New Booking" email template
+	 */
+	private function get_default_staff_new_booking_template() {
+		return '<p>Hello <strong>{staff_name}</strong>,</p>
+
+<p>A new booking has been assigned to you.</p>
+
+<h3>Customer Information</h3>
+<table>
+<tr><td><strong>Full Name:</strong></td><td>{customer_name}</td></tr>
+<tr><td><strong>Phone:</strong></td><td>{customer_phone}</td></tr>
+</table>
+
+<h3>Booking Details</h3>
+<table>
+<tr><td><strong>Service(s):</strong></td><td>{services_list}</td></tr>
+<tr><td><strong>Date:</strong></td><td>{booking_date}</td></tr>
+<tr><td><strong>Time:</strong></td><td>{booking_time}</td></tr>
+<tr><td><strong>Duration:</strong></td><td>{total_duration}</td></tr>
+</table>
+
+<p>Please log in to your staff portal to confirm or manage this booking.</p>
+
+<p style="text-align: center;">
+<a href="{admin_url}" class="button">Go to Staff Portal</a>
+</p>';
+	}
+
+	/**
 	 * Update template
 	 *
 	 * @param int    $id        Template ID.
@@ -621,6 +697,7 @@ class UNBSB_Notification {
 			'booking_cancelled' => '#ef4444', // Red.
 			'booking_reminder'  => '#f59e0b', // Orange.
 			'admin_new_booking' => '#8b5cf6', // Purple.
+			'staff_new_booking' => '#0891b2', // Cyan.
 		);
 		$accent_color  = $accent_colors[ $template_type ] ?? $primary_color;
 

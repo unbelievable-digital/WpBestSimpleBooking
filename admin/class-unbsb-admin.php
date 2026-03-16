@@ -161,6 +161,37 @@ class UNBSB_Admin {
 			'unbsb-new-booking',
 			array( $this, 'render_new_booking' )
 		);
+
+		// Staff portal menu (visible only to staff role users, not admins).
+		if ( ! current_user_can( 'manage_options' ) && current_user_can( 'unbsb_view_own_bookings' ) ) {
+			add_menu_page(
+				__( 'My Bookings', 'unbelievable-salon-booking' ),
+				__( 'My Bookings', 'unbelievable-salon-booking' ),
+				'unbsb_view_own_bookings',
+				'unbsb-staff-portal',
+				array( $this, 'render_staff_bookings' ),
+				'dashicons-calendar-alt',
+				30
+			);
+
+			add_submenu_page(
+				'unbsb-staff-portal',
+				__( 'My Bookings', 'unbelievable-salon-booking' ),
+				__( 'My Bookings', 'unbelievable-salon-booking' ),
+				'unbsb_view_own_bookings',
+				'unbsb-staff-portal',
+				array( $this, 'render_staff_bookings' )
+			);
+
+			add_submenu_page(
+				'unbsb-staff-portal',
+				__( 'My Schedule', 'unbelievable-salon-booking' ),
+				__( 'My Schedule', 'unbelievable-salon-booking' ),
+				'unbsb_manage_own_schedule',
+				'unbsb-staff-schedule-portal',
+				array( $this, 'render_staff_schedule_portal' )
+			);
+		}
 	}
 
 	/**
@@ -362,6 +393,17 @@ class UNBSB_Admin {
 					'nb_select_staff'            => __( 'Please select a staff member.', 'unbelievable-salon-booking' ),
 					'nb_select_date'             => __( 'Please select a date.', 'unbelievable-salon-booking' ),
 					'nb_select_time'             => __( 'Please select a time slot.', 'unbelievable-salon-booking' ),
+					// Staff Portal.
+					'sp_confirm_booking'         => __( 'Are you sure you want to confirm this booking?', 'unbelievable-salon-booking' ),
+					'sp_reject_booking'          => __( 'Are you sure you want to reject this booking?', 'unbelievable-salon-booking' ),
+					'sp_booking_confirmed'       => __( 'Booking confirmed.', 'unbelievable-salon-booking' ),
+					'sp_booking_rejected'        => __( 'Booking rejected.', 'unbelievable-salon-booking' ),
+					'sp_no_bookings'             => __( 'No bookings found for this period.', 'unbelievable-salon-booking' ),
+					'sp_date_required'           => __( 'Please select a date.', 'unbelievable-salon-booking' ),
+					'sp_holiday_added'           => __( 'Day off added.', 'unbelievable-salon-booking' ),
+					'sp_holiday_removed'         => __( 'Day off removed.', 'unbelievable-salon-booking' ),
+					'sp_confirm_remove_holiday'  => __( 'Are you sure you want to remove this day off?', 'unbelievable-salon-booking' ),
+					'sp_no_holidays'             => __( 'No days off registered.', 'unbelievable-salon-booking' ),
 				),
 				'currency'  => array(
 					'symbol'   => get_option( 'unbsb_currency_symbol', '₺' ),
@@ -431,6 +473,20 @@ class UNBSB_Admin {
 					'staff' => $all_staff,
 				)
 			);
+		}
+
+		// Staff Portal - pass staff_id for schedule page.
+		if ( false !== strpos( $hook, 'unbsb-staff-schedule-portal' ) ) {
+			$staff = $this->get_current_staff();
+			if ( $staff ) {
+				wp_localize_script(
+					'unbsb-admin',
+					'unbsbStaffPortal',
+					array(
+						'staffId' => $staff->id,
+					)
+				);
+			}
 		}
 
 		if ( 'toplevel_page_unbelievable-salon-booking' === $hook ) {
@@ -842,6 +898,63 @@ class UNBSB_Admin {
 	}
 
 	/**
+	 * Staff Portal - My Bookings
+	 */
+	public function render_staff_bookings() {
+		$user_id     = get_current_user_id();
+		$staff_model = new UNBSB_Staff();
+		$staff       = $staff_model->get_by_user_id( $user_id );
+
+		if ( ! $staff ) {
+			wp_die( esc_html__( 'You are not registered as a staff member.', 'unbelievable-salon-booking' ) );
+		}
+
+		$booking_model = new UNBSB_Booking();
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only filtering.
+		$filter = isset( $_GET['filter'] ) ? sanitize_text_field( wp_unslash( $_GET['filter'] ) ) : 'today';
+
+		$today = current_time( 'Y-m-d' );
+		$args  = array(
+			'staff_id' => $staff->id,
+			'orderby'  => 'booking_date',
+			'order'    => 'ASC',
+		);
+
+		if ( 'today' === $filter ) {
+			$args['date_from'] = $today;
+			$args['date_to']   = $today;
+		} elseif ( 'week' === $filter ) {
+			$args['date_from'] = gmdate( 'Y-m-d', strtotime( 'monday this week' ) );
+			$args['date_to']   = gmdate( 'Y-m-d', strtotime( 'sunday this week' ) );
+		} elseif ( 'month' === $filter ) {
+			$args['date_from'] = gmdate( 'Y-m-01' );
+			$args['date_to']   = gmdate( 'Y-m-t' );
+		}
+
+		$bookings = $booking_model->get_all( $args );
+
+		include UNBSB_PLUGIN_DIR . 'admin/partials/admin-staff-bookings.php';
+	}
+
+	/**
+	 * Staff Portal - My Schedule
+	 */
+	public function render_staff_schedule_portal() {
+		$user_id     = get_current_user_id();
+		$staff_model = new UNBSB_Staff();
+		$staff       = $staff_model->get_by_user_id( $user_id );
+
+		if ( ! $staff ) {
+			wp_die( esc_html__( 'You are not registered as a staff member.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff_id = $staff->id;
+
+		include UNBSB_PLUGIN_DIR . 'admin/partials/admin-staff-schedule-own.php';
+	}
+
+	/**
 	 * Promo Codes page
 	 */
 	public function render_promo_codes() {
@@ -1149,6 +1262,16 @@ class UNBSB_Admin {
 			$staff_id_saved = $id ? $id : $result;
 			$staff_services = $staff_model->get_services( $staff_id_saved, false );
 
+			// Auto-link user_id by staff email and assign unbsb_staff role.
+			$staff_email = isset( $data['email'] ) ? $data['email'] : '';
+			if ( ! empty( $staff_email ) ) {
+				$wp_user = get_user_by( 'email', $staff_email );
+				if ( $wp_user ) {
+					$staff_model->update( $staff_id_saved, array( 'user_id' => $wp_user->ID ) );
+					$wp_user->add_role( 'unbsb_staff' );
+				}
+			}
+
 			wp_send_json_success(
 				array(
 					'message'  => __( 'Staff saved.', 'unbelievable-salon-booking' ),
@@ -1205,11 +1328,11 @@ class UNBSB_Admin {
 			'notes' => isset( $_POST['notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['notes'] ) ) : '',
 		);
 
-		if ( empty( $data['name'] ) || empty( $data['email'] ) ) {
-			wp_send_json_error( __( 'Name and email are required.', 'unbelievable-salon-booking' ) );
+		if ( empty( $data['name'] ) ) {
+			wp_send_json_error( __( 'Customer name is required.', 'unbelievable-salon-booking' ) );
 		}
 
-		if ( ! is_email( $data['email'] ) ) {
+		if ( ! empty( $data['email'] ) && ! is_email( $data['email'] ) ) {
 			wp_send_json_error( __( 'Please enter a valid email address.', 'unbelievable-salon-booking' ) );
 		}
 
@@ -1370,12 +1493,12 @@ class UNBSB_Admin {
 
 		// Required field validation.
 		if ( empty( $data['service_id'] ) || empty( $data['staff_id'] ) || empty( $data['customer_name'] ) ||
-			empty( $data['customer_email'] ) || empty( $data['booking_date'] ) || empty( $data['start_time'] ) ) {
+			empty( $data['booking_date'] ) || empty( $data['start_time'] ) ) {
 			wp_send_json_error( __( 'Please fill in all required fields.', 'unbelievable-salon-booking' ) );
 		}
 
-		// Email validation.
-		if ( ! is_email( $data['customer_email'] ) ) {
+		// Email validation (only if provided).
+		if ( ! empty( $data['customer_email'] ) && ! is_email( $data['customer_email'] ) ) {
 			wp_send_json_error( __( 'Invalid email address.', 'unbelievable-salon-booking' ) );
 		}
 
@@ -1960,11 +2083,11 @@ class UNBSB_Admin {
 			'notes' => isset( $_POST['notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['notes'] ) ) : '',
 		);
 
-		if ( empty( $data['name'] ) || empty( $data['email'] ) ) {
-			wp_send_json_error( __( 'Name and email are required.', 'unbelievable-salon-booking' ) );
+		if ( empty( $data['name'] ) ) {
+			wp_send_json_error( __( 'Customer name is required.', 'unbelievable-salon-booking' ) );
 		}
 
-		if ( ! is_email( $data['email'] ) ) {
+		if ( ! empty( $data['email'] ) && ! is_email( $data['email'] ) ) {
 			wp_send_json_error( __( 'Please enter a valid email address.', 'unbelievable-salon-booking' ) );
 		}
 
@@ -2050,6 +2173,251 @@ class UNBSB_Admin {
 		if ( 'completed' === $old_status && 'completed' !== $new_status ) {
 			$staff_model->delete_earnings_by_booking( $booking_id );
 		}
+	}
+
+	/**
+	 * Get the current staff record for the logged-in user.
+	 *
+	 * @return object|null
+	 */
+	private function get_current_staff() {
+		$user_id     = get_current_user_id();
+		$staff_model = new UNBSB_Staff();
+		return $staff_model->get_by_user_id( $user_id );
+	}
+
+	/**
+	 * AJAX: Get staff own bookings
+	 */
+	public function ajax_get_staff_own_bookings() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'unbsb_view_own_bookings' ) ) {
+			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff = $this->get_current_staff();
+
+		if ( ! $staff ) {
+			wp_send_json_error( __( 'Staff record not found.', 'unbelievable-salon-booking' ) );
+		}
+
+		$status = isset( $_POST['status'] ) ? sanitize_text_field( wp_unslash( $_POST['status'] ) ) : '';
+		$date   = isset( $_POST['date'] ) ? sanitize_text_field( wp_unslash( $_POST['date'] ) ) : '';
+
+		global $wpdb;
+		$prefix = $wpdb->prefix . 'unbsb_';
+
+		$sql    = "SELECT b.*, s.name AS service_name
+			FROM {$prefix}bookings b
+			LEFT JOIN {$prefix}services s ON b.service_id = s.id
+			WHERE b.staff_id = %d";
+		$params = array( $staff->id );
+
+		if ( ! empty( $status ) ) {
+			$sql     .= ' AND b.status = %s';
+			$params[] = $status;
+		}
+
+		if ( ! empty( $date ) ) {
+			$sql     .= ' AND b.booking_date = %s';
+			$params[] = $date;
+		}
+
+		$sql .= ' ORDER BY b.booking_date DESC, b.start_time DESC LIMIT 100';
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+		$bookings = $wpdb->get_results( $wpdb->prepare( $sql, $params ) );
+
+		wp_send_json_success( $bookings );
+	}
+
+	/**
+	 * AJAX: Staff confirm booking
+	 */
+	public function ajax_staff_confirm_booking() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'unbsb_confirm_bookings' ) ) {
+			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
+		}
+
+		$booking_id = isset( $_POST['booking_id'] ) ? absint( $_POST['booking_id'] ) : 0;
+
+		if ( ! $booking_id ) {
+			wp_send_json_error( __( 'Invalid booking ID.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff = $this->get_current_staff();
+
+		if ( ! $staff ) {
+			wp_send_json_error( __( 'Staff record not found.', 'unbelievable-salon-booking' ) );
+		}
+
+		$booking_model = new UNBSB_Booking();
+		$booking       = $booking_model->get( $booking_id );
+
+		if ( ! $booking || absint( $booking->staff_id ) !== absint( $staff->id ) ) {
+			wp_send_json_error( __( 'You can only confirm your own bookings.', 'unbelievable-salon-booking' ) );
+		}
+
+		if ( 'pending' !== $booking->status ) {
+			wp_send_json_error( __( 'Only pending bookings can be confirmed.', 'unbelievable-salon-booking' ) );
+		}
+
+		$result = $booking_model->update_status( $booking_id, 'confirmed' );
+
+		if ( false !== $result ) {
+			wp_send_json_success( array( 'message' => __( 'Booking confirmed.', 'unbelievable-salon-booking' ) ) );
+		} else {
+			wp_send_json_error( __( 'Could not confirm booking.', 'unbelievable-salon-booking' ) );
+		}
+	}
+
+	/**
+	 * AJAX: Staff reject booking
+	 */
+	public function ajax_staff_reject_booking() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'unbsb_confirm_bookings' ) ) {
+			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
+		}
+
+		$booking_id = isset( $_POST['booking_id'] ) ? absint( $_POST['booking_id'] ) : 0;
+
+		if ( ! $booking_id ) {
+			wp_send_json_error( __( 'Invalid booking ID.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff = $this->get_current_staff();
+
+		if ( ! $staff ) {
+			wp_send_json_error( __( 'Staff record not found.', 'unbelievable-salon-booking' ) );
+		}
+
+		$booking_model = new UNBSB_Booking();
+		$booking       = $booking_model->get( $booking_id );
+
+		if ( ! $booking || absint( $booking->staff_id ) !== absint( $staff->id ) ) {
+			wp_send_json_error( __( 'You can only reject your own bookings.', 'unbelievable-salon-booking' ) );
+		}
+
+		if ( 'pending' !== $booking->status ) {
+			wp_send_json_error( __( 'Only pending bookings can be rejected.', 'unbelievable-salon-booking' ) );
+		}
+
+		$result = $booking_model->update_status( $booking_id, 'cancelled' );
+
+		if ( false !== $result ) {
+			wp_send_json_success( array( 'message' => __( 'Booking rejected.', 'unbelievable-salon-booking' ) ) );
+		} else {
+			wp_send_json_error( __( 'Could not reject booking.', 'unbelievable-salon-booking' ) );
+		}
+	}
+
+	/**
+	 * AJAX: Staff add own holiday
+	 */
+	public function ajax_staff_add_holiday() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'unbsb_manage_own_schedule' ) ) {
+			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff = $this->get_current_staff();
+
+		if ( ! $staff ) {
+			wp_send_json_error( __( 'Staff record not found.', 'unbelievable-salon-booking' ) );
+		}
+
+		$date   = isset( $_POST['date'] ) ? sanitize_text_field( wp_unslash( $_POST['date'] ) ) : '';
+		$reason = isset( $_POST['reason'] ) ? sanitize_text_field( wp_unslash( $_POST['reason'] ) ) : '';
+
+		if ( empty( $date ) ) {
+			wp_send_json_error( __( 'Date is required.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff_model = new UNBSB_Staff();
+		$result      = $staff_model->add_holiday( $staff->id, $date, $reason );
+
+		if ( false !== $result ) {
+			wp_send_json_success( array( 'message' => __( 'Holiday added.', 'unbelievable-salon-booking' ) ) );
+		} else {
+			wp_send_json_error( __( 'Holiday already exists for this date.', 'unbelievable-salon-booking' ) );
+		}
+	}
+
+	/**
+	 * AJAX: Staff remove own holiday
+	 */
+	public function ajax_staff_remove_holiday() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'unbsb_manage_own_schedule' ) ) {
+			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff = $this->get_current_staff();
+
+		if ( ! $staff ) {
+			wp_send_json_error( __( 'Staff record not found.', 'unbelievable-salon-booking' ) );
+		}
+
+		$holiday_id = isset( $_POST['holiday_id'] ) ? absint( $_POST['holiday_id'] ) : 0;
+
+		if ( ! $holiday_id ) {
+			wp_send_json_error( __( 'Invalid holiday ID.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Verify the holiday belongs to this staff.
+		global $wpdb;
+		$prefix = $wpdb->prefix . 'unbsb_';
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$holiday = $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT * FROM {$prefix}holidays WHERE id = %d AND staff_id = %d",
+				$holiday_id,
+				$staff->id
+			)
+		);
+
+		if ( ! $holiday ) {
+			wp_send_json_error( __( 'Holiday not found or does not belong to you.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff_model = new UNBSB_Staff();
+		$result      = $staff_model->delete_holiday( $holiday_id );
+
+		if ( false !== $result ) {
+			wp_send_json_success( array( 'message' => __( 'Holiday removed.', 'unbelievable-salon-booking' ) ) );
+		} else {
+			wp_send_json_error( __( 'Could not remove holiday.', 'unbelievable-salon-booking' ) );
+		}
+	}
+
+	/**
+	 * AJAX: Staff get own holidays
+	 */
+	public function ajax_staff_get_holidays() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'unbsb_manage_own_schedule' ) ) {
+			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff = $this->get_current_staff();
+
+		if ( ! $staff ) {
+			wp_send_json_error( __( 'Staff record not found.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff_model = new UNBSB_Staff();
+		$holidays    = $staff_model->get_holidays( $staff->id );
+
+		wp_send_json_success( $holidays );
 	}
 
 }

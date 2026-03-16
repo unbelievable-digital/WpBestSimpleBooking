@@ -379,6 +379,10 @@ class UNBSB_Activator {
 			$admin->add_cap( 'unbsb_manage_services' );
 			$admin->add_cap( 'unbsb_manage_staff' );
 			$admin->add_cap( 'unbsb_manage_settings' );
+			// Staff portal capabilities (admin has them too).
+			$admin->add_cap( 'unbsb_view_own_bookings' );
+			$admin->add_cap( 'unbsb_manage_own_schedule' );
+			$admin->add_cap( 'unbsb_confirm_bookings' );
 		}
 
 		// Create Customer role.
@@ -391,6 +395,19 @@ class UNBSB_Activator {
 				)
 			);
 		}
+
+		// Create Staff role.
+		remove_role( 'unbsb_staff' );
+		add_role(
+			'unbsb_staff',
+			__( 'Salon Staff', 'unbelievable-salon-booking' ),
+			array(
+				'read'                      => true,
+				'unbsb_view_own_bookings'   => true,
+				'unbsb_manage_own_schedule' => true,
+				'unbsb_confirm_bookings'    => true,
+			)
+		);
 	}
 
 	/**
