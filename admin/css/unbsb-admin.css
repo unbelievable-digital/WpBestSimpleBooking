@@ -4762,6 +4762,16 @@ select optgroup option {
 	font-size: 13px;
 }
 
+/* Customer card needs overflow visible for search dropdown */
+#unbsb-nb-customer-section {
+	overflow: visible;
+}
+
+#unbsb-nb-customer-section > .unbsb-card-body {
+	overflow: visible;
+	position: relative;
+}
+
 /* Customer Search wrap needs relative for dropdown */
 .unbsb-nb-customer-search .unbsb-form-group {
 	position: relative;
