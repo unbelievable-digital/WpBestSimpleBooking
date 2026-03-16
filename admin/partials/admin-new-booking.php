@@ -138,42 +138,122 @@ $time_format     = get_option( 'unbsb_time_format', 'H:i' );
 							</div>
 						<?php endif; ?>
 
-						<!-- Services List -->
+						<!-- Service Search -->
+						<div class="unbsb-nb-service-search">
+							<span class="dashicons dashicons-search unbsb-nb-service-search-icon"></span>
+							<input type="text" id="unbsb-nb-service-search" placeholder="<?php esc_attr_e( 'Search services...', 'unbelievable-salon-booking' ); ?>" autocomplete="off">
+						</div>
+
+						<!-- Services List (grouped by category accordion) -->
 						<div class="unbsb-nb-services-list" id="unbsb-nb-services-list">
 							<?php if ( ! empty( $services ) ) : ?>
-								<?php foreach ( $services as $service ) : ?>
-									<label class="unbsb-nb-service-item" data-category="<?php echo esc_attr( $service->category_id ); ?>" data-service-id="<?php echo esc_attr( $service->id ); ?>">
-										<input type="checkbox" name="service_ids[]" value="<?php echo esc_attr( $service->id ); ?>" data-duration="<?php echo esc_attr( $service->duration ); ?>" data-price="<?php echo esc_attr( ! empty( $service->discounted_price ) && floatval( $service->discounted_price ) < floatval( $service->price ) ? $service->discounted_price : $service->price ); ?>" data-name="<?php echo esc_attr( $service->name ); ?>">
-										<span class="unbsb-nb-service-check">
-											<span class="dashicons dashicons-yes"></span>
-										</span>
-										<span class="unbsb-nb-service-details">
-											<span class="unbsb-nb-service-name"><?php echo esc_html( $service->name ); ?></span>
-											<span class="unbsb-nb-service-meta">
-												<span class="unbsb-nb-service-duration">
-													<span class="dashicons dashicons-clock"></span>
-													<?php echo esc_html( $service->duration ); ?> <?php esc_html_e( 'min', 'unbelievable-salon-booking' ); ?>
-												</span>
-												<span class="unbsb-nb-service-price">
-													<?php if ( ! empty( $service->discounted_price ) && floatval( $service->discounted_price ) < floatval( $service->price ) ) : ?>
-														<span class="unbsb-price-original"><?php echo esc_html( number_format( $service->price, 2 ) ); ?></span>
-														<?php echo esc_html( number_format( $service->discounted_price, 2 ) ); ?>
-													<?php else : ?>
-														<?php echo esc_html( number_format( $service->price, 2 ) ); ?>
-													<?php endif; ?>
-													<?php echo esc_html( $currency_symbol ); ?>
-												</span>
-											</span>
-										</span>
-										<span class="unbsb-nb-service-color" style="background-color: <?php echo esc_attr( $service->color ); ?>"></span>
-									</label>
+								<?php
+								// Group services by category.
+								$grouped   = array();
+								$no_cat    = array();
+								foreach ( $services as $service ) {
+									if ( ! empty( $service->category_id ) && ! empty( $service->category_name ) ) {
+										$grouped[ $service->category_id ]['name']       = $service->category_name;
+										$grouped[ $service->category_id ]['color']      = $service->category_color ?? '#3788d8';
+										$grouped[ $service->category_id ]['services'][] = $service;
+									} else {
+										$no_cat[] = $service;
+									}
+								}
+								?>
+								<?php foreach ( $grouped as $cat_id => $cat_data ) : ?>
+									<div class="unbsb-nb-cat-group" data-category="<?php echo esc_attr( $cat_id ); ?>">
+										<div class="unbsb-nb-cat-group-header" data-toggle="category">
+											<span class="unbsb-nb-cat-group-color" style="background-color: <?php echo esc_attr( $cat_data['color'] ); ?>"></span>
+											<span class="unbsb-nb-cat-group-name"><?php echo esc_html( $cat_data['name'] ); ?></span>
+											<span class="unbsb-nb-cat-group-count"><?php echo count( $cat_data['services'] ); ?></span>
+											<button type="button" class="unbsb-nb-cat-select-all unbsb-btn unbsb-btn-sm unbsb-btn-ghost" data-cat-id="<?php echo esc_attr( $cat_id ); ?>">
+												<?php esc_html_e( 'Select All', 'unbelievable-salon-booking' ); ?>
+											</button>
+											<span class="dashicons dashicons-arrow-down-alt2 unbsb-nb-cat-group-arrow"></span>
+										</div>
+										<div class="unbsb-nb-cat-group-body">
+											<div class="unbsb-nb-services-grid">
+												<?php foreach ( $cat_data['services'] as $service ) : ?>
+													<label class="unbsb-nb-service-item" data-category="<?php echo esc_attr( $service->category_id ); ?>" data-service-id="<?php echo esc_attr( $service->id ); ?>" data-service-name="<?php echo esc_attr( strtolower( $service->name ) ); ?>">
+														<input type="checkbox" name="service_ids[]" value="<?php echo esc_attr( $service->id ); ?>" data-duration="<?php echo esc_attr( $service->duration ); ?>" data-price="<?php echo esc_attr( ! empty( $service->discounted_price ) && floatval( $service->discounted_price ) < floatval( $service->price ) ? $service->discounted_price : $service->price ); ?>" data-name="<?php echo esc_attr( $service->name ); ?>">
+														<span class="unbsb-nb-service-check">
+															<span class="dashicons dashicons-yes"></span>
+														</span>
+														<span class="unbsb-nb-service-name"><?php echo esc_html( $service->name ); ?></span>
+														<span class="unbsb-nb-service-meta">
+															<span class="unbsb-nb-service-duration"><?php echo esc_html( $service->duration ); ?>′</span>
+															<span class="unbsb-nb-service-price">
+																<?php if ( ! empty( $service->discounted_price ) && floatval( $service->discounted_price ) < floatval( $service->price ) ) : ?>
+																	<span class="unbsb-price-original"><?php echo esc_html( number_format( $service->price, 2 ) ); ?></span>
+																	<?php echo esc_html( number_format( $service->discounted_price, 2 ) ); ?>
+																<?php else : ?>
+																	<?php echo esc_html( number_format( $service->price, 2 ) ); ?>
+																<?php endif; ?>
+																<?php echo esc_html( $currency_symbol ); ?>
+															</span>
+														</span>
+														<span class="unbsb-nb-service-color" style="background-color: <?php echo esc_attr( $service->color ); ?>"></span>
+													</label>
+												<?php endforeach; ?>
+											</div>
+										</div>
+									</div>
 								<?php endforeach; ?>
+
+								<?php if ( ! empty( $no_cat ) ) : ?>
+									<div class="unbsb-nb-cat-group" data-category="0">
+										<div class="unbsb-nb-cat-group-header" data-toggle="category">
+											<span class="unbsb-nb-cat-group-color" style="background-color: #94a3b8"></span>
+											<span class="unbsb-nb-cat-group-name"><?php esc_html_e( 'Other', 'unbelievable-salon-booking' ); ?></span>
+											<span class="unbsb-nb-cat-group-count"><?php echo count( $no_cat ); ?></span>
+											<button type="button" class="unbsb-nb-cat-select-all unbsb-btn unbsb-btn-sm unbsb-btn-ghost" data-cat-id="0">
+												<?php esc_html_e( 'Select All', 'unbelievable-salon-booking' ); ?>
+											</button>
+											<span class="dashicons dashicons-arrow-down-alt2 unbsb-nb-cat-group-arrow"></span>
+										</div>
+										<div class="unbsb-nb-cat-group-body">
+											<div class="unbsb-nb-services-grid">
+												<?php foreach ( $no_cat as $service ) : ?>
+													<label class="unbsb-nb-service-item" data-category="0" data-service-id="<?php echo esc_attr( $service->id ); ?>" data-service-name="<?php echo esc_attr( strtolower( $service->name ) ); ?>">
+														<input type="checkbox" name="service_ids[]" value="<?php echo esc_attr( $service->id ); ?>" data-duration="<?php echo esc_attr( $service->duration ); ?>" data-price="<?php echo esc_attr( ! empty( $service->discounted_price ) && floatval( $service->discounted_price ) < floatval( $service->price ) ? $service->discounted_price : $service->price ); ?>" data-name="<?php echo esc_attr( $service->name ); ?>">
+														<span class="unbsb-nb-service-check">
+															<span class="dashicons dashicons-yes"></span>
+														</span>
+														<span class="unbsb-nb-service-name"><?php echo esc_html( $service->name ); ?></span>
+														<span class="unbsb-nb-service-meta">
+															<span class="unbsb-nb-service-duration"><?php echo esc_html( $service->duration ); ?>′</span>
+															<span class="unbsb-nb-service-price">
+																<?php if ( ! empty( $service->discounted_price ) && floatval( $service->discounted_price ) < floatval( $service->price ) ) : ?>
+																	<span class="unbsb-price-original"><?php echo esc_html( number_format( $service->price, 2 ) ); ?></span>
+																	<?php echo esc_html( number_format( $service->discounted_price, 2 ) ); ?>
+																<?php else : ?>
+																	<?php echo esc_html( number_format( $service->price, 2 ) ); ?>
+																<?php endif; ?>
+																<?php echo esc_html( $currency_symbol ); ?>
+															</span>
+														</span>
+														<span class="unbsb-nb-service-color" style="background-color: <?php echo esc_attr( $service->color ?? '#94a3b8' ); ?>"></span>
+													</label>
+												<?php endforeach; ?>
+											</div>
+										</div>
+									</div>
+								<?php endif; ?>
+
 							<?php else : ?>
 								<div class="unbsb-empty-state">
 									<span class="dashicons dashicons-admin-tools"></span>
 									<p><?php esc_html_e( 'No services found.', 'unbelievable-salon-booking' ); ?></p>
 								</div>
 							<?php endif; ?>
+						</div>
+
+						<!-- No results message for search -->
+						<div class="unbsb-nb-service-no-results" id="unbsb-nb-service-no-results" style="display: none;">
+							<p class="unbsb-text-muted" style="text-align: center; padding: 16px 0;">
+								<?php esc_html_e( 'No services match your search.', 'unbelievable-salon-booking' ); ?>
+							</p>
 						</div>
 
 						<!-- Selected Services Summary -->

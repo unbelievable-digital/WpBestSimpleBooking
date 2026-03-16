@@ -4871,26 +4871,167 @@ select optgroup option {
 	border-color: var(--unbsb-primary);
 }
 
-/* Services List */
+/* Service Search Input */
+.unbsb-nb-service-search {
+	position: relative;
+	margin-bottom: 12px;
+}
+
+.unbsb-nb-service-search input {
+	width: 100%;
+	padding: 8px 12px 8px 34px;
+	font-size: 13px;
+	border: 1px solid var(--unbsb-border);
+	border-radius: var(--unbsb-radius);
+	transition: var(--unbsb-transition);
+	background: var(--unbsb-light);
+}
+
+.unbsb-nb-service-search input:focus {
+	outline: none;
+	border-color: var(--unbsb-primary);
+	background: var(--unbsb-white);
+	box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.1);
+}
+
+.unbsb-nb-service-search-icon {
+	position: absolute;
+	left: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: var(--unbsb-text-muted);
+	font-size: 14px;
+	width: 14px;
+	height: 14px;
+	pointer-events: none;
+}
+
+/* Services List (scrollable container) */
 .unbsb-nb-services-list {
 	display: flex;
 	flex-direction: column;
-	gap: 6px;
-	max-height: 360px;
+	gap: 4px;
+	max-height: 420px;
 	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: var(--unbsb-border) transparent;
 }
 
+.unbsb-nb-services-list::-webkit-scrollbar {
+	width: 6px;
+}
+
+.unbsb-nb-services-list::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.unbsb-nb-services-list::-webkit-scrollbar-thumb {
+	background: var(--unbsb-border);
+	border-radius: 3px;
+}
+
+.unbsb-nb-services-list::-webkit-scrollbar-thumb:hover {
+	background: var(--unbsb-text-muted);
+}
+
+/* Category Accordion Group */
+.unbsb-nb-cat-group {
+	border: 1px solid var(--unbsb-border);
+	border-radius: var(--unbsb-radius);
+	overflow: hidden;
+}
+
+.unbsb-nb-cat-group-header {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 12px;
+	background: var(--unbsb-light);
+	cursor: pointer;
+	user-select: none;
+	transition: var(--unbsb-transition);
+}
+
+.unbsb-nb-cat-group-header:hover {
+	background: rgba(109, 40, 217, 0.04);
+}
+
+.unbsb-nb-cat-group-color {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	flex-shrink: 0;
+}
+
+.unbsb-nb-cat-group-name {
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--unbsb-dark);
+	flex: 1;
+}
+
+.unbsb-nb-cat-group-count {
+	font-size: 11px;
+	color: var(--unbsb-text-muted);
+	background: var(--unbsb-white);
+	border: 1px solid var(--unbsb-border);
+	padding: 1px 7px;
+	border-radius: 10px;
+}
+
+.unbsb-nb-cat-select-all {
+	font-size: 11px !important;
+	padding: 2px 8px !important;
+}
+
+.unbsb-nb-cat-group-arrow {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	color: var(--unbsb-text-muted);
+	transition: transform 0.2s ease;
+	flex-shrink: 0;
+}
+
+.unbsb-nb-cat-group.collapsed .unbsb-nb-cat-group-arrow {
+	transform: rotate(-90deg);
+}
+
+.unbsb-nb-cat-group.collapsed .unbsb-nb-cat-group-body {
+	display: none;
+}
+
+.unbsb-nb-cat-group-body {
+	padding: 6px;
+	background: var(--unbsb-white);
+}
+
+/* Services 2-Column Grid */
+.unbsb-nb-services-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 4px;
+}
+
+@media (max-width: 900px) {
+	.unbsb-nb-services-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Compact Service Item */
 .unbsb-nb-service-item {
 	display: flex;
 	align-items: center;
-	gap: 12px;
-	padding: 10px 14px;
-	border: 1px solid var(--unbsb-border);
-	border-radius: var(--unbsb-radius);
+	gap: 8px;
+	padding: 6px 10px;
+	border: 1px solid transparent;
+	border-radius: var(--unbsb-radius-sm);
 	cursor: pointer;
 	transition: var(--unbsb-transition);
 	position: relative;
 	overflow: hidden;
+	min-height: 0;
 }
 
 .unbsb-nb-service-item:hover {
@@ -4908,7 +5049,7 @@ select optgroup option {
 	color: #fff;
 }
 
-.unbsb-nb-service-item input[type="checkbox"]:checked ~ .unbsb-nb-service-details .unbsb-nb-service-name {
+.unbsb-nb-service-item input[type="checkbox"]:checked ~ .unbsb-nb-service-name {
 	color: var(--unbsb-primary);
 	font-weight: 600;
 }
@@ -4919,8 +5060,8 @@ select optgroup option {
 }
 
 .unbsb-nb-service-check {
-	width: 22px;
-	height: 22px;
+	width: 18px;
+	height: 18px;
 	border: 2px solid var(--unbsb-border);
 	border-radius: var(--unbsb-radius-sm);
 	display: flex;
@@ -4932,45 +5073,48 @@ select optgroup option {
 }
 
 .unbsb-nb-service-check .dashicons {
-	font-size: 14px;
-	width: 14px;
-	height: 14px;
-}
-
-.unbsb-nb-service-details {
-	flex: 1;
-	min-width: 0;
+	font-size: 12px;
+	width: 12px;
+	height: 12px;
 }
 
 .unbsb-nb-service-name {
-	display: block;
-	font-size: 14px;
+	flex: 1;
+	min-width: 0;
+	font-size: 13px;
 	font-weight: 500;
 	color: var(--unbsb-dark);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .unbsb-nb-service-meta {
 	display: flex;
-	gap: 14px;
-	font-size: 12px;
+	align-items: center;
+	gap: 8px;
+	font-size: 11px;
 	color: var(--unbsb-text-muted);
-	margin-top: 2px;
+	flex-shrink: 0;
+	white-space: nowrap;
 }
 
-.unbsb-nb-service-meta .dashicons {
-	font-size: 12px;
-	width: 12px;
-	height: 12px;
-	margin-right: 2px;
+.unbsb-nb-service-duration {
+	color: var(--unbsb-text-muted);
+}
+
+.unbsb-nb-service-price {
+	font-weight: 500;
+	color: var(--unbsb-text);
 }
 
 .unbsb-nb-service-color {
-	width: 4px;
+	width: 3px;
 	position: absolute;
 	top: 0;
-	right: 0;
+	left: 0;
 	bottom: 0;
-	border-radius: 0 var(--unbsb-radius) var(--unbsb-radius) 0;
+	border-radius: var(--unbsb-radius-sm) 0 0 var(--unbsb-radius-sm);
 }
 
 /* Services Summary */

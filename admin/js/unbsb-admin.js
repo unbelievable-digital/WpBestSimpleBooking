@@ -3230,15 +3230,84 @@
 					this.classList.add('active');
 
 					var category = this.dataset.category;
-					var serviceItems = document.querySelectorAll('.unbsb-nb-service-item');
-					serviceItems.forEach(function(item) {
-						if ('all' === category || item.dataset.category === category) {
-							item.style.display = '';
+					var catGroups = document.querySelectorAll('.unbsb-nb-cat-group');
+					catGroups.forEach(function(group) {
+						if ('all' === category || group.dataset.category === category) {
+							group.style.display = '';
+							group.classList.remove('collapsed');
 						} else {
-							item.style.display = 'none';
+							group.style.display = 'none';
 						}
 					});
 				});
+			});
+		}
+
+		// ---- Category Accordion ----
+		document.querySelectorAll('.unbsb-nb-cat-group-header').forEach(function(header) {
+			header.addEventListener('click', function(e) {
+				// Don't toggle if clicking select all button
+				if (e.target.closest('.unbsb-nb-cat-select-all')) return;
+				var group = this.closest('.unbsb-nb-cat-group');
+				group.classList.toggle('collapsed');
+			});
+		});
+
+		// ---- Select All per Category ----
+		document.querySelectorAll('.unbsb-nb-cat-select-all').forEach(function(btn) {
+			btn.addEventListener('click', function(e) {
+				e.stopPropagation();
+				var catId = this.dataset.catId;
+				var group = this.closest('.unbsb-nb-cat-group');
+				var checkboxes = group.querySelectorAll('input[type="checkbox"]');
+				var allChecked = Array.from(checkboxes).every(function(cb) { return cb.checked; });
+
+				checkboxes.forEach(function(cb) {
+					cb.checked = !allChecked;
+				});
+
+				updateSelectedServices();
+				updateStaffList();
+				updateSummary();
+			});
+		});
+
+		// ---- Service Search ----
+		var serviceSearchInput = document.getElementById('unbsb-nb-service-search');
+		var serviceNoResults = document.getElementById('unbsb-nb-service-no-results');
+		if (serviceSearchInput) {
+			serviceSearchInput.addEventListener('input', function() {
+				var query = this.value.trim().toLowerCase();
+				var items = document.querySelectorAll('.unbsb-nb-service-item');
+				var groups = document.querySelectorAll('.unbsb-nb-cat-group');
+				var totalVisible = 0;
+
+				items.forEach(function(item) {
+					var name = item.dataset.serviceName || '';
+					if (!query || name.indexOf(query) !== -1) {
+						item.style.display = '';
+						totalVisible++;
+					} else {
+						item.style.display = 'none';
+					}
+				});
+
+				// Show/hide groups based on visible children
+				groups.forEach(function(group) {
+					var visibleInGroup = group.querySelectorAll('.unbsb-nb-service-item:not([style*="display: none"])').length;
+					if (0 === visibleInGroup) {
+						group.style.display = 'none';
+					} else {
+						group.style.display = '';
+						if (query) {
+							group.classList.remove('collapsed');
+						}
+					}
+				});
+
+				if (serviceNoResults) {
+					serviceNoResults.style.display = (0 === totalVisible && query) ? 'block' : 'none';
+				}
 			});
 		}
 
