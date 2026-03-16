@@ -1732,192 +1732,145 @@
 	 * Calendar functionality
 	 */
 	function initCalendar() {
-		const calendarEl = document.getElementById('unbsb-calendar');
-		if (!calendarEl) return;
+		var calendarEl = document.getElementById('unbsb-calendar');
+		if (!calendarEl || typeof FullCalendar === 'undefined') return;
 
-		let currentDate = new Date();
-		let currentView = 'month';
-		let currentStaff = '';
+		// Skip if calendar is inside a hidden container (staff portal toggle).
+		var hiddenParent = calendarEl.closest('[style*="display: none"]');
+		if (hiddenParent) return;
 
-		const titleEl = document.getElementById('unbsb-cal-title');
-		const prevBtn = document.getElementById('unbsb-cal-prev');
-		const nextBtn = document.getElementById('unbsb-cal-next');
-		const todayBtn = document.getElementById('unbsb-cal-today');
-		const staffSelect = document.getElementById('unbsb-cal-staff');
-		const viewBtns = document.querySelectorAll('.unbsb-cal-view');
+		var staffSelect = document.getElementById('unbsb-cal-staff');
+		var isStaffPortal = !staffSelect; // Staff portal has no staff filter
 
-		function renderCalendar() {
-			const year = currentDate.getFullYear();
-			const month = currentDate.getMonth();
+		var statusLabels = {
+			'pending': unbsbAdmin.strings.pending || 'Pending',
+			'confirmed': unbsbAdmin.strings.confirmed || 'Confirmed',
+			'cancelled': unbsbAdmin.strings.cancelled || 'Cancelled',
+			'completed': unbsbAdmin.strings.completed || 'Completed',
+			'no_show': unbsbAdmin.strings.no_show || 'No Show'
+		};
 
-			// Update title
-			const monthNames = unbsbAdmin.strings.month_names;
-			titleEl.textContent = monthNames[month] + ' ' + year;
+		var statusIcons = {
+			'pending': '\u23F3',
+			'confirmed': '\u2705',
+			'cancelled': '\u274C',
+			'completed': '\u2714',
+			'no_show': '\u26A0'
+		};
 
-			// Get first day of month
-			const firstDay = new Date(year, month, 1);
-			const lastDay = new Date(year, month + 1, 0);
-			const startDay = firstDay.getDay() || 7; // Monday = 1
-
-			// Build calendar grid
-			let html = '<div class="unbsb-calendar-grid">';
-
-			// Header
-			const dayNames = unbsbAdmin.strings.day_names;
-			dayNames.forEach(function(day) {
-				html += '<div class="unbsb-calendar-header-cell">' + day + '</div>';
-			});
-
-			// Calculate start date (previous month days)
-			const startDate = new Date(firstDay);
-			startDate.setDate(startDate.getDate() - (startDay - 1));
-
-			// Generate 6 weeks
-			for (let i = 0; i < 42; i++) {
-				const cellDate = new Date(startDate);
-				cellDate.setDate(startDate.getDate() + i);
-
-				const isOtherMonth = cellDate.getMonth() !== month;
-				const isToday = cellDate.toDateString() === new Date().toDateString();
-
-				let cellClass = 'unbsb-calendar-cell';
-				if (isOtherMonth) cellClass += ' other-month';
-				if (isToday) cellClass += ' today';
-
-				html += '<div class="' + cellClass + '" data-date="' + formatDate(cellDate) + '">';
-				html += '<div class="unbsb-calendar-day">' + cellDate.getDate() + '</div>';
-				html += '</div>';
+		function formatPrice(price) {
+			var formatted = parseFloat(price).toFixed(2);
+			if (unbsbAdmin.currency.position === 'before') {
+				return unbsbAdmin.currency.symbol + formatted;
 			}
-
-			html += '</div>';
-			calendarEl.innerHTML = html;
-
-			// Load events
-			loadEvents(year, month);
+			return formatted + ' ' + unbsbAdmin.currency.symbol;
 		}
 
-		function loadEvents(year, month) {
-			const startDate = new Date(year, month, 1);
-			const endDate = new Date(year, month + 1, 0);
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+			initialView: 'timeGridDay',
+			locale: unbsbAdmin.locale || 'en',
+			headerToolbar: {
+				left: 'prev,today,next',
+				center: 'title',
+				right: 'dayGridMonth,timeGridWeek,timeGridDay'
+			},
+			slotMinTime: '08:00:00',
+			slotMaxTime: '21:00:00',
+			slotDuration: '00:15:00',
+			allDaySlot: false,
+			nowIndicator: true,
+			editable: false,
+			selectable: false,
+			expandRows: true,
+			height: 'auto',
+			slotLabelFormat: {
+				hour: '2-digit',
+				minute: '2-digit',
+				hour12: false
+			},
+			eventTimeFormat: {
+				hour: '2-digit',
+				minute: '2-digit',
+				hour12: false
+			},
 
-			ajaxRequest('unbsb_get_bookings', {
-				start: formatDate(startDate),
-				end: formatDate(endDate),
-				staff_id: currentStaff
-			}, function(response) {
-				if (response.success && response.data) {
-					renderEvents(response.data);
-				}
-			});
-		}
-
-		function renderEvents(events) {
-			events.forEach(function(event) {
-				const date = event.start.split('T')[0];
-				const cell = document.querySelector('.unbsb-calendar-cell[data-date="' + date + '"]');
-
-				if (cell) {
-					const eventEl = document.createElement('div');
-					eventEl.className = 'unbsb-calendar-event';
-					eventEl.style.backgroundColor = event.backgroundColor;
-					eventEl.textContent = event.title;
-					eventEl.dataset.id = event.id;
-
-					eventEl.addEventListener('click', function() {
-						// Show booking detail modal
-						showBookingDetail(event);
-					});
-
-					cell.appendChild(eventEl);
-				}
-			});
-		}
-
-		function showBookingDetail(event) {
-			const modal = document.getElementById('unbsb-booking-modal');
-			const detail = document.getElementById('unbsb-booking-detail');
-
-			if (modal && detail) {
-				const props = event.extendedProps;
-				detail.innerHTML = `
-					<div class="unbsb-form-group">
-						<label>${unbsbAdmin.strings.customer}</label>
-						<p><strong>${props.customer_name}</strong><br>
-						${props.customer_email}<br>
-						${props.customer_phone || '-'}</p>
-					</div>
-					<div class="unbsb-form-group">
-						<label>${unbsbAdmin.strings.service}</label>
-						<p>${props.service_name}</p>
-					</div>
-					<div class="unbsb-form-group">
-						<label>${unbsbAdmin.strings.staff}</label>
-						<p>${props.staff_name}</p>
-					</div>
-					<div class="unbsb-form-group">
-						<label>${unbsbAdmin.strings.status}</label>
-						<p><span class="unbsb-status unbsb-status-${props.status}">${props.status}</span></p>
-					</div>
-					<div class="unbsb-form-group">
-						<label>${unbsbAdmin.strings.price}</label>
-						<p>${props.price} ${unbsbAdmin.currency.symbol}</p>
-					</div>
-				`;
-
-				openModal('unbsb-booking-modal');
-			}
-		}
-
-		function formatDate(date) {
-			const year = date.getFullYear();
-			const month = String(date.getMonth() + 1).padStart(2, '0');
-			const day = String(date.getDate()).padStart(2, '0');
-			return year + '-' + month + '-' + day;
-		}
-
-		// Navigation
-		if (prevBtn) {
-			prevBtn.addEventListener('click', function() {
-				currentDate.setMonth(currentDate.getMonth() - 1);
-				renderCalendar();
-			});
-		}
-
-		if (nextBtn) {
-			nextBtn.addEventListener('click', function() {
-				currentDate.setMonth(currentDate.getMonth() + 1);
-				renderCalendar();
-			});
-		}
-
-		if (todayBtn) {
-			todayBtn.addEventListener('click', function() {
-				currentDate = new Date();
-				renderCalendar();
-			});
-		}
-
-		if (staffSelect) {
-			staffSelect.addEventListener('change', function() {
-				currentStaff = this.value;
-				renderCalendar();
-			});
-		}
-
-		// View buttons
-		viewBtns.forEach(function(btn) {
-			btn.addEventListener('click', function() {
-				viewBtns.forEach(function(b) {
-					b.classList.remove('active');
+			events: function(info, successCallback, failureCallback) {
+				var staffId = staffSelect ? staffSelect.value : '';
+				var params = new URLSearchParams({
+					action: 'unbsb_get_calendar_events',
+					nonce: unbsbAdmin.nonce,
+					start: info.startStr,
+					end: info.endStr
 				});
-				this.classList.add('active');
-				currentView = this.dataset.view;
-				renderCalendar();
-			});
+				if (staffId) {
+					params.append('staff_id', staffId);
+				}
+				fetch(unbsbAdmin.ajaxUrl + '?' + params.toString())
+					.then(function(r) { return r.json(); })
+					.then(function(result) {
+						if (result.success) {
+							successCallback(result.data);
+						} else {
+							failureCallback(result.data);
+						}
+					})
+					.catch(function(err) { failureCallback(err); });
+			},
+
+			eventContent: function(arg) {
+				var props = arg.event.extendedProps;
+				var startTime = arg.event.start ? arg.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }) : '';
+				var endTime = arg.event.end ? arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }) : '';
+				var icon = statusIcons[props.status] || '';
+
+				var html = '<div class="unbsb-fc-event">';
+				html += '<div class="unbsb-fc-event-customer">' + escHtml(props.customer_name) + '</div>';
+				html += '<div class="unbsb-fc-event-time">' + startTime + ' - ' + endTime + '</div>';
+				html += '<div class="unbsb-fc-event-service">' + icon + ' ' + escHtml(props.service_name) + '</div>';
+				if (!isStaffPortal && props.staff_name) {
+					html += '<div class="unbsb-fc-event-staff">' + escHtml(props.staff_name) + '</div>';
+				}
+				html += '</div>';
+
+				return { html: html };
+			},
+
+			eventClick: function(info) {
+				var props = info.event.extendedProps;
+				var startTime = info.event.start ? info.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }) : '';
+				var endTime = info.event.end ? info.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }) : '';
+
+				var detail = document.getElementById('unbsb-cal-booking-detail');
+				var idEl = document.getElementById('unbsb-cal-booking-id');
+				if (!detail) return;
+
+				if (idEl) {
+					idEl.textContent = '#' + props.booking_id;
+				}
+
+				var html = '<div class="unbsb-sp-detail-grid">';
+				html += '<div class="unbsb-sp-detail-item"><strong>' + unbsbAdmin.strings.customer + '</strong><span>' + escHtml(props.customer_name);
+				if (props.customer_phone) html += '<br>' + escHtml(props.customer_phone);
+				html += '</span></div>';
+				html += '<div class="unbsb-sp-detail-item"><strong>' + unbsbAdmin.strings.service + '</strong><span>' + escHtml(props.service_name) + '</span></div>';
+				html += '<div class="unbsb-sp-detail-item"><strong>' + unbsbAdmin.strings.staff + '</strong><span>' + escHtml(props.staff_name) + '</span></div>';
+				html += '<div class="unbsb-sp-detail-item"><strong>' + unbsbAdmin.strings.status + '</strong><span><span class="unbsb-status unbsb-status-' + props.status + '">' + (statusLabels[props.status] || props.status) + '</span></span></div>';
+				html += '<div class="unbsb-sp-detail-item"><strong>' + unbsbAdmin.strings.price + '</strong><span>' + formatPrice(props.price) + '</span></div>';
+				html += '</div>';
+
+				detail.innerHTML = html;
+				openModal('unbsb-cal-booking-modal');
+			}
 		});
 
-		// Initial render
-		renderCalendar();
+		calendar.render();
+
+		// Staff filter refetch.
+		if (staffSelect) {
+			staffSelect.addEventListener('change', function() {
+				calendar.refetchEvents();
+			});
+		}
 	}
 
 	/**
@@ -3980,6 +3933,35 @@
 	function initStaffBookings() {
 		var container = document.querySelector('.unbsb-sp-date-filter');
 		if (!container) return;
+
+		// View toggle (List / Calendar).
+		var viewToggle = document.getElementById('unbsb-sp-view-toggle');
+		if (viewToggle) {
+			var listView = document.getElementById('unbsb-sp-list-view');
+			var calendarView = document.getElementById('unbsb-sp-calendar-view');
+			var calendarInited = false;
+			var toggleBtns = viewToggle.querySelectorAll('.unbsb-view-toggle-btn');
+
+			toggleBtns.forEach(function(btn) {
+				btn.addEventListener('click', function() {
+					var view = this.dataset.view;
+					toggleBtns.forEach(function(b) { b.classList.remove('active'); });
+					this.classList.add('active');
+
+					if ('calendar' === view) {
+						if (listView) listView.style.display = 'none';
+						if (calendarView) calendarView.style.display = '';
+						if (!calendarInited) {
+							calendarInited = true;
+							initCalendar();
+						}
+					} else {
+						if (listView) listView.style.display = '';
+						if (calendarView) calendarView.style.display = 'none';
+					}
+				});
+			});
+		}
 
 		// Confirm booking.
 		document.querySelectorAll('.unbsb-sp-confirm-booking').forEach(function(btn) {

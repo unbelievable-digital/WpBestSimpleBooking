@@ -251,8 +251,8 @@ class UNBSB_Admin {
 			return;
 		}
 
-		// Load FullCalendar for Calendar page.
-		if ( false !== strpos( $hook, 'unbsb-calendar' ) || false !== strpos( $hook, 'unbsb-staff-calendar' ) ) {
+		// Load FullCalendar for Calendar page and Staff Portal bookings.
+		if ( false !== strpos( $hook, 'unbsb-calendar' ) || false !== strpos( $hook, 'unbsb-staff-portal' ) ) {
 			wp_enqueue_script(
 				'fullcalendar',
 				'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js',
@@ -472,6 +472,7 @@ class UNBSB_Admin {
 					'symbol'   => get_option( 'unbsb_currency_symbol', '₺' ),
 					'position' => get_option( 'unbsb_currency_position', 'after' ),
 				),
+				'locale'    => substr( get_locale(), 0, 2 ),
 			)
 		);
 
@@ -1533,13 +1534,23 @@ class UNBSB_Admin {
 	public function ajax_get_bookings() {
 		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'unbsb_view_own_bookings' ) ) {
 			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
 		}
 
 		$start    = isset( $_POST['start'] ) ? sanitize_text_field( wp_unslash( $_POST['start'] ) ) : '';
 		$end      = isset( $_POST['end'] ) ? sanitize_text_field( wp_unslash( $_POST['end'] ) ) : '';
 		$staff_id = isset( $_POST['staff_id'] ) ? absint( $_POST['staff_id'] ) : 0;
+
+		// Staff users can only see their own bookings.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			$current_staff = $this->get_current_staff();
+			if ( $current_staff ) {
+				$staff_id = absint( $current_staff->id );
+			} else {
+				wp_send_json_error( __( 'Staff record not found.', 'unbelievable-salon-booking' ) );
+			}
+		}
 
 		$calendar = new UNBSB_Calendar();
 		$events   = $calendar->get_calendar_events( $start, $end, $staff_id );

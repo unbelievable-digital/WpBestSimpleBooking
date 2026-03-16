@@ -171,6 +171,9 @@ class UNBSB_Core {
 		// Booking completion with payment.
 		$this->loader->add_action( 'wp_ajax_unbsb_complete_booking_with_payment', $admin, 'ajax_complete_booking_with_payment' );
 
+		// Calendar events.
+		$this->loader->add_action( 'wp_ajax_unbsb_get_calendar_events', $admin, 'ajax_get_calendar_events' );
+
 		// Staff admin restrictions.
 		$this->loader->add_action( 'admin_menu', $admin, 'restrict_staff_admin_menu', 999 );
 		$this->loader->add_action( 'admin_bar_menu', $admin, 'restrict_staff_admin_bar', 999 );
