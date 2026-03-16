@@ -21,7 +21,7 @@ $time_format     = get_option( 'unbsb_time_format', 'H:i' );
 			<p class="unbsb-subtitle"><?php echo esc_html( date_i18n( 'l, j F Y' ) ); ?></p>
 		</div>
 		<div class="unbsb-header-actions">
-			<a href="<?php echo esc_url( admin_url( 'admin.php?page=unbsb-bookings' ) ); ?>" class="unbsb-btn unbsb-btn-primary">
+			<a href="<?php echo esc_url( admin_url( 'admin.php?page=unbsb-new-booking' ) ); ?>" class="unbsb-btn unbsb-btn-primary">
 				<span class="dashicons dashicons-plus-alt2"></span>
 				<?php esc_html_e( 'New Booking', 'unbelievable-salon-booking' ); ?>
 			</a>

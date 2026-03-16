@@ -151,6 +151,16 @@ class UNBSB_Admin {
 			'unbsb-export-import',
 			array( $this, 'render_export_import' )
 		);
+
+		// Hidden page for new booking.
+		add_submenu_page(
+			null,
+			__( 'New Booking', 'unbelievable-salon-booking' ),
+			__( 'New Booking', 'unbelievable-salon-booking' ),
+			'manage_options',
+			'unbsb-new-booking',
+			array( $this, 'render_new_booking' )
+		);
 	}
 
 	/**
@@ -252,6 +262,9 @@ class UNBSB_Admin {
 					'preview'                    => __( 'Preview', 'unbelievable-salon-booking' ),
 					'test_send'                  => __( 'Send Test', 'unbelievable-salon-booking' ),
 					'save_settings'              => __( 'Save Settings', 'unbelievable-salon-booking' ),
+					'save_templates'             => __( 'Save Templates', 'unbelievable-salon-booking' ),
+					'send_test_sms'              => __( 'Send Test SMS', 'unbelievable-salon-booking' ),
+					'checking'                   => __( 'Checking...', 'unbelievable-salon-booking' ),
 					'variable_added'             => __( 'Variable added', 'unbelievable-salon-booking' ),
 					'active'                     => __( 'Active', 'unbelievable-salon-booking' ),
 					'inactive'                   => __( 'Inactive', 'unbelievable-salon-booking' ),
@@ -327,6 +340,21 @@ class UNBSB_Admin {
 					'importing_data'             => __( 'Importing data...', 'unbelievable-salon-booking' ),
 					'import_complete'            => __( 'Import complete!', 'unbelievable-salon-booking' ),
 					'records_imported'           => __( 'records imported', 'unbelievable-salon-booking' ),
+					// New Booking page.
+					'nb_no_results'              => __( 'No customers found.', 'unbelievable-salon-booking' ),
+					'nb_name_phone_required'     => __( 'Name and phone are required.', 'unbelievable-salon-booking' ),
+					'nb_save_customer'           => __( 'Save Customer', 'unbelievable-salon-booking' ),
+					'nb_select_service_first'    => __( 'Please select at least one service first.', 'unbelievable-salon-booking' ),
+					'nb_any_staff'               => __( 'Any Staff', 'unbelievable-salon-booking' ),
+					'nb_no_staff_available'      => __( 'No staff available for the selected services.', 'unbelievable-salon-booking' ),
+					'nb_select_staff_date'       => __( 'Select staff and date to see available slots.', 'unbelievable-salon-booking' ),
+					'nb_no_slots'                => __( 'No available slots for this date.', 'unbelievable-salon-booking' ),
+					'nb_not_selected'            => __( 'Not selected', 'unbelievable-salon-booking' ),
+					'nb_select_customer'         => __( 'Please select or create a customer.', 'unbelievable-salon-booking' ),
+					'nb_select_service'          => __( 'Please select at least one service.', 'unbelievable-salon-booking' ),
+					'nb_select_staff'            => __( 'Please select a staff member.', 'unbelievable-salon-booking' ),
+					'nb_select_date'             => __( 'Please select a date.', 'unbelievable-salon-booking' ),
+					'nb_select_time'             => __( 'Please select a time slot.', 'unbelievable-salon-booking' ),
 				),
 				'currency'  => array(
 					'symbol'   => get_option( 'unbsb_currency_symbol', '₺' ),
@@ -376,6 +404,26 @@ class UNBSB_Admin {
 		if ( false !== strpos( $hook, 'unbsb-calendar' ) ) {
 			$staff_model = new UNBSB_Staff();
 			wp_localize_script( 'unbsb-admin', 'unbsbStaff', $staff_model->get_active() );
+		}
+
+		if ( false !== strpos( $hook, 'unbsb-new-booking' ) ) {
+			$staff_model   = new UNBSB_Staff();
+			$service_model = new UNBSB_Service();
+			$all_staff     = $staff_model->get_active();
+
+			// Attach service_ids to each staff member.
+			foreach ( $all_staff as &$member ) {
+				$member->service_ids = $staff_model->get_services( $member->id, true );
+			}
+			unset( $member );
+
+			wp_localize_script(
+				'unbsb-admin',
+				'unbsbNewBookingData',
+				array(
+					'staff' => $all_staff,
+				)
+			);
 		}
 
 		if ( 'toplevel_page_unbelievable-salon-booking' === $hook ) {
@@ -769,6 +817,21 @@ class UNBSB_Admin {
 	 */
 	public function render_export_import() {
 		include UNBSB_PLUGIN_DIR . 'admin/partials/admin-export-import.php';
+	}
+
+	/**
+	 * New Booking full page
+	 */
+	public function render_new_booking() {
+		$staff_model    = new UNBSB_Staff();
+		$service_model  = new UNBSB_Service();
+		$category_model = new UNBSB_Category();
+
+		$staff      = $staff_model->get_active();
+		$services   = $service_model->get_with_categories();
+		$categories = $category_model->get_active();
+
+		include UNBSB_PLUGIN_DIR . 'admin/partials/admin-new-booking.php';
 	}
 
 	/**
@@ -1276,6 +1339,7 @@ class UNBSB_Admin {
 		$data = array(
 			'service_id'     => isset( $_POST['service_id'] ) ? absint( $_POST['service_id'] ) : 0,
 			'staff_id'       => isset( $_POST['staff_id'] ) ? absint( $_POST['staff_id'] ) : 0,
+			'customer_id'    => isset( $_POST['customer_id'] ) ? absint( $_POST['customer_id'] ) : 0,
 			'customer_name'  => isset( $_POST['customer_name'] ) ? sanitize_text_field( wp_unslash( $_POST['customer_name'] ) ) : '',
 			'customer_email' => isset( $_POST['customer_email'] ) ? sanitize_email( wp_unslash( $_POST['customer_email'] ) ) : '',
 			'customer_phone' => isset( $_POST['customer_phone'] ) ? sanitize_text_field( wp_unslash( $_POST['customer_phone'] ) ) : '',
@@ -1817,6 +1881,123 @@ class UNBSB_Admin {
 		$staff_model->delete_holiday_by_date( $staff_id, $date );
 
 		wp_send_json_success( __( 'Holiday deleted.', 'unbelievable-salon-booking' ) );
+	}
+
+	/**
+	 * AJAX: Search customers
+	 */
+	public function ajax_search_customers() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
+		}
+
+		$query = isset( $_POST['query'] ) ? sanitize_text_field( wp_unslash( $_POST['query'] ) ) : '';
+
+		if ( empty( $query ) || strlen( $query ) < 2 ) {
+			wp_send_json_success( array() );
+		}
+
+		global $wpdb;
+
+		$table       = $wpdb->prefix . 'unbsb_customers';
+		$search_term = '%' . $wpdb->esc_like( $query ) . '%';
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$results = $wpdb->get_results(
+			$wpdb->prepare(
+				'SELECT id, name, email, phone FROM ' . $table . '
+				WHERE phone LIKE %s OR name LIKE %s OR email LIKE %s
+				ORDER BY name ASC
+				LIMIT 10',
+				$search_term,
+				$search_term,
+				$search_term
+			)
+		);
+
+		wp_send_json_success( $results );
+	}
+
+	/**
+	 * AJAX: Create customer (for new booking page)
+	 */
+	public function ajax_admin_create_customer() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
+		}
+
+		$data = array(
+			'name'  => isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '',
+			'email' => isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '',
+			'phone' => isset( $_POST['phone'] ) ? sanitize_text_field( wp_unslash( $_POST['phone'] ) ) : '',
+			'notes' => isset( $_POST['notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['notes'] ) ) : '',
+		);
+
+		if ( empty( $data['name'] ) || empty( $data['email'] ) ) {
+			wp_send_json_error( __( 'Name and email are required.', 'unbelievable-salon-booking' ) );
+		}
+
+		if ( ! is_email( $data['email'] ) ) {
+			wp_send_json_error( __( 'Please enter a valid email address.', 'unbelievable-salon-booking' ) );
+		}
+
+		$customer_model = new UNBSB_Customer();
+
+		// Check for duplicate email.
+		$existing = $customer_model->get_by_email( $data['email'] );
+		if ( $existing ) {
+			wp_send_json_success(
+				array(
+					'id'    => $existing->id,
+					'name'  => $existing->name,
+					'email' => $existing->email,
+					'phone' => $existing->phone,
+				)
+			);
+			return;
+		}
+
+		// Create WordPress user if not exists.
+		if ( ! email_exists( $data['email'] ) ) {
+			$password = wp_generate_password( 12, true, false );
+			$user_id  = wp_insert_user(
+				array(
+					'user_login'   => $data['email'],
+					'user_email'   => $data['email'],
+					'user_pass'    => $password,
+					'display_name' => $data['name'],
+					'role'         => 'unbsb_customer',
+				)
+			);
+
+			if ( ! is_wp_error( $user_id ) ) {
+				$data['user_id'] = $user_id;
+			}
+		} else {
+			$wp_user = get_user_by( 'email', $data['email'] );
+			if ( $wp_user ) {
+				$data['user_id'] = $wp_user->ID;
+			}
+		}
+
+		$result = $customer_model->create( $data );
+
+		if ( false !== $result ) {
+			wp_send_json_success(
+				array(
+					'id'    => $result,
+					'name'  => $data['name'],
+					'email' => $data['email'],
+					'phone' => $data['phone'],
+				)
+			);
+		} else {
+			wp_send_json_error( __( 'Failed to create customer.', 'unbelievable-salon-booking' ) );
+		}
 	}
 
 }

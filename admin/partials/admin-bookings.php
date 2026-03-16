@@ -26,10 +26,10 @@ $statuses = array(
 <div class="unbsb-admin-wrap">
 	<div class="unbsb-admin-header">
 		<h1><?php esc_html_e( 'Bookings', 'unbelievable-salon-booking' ); ?></h1>
-		<button type="button" class="unbsb-btn unbsb-btn-primary" id="unbsb-add-booking">
+		<a href="<?php echo esc_url( admin_url( 'admin.php?page=unbsb-new-booking' ) ); ?>" class="unbsb-btn unbsb-btn-primary">
 			<span class="dashicons dashicons-plus-alt"></span>
 			<?php esc_html_e( 'New Booking', 'unbelievable-salon-booking' ); ?>
-		</button>
+		</a>
 	</div>
 
 	<div class="unbsb-card">

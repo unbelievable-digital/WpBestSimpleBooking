@@ -147,6 +147,10 @@ class UNBSB_Core {
 		// Promo code AJAX handlers.
 		$this->loader->add_action( 'wp_ajax_unbsb_save_promo_code', $admin, 'ajax_save_promo_code' );
 		$this->loader->add_action( 'wp_ajax_unbsb_delete_promo_code', $admin, 'ajax_delete_promo_code' );
+
+		// Customer search/create AJAX handlers (for new booking page).
+		$this->loader->add_action( 'wp_ajax_unbsb_search_customers', $admin, 'ajax_search_customers' );
+		$this->loader->add_action( 'wp_ajax_unbsb_admin_create_customer', $admin, 'ajax_admin_create_customer' );
 	}
 
 	/**

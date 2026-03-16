@@ -21,6 +21,7 @@
 		initStaffSchedule();
 		initPromoCodes();
 		initExportImport();
+		initNewBookingPage();
 	});
 
 	/**
@@ -1126,7 +1127,7 @@
 
 		if (balanceBtn) {
 			balanceBtn.addEventListener('click', function() {
-				balanceResult.textContent = 'Checking...';
+				balanceResult.textContent = unbsbAdmin.strings.checking;
 				balanceBtn.disabled = true;
 
 				ajaxRequest('unbsb_sms_get_balance', {}, function(response) {
@@ -1160,7 +1161,7 @@
 
 				ajaxRequest('unbsb_sms_send_test', { phone: phone }, function(response) {
 					testBtn.disabled = false;
-					testBtn.innerHTML = '<span class="dashicons dashicons-email"></span> Send Test SMS';
+					testBtn.innerHTML = '<span class="dashicons dashicons-email"></span> ' + unbsbAdmin.strings.send_test_sms;
 
 					if (response.success) {
 						showToast(response.data);
@@ -1307,11 +1308,11 @@
 				});
 
 				saveEmailTemplatesBtn.disabled = true;
-				saveEmailTemplatesBtn.textContent = 'Saving...';
+				saveEmailTemplatesBtn.textContent = unbsbAdmin.strings.saving;
 
 				ajaxRequest('unbsb_save_email_templates', { templates: JSON.stringify(templates) }, function(response) {
 					saveEmailTemplatesBtn.disabled = false;
-					saveEmailTemplatesBtn.innerHTML = '<span class="dashicons dashicons-saved"></span> Save Templates';
+					saveEmailTemplatesBtn.innerHTML = '<span class="dashicons dashicons-saved"></span> ' + unbsbAdmin.strings.save_templates;
 
 					if (response.success) {
 						showToast(response.data);
@@ -1347,7 +1348,7 @@
 
 				ajaxRequest('unbsb_email_send_test', { email: email, template_type: templateType }, function(response) {
 					sendTestEmailBtn.disabled = false;
-					sendTestEmailBtn.innerHTML = '<span class="dashicons dashicons-email"></span> Send Test';
+					sendTestEmailBtn.innerHTML = '<span class="dashicons dashicons-email"></span> ' + unbsbAdmin.strings.test_send;
 
 					if (response.success) {
 						showToast(response.data);
@@ -1378,7 +1379,7 @@
 
 				ajaxRequest('unbsb_email_preview', { template_type: templateType }, function(response) {
 					previewBtn.disabled = false;
-					previewBtn.innerHTML = '<span class="dashicons dashicons-visibility"></span> Preview';
+					previewBtn.innerHTML = '<span class="dashicons dashicons-visibility"></span> ' + unbsbAdmin.strings.preview;
 
 					if (response.success) {
 						previewFrame.srcdoc = response.data.html;
@@ -1741,11 +1742,11 @@
 				const templateType = this.dataset.templateType;
 
 				btn.disabled = true;
-				btn.innerHTML = '<span class="dashicons dashicons-update"></span> Loading...';
+				btn.innerHTML = '<span class="dashicons dashicons-update"></span> ' + unbsbAdmin.strings.loading;
 
 				ajaxRequest('unbsb_email_preview', { template_type: templateType }, function(response) {
 					btn.disabled = false;
-					btn.innerHTML = '<span class="dashicons dashicons-visibility"></span> Preview';
+					btn.innerHTML = '<span class="dashicons dashicons-visibility"></span> ' + unbsbAdmin.strings.preview;
 
 					if (response.success) {
 						const previewFrame = document.getElementById('unbsb-email-preview-frame');
@@ -1767,20 +1768,20 @@
 				const email = emailInput.value.trim();
 
 				if (!email) {
-					showToast('Please enter a test email address', 'error');
+					showToast(unbsbAdmin.strings.enter_test_email, 'error');
 					emailInput.focus();
 					return;
 				}
 
 				btn.disabled = true;
-				btn.innerHTML = '<span class="dashicons dashicons-update"></span> Sending...';
+				btn.innerHTML = '<span class="dashicons dashicons-update"></span> ' + unbsbAdmin.strings.sending;
 
 				ajaxRequest('unbsb_email_send_test', {
 					email: email,
 					template_type: templateType
 				}, function(response) {
 					btn.disabled = false;
-					btn.innerHTML = '<span class="dashicons dashicons-email"></span> Send Test';
+					btn.innerHTML = '<span class="dashicons dashicons-email"></span> ' + unbsbAdmin.strings.test_send;
 
 					if (response.success) {
 						showToast(response.data);
@@ -1818,11 +1819,11 @@
 				};
 
 				saveSettingsBtn.disabled = true;
-				saveSettingsBtn.innerHTML = '<span class="dashicons dashicons-update"></span> Saving...';
+				saveSettingsBtn.innerHTML = '<span class="dashicons dashicons-update"></span> ' + unbsbAdmin.strings.saving;
 
 				ajaxRequest('unbsb_save_email_settings', data, function(response) {
 					saveSettingsBtn.disabled = false;
-					saveSettingsBtn.innerHTML = '<span class="dashicons dashicons-saved"></span> Save Settings';
+					saveSettingsBtn.innerHTML = '<span class="dashicons dashicons-saved"></span> ' + unbsbAdmin.strings.save_settings;
 
 					if (response.success) {
 						showToast(response.data);
@@ -1927,7 +1928,7 @@
 				}
 			});
 
-			// Mola ekleme butonu
+			// Add break button
 			daysList.addEventListener('click', function(e) {
 				const addBtn = e.target.closest('.unbsb-add-break-btn');
 				if (addBtn) {
@@ -1970,7 +1971,7 @@
 			e.target.value = value;
 		});
 
-		// Kaydet butonu
+		// Save button
 		if (saveBtn) {
 			saveBtn.addEventListener('click', function() {
 				saveStaffSchedule();
@@ -3030,6 +3031,538 @@
 				return (bytes / 1024).toFixed(1) + ' KB';
 			}
 			return (bytes / 1048576).toFixed(1) + ' MB';
+		}
+	}
+
+	/**
+	 * New Booking Page functionality
+	 */
+	function initNewBookingPage() {
+		var form = document.getElementById('unbsb-new-booking-form');
+		if (!form) return;
+
+		var searchTimeout = null;
+		var selectedCustomer = null;
+		var selectedServices = [];
+		var selectedStaffId = null;
+		var selectedSlot = null;
+
+		// ---- Customer Search ----
+		var searchInput = document.getElementById('unbsb-nb-customer-query');
+		var searchSpinner = document.getElementById('unbsb-nb-search-spinner');
+		var searchResults = document.getElementById('unbsb-nb-search-results');
+		var selectedCustomerDiv = document.getElementById('unbsb-nb-selected-customer');
+		var customerSearchDiv = document.getElementById('unbsb-nb-customer-search');
+		var newCustomerForm = document.getElementById('unbsb-nb-new-customer-form');
+
+		if (searchInput) {
+			searchInput.addEventListener('input', function() {
+				var query = this.value.trim();
+
+				if (searchTimeout) {
+					clearTimeout(searchTimeout);
+				}
+
+				if (query.length < 2) {
+					searchResults.style.display = 'none';
+					return;
+				}
+
+				searchTimeout = setTimeout(function() {
+					searchSpinner.style.display = '';
+					ajaxRequest('unbsb_search_customers', { query: query }, function(response) {
+						searchSpinner.style.display = 'none';
+						if (response.success && response.data.length > 0) {
+							renderSearchResults(response.data);
+						} else {
+							searchResults.innerHTML = '<div class="unbsb-nb-search-results-empty">' + unbsbAdmin.strings.nb_no_results + '</div>';
+							searchResults.style.display = 'block';
+						}
+					});
+				}, 350);
+			});
+
+			// Close dropdown on outside click
+			document.addEventListener('click', function(e) {
+				if (!e.target.closest('#unbsb-nb-customer-search')) {
+					searchResults.style.display = 'none';
+				}
+			});
+		}
+
+		function renderSearchResults(customers) {
+			var html = '';
+			customers.forEach(function(c) {
+				html += '<div class="unbsb-nb-search-result-item" data-id="' + c.id + '" data-name="' + escAttr(c.name) + '" data-phone="' + escAttr(c.phone || '') + '" data-email="' + escAttr(c.email || '') + '">';
+				html += '<div class="unbsb-nb-result-avatar"><span class="dashicons dashicons-admin-users"></span></div>';
+				html += '<div class="unbsb-nb-result-info">';
+				html += '<span class="unbsb-nb-result-name">' + escHtml(c.name) + '</span>';
+				html += '<span class="unbsb-nb-result-meta">';
+				if (c.phone) html += '<span>' + escHtml(c.phone) + '</span>';
+				if (c.email) html += '<span>' + escHtml(c.email) + '</span>';
+				html += '</span></div></div>';
+			});
+			searchResults.innerHTML = html;
+			searchResults.style.display = 'block';
+
+			// Bind click
+			searchResults.querySelectorAll('.unbsb-nb-search-result-item').forEach(function(item) {
+				item.addEventListener('click', function() {
+					selectCustomer({
+						id: this.dataset.id,
+						name: this.dataset.name,
+						phone: this.dataset.phone,
+						email: this.dataset.email
+					});
+				});
+			});
+		}
+
+		function selectCustomer(customer) {
+			selectedCustomer = customer;
+			document.getElementById('unbsb-nb-customer-id').value = customer.id;
+			document.getElementById('unbsb-nb-customer-name').textContent = customer.name;
+			var phoneSpan = document.querySelector('#unbsb-nb-customer-phone span:last-child');
+			var emailSpan = document.querySelector('#unbsb-nb-customer-email span:last-child');
+			if (phoneSpan) phoneSpan.textContent = customer.phone || '-';
+			if (emailSpan) emailSpan.textContent = customer.email || '-';
+
+			customerSearchDiv.style.display = 'none';
+			newCustomerForm.style.display = 'none';
+			selectedCustomerDiv.style.display = 'block';
+			searchResults.style.display = 'none';
+			if (searchInput) searchInput.value = '';
+
+			updateSummary();
+		}
+
+		// Change customer button
+		var changeCustomerBtn = document.getElementById('unbsb-nb-change-customer');
+		if (changeCustomerBtn) {
+			changeCustomerBtn.addEventListener('click', function() {
+				selectedCustomer = null;
+				document.getElementById('unbsb-nb-customer-id').value = '';
+				selectedCustomerDiv.style.display = 'none';
+				customerSearchDiv.style.display = 'block';
+				if (searchInput) searchInput.focus();
+				updateSummary();
+			});
+		}
+
+		// New Customer button
+		var newCustomerBtn = document.getElementById('unbsb-nb-new-customer-btn');
+		if (newCustomerBtn) {
+			newCustomerBtn.addEventListener('click', function() {
+				customerSearchDiv.style.display = 'none';
+				selectedCustomerDiv.style.display = 'none';
+				newCustomerForm.style.display = 'block';
+				document.getElementById('unbsb-nb-new-name').focus();
+			});
+		}
+
+		// Cancel new customer
+		var cancelNewCustomerBtn = document.getElementById('unbsb-nb-cancel-new-customer');
+		if (cancelNewCustomerBtn) {
+			cancelNewCustomerBtn.addEventListener('click', function() {
+				newCustomerForm.style.display = 'none';
+				if (selectedCustomer) {
+					selectedCustomerDiv.style.display = 'block';
+				} else {
+					customerSearchDiv.style.display = 'block';
+				}
+			});
+		}
+
+		// Save new customer
+		var saveCustomerBtn = document.getElementById('unbsb-nb-save-customer');
+		if (saveCustomerBtn) {
+			saveCustomerBtn.addEventListener('click', function() {
+				var name = document.getElementById('unbsb-nb-new-name').value.trim();
+				var phone = document.getElementById('unbsb-nb-new-phone').value.trim();
+				var email = document.getElementById('unbsb-nb-new-email').value.trim();
+				var notes = document.getElementById('unbsb-nb-new-notes').value.trim();
+
+				if (!name || !phone) {
+					showToast(unbsbAdmin.strings.nb_name_phone_required, 'error');
+					return;
+				}
+
+				saveCustomerBtn.disabled = true;
+				saveCustomerBtn.innerHTML = '<span class="dashicons dashicons-update-alt unbsb-spin"></span> ' + unbsbAdmin.strings.saving;
+
+				ajaxRequest('unbsb_admin_create_customer', {
+					name: name,
+					phone: phone,
+					email: email,
+					notes: notes
+				}, function(response) {
+					saveCustomerBtn.disabled = false;
+					saveCustomerBtn.innerHTML = '<span class="dashicons dashicons-saved"></span> ' + unbsbAdmin.strings.nb_save_customer;
+
+					if (response.success) {
+						selectCustomer({
+							id: response.data.id,
+							name: name,
+							phone: phone,
+							email: email
+						});
+						// Clear form
+						document.getElementById('unbsb-nb-new-name').value = '';
+						document.getElementById('unbsb-nb-new-phone').value = '';
+						document.getElementById('unbsb-nb-new-email').value = '';
+						document.getElementById('unbsb-nb-new-notes').value = '';
+						showToast(response.data.message || unbsbAdmin.strings.saved);
+					} else {
+						showToast(response.data, 'error');
+					}
+				});
+			});
+		}
+
+		// ---- Category Filter ----
+		var catFilter = document.getElementById('unbsb-nb-category-filter');
+		if (catFilter) {
+			catFilter.querySelectorAll('.unbsb-nb-cat-btn').forEach(function(btn) {
+				btn.addEventListener('click', function() {
+					catFilter.querySelectorAll('.unbsb-nb-cat-btn').forEach(function(b) {
+						b.classList.remove('active');
+					});
+					this.classList.add('active');
+
+					var category = this.dataset.category;
+					var serviceItems = document.querySelectorAll('.unbsb-nb-service-item');
+					serviceItems.forEach(function(item) {
+						if ('all' === category || item.dataset.category === category) {
+							item.style.display = '';
+						} else {
+							item.style.display = 'none';
+						}
+					});
+				});
+			});
+		}
+
+		// ---- Services Selection ----
+		var servicesList = document.getElementById('unbsb-nb-services-list');
+		if (servicesList) {
+			servicesList.addEventListener('change', function(e) {
+				if ('checkbox' === e.target.type) {
+					updateSelectedServices();
+					updateStaffList();
+					updateSummary();
+				}
+			});
+		}
+
+		function updateSelectedServices() {
+			selectedServices = [];
+			var totalDuration = 0;
+			var totalPrice = 0;
+
+			document.querySelectorAll('#unbsb-nb-services-list input[type="checkbox"]:checked').forEach(function(cb) {
+				var duration = parseInt(cb.dataset.duration, 10) || 0;
+				var price = parseFloat(cb.dataset.price) || 0;
+
+				selectedServices.push({
+					id: cb.value,
+					name: cb.dataset.name,
+					duration: duration,
+					price: price
+				});
+
+				totalDuration += duration;
+				totalPrice += price;
+			});
+
+			var summaryDiv = document.getElementById('unbsb-nb-services-summary');
+			if (selectedServices.length > 0) {
+				document.getElementById('unbsb-nb-total-duration').textContent = totalDuration;
+				document.getElementById('unbsb-nb-total-price').textContent = totalPrice.toFixed(2);
+				summaryDiv.style.display = 'block';
+			} else {
+				summaryDiv.style.display = 'none';
+			}
+
+			// Reset staff and slot when services change
+			selectedStaffId = null;
+			selectedSlot = null;
+			document.getElementById('unbsb-nb-start-time').value = '';
+			resetSlotsUI();
+		}
+
+		// ---- Staff List ----
+		function updateStaffList() {
+			var staffListDiv = document.getElementById('unbsb-nb-staff-list');
+			if (!staffListDiv || typeof unbsbNewBookingData === 'undefined') return;
+
+			var serviceIds = selectedServices.map(function(s) { return parseInt(s.id, 10); });
+
+			if (0 === serviceIds.length) {
+				staffListDiv.innerHTML = '<p class="unbsb-text-muted">' + unbsbAdmin.strings.nb_select_service_first + '</p>';
+				return;
+			}
+
+			// Filter staff who provide ALL selected services
+			var availableStaff = unbsbNewBookingData.staff.filter(function(staff) {
+				var staffServiceIds = (staff.service_ids || []).map(function(id) { return parseInt(id, 10); });
+				return serviceIds.every(function(sid) {
+					return staffServiceIds.indexOf(sid) !== -1;
+				});
+			});
+
+			var html = '';
+
+			// Any Staff option
+			html += '<label class="unbsb-nb-staff-item">';
+			html += '<input type="radio" name="staff_id" value="any">';
+			html += '<span class="unbsb-nb-staff-radio"></span>';
+			html += '<div class="unbsb-nb-staff-avatar"><span class="dashicons dashicons-groups"></span></div>';
+			html += '<span class="unbsb-nb-staff-name">' + unbsbAdmin.strings.nb_any_staff + '</span>';
+			html += '</label>';
+
+			availableStaff.forEach(function(staff) {
+				html += '<label class="unbsb-nb-staff-item">';
+				html += '<input type="radio" name="staff_id" value="' + staff.id + '">';
+				html += '<span class="unbsb-nb-staff-radio"></span>';
+				html += '<div class="unbsb-nb-staff-avatar">';
+				if (staff.avatar_url) {
+					html += '<img src="' + escAttr(staff.avatar_url) + '" alt="' + escAttr(staff.name) + '">';
+				} else {
+					html += '<span class="dashicons dashicons-admin-users"></span>';
+				}
+				html += '</div>';
+				html += '<span class="unbsb-nb-staff-name">' + escHtml(staff.name) + '</span>';
+				html += '</label>';
+			});
+
+			if (0 === availableStaff.length) {
+				html = '<p class="unbsb-text-muted">' + unbsbAdmin.strings.nb_no_staff_available + '</p>';
+			}
+
+			staffListDiv.innerHTML = html;
+
+			// Bind radio change
+			staffListDiv.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+				radio.addEventListener('change', function() {
+					selectedStaffId = this.value;
+					selectedSlot = null;
+					document.getElementById('unbsb-nb-start-time').value = '';
+					loadSlots();
+					updateSummary();
+				});
+			});
+		}
+
+		// ---- Date & Time Slots ----
+		var dateInput = document.getElementById('unbsb-nb-date');
+		if (dateInput) {
+			// Set default to today
+			dateInput.value = new Date().toISOString().split('T')[0];
+
+			dateInput.addEventListener('change', function() {
+				selectedSlot = null;
+				document.getElementById('unbsb-nb-start-time').value = '';
+				loadSlots();
+				updateSummary();
+			});
+		}
+
+		function loadSlots() {
+			var slotsWrap = document.getElementById('unbsb-nb-slots-wrap');
+			var date = dateInput ? dateInput.value : '';
+
+			if (!selectedStaffId || !date || 0 === selectedServices.length) {
+				slotsWrap.innerHTML = '<p class="unbsb-text-muted">' + unbsbAdmin.strings.nb_select_staff_date + '</p>';
+				return;
+			}
+
+			var totalDuration = selectedServices.reduce(function(sum, s) { return sum + s.duration; }, 0);
+			var staffId = 'any' === selectedStaffId ? '' : selectedStaffId;
+
+			slotsWrap.innerHTML = '<p class="unbsb-text-muted"><span class="dashicons dashicons-update-alt unbsb-spin"></span> ' + unbsbAdmin.strings.loading + '</p>';
+
+			// Use REST API for available slots
+			var serviceId = selectedServices[0].id;
+			var url = unbsbAdmin.restUrl + 'available-slots?service_id=' + serviceId + '&date=' + date + '&duration=' + totalDuration;
+			if (staffId) {
+				url += '&staff_id=' + staffId;
+			}
+
+			fetch(url, {
+				headers: { 'X-WP-Nonce': unbsbAdmin.restNonce }
+			})
+			.then(function(r) { return r.json(); })
+			.then(function(data) {
+				var slots = data.slots || data || [];
+				if (Array.isArray(slots) && slots.length > 0) {
+					var html = '<div class="unbsb-nb-slots-grid">';
+					slots.forEach(function(slot) {
+						var time = typeof slot === 'string' ? slot : slot.time || slot.start_time || '';
+						html += '<button type="button" class="unbsb-nb-slot-btn" data-time="' + escAttr(time) + '">' + escHtml(time) + '</button>';
+					});
+					html += '</div>';
+					slotsWrap.innerHTML = html;
+
+					// Bind slot click
+					slotsWrap.querySelectorAll('.unbsb-nb-slot-btn').forEach(function(btn) {
+						btn.addEventListener('click', function() {
+							slotsWrap.querySelectorAll('.unbsb-nb-slot-btn').forEach(function(b) {
+								b.classList.remove('active');
+							});
+							this.classList.add('active');
+							selectedSlot = this.dataset.time;
+							document.getElementById('unbsb-nb-start-time').value = selectedSlot;
+							updateSummary();
+						});
+					});
+				} else {
+					slotsWrap.innerHTML = '<p class="unbsb-text-muted">' + unbsbAdmin.strings.nb_no_slots + '</p>';
+				}
+			})
+			.catch(function() {
+				slotsWrap.innerHTML = '<p class="unbsb-text-muted">' + unbsbAdmin.strings.error + '</p>';
+			});
+		}
+
+		function resetSlotsUI() {
+			var slotsWrap = document.getElementById('unbsb-nb-slots-wrap');
+			if (slotsWrap) {
+				slotsWrap.innerHTML = '<p class="unbsb-text-muted">' + unbsbAdmin.strings.nb_select_staff_date + '</p>';
+			}
+		}
+
+		// ---- Summary Update ----
+		function updateSummary() {
+			// Customer
+			var sumCustomer = document.getElementById('unbsb-nb-sum-customer-val');
+			if (selectedCustomer) {
+				sumCustomer.textContent = selectedCustomer.name;
+				sumCustomer.classList.remove('unbsb-text-muted');
+			} else {
+				sumCustomer.textContent = unbsbAdmin.strings.nb_not_selected;
+				sumCustomer.classList.add('unbsb-text-muted');
+			}
+
+			// Services
+			var sumServices = document.getElementById('unbsb-nb-sum-services-val');
+			if (selectedServices.length > 0) {
+				var listHtml = '<ul class="unbsb-nb-summary-services-list">';
+				selectedServices.forEach(function(s) {
+					listHtml += '<li>' + escHtml(s.name) + '</li>';
+				});
+				listHtml += '</ul>';
+				sumServices.innerHTML = listHtml;
+				sumServices.classList.remove('unbsb-text-muted');
+			} else {
+				sumServices.textContent = unbsbAdmin.strings.nb_not_selected;
+				sumServices.classList.add('unbsb-text-muted');
+			}
+
+			// Staff
+			var sumStaff = document.getElementById('unbsb-nb-sum-staff-val');
+			if (selectedStaffId) {
+				if ('any' === selectedStaffId) {
+					sumStaff.textContent = unbsbAdmin.strings.nb_any_staff;
+				} else if (typeof unbsbNewBookingData !== 'undefined') {
+					var staffObj = unbsbNewBookingData.staff.find(function(s) {
+						return String(s.id) === String(selectedStaffId);
+					});
+					sumStaff.textContent = staffObj ? staffObj.name : selectedStaffId;
+				}
+				sumStaff.classList.remove('unbsb-text-muted');
+			} else {
+				sumStaff.textContent = unbsbAdmin.strings.nb_not_selected;
+				sumStaff.classList.add('unbsb-text-muted');
+			}
+
+			// Date & Time
+			var sumDatetime = document.getElementById('unbsb-nb-sum-datetime-val');
+			var date = dateInput ? dateInput.value : '';
+			if (date && selectedSlot) {
+				sumDatetime.textContent = date + ' ' + selectedSlot;
+				sumDatetime.classList.remove('unbsb-text-muted');
+			} else if (date) {
+				sumDatetime.textContent = date;
+				sumDatetime.classList.remove('unbsb-text-muted');
+			} else {
+				sumDatetime.textContent = unbsbAdmin.strings.nb_not_selected;
+				sumDatetime.classList.add('unbsb-text-muted');
+			}
+
+			// Totals
+			var totalDuration = selectedServices.reduce(function(sum, s) { return sum + s.duration; }, 0);
+			var totalPrice = selectedServices.reduce(function(sum, s) { return sum + s.price; }, 0);
+			document.getElementById('unbsb-nb-sum-duration').textContent = totalDuration;
+			document.getElementById('unbsb-nb-sum-price').textContent = totalPrice.toFixed(2);
+		}
+
+		// ---- Create Booking ----
+		var createBtn = document.getElementById('unbsb-nb-create-booking');
+		if (createBtn) {
+			createBtn.addEventListener('click', function() {
+				// Validate
+				if (!selectedCustomer) {
+					showToast(unbsbAdmin.strings.nb_select_customer, 'error');
+					return;
+				}
+				if (0 === selectedServices.length) {
+					showToast(unbsbAdmin.strings.nb_select_service, 'error');
+					return;
+				}
+				if (!selectedStaffId) {
+					showToast(unbsbAdmin.strings.nb_select_staff, 'error');
+					return;
+				}
+				var bookingDate = dateInput ? dateInput.value : '';
+				if (!bookingDate) {
+					showToast(unbsbAdmin.strings.nb_select_date, 'error');
+					return;
+				}
+				if (!selectedSlot) {
+					showToast(unbsbAdmin.strings.nb_select_time, 'error');
+					return;
+				}
+
+				var data = {
+					customer_id: selectedCustomer.id,
+					customer_name: selectedCustomer.name,
+					customer_email: selectedCustomer.email || '',
+					customer_phone: selectedCustomer.phone || '',
+					service_ids: selectedServices.map(function(s) { return s.id; }),
+					staff_id: 'any' === selectedStaffId ? '' : selectedStaffId,
+					booking_date: bookingDate,
+					start_time: selectedSlot,
+					status: form.querySelector('input[name="status"]:checked').value,
+					notes: document.getElementById('unbsb-nb-notes').value,
+					internal_notes: document.getElementById('unbsb-nb-internal-notes').value
+				};
+
+				createBtn.disabled = true;
+				createBtn.innerHTML = '<span class="dashicons dashicons-update-alt unbsb-spin"></span> ' + unbsbAdmin.strings.saving;
+
+				ajaxRequest('unbsb_admin_create_booking', data, function(response) {
+					createBtn.disabled = false;
+					createBtn.innerHTML = '<span class="dashicons dashicons-saved"></span> ' + unbsbAdmin.strings.create_booking;
+
+					if (response.success) {
+						showToast(response.data.message || unbsbAdmin.strings.saved);
+						window.location.href = unbsbAdmin.ajaxUrl.replace('admin-ajax.php', 'admin.php?page=unbsb-bookings');
+					} else {
+						showToast(response.data || unbsbAdmin.strings.error, 'error');
+					}
+				});
+			});
+		}
+
+		// ---- Utility ----
+		function escHtml(str) {
+			var div = document.createElement('div');
+			div.textContent = str || '';
+			return div.innerHTML;
+		}
+
+		function escAttr(str) {
+			return (str || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 		}
 	}
 

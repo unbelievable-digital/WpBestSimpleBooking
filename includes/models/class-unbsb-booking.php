@@ -55,7 +55,7 @@ class UNBSB_Booking {
 		$service_ids      = array();
 
 		if ( $is_multi_service ) {
-			// JSON string ise decode et.
+			// Decode if JSON string.
 			if ( is_string( $data['service_ids'] ) ) {
 				$service_ids = json_decode( $data['service_ids'], true );
 			} else {
@@ -234,18 +234,20 @@ class UNBSB_Booking {
 			// If validation fails, we proceed without the discount (server-side safety).
 		}
 
-		// Create or get customer.
-		$customer_model = new UNBSB_Customer();
-		$customer       = $customer_model->find_or_create(
-			array(
-				'name'  => $sanitized['customer_name'],
-				'email' => $sanitized['customer_email'],
-				'phone' => $sanitized['customer_phone'] ?? '',
-			)
-		);
+		// Create or get customer (skip if customer_id already provided).
+		if ( empty( $sanitized['customer_id'] ) ) {
+			$customer_model = new UNBSB_Customer();
+			$customer       = $customer_model->find_or_create(
+				array(
+					'name'  => $sanitized['customer_name'],
+					'email' => $sanitized['customer_email'],
+					'phone' => $sanitized['customer_phone'] ?? '',
+				)
+			);
 
-		if ( $customer ) {
-			$sanitized['customer_id'] = $customer->id;
+			if ( $customer ) {
+				$sanitized['customer_id'] = $customer->id;
+			}
 		}
 
 		$booking_id = $this->db->insert( $this->table, $sanitized );
