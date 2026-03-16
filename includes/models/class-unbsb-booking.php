@@ -734,6 +734,16 @@ class UNBSB_Booking {
 			$sanitized['discount_amount'] = floatval( $data['discount_amount'] );
 		}
 
+		if ( isset( $data['paid_amount'] ) ) {
+			$sanitized['paid_amount'] = floatval( $data['paid_amount'] );
+		}
+
+		if ( isset( $data['payment_method'] ) ) {
+			$sanitized['payment_method'] = in_array( $data['payment_method'], array( 'cash', 'card', 'transfer' ), true )
+				? $data['payment_method']
+				: null;
+		}
+
 		return $sanitized;
 	}
 }

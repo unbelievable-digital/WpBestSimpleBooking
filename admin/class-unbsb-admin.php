@@ -162,6 +162,16 @@ class UNBSB_Admin {
 			array( $this, 'render_new_booking' )
 		);
 
+		// Hidden page for staff new booking.
+		add_submenu_page(
+			null,
+			__( 'New Booking', 'unbelievable-salon-booking' ),
+			__( 'New Booking', 'unbelievable-salon-booking' ),
+			'unbsb_view_own_bookings',
+			'unbsb-staff-new-booking',
+			array( $this, 'render_new_booking' )
+		);
+
 		// Staff portal menu (visible only to staff role users, not admins).
 		if ( ! current_user_can( 'manage_options' ) && current_user_can( 'unbsb_view_own_bookings' ) ) {
 			add_menu_page(
@@ -490,12 +500,22 @@ class UNBSB_Admin {
 			}
 			unset( $member );
 
+			$booking_data = array(
+				'staff' => $all_staff,
+			);
+
+			// Pre-select staff for staff portal new booking page.
+			if ( false !== strpos( $hook, 'unbsb-staff-new-booking' ) ) {
+				$current_staff = $this->get_current_staff();
+				if ( $current_staff ) {
+					$booking_data['preselectedStaffId'] = $current_staff->id;
+				}
+			}
+
 			wp_localize_script(
 				'unbsb-admin',
 				'unbsbNewBookingData',
-				array(
-					'staff' => $all_staff,
-				)
+				$booking_data
 			);
 		}
 
@@ -1493,7 +1513,10 @@ class UNBSB_Admin {
 	public function ajax_create_booking() {
 		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		// Allow admin or staff with confirm_bookings capability.
+		$is_staff_user = ! current_user_can( 'manage_options' ) && current_user_can( 'unbsb_confirm_bookings' );
+
+		if ( ! current_user_can( 'manage_options' ) && ! $is_staff_user ) {
 			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
 		}
 
@@ -1505,9 +1528,20 @@ class UNBSB_Admin {
 			$service_id = absint( $_POST['service_ids'][0] );
 		}
 
+		// Staff users must use their own staff_id.
+		$staff_id = isset( $_POST['staff_id'] ) ? absint( $_POST['staff_id'] ) : 0;
+
+		if ( $is_staff_user ) {
+			$current_staff = $this->get_current_staff();
+			if ( ! $current_staff ) {
+				wp_send_json_error( __( 'Staff record not found.', 'unbelievable-salon-booking' ) );
+			}
+			$staff_id = absint( $current_staff->id );
+		}
+
 		$data = array(
 			'service_id'     => $service_id,
-			'staff_id'       => isset( $_POST['staff_id'] ) ? absint( $_POST['staff_id'] ) : 0,
+			'staff_id'       => $staff_id,
 			'customer_id'    => isset( $_POST['customer_id'] ) ? absint( $_POST['customer_id'] ) : 0,
 			'customer_name'  => isset( $_POST['customer_name'] ) ? sanitize_text_field( wp_unslash( $_POST['customer_name'] ) ) : '',
 			'customer_email' => isset( $_POST['customer_email'] ) ? sanitize_email( wp_unslash( $_POST['customer_email'] ) ) : '',
@@ -1923,11 +1957,20 @@ class UNBSB_Admin {
 	public function ajax_get_staff_schedule() {
 		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		// Allow admin or staff with own-schedule capability.
+		if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'unbsb_manage_own_schedule' ) ) {
 			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
 		}
 
 		$staff_id = isset( $_POST['staff_id'] ) ? absint( $_POST['staff_id'] ) : 0;
+
+		// Staff users can only view their own schedule.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			$current_staff = $this->get_current_staff();
+			if ( ! $current_staff || absint( $current_staff->id ) !== $staff_id ) {
+				wp_send_json_error( __( 'You can only view your own schedule.', 'unbelievable-salon-booking' ) );
+			}
+		}
 
 		if ( ! $staff_id ) {
 			wp_send_json_error( __( 'Invalid staff.', 'unbelievable-salon-booking' ) );
@@ -2724,6 +2767,73 @@ class UNBSB_Admin {
 		}
 
 		return $redirect_to;
+	}
+
+	/**
+	 * AJAX: Complete booking with payment info
+	 */
+	public function ajax_complete_booking_with_payment() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		$is_admin      = current_user_can( 'manage_options' );
+		$is_staff_user = ! $is_admin && current_user_can( 'unbsb_confirm_bookings' );
+
+		if ( ! $is_admin && ! $is_staff_user ) {
+			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
+		}
+
+		$booking_id     = isset( $_POST['booking_id'] ) ? absint( $_POST['booking_id'] ) : 0;
+		$paid_amount    = isset( $_POST['paid_amount'] ) ? floatval( $_POST['paid_amount'] ) : 0;
+		$payment_method = isset( $_POST['payment_method'] ) ? sanitize_text_field( wp_unslash( $_POST['payment_method'] ) ) : '';
+
+		if ( ! $booking_id ) {
+			wp_send_json_error( __( 'Invalid booking ID.', 'unbelievable-salon-booking' ) );
+		}
+
+		if ( $paid_amount < 0 ) {
+			wp_send_json_error( __( 'Invalid payment amount.', 'unbelievable-salon-booking' ) );
+		}
+
+		if ( ! in_array( $payment_method, array( 'cash', 'card', 'transfer' ), true ) ) {
+			wp_send_json_error( __( 'Invalid payment method.', 'unbelievable-salon-booking' ) );
+		}
+
+		$booking_model = new UNBSB_Booking();
+		$booking       = $booking_model->get( $booking_id );
+
+		if ( ! $booking ) {
+			wp_send_json_error( __( 'Booking not found.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Staff users can only complete their own bookings.
+		if ( $is_staff_user ) {
+			$current_staff = $this->get_current_staff();
+			if ( ! $current_staff || absint( $booking->staff_id ) !== absint( $current_staff->id ) ) {
+				wp_send_json_error( __( 'You can only complete your own bookings.', 'unbelievable-salon-booking' ) );
+			}
+		}
+
+		// Save payment data.
+		$booking_model->update(
+			$booking_id,
+			array(
+				'paid_amount'    => $paid_amount,
+				'payment_method' => $payment_method,
+			)
+		);
+
+		// Update status to completed (triggers unbsb_booking_status_changed for commission).
+		$result = $booking_model->update_status( $booking_id, 'completed' );
+
+		if ( false !== $result ) {
+			wp_send_json_success(
+				array(
+					'message' => __( 'Booking completed.', 'unbelievable-salon-booking' ),
+				)
+			);
+		} else {
+			wp_send_json_error( __( 'Could not complete booking.', 'unbelievable-salon-booking' ) );
+		}
 	}
 
 }

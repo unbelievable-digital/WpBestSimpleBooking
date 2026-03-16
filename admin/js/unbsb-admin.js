@@ -3647,6 +3647,15 @@
 					updateSummary();
 				});
 			});
+
+			// Pre-select staff if set (staff portal).
+			if (unbsbNewBookingData.preselectedStaffId) {
+				var preselectedRadio = staffListDiv.querySelector('input[type="radio"][value="' + unbsbNewBookingData.preselectedStaffId + '"]');
+				if (preselectedRadio) {
+					preselectedRadio.checked = true;
+					preselectedRadio.dispatchEvent(new Event('change'));
+				}
+			}
 		}
 
 		// ---- Date & Time Slots ----
@@ -4069,10 +4078,17 @@
 		 * Load staff schedule and holidays.
 		 */
 		function loadSchedule() {
+			hoursList.innerHTML = '<div class="unbsb-sp-hours-loading"><span class="dashicons dashicons-update-alt unbsb-spin"></span> ' + unbsbAdmin.strings.loading + '</div>';
+			offdaysList.innerHTML = '<div class="unbsb-sp-hours-loading"><span class="dashicons dashicons-update-alt unbsb-spin"></span> ' + unbsbAdmin.strings.loading + '</div>';
+
 			ajaxRequest('unbsb_get_staff_schedule', { staff_id: staffId }, function(response) {
 				if (response.success) {
 					renderWorkingHours(response.data.working_hours || []);
 					renderHolidays(response.data.holidays || []);
+				} else {
+					hoursList.innerHTML = '<div class="unbsb-sp-empty"><span class="dashicons dashicons-warning"></span><p>' + (response.data || unbsbAdmin.strings.error) + '</p></div>';
+					offdaysList.innerHTML = '';
+					showToast(response.data || unbsbAdmin.strings.error, 'error');
 				}
 			});
 		}

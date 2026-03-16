@@ -25,7 +25,7 @@ class UNBSB_Activator {
 
 		// Save version.
 		update_option( 'unbsb_version', UNBSB_VERSION );
-		update_option( 'unbsb_db_version', '1.9.0' );
+		update_option( 'unbsb_db_version', '2.0.0' );
 
 		// Rewrite rules flush.
 		flush_rewrite_rules();
@@ -459,6 +459,11 @@ class UNBSB_Activator {
 		// v1.9.0 - Staff salary/commission system.
 		if ( version_compare( $current_db_version, '1.9.0', '<' ) ) {
 			self::migration_1_9_0();
+		}
+
+		// v2.0.0 - Payment tracking on bookings.
+		if ( version_compare( $current_db_version, '2.0.0', '<' ) ) {
+			self::migration_2_0_0();
 		}
 	}
 
@@ -1060,6 +1065,31 @@ class UNBSB_Activator {
 			$wpdb->query( "ALTER TABLE {$table_name} ADD COLUMN salary_percentage DECIMAL(5,2) DEFAULT 0 AFTER salary_type" );
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			$wpdb->query( "ALTER TABLE {$table_name} ADD COLUMN salary_fixed DECIMAL(10,2) DEFAULT 0 AFTER salary_percentage" );
+		}
+	}
+
+	/**
+	 * Migration 2.0.0 - Payment tracking on bookings
+	 */
+	private static function migration_2_0_0() {
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'unbsb_bookings';
+
+		// paid_amount column.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$column_exists = $wpdb->get_results(
+			$wpdb->prepare(
+				'SHOW COLUMNS FROM ' . $table_name . ' LIKE %s',
+				'paid_amount'
+			)
+		);
+
+		if ( empty( $column_exists ) ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->query( "ALTER TABLE {$table_name} ADD COLUMN paid_amount DECIMAL(10,2) DEFAULT NULL AFTER discount_amount" );
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->query( "ALTER TABLE {$table_name} ADD COLUMN payment_method VARCHAR(50) DEFAULT NULL AFTER paid_amount" );
 		}
 	}
 }

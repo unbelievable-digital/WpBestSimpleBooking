@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Unbelievable Salon Booking
  * Description: Beautiful and easy to use salon booking plugin for WordPress
- * Version: 1.4.0
+ * Version: 1.5.0
  * Author: zgrkaralar
  * Author URI: https://unbelievable.digital
  * License: GPL-2.0+
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants.
-define( 'UNBSB_VERSION', '1.4.1' );
+define( 'UNBSB_VERSION', '1.5.0' );
 define( 'UNBSB_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'UNBSB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'UNBSB_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );

@@ -23,6 +23,12 @@ $filter = isset( $_GET['filter'] ) ? sanitize_text_field( wp_unslash( $_GET['fil
 			<h1><?php esc_html_e( 'My Bookings', 'unbelievable-salon-booking' ); ?></h1>
 			<p class="unbsb-subtitle"><?php esc_html_e( 'Your upcoming and past appointments', 'unbelievable-salon-booking' ); ?></p>
 		</div>
+		<div>
+			<a href="<?php echo esc_url( admin_url( 'admin.php?page=unbsb-staff-new-booking' ) ); ?>" class="unbsb-btn unbsb-btn-primary">
+				<span class="dashicons dashicons-plus-alt2"></span>
+				<?php esc_html_e( 'New Booking', 'unbelievable-salon-booking' ); ?>
+			</a>
+		</div>
 	</div>
 
 	<!-- Date Filter -->
