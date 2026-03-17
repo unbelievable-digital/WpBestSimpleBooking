@@ -1364,6 +1364,122 @@
 				});
 			});
 		}
+
+		// Edit booking
+		initEditBooking();
+	}
+
+	/**
+	 * Edit Booking functionality
+	 */
+	function initEditBooking() {
+		var editModal = document.getElementById('unbsb-edit-booking-modal');
+		if (!editModal) return;
+
+		var editForm = document.getElementById('unbsb-edit-booking-form');
+		var saveBtn = document.getElementById('unbsb-update-booking-save');
+
+		// Edit button click handler (delegated)
+		document.addEventListener('click', function(e) {
+			var btn = e.target.closest('.unbsb-edit-booking');
+			if (!btn) return;
+
+			var bookingId = btn.dataset.id;
+			document.getElementById('edit-booking-id').value = bookingId;
+			document.getElementById('unbsb-edit-booking-id').textContent = '#' + bookingId;
+
+			// Load booking detail via AJAX
+			ajaxRequest('unbsb_get_booking_detail', { id: bookingId }, function(response) {
+				if (response.success) {
+					fillEditBookingForm(response.data);
+					openModal('unbsb-edit-booking-modal');
+				} else {
+					showToast(response.data, 'error');
+				}
+			});
+		});
+
+		// Save edit
+		if (saveBtn && editForm) {
+			saveBtn.addEventListener('click', function() {
+				var formData = new FormData(editForm);
+				var data = {};
+
+				formData.forEach(function(value, key) {
+					data[key] = value;
+				});
+
+				if (!data.staff_id || !data.service_id || !data.customer_name ||
+					!data.booking_date || !data.start_time) {
+					showToast(unbsbAdmin.strings.fill_required_fields, 'error');
+					return;
+				}
+
+				saveBtn.disabled = true;
+				saveBtn.innerHTML = '<span class="dashicons dashicons-update-alt unbsb-spin"></span> ' + unbsbAdmin.strings.saving;
+
+				ajaxRequest('unbsb_update_booking', data, function(response) {
+					saveBtn.disabled = false;
+					saveBtn.innerHTML = '<span class="dashicons dashicons-saved"></span> ' + (unbsbAdmin.strings.update_booking || 'Update Booking');
+
+					if (response.success) {
+						showToast(response.data.message || response.data);
+						closeModal(editModal);
+						location.reload();
+					} else {
+						showToast(response.data, 'error');
+					}
+				});
+			});
+		}
+	}
+
+	/**
+	 * Fill edit booking form with data
+	 */
+	function fillEditBookingForm(booking) {
+		document.getElementById('edit-booking-id').value = booking.id;
+
+		// Staff
+		var staffSelect = document.getElementById('edit-booking-staff');
+		if (staffSelect) staffSelect.value = booking.staff_id || '';
+
+		// Service
+		var serviceSelect = document.getElementById('edit-booking-service');
+		if (serviceSelect) serviceSelect.value = booking.service_id || '';
+
+		// Date & Time
+		var dateInput = document.getElementById('edit-booking-date');
+		if (dateInput) dateInput.value = booking.booking_date || '';
+
+		var timeInput = document.getElementById('edit-booking-time');
+		if (timeInput) {
+			var time = booking.start_time || '';
+			// Convert HH:MM:SS to HH:MM
+			if (time.length > 5) time = time.substring(0, 5);
+			timeInput.value = time;
+		}
+
+		// Price
+		var priceInput = document.getElementById('edit-booking-price');
+		if (priceInput) priceInput.value = booking.price || '';
+
+		// Customer
+		var nameInput = document.getElementById('edit-booking-customer-name');
+		if (nameInput) nameInput.value = booking.customer_name || '';
+
+		var emailInput = document.getElementById('edit-booking-customer-email');
+		if (emailInput) emailInput.value = booking.customer_email || '';
+
+		var phoneInput = document.getElementById('edit-booking-customer-phone');
+		if (phoneInput) phoneInput.value = booking.customer_phone || '';
+
+		// Notes
+		var notesInput = document.getElementById('edit-booking-notes');
+		if (notesInput) notesInput.value = booking.notes || '';
+
+		var internalNotesInput = document.getElementById('edit-booking-internal-notes');
+		if (internalNotesInput) internalNotesInput.value = booking.internal_notes || '';
 	}
 
 	/**

@@ -176,6 +176,10 @@ class UNBSB_Core {
 		$this->loader->add_action( 'wp_ajax_unbsb_link_staff_user', $admin, 'ajax_link_staff_user' );
 		$this->loader->add_action( 'wp_ajax_unbsb_unlink_staff_user', $admin, 'ajax_unlink_staff_user' );
 
+		// Booking edit.
+		$this->loader->add_action( 'wp_ajax_unbsb_get_booking_detail', $admin, 'ajax_get_booking_detail' );
+		$this->loader->add_action( 'wp_ajax_unbsb_update_booking', $admin, 'ajax_update_booking' );
+
 		// Booking completion with payment.
 		$this->loader->add_action( 'wp_ajax_unbsb_complete_booking_with_payment', $admin, 'ajax_complete_booking_with_payment' );
 

@@ -49,6 +49,15 @@ $status_colors = array(
 		if ( $customer ) {
 			$bookings = $customer_model->get_bookings( $customer->id );
 		}
+
+		// Fallback: also find bookings by email if customer_id wasn't linked.
+		if ( empty( $bookings ) ) {
+			$booking_model    = new UNBSB_Booking();
+			$email_bookings   = $booking_model->get_by_email( $current_user->user_email );
+			if ( ! empty( $email_bookings ) ) {
+				$bookings = $email_bookings;
+			}
+		}
 		?>
 
 		<!-- Logged-in: My Account -->

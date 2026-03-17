@@ -331,6 +331,7 @@ class UNBSB_Admin {
 					// Booking.
 					'fill_required_fields'       => __( 'Please fill in all required fields.', 'unbelievable-salon-booking' ),
 					'create_booking'             => __( 'Create Booking', 'unbelievable-salon-booking' ),
+					'update_booking'             => __( 'Update Booking', 'unbelievable-salon-booking' ),
 					// SMS/Email.
 					'enter_test_phone'           => __( 'Please enter a test phone number', 'unbelievable-salon-booking' ),
 					'enter_test_email'           => __( 'Please enter a test email address', 'unbelievable-salon-booking' ),
@@ -870,6 +871,8 @@ class UNBSB_Admin {
 		$date_from = isset( $_GET['date_from'] ) ? sanitize_text_field( wp_unslash( $_GET['date_from'] ) ) : '';
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce not required for read-only filtering.
 		$date_to = isset( $_GET['date_to'] ) ? sanitize_text_field( wp_unslash( $_GET['date_to'] ) ) : '';
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce not required for read-only filtering.
+		$search = isset( $_GET['search'] ) ? sanitize_text_field( wp_unslash( $_GET['search'] ) ) : '';
 
 		$args = array(
 			'orderby' => 'booking_date',
@@ -887,6 +890,9 @@ class UNBSB_Admin {
 		}
 		if ( $date_to ) {
 			$args['date_to'] = $date_to;
+		}
+		if ( $search ) {
+			$args['search'] = $search;
 		}
 
 		$bookings = $booking_model->get_all( $args );
@@ -2999,6 +3005,221 @@ class UNBSB_Admin {
 		}
 
 		wp_send_json_success( $events );
+	}
+
+	/**
+	 * AJAX: Get booking detail for edit form
+	 */
+	public function ajax_get_booking_detail() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'unbsb_manage_bookings' ) ) {
+			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
+		}
+
+		$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
+
+		if ( ! $id ) {
+			wp_send_json_error( __( 'Invalid booking ID.', 'unbelievable-salon-booking' ) );
+		}
+
+		$booking_model = new UNBSB_Booking();
+		$booking       = $booking_model->get_with_details( $id );
+
+		if ( ! $booking ) {
+			wp_send_json_error( __( 'Booking not found.', 'unbelievable-salon-booking' ) );
+		}
+
+		wp_send_json_success( $booking );
+	}
+
+	/**
+	 * AJAX: Update booking
+	 */
+	public function ajax_update_booking() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'unbsb_manage_bookings' ) ) {
+			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
+		}
+
+		$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
+
+		if ( ! $id ) {
+			wp_send_json_error( __( 'Invalid booking ID.', 'unbelievable-salon-booking' ) );
+		}
+
+		$booking_model = new UNBSB_Booking();
+		$existing      = $booking_model->get( $id );
+
+		if ( ! $existing ) {
+			wp_send_json_error( __( 'Booking not found.', 'unbelievable-salon-booking' ) );
+		}
+
+		$data = array();
+
+		// Collect editable fields.
+		if ( isset( $_POST['service_id'] ) ) {
+			$data['service_id'] = absint( $_POST['service_id'] );
+		}
+
+		if ( isset( $_POST['staff_id'] ) ) {
+			$data['staff_id'] = absint( $_POST['staff_id'] );
+		}
+
+		if ( isset( $_POST['booking_date'] ) ) {
+			$data['booking_date'] = sanitize_text_field( wp_unslash( $_POST['booking_date'] ) );
+		}
+
+		if ( isset( $_POST['start_time'] ) ) {
+			$data['start_time'] = sanitize_text_field( wp_unslash( $_POST['start_time'] ) );
+		}
+
+		if ( isset( $_POST['customer_name'] ) ) {
+			$data['customer_name'] = sanitize_text_field( wp_unslash( $_POST['customer_name'] ) );
+		}
+
+		if ( isset( $_POST['customer_email'] ) ) {
+			$data['customer_email'] = sanitize_email( wp_unslash( $_POST['customer_email'] ) );
+		}
+
+		if ( isset( $_POST['customer_phone'] ) ) {
+			$data['customer_phone'] = sanitize_text_field( wp_unslash( $_POST['customer_phone'] ) );
+		}
+
+		if ( isset( $_POST['notes'] ) ) {
+			$data['notes'] = sanitize_textarea_field( wp_unslash( $_POST['notes'] ) );
+		}
+
+		if ( isset( $_POST['internal_notes'] ) ) {
+			$data['internal_notes'] = sanitize_textarea_field( wp_unslash( $_POST['internal_notes'] ) );
+		}
+
+		if ( isset( $_POST['price'] ) ) {
+			$data['price'] = floatval( $_POST['price'] );
+		}
+
+		if ( empty( $data ) ) {
+			wp_send_json_error( __( 'No fields to update.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Validate date format if provided.
+		if ( ! empty( $data['booking_date'] ) && ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $data['booking_date'] ) ) {
+			wp_send_json_error( __( 'Invalid date format.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Validate email if provided.
+		if ( ! empty( $data['customer_email'] ) && ! is_email( $data['customer_email'] ) ) {
+			wp_send_json_error( __( 'Invalid email address.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Recalculate end_time if date/time/service/staff changed.
+		$new_staff_id    = $data['staff_id'] ?? $existing->staff_id;
+		$new_service_id  = $data['service_id'] ?? $existing->service_id;
+		$new_date        = $data['booking_date'] ?? $existing->booking_date;
+		$new_start_time  = $data['start_time'] ?? $existing->start_time;
+
+		// Recalculate end_time based on service duration.
+		$service_model = new UNBSB_Service();
+		$staff_model   = new UNBSB_Staff();
+		$service       = $service_model->get( $new_service_id );
+
+		if ( $service ) {
+			$custom = $staff_model->get_service_custom_data( $new_staff_id, $new_service_id );
+
+			$effective_duration = ( $custom && null !== $custom->custom_duration )
+				? intval( $custom->custom_duration )
+				: intval( $service->duration );
+
+			$duration          = $effective_duration + intval( $service->buffer_after );
+			$start             = strtotime( $new_start_time );
+			$data['end_time']  = gmdate( 'H:i:s', $start + ( $duration * 60 ) );
+
+			$data['total_duration'] = $duration;
+		}
+
+		// Conflict check (exclude current booking).
+		$conflict_data = array(
+			'staff_id'     => $new_staff_id,
+			'booking_date' => $new_date,
+			'start_time'   => $new_start_time,
+			'end_time'     => $data['end_time'] ?? $existing->end_time,
+		);
+
+		if ( $booking_model->has_conflict( $conflict_data, $id ) ) {
+			wp_send_json_error( __( 'Another booking exists in this time slot for this staff member.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Multi-service support.
+		if ( ! empty( $_POST['service_ids'] ) && is_array( $_POST['service_ids'] ) ) {
+			$service_ids    = array_map( 'absint', $_POST['service_ids'] );
+			$total_duration = 0;
+			$total_price    = 0;
+			$services_data  = array();
+
+			foreach ( $service_ids as $index => $sid ) {
+				$svc = $service_model->get( $sid );
+				if ( $svc ) {
+					$custom = $staff_model->get_service_custom_data( $new_staff_id, $sid );
+
+					$eff_duration = ( $custom && null !== $custom->custom_duration )
+						? intval( $custom->custom_duration )
+						: intval( $svc->duration );
+
+					if ( $custom && null !== $custom->custom_price ) {
+						$eff_price = floatval( $custom->custom_price );
+					} elseif ( ! empty( $svc->discounted_price ) && floatval( $svc->discounted_price ) < floatval( $svc->price ) ) {
+						$eff_price = floatval( $svc->discounted_price );
+					} else {
+						$eff_price = floatval( $svc->price );
+					}
+
+					$total_duration += $eff_duration;
+					$total_price    += $eff_price;
+
+					$services_data[] = array(
+						'service_id' => $sid,
+						'staff_id'   => $new_staff_id,
+						'price'      => $eff_price,
+						'duration'   => $eff_duration,
+						'sort_order' => $index,
+					);
+
+					if ( count( $service_ids ) - 1 === $index ) {
+						$total_duration += intval( $svc->buffer_after );
+					}
+				}
+			}
+
+			$data['service_id']     = $service_ids[0];
+			$data['total_duration'] = $total_duration;
+			$start                  = strtotime( $new_start_time );
+			$data['end_time']       = gmdate( 'H:i:s', $start + ( $total_duration * 60 ) );
+
+			// Only override price if not manually set.
+			if ( ! isset( $_POST['price'] ) ) {
+				$data['price'] = $total_price;
+			}
+
+			// Update booking_services table.
+			$booking_service = new UNBSB_Booking_Service();
+			$booking_service->delete_by_booking( $id );
+			$booking_service->add_multiple( $id, $services_data );
+		}
+
+		$result = $booking_model->update( $id, $data );
+
+		if ( false !== $result ) {
+			$updated_booking = $booking_model->get_with_details( $id );
+			wp_send_json_success(
+				array(
+					'message' => __( 'Booking updated successfully.', 'unbelievable-salon-booking' ),
+					'booking' => $updated_booking,
+				)
+			);
+		} else {
+			wp_send_json_error( __( 'An error occurred while updating the booking.', 'unbelievable-salon-booking' ) );
+		}
 	}
 
 }

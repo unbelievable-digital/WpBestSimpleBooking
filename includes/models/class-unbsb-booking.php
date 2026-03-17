@@ -461,6 +461,7 @@ class UNBSB_Booking {
 			'status'     => '',
 			'date_from'  => '',
 			'date_to'    => '',
+			'search'     => '',
 			'orderby'    => 'booking_date',
 			'order'      => 'ASC',
 			'limit'      => 0,
@@ -504,6 +505,13 @@ class UNBSB_Booking {
 			$prepare_args[] = $args['date_to'];
 		}
 
+		if ( $args['search'] ) {
+			$sql           .= ' AND (b.customer_name LIKE %s OR b.customer_email LIKE %s)';
+			$like           = '%' . $wpdb->esc_like( $args['search'] ) . '%';
+			$prepare_args[] = $like;
+			$prepare_args[] = $like;
+		}
+
 		$sql .= sprintf(
 			' ORDER BY b.%s %s',
 			esc_sql( $args['orderby'] ),
@@ -545,6 +553,32 @@ class UNBSB_Booking {
 		}
 
 		return $this->get_all( $args );
+	}
+
+	/**
+	 * Get bookings by customer email
+	 *
+	 * @param string $email Customer email.
+	 *
+	 * @return array
+	 */
+	public function get_by_email( $email ) {
+		global $wpdb;
+
+		$prefix = $wpdb->prefix . 'unbsb_';
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT b.*, s.name as service_name, st.name as staff_name
+				FROM {$prefix}bookings b
+				LEFT JOIN {$prefix}services s ON b.service_id = s.id
+				LEFT JOIN {$prefix}staff st ON b.staff_id = st.id
+				WHERE b.customer_email = %s
+				ORDER BY b.booking_date DESC, b.start_time DESC",
+				sanitize_email( $email )
+			)
+		);
 	}
 
 	/**
