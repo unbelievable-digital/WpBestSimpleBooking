@@ -1379,6 +1379,45 @@
 		var editForm = document.getElementById('unbsb-edit-booking-form');
 		var saveBtn = document.getElementById('unbsb-update-booking-save');
 
+		// View button click handler (delegated)
+		document.addEventListener('click', function(e) {
+			var btn = e.target.closest('.unbsb-view-booking');
+			if (!btn) return;
+
+			var bookingId = btn.dataset.id;
+			document.getElementById('unbsb-booking-detail-id').textContent = '#' + bookingId;
+
+			ajaxRequest('unbsb_get_booking_detail', { id: bookingId }, function(response) {
+				if (response.success) {
+					var b = response.data;
+					var detailEl = document.getElementById('unbsb-booking-detail');
+					if (detailEl) {
+						var html = '<div class="unbsb-sp-detail-grid">';
+						html += '<div class="unbsb-sp-detail-item"><span class="unbsb-sp-detail-label">' + (unbsbAdmin.strings.service || 'Service') + '</span><span>' + (b.service_name || '-') + '</span></div>';
+						html += '<div class="unbsb-sp-detail-item"><span class="unbsb-sp-detail-label">' + (unbsbAdmin.strings.staff || 'Staff') + '</span><span>' + (b.staff_name || '-') + '</span></div>';
+						html += '<div class="unbsb-sp-detail-item"><span class="unbsb-sp-detail-label">' + (unbsbAdmin.strings.customer || 'Customer') + '</span><span>' + (b.customer_name || '-') + '</span></div>';
+						html += '<div class="unbsb-sp-detail-item"><span class="unbsb-sp-detail-label">' + (unbsbAdmin.strings.email || 'Email') + '</span><span>' + (b.customer_email || '-') + '</span></div>';
+						html += '<div class="unbsb-sp-detail-item"><span class="unbsb-sp-detail-label">' + (unbsbAdmin.strings.phone || 'Phone') + '</span><span>' + (b.customer_phone || '-') + '</span></div>';
+						html += '<div class="unbsb-sp-detail-item"><span class="unbsb-sp-detail-label">' + (unbsbAdmin.strings.date || 'Date') + '</span><span>' + (b.booking_date || '-') + '</span></div>';
+						html += '<div class="unbsb-sp-detail-item"><span class="unbsb-sp-detail-label">' + (unbsbAdmin.strings.time || 'Time') + '</span><span>' + (b.start_time ? b.start_time.substring(0, 5) : '-') + ' - ' + (b.end_time ? b.end_time.substring(0, 5) : '-') + '</span></div>';
+						html += '<div class="unbsb-sp-detail-item"><span class="unbsb-sp-detail-label">' + (unbsbAdmin.strings.price || 'Price') + '</span><span>' + (b.price || '0') + ' ' + (unbsbAdmin.currency || '') + '</span></div>';
+						html += '<div class="unbsb-sp-detail-item"><span class="unbsb-sp-detail-label">' + (unbsbAdmin.strings.status || 'Status') + '</span><span>' + (b.status || '-') + '</span></div>';
+						if (b.notes) {
+							html += '<div class="unbsb-sp-detail-item"><span class="unbsb-sp-detail-label">' + (unbsbAdmin.strings.notes || 'Notes') + '</span><span>' + b.notes + '</span></div>';
+						}
+						if (b.internal_notes) {
+							html += '<div class="unbsb-sp-detail-item"><span class="unbsb-sp-detail-label">' + (unbsbAdmin.strings.internal_notes || 'Internal Notes') + '</span><span>' + b.internal_notes + '</span></div>';
+						}
+						html += '</div>';
+						detailEl.innerHTML = html;
+					}
+					openModal('unbsb-booking-modal');
+				} else {
+					showToast(response.data, 'error');
+				}
+			});
+		});
+
 		// Edit button click handler (delegated)
 		document.addEventListener('click', function(e) {
 			var btn = e.target.closest('.unbsb-edit-booking');
@@ -2064,6 +2103,17 @@
 				html += '</div>';
 
 				detail.innerHTML = html;
+
+				// Store booking ID for action buttons
+				var calModal = document.getElementById('unbsb-cal-booking-modal');
+				if (calModal) calModal.dataset.bookingId = props.booking_id;
+
+				// Show/hide complete button based on status
+				var completeBtn = document.getElementById('unbsb-cal-complete-booking');
+				if (completeBtn) {
+					completeBtn.style.display = (props.status === 'confirmed') ? '' : 'none';
+				}
+
 				openModal('unbsb-cal-booking-modal');
 			}
 		});
@@ -2074,6 +2124,103 @@
 		if (staffSelect) {
 			staffSelect.addEventListener('change', function() {
 				calendar.refetchEvents();
+			});
+		}
+
+		// Calendar action buttons: Edit, Complete, Delete
+		var calEditBtn = document.getElementById('unbsb-cal-edit-booking');
+		var calDeleteBtn = document.getElementById('unbsb-cal-delete-booking');
+		var calCompleteBtn = document.getElementById('unbsb-cal-complete-booking');
+		var calModal = document.getElementById('unbsb-cal-booking-modal');
+
+		if (calEditBtn && calModal) {
+			calEditBtn.addEventListener('click', function() {
+				var bookingId = calModal.dataset.bookingId;
+				if (!bookingId) return;
+				closeModal(calModal);
+
+				// Load booking detail and open edit modal
+				ajaxRequest('unbsb_get_booking_detail', { id: bookingId }, function(response) {
+					if (response.success) {
+						fillEditBookingForm(response.data);
+						document.getElementById('unbsb-edit-booking-id').textContent = '#' + bookingId;
+						openModal('unbsb-edit-booking-modal');
+					} else {
+						showToast(response.data, 'error');
+					}
+				});
+			});
+		}
+
+		if (calDeleteBtn && calModal) {
+			calDeleteBtn.addEventListener('click', function() {
+				var bookingId = calModal.dataset.bookingId;
+				if (!bookingId || !confirm(unbsbAdmin.strings.confirm_delete)) return;
+
+				ajaxRequest('unbsb_delete_booking', { id: bookingId }, function(response) {
+					if (response.success) {
+						showToast(response.data);
+						closeModal(calModal);
+						calendar.refetchEvents();
+					} else {
+						showToast(response.data, 'error');
+					}
+				});
+			});
+		}
+
+		if (calCompleteBtn && calModal) {
+			calCompleteBtn.addEventListener('click', function() {
+				var bookingId = calModal.dataset.bookingId;
+				if (!bookingId) return;
+
+				ajaxRequest('unbsb_update_booking_status', { id: bookingId, status: 'completed' }, function(response) {
+					if (response.success) {
+						showToast(response.data);
+						closeModal(calModal);
+						calendar.refetchEvents();
+					} else {
+						showToast(response.data, 'error');
+					}
+				});
+			});
+		}
+
+		// After edit modal save on calendar page, refetch events instead of reload
+		var calEditSaveBtn = document.getElementById('unbsb-update-booking-save');
+		var editModal = document.getElementById('unbsb-edit-booking-modal');
+		if (calEditSaveBtn && editModal && calendarEl) {
+			// Override the save button only on calendar page
+			calEditSaveBtn.addEventListener('click', function(e) {
+				e.stopImmediatePropagation();
+				var editForm = document.getElementById('unbsb-edit-booking-form');
+				if (!editForm) return;
+
+				var formData = new FormData(editForm);
+				var data = {};
+				formData.forEach(function(value, key) { data[key] = value; });
+
+				if (!data.staff_id || !data.service_id || !data.customer_name ||
+					!data.booking_date || !data.start_time) {
+					showToast(unbsbAdmin.strings.fill_required_fields, 'error');
+					return;
+				}
+
+				calEditSaveBtn.disabled = true;
+				calEditSaveBtn.innerHTML = '<span class="dashicons dashicons-update-alt unbsb-spin"></span> ' + unbsbAdmin.strings.saving;
+
+				ajaxRequest('unbsb_update_booking', data, function(response) {
+					calEditSaveBtn.disabled = false;
+					calEditSaveBtn.innerHTML = '<span class="dashicons dashicons-saved"></span> ' + (unbsbAdmin.strings.update_booking || 'Update Booking');
+
+					if (response.success) {
+						showToast(response.data.message || response.data);
+						closeModal(editModal);
+						calendar.refetchEvents();
+					} else {
+						showToast(response.data, 'error');
+					}
+				});
 			});
 		}
 	}
