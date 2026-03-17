@@ -153,6 +153,9 @@ $statuses = array(
 										<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-icon unbsb-view-booking" data-id="<?php echo esc_attr( $booking->id ); ?>" title="<?php esc_attr_e( 'View', 'unbelievable-salon-booking' ); ?>">
 											<span class="dashicons dashicons-visibility"></span>
 										</button>
+										<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-icon unbsb-btn-danger unbsb-delete-booking" data-id="<?php echo esc_attr( $booking->id ); ?>" title="<?php esc_attr_e( 'Delete', 'unbelievable-salon-booking' ); ?>">
+											<span class="dashicons dashicons-trash"></span>
+										</button>
 									</div>
 								</td>
 							</tr>

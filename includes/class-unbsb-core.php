@@ -123,6 +123,7 @@ class UNBSB_Core {
 		$this->loader->add_action( 'wp_ajax_unbsb_save_customer', $admin, 'ajax_save_customer' );
 		$this->loader->add_action( 'wp_ajax_unbsb_delete_customer', $admin, 'ajax_delete_customer' );
 		$this->loader->add_action( 'wp_ajax_unbsb_update_booking_status', $admin, 'ajax_update_booking_status' );
+		$this->loader->add_action( 'wp_ajax_unbsb_delete_booking', $admin, 'ajax_delete_booking' );
 		$this->loader->add_action( 'wp_ajax_unbsb_get_bookings', $admin, 'ajax_get_bookings' );
 		$this->loader->add_action( 'wp_ajax_unbsb_admin_create_booking', $admin, 'ajax_create_booking' );
 		$this->loader->add_action( 'wp_ajax_unbsb_save_settings', $admin, 'ajax_save_settings' );

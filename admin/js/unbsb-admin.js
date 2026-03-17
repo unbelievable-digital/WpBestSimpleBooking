@@ -1199,6 +1199,24 @@
 			});
 		});
 
+		// Delete booking
+		document.querySelectorAll('.unbsb-delete-booking').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				var id = this.dataset.id;
+				if (!confirm(unbsbAdmin.strings.confirm_delete)) return;
+
+				ajaxRequest('unbsb_delete_booking', { id: id }, function(response) {
+					if (response.success) {
+						var row = document.querySelector('tr[data-id="' + id + '"]');
+						if (row) row.remove();
+						showToast(response.data);
+					} else {
+						showToast(response.data, 'error');
+					}
+				});
+			});
+		});
+
 		// Add booking button
 		const addBookingBtn = document.getElementById('unbsb-add-booking');
 		const addBookingModal = document.getElementById('unbsb-add-booking-modal');

@@ -1502,6 +1502,32 @@ class UNBSB_Admin {
 	}
 
 	/**
+	 * AJAX: Delete booking
+	 */
+	public function ajax_delete_booking() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
+		}
+
+		$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
+
+		if ( ! $id ) {
+			wp_send_json_error( __( 'Invalid booking ID.', 'unbelievable-salon-booking' ) );
+		}
+
+		$booking_model = new UNBSB_Booking();
+		$result        = $booking_model->delete( $id );
+
+		if ( $result ) {
+			wp_send_json_success( __( 'Booking deleted.', 'unbelievable-salon-booking' ) );
+		} else {
+			wp_send_json_error( __( 'Delete error.', 'unbelievable-salon-booking' ) );
+		}
+	}
+
+	/**
 	 * AJAX: Update booking status
 	 */
 	public function ajax_update_booking_status() {
