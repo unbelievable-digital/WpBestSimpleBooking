@@ -485,40 +485,51 @@ class UNBSB_Staff {
 	}
 
 	/**
-	 * Add holiday/time-off
+	 * Add holiday/time-off or extra open day
 	 *
-	 * @param int    $staff_id Staff ID.
-	 * @param string $date     Date (Y-m-d).
-	 * @param string $reason   Reason.
+	 * @param int    $staff_id   Staff ID.
+	 * @param string $date       Date (Y-m-d).
+	 * @param string $reason     Reason.
+	 * @param string $type       Type: 'off' or 'extra'.
+	 * @param string $start_time Start time for extra day (H:i or null).
+	 * @param string $end_time   End time for extra day (H:i or null).
 	 *
 	 * @return int|false
 	 */
-	public function add_holiday( $staff_id, $date, $reason = '' ) {
-		// Check if time-off already exists for the same date.
+	public function add_holiday( $staff_id, $date, $reason = '', $type = 'off', $start_time = null, $end_time = null ) {
+		// Check if entry already exists for the same date and type.
 		global $wpdb;
 		$prefix = $wpdb->prefix . 'unbsb_';
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$exists = $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT id FROM {$prefix}holidays WHERE staff_id = %d AND date = %s",
+				"SELECT id FROM {$prefix}holidays WHERE staff_id = %d AND date = %s AND type = %s",
 				$staff_id,
-				$date
+				$date,
+				$type
 			)
 		);
 
 		if ( $exists ) {
-			return false; // Already marked as time-off.
+			return false;
 		}
 
-		return $this->db->insert(
-			'holidays',
-			array(
-				'staff_id' => absint( $staff_id ),
-				'date'     => sanitize_text_field( $date ),
-				'reason'   => sanitize_text_field( $reason ),
-			)
+		$data = array(
+			'staff_id' => absint( $staff_id ),
+			'date'     => sanitize_text_field( $date ),
+			'reason'   => sanitize_text_field( $reason ),
+			'type'     => in_array( $type, array( 'off', 'extra' ), true ) ? $type : 'off',
 		);
+
+		if ( 'extra' === $type && $start_time ) {
+			$data['start_time'] = sanitize_text_field( $start_time );
+		}
+		if ( 'extra' === $type && $end_time ) {
+			$data['end_time'] = sanitize_text_field( $end_time );
+		}
+
+		return $this->db->insert( 'holidays', $data );
 	}
 
 	/**

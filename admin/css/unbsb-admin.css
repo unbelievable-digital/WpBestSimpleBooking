@@ -5662,6 +5662,77 @@ select optgroup option {
 	font-size: 13px;
 }
 
+/* Off Day / Extra Day type borders */
+.unbsb-sp-offday-item--off {
+	border-left: 3px solid var(--unbsb-danger);
+}
+
+.unbsb-sp-offday-item--off:hover {
+	border-color: var(--unbsb-danger);
+}
+
+.unbsb-sp-offday-item--extra {
+	border-left: 3px solid var(--unbsb-success);
+}
+
+.unbsb-sp-offday-item--extra:hover {
+	border-color: var(--unbsb-success);
+}
+
+.unbsb-sp-extra-time {
+	font-size: 12px;
+	font-weight: 400;
+	color: var(--unbsb-success);
+	margin-left: 6px;
+}
+
+/* Extra Day Form */
+.unbsb-sp-extraday-form {
+	background: var(--unbsb-light);
+	border: 1px solid var(--unbsb-border);
+	border-radius: var(--unbsb-radius);
+	padding: 16px;
+	margin-bottom: 16px;
+}
+
+.unbsb-sp-extraday-form .unbsb-form-group {
+	margin-bottom: 12px;
+}
+
+.unbsb-sp-extraday-form label {
+	display: block;
+	font-size: 13px;
+	font-weight: 500;
+	margin-bottom: 4px;
+	color: var(--unbsb-text);
+}
+
+.unbsb-sp-extraday-form input[type="date"],
+.unbsb-sp-extraday-form input[type="time"],
+.unbsb-sp-extraday-form input[type="text"] {
+	width: 100%;
+	padding: 8px 12px;
+	border: 1px solid var(--unbsb-border);
+	border-radius: var(--unbsb-radius-sm);
+	font-size: 13px;
+}
+
+.unbsb-sp-extraday-form .unbsb-form-row {
+	display: flex;
+	gap: 12px;
+}
+
+.unbsb-sp-extraday-form .unbsb-form-row .unbsb-form-group {
+	flex: 1;
+}
+
+/* Extra Days List */
+.unbsb-sp-extradays-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
 /* Staff Portal Booking Detail */
 .unbsb-sp-detail-grid {
 	display: flex;

@@ -68,7 +68,7 @@ class UNBSB_Calendar {
 			return array();
 		}
 
-		// Holiday check.
+		// Holiday check (type='off' only).
 		if ( $this->is_holiday( $staff_id, $date ) ) {
 			return array();
 		}
@@ -79,7 +79,34 @@ class UNBSB_Calendar {
 		// Get working hours.
 		$working_hours = $this->get_working_hours_for_day( $staff_id, $day_of_week );
 
-		if ( empty( $working_hours ) || ! $working_hours->is_working ) {
+		$start_time = null;
+		$end_time   = null;
+		$breaks     = array();
+
+		if ( ! empty( $working_hours ) && $working_hours->is_working ) {
+			// Normal working day.
+			$start_time = $working_hours->start_time;
+			$end_time   = $working_hours->end_time;
+			$breaks     = $this->staff_model->get_breaks( $staff_id, $day_of_week );
+		} else {
+			// Normally not working — check for extra open day.
+			$extra_day = $this->get_extra_day( $staff_id, $date );
+			if ( $extra_day ) {
+				if ( ! empty( $extra_day->start_time ) && ! empty( $extra_day->end_time ) ) {
+					$start_time = $extra_day->start_time;
+					$end_time   = $extra_day->end_time;
+				} else {
+					// Use default working hours from any working day as fallback.
+					$default_hours = $this->get_default_working_hours( $staff_id );
+					if ( $default_hours ) {
+						$start_time = $default_hours->start_time;
+						$end_time   = $default_hours->end_time;
+					}
+				}
+			}
+		}
+
+		if ( ! $start_time || ! $end_time ) {
 			return array();
 		}
 
@@ -96,13 +123,10 @@ class UNBSB_Calendar {
 			);
 		}
 
-		// Get breaks.
-		$breaks = $this->staff_model->get_breaks( $staff_id, $day_of_week );
-
 		// Calculate slots.
 		$slots = $this->calculate_slots(
-			$working_hours->start_time,
-			$working_hours->end_time,
+			$start_time,
+			$end_time,
 			$service->duration + $service->buffer_before + $service->buffer_after,
 			$bookings,
 			$breaks,
@@ -129,7 +153,7 @@ class UNBSB_Calendar {
 			return array();
 		}
 
-		// Holiday check.
+		// Holiday check (type='off' only).
 		if ( $this->is_holiday( $staff_id, $date ) ) {
 			return array();
 		}
@@ -140,7 +164,32 @@ class UNBSB_Calendar {
 		// Get working hours.
 		$working_hours = $this->get_working_hours_for_day( $staff_id, $day_of_week );
 
-		if ( empty( $working_hours ) || ! $working_hours->is_working ) {
+		$start_time = null;
+		$end_time   = null;
+		$breaks     = array();
+
+		if ( ! empty( $working_hours ) && $working_hours->is_working ) {
+			$start_time = $working_hours->start_time;
+			$end_time   = $working_hours->end_time;
+			$breaks     = $this->staff_model->get_breaks( $staff_id, $day_of_week );
+		} else {
+			// Check for extra open day.
+			$extra_day = $this->get_extra_day( $staff_id, $date );
+			if ( $extra_day ) {
+				if ( ! empty( $extra_day->start_time ) && ! empty( $extra_day->end_time ) ) {
+					$start_time = $extra_day->start_time;
+					$end_time   = $extra_day->end_time;
+				} else {
+					$default_hours = $this->get_default_working_hours( $staff_id );
+					if ( $default_hours ) {
+						$start_time = $default_hours->start_time;
+						$end_time   = $default_hours->end_time;
+					}
+				}
+			}
+		}
+
+		if ( ! $start_time || ! $end_time ) {
 			return array();
 		}
 
@@ -157,13 +206,10 @@ class UNBSB_Calendar {
 			);
 		}
 
-		// Get breaks.
-		$breaks = $this->staff_model->get_breaks( $staff_id, $day_of_week );
-
 		// Calculate slots.
 		$slots = $this->calculate_slots(
-			$working_hours->start_time,
-			$working_hours->end_time,
+			$start_time,
+			$end_time,
 			$total_duration,
 			$bookings,
 			$breaks,
@@ -295,7 +341,32 @@ class UNBSB_Calendar {
 	}
 
 	/**
-	 * Check if it is a holiday
+	 * Get default working hours for a staff member (first working day found).
+	 *
+	 * Used as fallback for extra open days without explicit start/end times.
+	 *
+	 * @param int $staff_id Staff ID.
+	 *
+	 * @return object|null
+	 */
+	private function get_default_working_hours( $staff_id ) {
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'unbsb_working_hours';
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_row(
+			$wpdb->prepare(
+				'SELECT * FROM ' . $table . ' WHERE staff_id = %d AND is_working = 1 ORDER BY day_of_week ASC LIMIT 1',
+				$staff_id
+			)
+		);
+	}
+
+	/**
+	 * Check if it is a holiday (day off)
+	 *
+	 * Only returns true for type='off' entries. type='extra' entries are not holidays.
 	 *
 	 * @param int    $staff_id Staff ID.
 	 * @param string $date     Date.
@@ -307,16 +378,40 @@ class UNBSB_Calendar {
 
 		$table = $wpdb->prefix . 'unbsb_holidays';
 
-		// Staff-specific or general holiday check.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		return (int) $wpdb->get_var(
 			$wpdb->prepare(
-				'SELECT COUNT(*) FROM ' . $table . '
-				WHERE date = %s AND (staff_id = %d OR staff_id IS NULL)',
+				"SELECT COUNT(*) FROM {$table}
+				WHERE date = %s AND (staff_id = %d OR staff_id IS NULL)
+				AND (type = 'off' OR type IS NULL)",
 				$date,
 				$staff_id
 			)
 		) > 0;
+	}
+
+	/**
+	 * Get extra open day entry for a staff member on a given date.
+	 *
+	 * @param int    $staff_id Staff ID.
+	 * @param string $date     Date (Y-m-d).
+	 *
+	 * @return object|null Holiday row with type='extra' or null.
+	 */
+	public function get_extra_day( $staff_id, $date ) {
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'unbsb_holidays';
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT * FROM {$table}
+				WHERE date = %s AND staff_id = %d AND type = 'extra'",
+				$date,
+				$staff_id
+			)
+		);
 	}
 
 	/**

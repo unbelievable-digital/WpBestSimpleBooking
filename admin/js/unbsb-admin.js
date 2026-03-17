@@ -4421,6 +4421,7 @@
 	function initStaffScheduleOwn() {
 		var hoursList = document.getElementById('unbsb-sp-hours-list');
 		var offdaysList = document.getElementById('unbsb-sp-offdays-list');
+		var extradaysList = document.getElementById('unbsb-sp-extradays-list');
 		if (!hoursList || !offdaysList) return;
 
 		var staffId = typeof unbsbStaffPortal !== 'undefined' ? unbsbStaffPortal.staffId : null;
@@ -4433,7 +4434,7 @@
 		// Load schedule data.
 		loadSchedule();
 
-		// Add off day toggle.
+		// --- Off Day form toggle ---
 		var addBtn = document.getElementById('unbsb-sp-add-offday-btn');
 		var offForm = document.getElementById('unbsb-sp-offday-form');
 		var cancelBtn = document.getElementById('unbsb-sp-cancel-offday');
@@ -4504,20 +4505,133 @@
 			});
 		});
 
+		// --- Extra Day form toggle ---
+		var addExtraBtn = document.getElementById('unbsb-sp-add-extraday-btn');
+		var extraForm = document.getElementById('unbsb-sp-extraday-form');
+		var cancelExtraBtn = document.getElementById('unbsb-sp-cancel-extraday');
+		var saveExtraBtn = document.getElementById('unbsb-sp-save-extraday');
+
+		if (addExtraBtn && extraForm) {
+			addExtraBtn.addEventListener('click', function() {
+				extraForm.style.display = extraForm.style.display === 'none' ? 'block' : 'none';
+			});
+		}
+
+		if (cancelExtraBtn && extraForm) {
+			cancelExtraBtn.addEventListener('click', function() {
+				extraForm.style.display = 'none';
+				document.getElementById('unbsb-sp-extraday-date').value = '';
+				document.getElementById('unbsb-sp-extraday-start').value = '09:00';
+				document.getElementById('unbsb-sp-extraday-end').value = '18:00';
+				document.getElementById('unbsb-sp-extraday-reason').value = '';
+			});
+		}
+
+		// Save extra day.
+		if (saveExtraBtn) {
+			saveExtraBtn.addEventListener('click', function() {
+				var dateInput = document.getElementById('unbsb-sp-extraday-date');
+				var startInput = document.getElementById('unbsb-sp-extraday-start');
+				var endInput = document.getElementById('unbsb-sp-extraday-end');
+				var reasonInput = document.getElementById('unbsb-sp-extraday-reason');
+				var date = dateInput.value;
+				var startTime = startInput.value;
+				var endTime = endInput.value;
+				var reason = reasonInput.value;
+
+				if (!date) {
+					showToast(unbsbAdmin.strings.sp_date_required, 'error');
+					return;
+				}
+				if (!startTime || !endTime) {
+					showToast(unbsbAdmin.strings.sp_time_required, 'error');
+					return;
+				}
+				if (startTime >= endTime) {
+					showToast(unbsbAdmin.strings.sp_end_after_start, 'error');
+					return;
+				}
+
+				saveExtraBtn.disabled = true;
+
+				ajaxRequest('unbsb_staff_add_holiday', {
+					date: date,
+					reason: reason,
+					type: 'extra',
+					start_time: startTime,
+					end_time: endTime
+				}, function(response) {
+					saveExtraBtn.disabled = false;
+					if (response.success) {
+						showToast(unbsbAdmin.strings.sp_extra_day_added);
+						extraForm.style.display = 'none';
+						dateInput.value = '';
+						startInput.value = '09:00';
+						endInput.value = '18:00';
+						reasonInput.value = '';
+						loadSchedule();
+					} else {
+						showToast(response.data || unbsbAdmin.strings.error, 'error');
+					}
+				});
+			});
+		}
+
+		// Delete extra day (delegated).
+		if (extradaysList) {
+			extradaysList.addEventListener('click', function(e) {
+				var deleteBtn = e.target.closest('.unbsb-sp-delete-extraday');
+				if (!deleteBtn) return;
+
+				if (!confirm(unbsbAdmin.strings.sp_confirm_remove_extra)) return;
+
+				var holidayId = deleteBtn.dataset.id;
+				deleteBtn.disabled = true;
+
+				ajaxRequest('unbsb_staff_remove_holiday', { holiday_id: holidayId }, function(response) {
+					deleteBtn.disabled = false;
+					if (response.success) {
+						showToast(unbsbAdmin.strings.sp_extra_day_removed);
+						loadSchedule();
+					} else {
+						showToast(response.data || unbsbAdmin.strings.error, 'error');
+					}
+				});
+			});
+		}
+
 		/**
 		 * Load staff schedule and holidays.
 		 */
 		function loadSchedule() {
-			hoursList.innerHTML = '<div class="unbsb-sp-hours-loading"><span class="dashicons dashicons-update-alt unbsb-spin"></span> ' + unbsbAdmin.strings.loading + '</div>';
-			offdaysList.innerHTML = '<div class="unbsb-sp-hours-loading"><span class="dashicons dashicons-update-alt unbsb-spin"></span> ' + unbsbAdmin.strings.loading + '</div>';
+			var loadingHtml = '<div class="unbsb-sp-hours-loading"><span class="dashicons dashicons-update-alt unbsb-spin"></span> ' + unbsbAdmin.strings.loading + '</div>';
+			hoursList.innerHTML = loadingHtml;
+			offdaysList.innerHTML = loadingHtml;
+			if (extradaysList) {
+				extradaysList.innerHTML = loadingHtml;
+			}
 
 			ajaxRequest('unbsb_get_staff_schedule', { staff_id: staffId }, function(response) {
 				if (response.success) {
 					renderWorkingHours(response.data.working_hours || []);
-					renderHolidays(response.data.holidays || []);
+					var holidays = response.data.holidays || [];
+					var offDays = [];
+					var extraDays = [];
+					holidays.forEach(function(h) {
+						if (h.type === 'extra') {
+							extraDays.push(h);
+						} else {
+							offDays.push(h);
+						}
+					});
+					renderHolidays(offDays);
+					renderExtraDays(extraDays);
 				} else {
 					hoursList.innerHTML = '<div class="unbsb-sp-empty"><span class="dashicons dashicons-warning"></span><p>' + (response.data || unbsbAdmin.strings.error) + '</p></div>';
 					offdaysList.innerHTML = '';
+					if (extradaysList) {
+						extradaysList.innerHTML = '';
+					}
 					showToast(response.data || unbsbAdmin.strings.error, 'error');
 				}
 			});
@@ -4567,7 +4681,7 @@
 		}
 
 		/**
-		 * Render holidays list.
+		 * Render off days list.
 		 */
 		function renderHolidays(holidays) {
 			if (!holidays.length) {
@@ -4579,7 +4693,7 @@
 
 			var html = '';
 			holidays.forEach(function(h) {
-				html += '<div class="unbsb-sp-offday-item">';
+				html += '<div class="unbsb-sp-offday-item unbsb-sp-offday-item--off">';
 				html += '<div class="unbsb-sp-offday-info">';
 				html += '<span class="unbsb-sp-offday-date">' + h.date + '</span>';
 				if (h.reason) {
@@ -4593,6 +4707,38 @@
 			});
 
 			offdaysList.innerHTML = html;
+		}
+
+		/**
+		 * Render extra working days list.
+		 */
+		function renderExtraDays(extraDays) {
+			if (!extradaysList) return;
+
+			if (!extraDays.length) {
+				extradaysList.innerHTML = '<div class="unbsb-sp-empty">' +
+					'<span class="dashicons dashicons-plus-alt"></span>' +
+					'<p>' + unbsbAdmin.strings.sp_no_extra_days + '</p></div>';
+				return;
+			}
+
+			var html = '';
+			extraDays.forEach(function(h) {
+				var timeStr = (h.start_time ? h.start_time.substring(0, 5) : '') + ' - ' + (h.end_time ? h.end_time.substring(0, 5) : '');
+				html += '<div class="unbsb-sp-offday-item unbsb-sp-offday-item--extra">';
+				html += '<div class="unbsb-sp-offday-info">';
+				html += '<span class="unbsb-sp-offday-date">' + h.date + ' <span class="unbsb-sp-extra-time">' + timeStr + '</span></span>';
+				if (h.reason) {
+					html += '<span class="unbsb-sp-offday-reason">' + h.reason + '</span>';
+				}
+				html += '</div>';
+				html += '<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-danger unbsb-sp-delete-extraday" data-id="' + h.id + '" title="Delete">';
+				html += '<span class="dashicons dashicons-trash"></span>';
+				html += '</button>';
+				html += '</div>';
+			});
+
+			extradaysList.innerHTML = html;
 		}
 	}
 

@@ -470,6 +470,13 @@ class UNBSB_Admin {
 					'sp_holiday_removed'         => __( 'Day off removed.', 'unbelievable-salon-booking' ),
 					'sp_confirm_remove_holiday'  => __( 'Are you sure you want to remove this day off?', 'unbelievable-salon-booking' ),
 					'sp_no_holidays'             => __( 'No days off registered.', 'unbelievable-salon-booking' ),
+					// Extra Day.
+					'sp_time_required'           => __( 'Please enter start and end time.', 'unbelievable-salon-booking' ),
+					'sp_end_after_start'         => __( 'End time must be after start time.', 'unbelievable-salon-booking' ),
+					'sp_extra_day_added'         => __( 'Extra working day added.', 'unbelievable-salon-booking' ),
+					'sp_extra_day_removed'       => __( 'Extra working day removed.', 'unbelievable-salon-booking' ),
+					'sp_confirm_remove_extra'    => __( 'Are you sure you want to remove this extra working day?', 'unbelievable-salon-booking' ),
+					'sp_no_extra_days'           => __( 'No extra working days registered.', 'unbelievable-salon-booking' ),
 					// Complete Booking.
 					'complete_booking'           => __( 'Complete Booking', 'unbelievable-salon-booking' ),
 					'amount_received'            => __( 'Amount Received', 'unbelievable-salon-booking' ),
@@ -2261,9 +2268,12 @@ class UNBSB_Admin {
 			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
 		}
 
-		$staff_id = isset( $_POST['staff_id'] ) ? absint( $_POST['staff_id'] ) : 0;
-		$date     = isset( $_POST['date'] ) ? sanitize_text_field( wp_unslash( $_POST['date'] ) ) : '';
-		$reason   = isset( $_POST['reason'] ) ? sanitize_text_field( wp_unslash( $_POST['reason'] ) ) : '';
+		$staff_id   = isset( $_POST['staff_id'] ) ? absint( $_POST['staff_id'] ) : 0;
+		$date       = isset( $_POST['date'] ) ? sanitize_text_field( wp_unslash( $_POST['date'] ) ) : '';
+		$reason     = isset( $_POST['reason'] ) ? sanitize_text_field( wp_unslash( $_POST['reason'] ) ) : '';
+		$type       = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : 'off';
+		$start_time = isset( $_POST['start_time'] ) ? sanitize_text_field( wp_unslash( $_POST['start_time'] ) ) : null;
+		$end_time   = isset( $_POST['end_time'] ) ? sanitize_text_field( wp_unslash( $_POST['end_time'] ) ) : null;
 
 		if ( ! $staff_id || empty( $date ) ) {
 			wp_send_json_error( __( 'Invalid data.', 'unbelievable-salon-booking' ) );
@@ -2275,12 +2285,14 @@ class UNBSB_Admin {
 		}
 
 		$staff_model = new UNBSB_Staff();
-		$result      = $staff_model->add_holiday( $staff_id, $date, $reason );
+		$result      = $staff_model->add_holiday( $staff_id, $date, $reason, $type, $start_time, $end_time );
 
 		if ( $result ) {
 			wp_send_json_success(
 				array(
-					'message' => __( 'Holiday added.', 'unbelievable-salon-booking' ),
+					'message' => 'extra' === $type
+						? __( 'Extra open day added.', 'unbelievable-salon-booking' )
+						: __( 'Holiday added.', 'unbelievable-salon-booking' ),
 					'id'      => $result,
 				)
 			);
@@ -2615,18 +2627,24 @@ class UNBSB_Admin {
 			wp_send_json_error( __( 'Staff record not found.', 'unbelievable-salon-booking' ) );
 		}
 
-		$date   = isset( $_POST['date'] ) ? sanitize_text_field( wp_unslash( $_POST['date'] ) ) : '';
-		$reason = isset( $_POST['reason'] ) ? sanitize_text_field( wp_unslash( $_POST['reason'] ) ) : '';
+		$date       = isset( $_POST['date'] ) ? sanitize_text_field( wp_unslash( $_POST['date'] ) ) : '';
+		$reason     = isset( $_POST['reason'] ) ? sanitize_text_field( wp_unslash( $_POST['reason'] ) ) : '';
+		$type       = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : 'off';
+		$start_time = isset( $_POST['start_time'] ) ? sanitize_text_field( wp_unslash( $_POST['start_time'] ) ) : null;
+		$end_time   = isset( $_POST['end_time'] ) ? sanitize_text_field( wp_unslash( $_POST['end_time'] ) ) : null;
 
 		if ( empty( $date ) ) {
 			wp_send_json_error( __( 'Date is required.', 'unbelievable-salon-booking' ) );
 		}
 
 		$staff_model = new UNBSB_Staff();
-		$result      = $staff_model->add_holiday( $staff->id, $date, $reason );
+		$result      = $staff_model->add_holiday( $staff->id, $date, $reason, $type, $start_time, $end_time );
 
 		if ( false !== $result ) {
-			wp_send_json_success( array( 'message' => __( 'Holiday added.', 'unbelievable-salon-booking' ) ) );
+			$message = 'extra' === $type
+				? __( 'Extra open day added.', 'unbelievable-salon-booking' )
+				: __( 'Holiday added.', 'unbelievable-salon-booking' );
+			wp_send_json_success( array( 'message' => $message ) );
 		} else {
 			wp_send_json_error( __( 'Holiday already exists for this date.', 'unbelievable-salon-booking' ) );
 		}

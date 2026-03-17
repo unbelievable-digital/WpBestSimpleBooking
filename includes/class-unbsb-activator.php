@@ -25,7 +25,7 @@ class UNBSB_Activator {
 
 		// Save version.
 		update_option( 'unbsb_version', UNBSB_VERSION );
-		update_option( 'unbsb_db_version', '2.0.0' );
+		update_option( 'unbsb_db_version', '2.1.0' );
 
 		// Rewrite rules flush.
 		flush_rewrite_rules();
@@ -155,6 +155,9 @@ class UNBSB_Activator {
 			staff_id BIGINT(20) UNSIGNED,
 			date DATE NOT NULL,
 			reason VARCHAR(255),
+			type VARCHAR(20) DEFAULT 'off',
+			start_time TIME DEFAULT NULL,
+			end_time TIME DEFAULT NULL,
 			PRIMARY KEY (id),
 			KEY staff_date (staff_id, date)
 		) $charset_collate;";
@@ -466,6 +469,11 @@ class UNBSB_Activator {
 		// v2.0.0 - Payment tracking on bookings.
 		if ( version_compare( $current_db_version, '2.0.0', '<' ) ) {
 			self::migration_2_0_0();
+		}
+
+		// v2.1.0 - Extra open day support for holidays.
+		if ( version_compare( $current_db_version, '2.1.0', '<' ) ) {
+			self::migration_2_1_0();
 		}
 	}
 
@@ -1092,6 +1100,33 @@ class UNBSB_Activator {
 			$wpdb->query( "ALTER TABLE {$table_name} ADD COLUMN paid_amount DECIMAL(10,2) DEFAULT NULL AFTER discount_amount" );
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			$wpdb->query( "ALTER TABLE {$table_name} ADD COLUMN payment_method VARCHAR(50) DEFAULT NULL AFTER paid_amount" );
+		}
+	}
+
+	/**
+	 * Migration 2.1.0 - Extra open day support for holidays
+	 */
+	private static function migration_2_1_0() {
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'unbsb_holidays';
+
+		// type column.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$column_exists = $wpdb->get_results(
+			$wpdb->prepare(
+				'SHOW COLUMNS FROM ' . $table_name . ' LIKE %s',
+				'type'
+			)
+		);
+
+		if ( empty( $column_exists ) ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->query( "ALTER TABLE {$table_name} ADD COLUMN type VARCHAR(20) DEFAULT 'off' AFTER reason" );
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->query( "ALTER TABLE {$table_name} ADD COLUMN start_time TIME DEFAULT NULL AFTER type" );
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->query( "ALTER TABLE {$table_name} ADD COLUMN end_time TIME DEFAULT NULL AFTER start_time" );
 		}
 	}
 }

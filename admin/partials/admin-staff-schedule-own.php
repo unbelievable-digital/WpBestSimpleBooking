@@ -50,8 +50,9 @@ $days_of_week = array(
 			</div>
 		</div>
 
-		<!-- Right: Off Days -->
+		<!-- Right: Off Days & Extra Days -->
 		<div class="unbsb-sp-schedule-sidebar">
+			<!-- Off Days -->
 			<div class="unbsb-card">
 				<div class="unbsb-card-header">
 					<h2>
@@ -87,6 +88,60 @@ $days_of_week = array(
 
 					<!-- Off Days List -->
 					<div class="unbsb-sp-offdays-list" id="unbsb-sp-offdays-list">
+						<div class="unbsb-sp-hours-loading">
+							<span class="dashicons dashicons-update-alt unbsb-spin"></span>
+							<?php esc_html_e( 'Loading...', 'unbelievable-salon-booking' ); ?>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Extra Working Days -->
+			<div class="unbsb-card" style="margin-top: 16px;">
+				<div class="unbsb-card-header">
+					<h2>
+						<span class="dashicons dashicons-plus-alt" style="color: var(--unbsb-success); margin-right: 6px;"></span>
+						<?php esc_html_e( 'Extra Working Days', 'unbelievable-salon-booking' ); ?>
+					</h2>
+					<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-success" id="unbsb-sp-add-extraday-btn">
+						<span class="dashicons dashicons-plus-alt2"></span>
+						<?php esc_html_e( 'Add', 'unbelievable-salon-booking' ); ?>
+					</button>
+				</div>
+				<div class="unbsb-card-body">
+					<!-- Add Extra Day Form (hidden by default) -->
+					<div class="unbsb-sp-extraday-form" id="unbsb-sp-extraday-form" style="display: none;">
+						<div class="unbsb-form-group">
+							<label for="unbsb-sp-extraday-date"><?php esc_html_e( 'Date', 'unbelievable-salon-booking' ); ?> <span class="required">*</span></label>
+							<input type="date" id="unbsb-sp-extraday-date" min="<?php echo esc_attr( gmdate( 'Y-m-d' ) ); ?>">
+						</div>
+						<div class="unbsb-form-row">
+							<div class="unbsb-form-group">
+								<label for="unbsb-sp-extraday-start"><?php esc_html_e( 'Start Time', 'unbelievable-salon-booking' ); ?> <span class="required">*</span></label>
+								<input type="time" id="unbsb-sp-extraday-start" value="09:00">
+							</div>
+							<div class="unbsb-form-group">
+								<label for="unbsb-sp-extraday-end"><?php esc_html_e( 'End Time', 'unbelievable-salon-booking' ); ?> <span class="required">*</span></label>
+								<input type="time" id="unbsb-sp-extraday-end" value="18:00">
+							</div>
+						</div>
+						<div class="unbsb-form-group">
+							<label for="unbsb-sp-extraday-reason"><?php esc_html_e( 'Reason', 'unbelievable-salon-booking' ); ?></label>
+							<input type="text" id="unbsb-sp-extraday-reason" placeholder="<?php esc_attr_e( 'Optional...', 'unbelievable-salon-booking' ); ?>">
+						</div>
+						<div class="unbsb-sp-offday-actions">
+							<button type="button" class="unbsb-btn unbsb-btn-success unbsb-btn-sm" id="unbsb-sp-save-extraday">
+								<span class="dashicons dashicons-saved"></span>
+								<?php esc_html_e( 'Save', 'unbelievable-salon-booking' ); ?>
+							</button>
+							<button type="button" class="unbsb-btn unbsb-btn-ghost unbsb-btn-sm" id="unbsb-sp-cancel-extraday">
+								<?php esc_html_e( 'Cancel', 'unbelievable-salon-booking' ); ?>
+							</button>
+						</div>
+					</div>
+
+					<!-- Extra Days List -->
+					<div class="unbsb-sp-extradays-list" id="unbsb-sp-extradays-list">
 						<div class="unbsb-sp-hours-loading">
 							<span class="dashicons dashicons-update-alt unbsb-spin"></span>
 							<?php esc_html_e( 'Loading...', 'unbelievable-salon-booking' ); ?>

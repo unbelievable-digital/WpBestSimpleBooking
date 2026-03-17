@@ -3,7 +3,7 @@ Contributors: zgrkaralar
 Tags: appointment, booking, scheduler, reservation, salon
 Requires at least: 5.8
 Tested up to: 6.9
-Stable tag: 1.9.0
+Stable tag: 2.0.0
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -142,6 +142,20 @@ A Pro version with additional features like payment integration, Google Calendar
 7. Settings page – Customize plugin behavior
 
 == Changelog ==
+
+= 2.0.0 =
+* Staff extra working days — staff can add extra open days to their schedule
+* Admin booking edit — full edit modal with service, staff, date/time, customer, price
+* Admin booking search by customer name or email
+* Dashboard metrics: revenue summary, popular services, staff performance, cancellation rate
+* Customer CSV import/export
+* Booking form appearance customizer (colors, border radius, font size)
+* FullCalendar event click to edit booking directly
+* Fix view booking button in admin bookings list
+* Auto-confirm booking option in settings
+* Staff avatar upload via WordPress Media Library
+* Fix reminder email duplicate sending
+* Fix Booking Manager and ICS Generator dependency loading
 
 = 1.7.0 =
 * Fixed email notifications not firing
