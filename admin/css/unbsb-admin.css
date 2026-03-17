@@ -5206,6 +5206,22 @@ select optgroup option {
 	color: var(--unbsb-text);
 }
 
+/* Highlight animation for validation */
+@keyframes unbsb-highlight-shake {
+	0%, 100% { transform: translateX(0); }
+	20% { transform: translateX(-4px); }
+	40% { transform: translateX(4px); }
+	60% { transform: translateX(-3px); }
+	80% { transform: translateX(3px); }
+}
+
+.unbsb-highlight-section {
+	animation: unbsb-highlight-shake 0.4s ease;
+	box-shadow: 0 0 0 2px #ef4444 !important;
+	border-color: #ef4444 !important;
+	transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
 /* Staff List */
 .unbsb-nb-staff-list {
 	display: grid;
@@ -6266,4 +6282,144 @@ select optgroup option {
 	font-size: 14px;
 	width: 14px;
 	height: 14px;
+}
+
+/* ============================================
+   Staff Earnings & Performance
+   ============================================ */
+
+/* Staff card balance display */
+.unbsb-staff-balance {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	margin-top: 4px;
+	font-size: 13px;
+	color: var(--unbsb-danger);
+}
+
+.unbsb-staff-balance .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+}
+
+/* Period filter */
+.unbsb-period-filter {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 24px;
+	flex-wrap: wrap;
+}
+
+.unbsb-period-filter .unbsb-btn {
+	font-size: 13px;
+	padding: 6px 16px;
+}
+
+.unbsb-period-filter .unbsb-btn.active {
+	background: var(--unbsb-primary);
+	color: var(--unbsb-white);
+	border-color: var(--unbsb-primary);
+}
+
+.unbsb-period-filter .unbsb-date-range {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.unbsb-period-filter .unbsb-date-range input[type="date"] {
+	padding: 5px 10px;
+	border: 1px solid var(--unbsb-border);
+	border-radius: var(--unbsb-radius-sm);
+	font-size: 13px;
+}
+
+/* Danger gradient for remaining balance card */
+.unbsb-stat-gradient-danger {
+	background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+/* Earnings section */
+.unbsb-earnings-section {
+	margin-bottom: 32px;
+}
+
+.unbsb-earnings-section h3 {
+	font-size: 16px;
+	font-weight: 600;
+	color: var(--unbsb-dark);
+	margin: 0 0 16px 0;
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--unbsb-border);
+}
+
+/* Performance metric highlight */
+.unbsb-metric-highlight {
+	font-size: 24px;
+	font-weight: 700;
+	color: var(--unbsb-primary);
+}
+
+/* Top services table enhancements */
+.unbsb-top-services .unbsb-service-rank {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background: var(--unbsb-primary);
+	color: var(--unbsb-white);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+/* Monthly trend table */
+.unbsb-trend-table td {
+	font-variant-numeric: tabular-nums;
+}
+
+/* Earnings page layout */
+.unbsb-earnings-layout {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 24px;
+}
+
+@media (min-width: 1200px) {
+	.unbsb-earnings-layout {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+/* Staff portal page header */
+.unbsb-portal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 24px;
+}
+
+.unbsb-portal-header h1 {
+	font-size: 24px;
+	font-weight: 600;
+	color: var(--unbsb-dark);
+	margin: 0;
+}
+
+/* Empty state for tables */
+.unbsb-earnings-empty {
+	text-align: center;
+	padding: 32px;
+	color: var(--unbsb-text-muted);
+}
+
+.unbsb-earnings-empty .dashicons {
+	font-size: 48px;
+	width: 48px;
+	height: 48px;
+	margin-bottom: 12px;
+	opacity: 0.5;
 }
