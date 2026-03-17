@@ -272,6 +272,105 @@ class UNBSB_REST_API {
 				'permission_callback' => array( $this, 'admin_manage_options_check' ),
 			)
 		);
+
+		// Staff portal — earnings.
+		register_rest_route(
+			$this->namespace,
+			'/staff-portal/earnings',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_staff_portal_earnings' ),
+				'permission_callback' => array( $this, 'staff_portal_permission' ),
+				'args'                => array(
+					'period' => array(
+						'type'              => 'string',
+						'sanitize_callback' => 'sanitize_text_field',
+					),
+				),
+			)
+		);
+
+		// Staff portal — payments.
+		register_rest_route(
+			$this->namespace,
+			'/staff-portal/payments',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_staff_portal_payments' ),
+				'permission_callback' => array( $this, 'staff_portal_permission' ),
+				'args'                => array(
+					'date_from' => array(
+						'type'              => 'string',
+						'sanitize_callback' => 'sanitize_text_field',
+					),
+					'date_to' => array(
+						'type'              => 'string',
+						'sanitize_callback' => 'sanitize_text_field',
+					),
+				),
+			)
+		);
+
+		// Staff portal — performance.
+		register_rest_route(
+			$this->namespace,
+			'/staff-portal/performance',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_staff_portal_performance' ),
+				'permission_callback' => array( $this, 'staff_portal_permission' ),
+				'args'                => array(
+					'date_from' => array(
+						'type'              => 'string',
+						'sanitize_callback' => 'sanitize_text_field',
+					),
+					'date_to' => array(
+						'type'              => 'string',
+						'sanitize_callback' => 'sanitize_text_field',
+					),
+				),
+			)
+		);
+
+		// Admin — staff payments CRUD.
+		register_rest_route(
+			$this->namespace,
+			'/admin/staff/(?P<staff_id>\d+)/payments',
+			array(
+				array(
+					'methods'             => 'GET',
+					'callback'            => array( $this, 'get_admin_staff_payments' ),
+					'permission_callback' => array( $this, 'admin_permission' ),
+				),
+				array(
+					'methods'             => 'POST',
+					'callback'            => array( $this, 'create_admin_staff_payment' ),
+					'permission_callback' => array( $this, 'admin_permission' ),
+				),
+			)
+		);
+
+		// Admin — delete staff payment.
+		register_rest_route(
+			$this->namespace,
+			'/admin/staff/(?P<staff_id>\d+)/payments/(?P<payment_id>\d+)',
+			array(
+				'methods'             => 'DELETE',
+				'callback'            => array( $this, 'delete_admin_staff_payment' ),
+				'permission_callback' => array( $this, 'admin_permission' ),
+			)
+		);
+
+		// Admin — staff earnings.
+		register_rest_route(
+			$this->namespace,
+			'/admin/staff/(?P<staff_id>\d+)/earnings',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_admin_staff_earnings' ),
+				'permission_callback' => array( $this, 'admin_permission' ),
+			)
+		);
 	}
 
 	/**
@@ -708,6 +807,177 @@ class UNBSB_REST_API {
 	}
 
 	/**
+	 * Get staff portal earnings
+	 *
+	 * @param WP_REST_Request $request Request.
+	 *
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public function get_staff_portal_earnings( $request ) {
+		$staff_model = new UNBSB_Staff();
+		$staff       = $staff_model->get_by_user_id( get_current_user_id() );
+
+		if ( ! $staff ) {
+			return new WP_Error( 'no_staff', __( 'Staff record not found.', 'unbelievable-salon-booking' ), array( 'status' => 404 ) );
+		}
+
+		$period = $request->get_param( 'period' );
+
+		$summary = $staff_model->get_earnings_summary( $staff->id );
+		$detail  = $staff_model->get_earnings_detail( $staff->id, $period );
+
+		return rest_ensure_response( array(
+			'summary' => $summary,
+			'detail'  => $detail,
+		) );
+	}
+
+	/**
+	 * Get staff portal payments
+	 *
+	 * @param WP_REST_Request $request Request.
+	 *
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public function get_staff_portal_payments( $request ) {
+		$staff_model = new UNBSB_Staff();
+		$staff       = $staff_model->get_by_user_id( get_current_user_id() );
+
+		if ( ! $staff ) {
+			return new WP_Error( 'no_staff', __( 'Staff record not found.', 'unbelievable-salon-booking' ), array( 'status' => 404 ) );
+		}
+
+		$date_from = $request->get_param( 'date_from' );
+		$date_to   = $request->get_param( 'date_to' );
+
+		$payments = $staff_model->get_payments( $staff->id, $date_from, $date_to );
+
+		return rest_ensure_response( $payments );
+	}
+
+	/**
+	 * Get staff portal performance
+	 *
+	 * @param WP_REST_Request $request Request.
+	 *
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public function get_staff_portal_performance( $request ) {
+		$staff_model = new UNBSB_Staff();
+		$staff       = $staff_model->get_by_user_id( get_current_user_id() );
+
+		if ( ! $staff ) {
+			return new WP_Error( 'no_staff', __( 'Staff record not found.', 'unbelievable-salon-booking' ), array( 'status' => 404 ) );
+		}
+
+		$date_from = $request->get_param( 'date_from' ) ?: wp_date( 'Y-m-01' );
+		$date_to   = $request->get_param( 'date_to' ) ?: wp_date( 'Y-m-t' );
+
+		$metrics      = $staff_model->get_performance_metrics( $staff->id, $date_from, $date_to );
+		$top_services = $staff_model->get_top_services( $staff->id, $date_from, $date_to );
+		$trend        = $staff_model->get_monthly_trend( $staff->id );
+
+		return rest_ensure_response( array(
+			'metrics'      => $metrics,
+			'top_services' => $top_services,
+			'trend'        => $trend,
+		) );
+	}
+
+	/**
+	 * Get admin staff payments
+	 *
+	 * @param WP_REST_Request $request Request.
+	 *
+	 * @return WP_REST_Response
+	 */
+	public function get_admin_staff_payments( $request ) {
+		$staff_model = new UNBSB_Staff();
+		$staff_id    = absint( $request->get_param( 'staff_id' ) );
+		$date_from   = $request->get_param( 'date_from' );
+		$date_to     = $request->get_param( 'date_to' );
+
+		$summary  = $staff_model->get_earnings_summary( $staff_id );
+		$payments = $staff_model->get_payments( $staff_id, $date_from, $date_to );
+
+		return rest_ensure_response( array(
+			'summary'  => $summary,
+			'payments' => $payments,
+		) );
+	}
+
+	/**
+	 * Create admin staff payment
+	 *
+	 * @param WP_REST_Request $request Request.
+	 *
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public function create_admin_staff_payment( $request ) {
+		$staff_model = new UNBSB_Staff();
+		$staff_id    = absint( $request->get_param( 'staff_id' ) );
+
+		$amount         = floatval( $request->get_param( 'amount' ) );
+		$payment_date   = sanitize_text_field( $request->get_param( 'payment_date' ) ?: wp_date( 'Y-m-d' ) );
+		$payment_method = sanitize_text_field( $request->get_param( 'payment_method' ) );
+		$notes          = sanitize_textarea_field( $request->get_param( 'notes' ) );
+
+		if ( $amount <= 0 ) {
+			return new WP_Error( 'invalid_amount', __( 'Amount must be greater than zero.', 'unbelievable-salon-booking' ), array( 'status' => 400 ) );
+		}
+
+		$result = $staff_model->record_payment( $staff_id, $amount, $payment_date, $payment_method, $notes, get_current_user_id() );
+
+		if ( ! $result ) {
+			return new WP_Error( 'payment_failed', __( 'Failed to record payment.', 'unbelievable-salon-booking' ), array( 'status' => 500 ) );
+		}
+
+		return rest_ensure_response( array( 'success' => true, 'id' => $result ) );
+	}
+
+	/**
+	 * Delete admin staff payment
+	 *
+	 * @param WP_REST_Request $request Request.
+	 *
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public function delete_admin_staff_payment( $request ) {
+		$staff_model = new UNBSB_Staff();
+		$staff_id    = absint( $request->get_param( 'staff_id' ) );
+		$payment_id  = absint( $request->get_param( 'payment_id' ) );
+
+		$deleted = $staff_model->delete_payment( $payment_id, $staff_id );
+
+		if ( ! $deleted ) {
+			return new WP_Error( 'delete_failed', __( 'Failed to delete payment.', 'unbelievable-salon-booking' ), array( 'status' => 500 ) );
+		}
+
+		return rest_ensure_response( array( 'success' => true ) );
+	}
+
+	/**
+	 * Get admin staff earnings
+	 *
+	 * @param WP_REST_Request $request Request.
+	 *
+	 * @return WP_REST_Response
+	 */
+	public function get_admin_staff_earnings( $request ) {
+		$staff_model = new UNBSB_Staff();
+		$staff_id    = absint( $request->get_param( 'staff_id' ) );
+		$period      = $request->get_param( 'period' );
+
+		$summary = $staff_model->get_earnings_summary( $staff_id );
+		$detail  = $staff_model->get_earnings_detail( $staff_id, $period );
+
+		return rest_ensure_response( array(
+			'summary' => $summary,
+			'detail'  => $detail,
+		) );
+	}
+
+	/**
 	 * Strip private fields from staff data for public endpoints.
 	 *
 	 * @param array $staff_list Array of staff objects.
@@ -745,6 +1015,24 @@ class UNBSB_REST_API {
 	 * @return bool
 	 */
 	public function admin_manage_options_check() {
+		return current_user_can( 'manage_options' );
+	}
+
+	/**
+	 * Staff portal permission check
+	 *
+	 * @return bool
+	 */
+	public function staff_portal_permission() {
+		return current_user_can( 'unbsb_view_own_bookings' );
+	}
+
+	/**
+	 * Admin permission check (manage_options only)
+	 *
+	 * @return bool
+	 */
+	public function admin_permission() {
 		return current_user_can( 'manage_options' );
 	}
 
