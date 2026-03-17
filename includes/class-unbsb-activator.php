@@ -25,7 +25,7 @@ class UNBSB_Activator {
 
 		// Save version.
 		update_option( 'unbsb_version', UNBSB_VERSION );
-		update_option( 'unbsb_db_version', '2.1.0' );
+		update_option( 'unbsb_db_version', '2.2.0' );
 
 		// Rewrite rules flush.
 		flush_rewrite_rules();
@@ -109,6 +109,22 @@ class UNBSB_Activator {
 			KEY staff_id (staff_id),
 			KEY booking_id (booking_id),
 			KEY period (period)
+		) $charset_collate;";
+		dbDelta( $sql );
+
+		// Staff payments table.
+		$sql = "CREATE TABLE {$prefix}staff_payments (
+			id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+			staff_id BIGINT(20) UNSIGNED NOT NULL,
+			amount DECIMAL(10,2) NOT NULL,
+			payment_date DATE NOT NULL,
+			payment_method VARCHAR(50) DEFAULT NULL,
+			notes TEXT,
+			recorded_by BIGINT(20) UNSIGNED NOT NULL,
+			created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+			PRIMARY KEY (id),
+			KEY staff_id (staff_id),
+			KEY payment_date (payment_date)
 		) $charset_collate;";
 		dbDelta( $sql );
 
@@ -475,6 +491,11 @@ class UNBSB_Activator {
 		if ( version_compare( $current_db_version, '2.1.0', '<' ) ) {
 			self::migration_2_1_0();
 		}
+
+		// v2.2.0 - Staff payments table.
+		if ( version_compare( $current_db_version, '2.2.0', '<' ) ) {
+			self::migration_2_2_0();
+		}
 	}
 
 	/**
@@ -726,6 +747,18 @@ class UNBSB_Activator {
 				'subject' => 'New Booking Request: {customer_name}',
 				'content' => self::get_default_admin_new_booking_template(),
 			),
+			array(
+				'name'    => 'Staff: New Booking',
+				'type'    => 'staff_new_booking',
+				'subject' => 'New Booking Assigned to You - {company_name}',
+				'content' => self::get_default_staff_new_booking_template(),
+			),
+			array(
+				'name'    => 'Booking Rescheduled',
+				'type'    => 'booking_rescheduled',
+				'subject' => 'Your Booking Has Been Rescheduled - {company_name}',
+				'content' => self::get_default_booking_rescheduled_template(),
+			),
 		);
 
 		foreach ( $templates as $template ) {
@@ -923,6 +956,65 @@ class UNBSB_Activator {
 <p style="text-align: center;">
 <a href="{admin_url}" class="button">Go to Admin Panel</a>
 </p>';
+	}
+
+	/**
+	 * Default "Staff: New Booking" email template
+	 */
+	private static function get_default_staff_new_booking_template() {
+		return '<p>Hello <strong>{staff_name}</strong>,</p>
+
+<p>A new booking has been assigned to you.</p>
+
+<h3>Customer Information</h3>
+<table>
+<tr><td><strong>Full Name:</strong></td><td>{customer_name}</td></tr>
+<tr><td><strong>Phone:</strong></td><td>{customer_phone}</td></tr>
+</table>
+
+<h3>Booking Details</h3>
+<table>
+<tr><td><strong>Service(s):</strong></td><td>{services_list}</td></tr>
+<tr><td><strong>Date:</strong></td><td>{booking_date}</td></tr>
+<tr><td><strong>Time:</strong></td><td>{booking_time}</td></tr>
+<tr><td><strong>Duration:</strong></td><td>{total_duration}</td></tr>
+</table>
+
+<p>Please log in to your staff portal to confirm or manage this booking.</p>
+
+<p style="text-align: center;">
+<a href="{admin_url}" class="button">Go to Staff Portal</a>
+</p>';
+	}
+
+	/**
+	 * Default "Booking Rescheduled" email template
+	 */
+	private static function get_default_booking_rescheduled_template() {
+		return '<p>Dear <strong>{customer_name}</strong>,</p>
+
+<p style="font-size: 18px; color: #6366f1;"><strong>Your booking has been rescheduled.</strong></p>
+
+<h3>Previous Booking</h3>
+<table class="cancelled">
+<tr><td><strong>Date:</strong></td><td>{old_booking_date}</td></tr>
+<tr><td><strong>Time:</strong></td><td>{old_booking_time}</td></tr>
+</table>
+
+<h3>New Booking Details</h3>
+<table class="confirmed">
+<tr><td><strong>Service(s):</strong></td><td>{services_list}</td></tr>
+<tr><td><strong>Staff:</strong></td><td>{staff_name}</td></tr>
+<tr><td><strong>Date:</strong></td><td>{booking_date}</td></tr>
+<tr><td><strong>Time:</strong></td><td>{booking_time}</td></tr>
+<tr><td><strong>Duration:</strong></td><td>{total_duration}</td></tr>
+</table>
+
+<p style="text-align: center;">
+<a href="{manage_booking_url}" class="button">Manage My Booking</a>
+</p>
+
+<p style="text-align: center; font-size: 13px; color: #6b7280;">If you need to make further changes, you can use the button above.</p>';
 	}
 
 	/**
@@ -1128,5 +1220,32 @@ class UNBSB_Activator {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			$wpdb->query( "ALTER TABLE {$table_name} ADD COLUMN end_time TIME DEFAULT NULL AFTER start_time" );
 		}
+	}
+
+	/**
+	 * Migration 2.2.0 - Staff payments table
+	 */
+	private static function migration_2_2_0() {
+		global $wpdb;
+
+		$charset_collate = $wpdb->get_charset_collate();
+		$prefix          = $wpdb->prefix . 'unbsb_';
+
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+
+		$sql = "CREATE TABLE {$prefix}staff_payments (
+			id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+			staff_id BIGINT(20) UNSIGNED NOT NULL,
+			amount DECIMAL(10,2) NOT NULL,
+			payment_date DATE NOT NULL,
+			payment_method VARCHAR(50) DEFAULT NULL,
+			notes TEXT,
+			recorded_by BIGINT(20) UNSIGNED NOT NULL,
+			created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+			PRIMARY KEY (id),
+			KEY staff_id (staff_id),
+			KEY payment_date (payment_date)
+		) $charset_collate;";
+		dbDelta( $sql );
 	}
 }
