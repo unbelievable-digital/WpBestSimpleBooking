@@ -455,11 +455,6 @@ class UNBSB_REST_API {
 
 		$reason = isset( $data['reason'] ) ? sanitize_textarea_field( $data['reason'] ) : '';
 
-		// Load Booking Manager.
-		if ( ! class_exists( 'UNBSB_Booking_Manager' ) ) {
-			require_once UNBSB_PLUGIN_DIR . 'includes/class-unbsb-booking-manager.php';
-		}
-
 		$booking_manager = new UNBSB_Booking_Manager();
 		$result          = $booking_manager->cancel_booking( $token, $reason );
 
@@ -502,11 +497,6 @@ class UNBSB_REST_API {
 			);
 		}
 
-		// Load Booking Manager.
-		if ( ! class_exists( 'UNBSB_Booking_Manager' ) ) {
-			require_once UNBSB_PLUGIN_DIR . 'includes/class-unbsb-booking-manager.php';
-		}
-
 		$booking_manager = new UNBSB_Booking_Manager();
 		$result          = $booking_manager->reschedule_booking( $token, $new_date, $new_time, $new_staff_id );
 
@@ -547,11 +537,6 @@ class UNBSB_REST_API {
 				__( 'Booking not found.', 'unbelievable-salon-booking' ),
 				array( 'status' => 404 )
 			);
-		}
-
-		// Load Booking Manager.
-		if ( ! class_exists( 'UNBSB_Booking_Manager' ) ) {
-			require_once UNBSB_PLUGIN_DIR . 'includes/class-unbsb-booking-manager.php';
 		}
 
 		$booking_manager = new UNBSB_Booking_Manager();

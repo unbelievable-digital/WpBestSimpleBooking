@@ -673,6 +673,9 @@
 		// WordPress Account handlers
 		initWpAccountHandlers();
 
+		// Avatar Media Library upload
+		initAvatarUpload();
+
 		// Save staff
 		if (saveBtn) {
 			saveBtn.addEventListener('click', function() {
@@ -810,6 +813,8 @@
 			if (salaryPercentageInput) salaryPercentageInput.value = '';
 			if (salaryFixedInput) salaryFixedInput.value = '';
 			updateSalaryFields();
+			// Reset avatar.
+			resetAvatarField();
 			// Reset WP account section.
 			resetWpAccountSection();
 			// Uncheck all services and hide custom fields
@@ -828,6 +833,9 @@
 		document.getElementById('staff-email').value = staff.email || '';
 		document.getElementById('staff-phone').value = staff.phone || '';
 		document.getElementById('staff-bio').value = staff.bio || '';
+
+		// Avatar
+		fillAvatarField(staff.avatar_url || '');
 
 		// Set status radio button
 		const statusRadio = document.querySelector('#unbsb-staff-form input[name="status"][value="' + staff.status + '"]');
@@ -918,6 +926,73 @@
 			// mix
 			percentageField.style.display = '';
 			fixedField.style.display = '';
+		}
+	}
+
+	/**
+	 * Avatar Media Library upload
+	 */
+	function initAvatarUpload() {
+		var uploadBtn = document.getElementById('unbsb-upload-avatar');
+		var removeBtn = document.getElementById('unbsb-remove-avatar');
+		var avatarInput = document.getElementById('staff-avatar-url');
+		var avatarPreview = document.getElementById('unbsb-avatar-preview');
+		var previewWrap = document.getElementById('unbsb-avatar-preview-wrap');
+		var mediaUploader;
+
+		if (!uploadBtn) return;
+
+		uploadBtn.addEventListener('click', function(e) {
+			e.preventDefault();
+			if (mediaUploader) {
+				mediaUploader.open();
+				return;
+			}
+			mediaUploader = wp.media({
+				title: unbsbAdmin.strings.select_avatar || 'Select Staff Avatar',
+				button: { text: unbsbAdmin.strings.use_image || 'Use this image' },
+				multiple: false,
+				library: { type: 'image' }
+			});
+			mediaUploader.on('select', function() {
+				var attachment = mediaUploader.state().get('selection').first().toJSON();
+				var url = attachment.sizes && attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.url;
+				avatarInput.value = attachment.url;
+				avatarPreview.src = url;
+				previewWrap.style.display = '';
+			});
+			mediaUploader.open();
+		});
+
+		if (removeBtn) {
+			removeBtn.addEventListener('click', function(e) {
+				e.preventDefault();
+				avatarInput.value = '';
+				avatarPreview.src = '';
+				previewWrap.style.display = 'none';
+			});
+		}
+	}
+
+	function resetAvatarField() {
+		var avatarInput = document.getElementById('staff-avatar-url');
+		var avatarPreview = document.getElementById('unbsb-avatar-preview');
+		var previewWrap = document.getElementById('unbsb-avatar-preview-wrap');
+		if (avatarInput) avatarInput.value = '';
+		if (avatarPreview) avatarPreview.src = '';
+		if (previewWrap) previewWrap.style.display = 'none';
+	}
+
+	function fillAvatarField(avatarUrl) {
+		var avatarInput = document.getElementById('staff-avatar-url');
+		var avatarPreview = document.getElementById('unbsb-avatar-preview');
+		var previewWrap = document.getElementById('unbsb-avatar-preview-wrap');
+		if (avatarUrl) {
+			if (avatarInput) avatarInput.value = avatarUrl;
+			if (avatarPreview) avatarPreview.src = avatarUrl;
+			if (previewWrap) previewWrap.style.display = '';
+		} else {
+			resetAvatarField();
 		}
 	}
 

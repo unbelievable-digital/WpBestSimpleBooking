@@ -171,6 +171,23 @@ function unbsb_render_service_checkbox( $service, $currency_symbol ) {
 									<label for="staff-bio"><?php esc_html_e( 'Biography', 'unbelievable-salon-booking' ); ?></label>
 									<textarea id="staff-bio" name="bio" rows="3" placeholder="<?php esc_attr_e( 'A short introduction...', 'unbelievable-salon-booking' ); ?>"></textarea>
 								</div>
+
+								<div class="unbsb-form-group">
+									<label><?php esc_html_e( 'Avatar', 'unbelievable-salon-booking' ); ?></label>
+									<div class="unbsb-avatar-upload">
+										<div class="unbsb-avatar-preview-wrap" id="unbsb-avatar-preview-wrap" style="display: none;">
+											<img id="unbsb-avatar-preview" src="" alt="<?php esc_attr_e( 'Avatar preview', 'unbelievable-salon-booking' ); ?>">
+											<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-danger unbsb-btn-icon" id="unbsb-remove-avatar" title="<?php esc_attr_e( 'Remove', 'unbelievable-salon-booking' ); ?>">
+												<span class="dashicons dashicons-no-alt"></span>
+											</button>
+										</div>
+										<input type="hidden" name="avatar_url" id="staff-avatar-url" value="">
+										<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-outline" id="unbsb-upload-avatar">
+											<span class="dashicons dashicons-format-image"></span>
+											<?php esc_html_e( 'Select Image', 'unbelievable-salon-booking' ); ?>
+										</button>
+									</div>
+								</div>
 							</div>
 						</div>
 

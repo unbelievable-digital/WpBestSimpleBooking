@@ -83,6 +83,12 @@ class UNBSB_Core {
 		require_once UNBSB_PLUGIN_DIR . 'includes/class-unbsb-security-logger.php';
 		require_once UNBSB_PLUGIN_DIR . 'includes/class-unbsb-captcha.php';
 
+		// Booking Manager.
+		require_once UNBSB_PLUGIN_DIR . 'includes/class-unbsb-booking-manager.php';
+
+		// ICS Generator.
+		require_once UNBSB_PLUGIN_DIR . 'includes/class-unbsb-ics-generator.php';
+
 		// Export/Import.
 		require_once UNBSB_PLUGIN_DIR . 'includes/class-unbsb-export-import.php';
 

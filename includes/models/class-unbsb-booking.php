@@ -260,6 +260,11 @@ class UNBSB_Booking {
 			}
 		}
 
+		// Auto-confirm if enabled and no explicit status was provided.
+		if ( 'yes' === get_option( 'unbsb_auto_confirm', 'no' ) && empty( $data['status'] ) ) {
+			$sanitized['status'] = 'confirmed';
+		}
+
 		do_action( 'unbsb_before_booking_created', $sanitized );
 
 		$booking_id = $this->db->insert( $this->table, $sanitized );

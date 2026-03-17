@@ -3,7 +3,7 @@ Contributors: zgrkaralar
 Tags: appointment, booking, scheduler, reservation, salon
 Requires at least: 5.8
 Tested up to: 6.9
-Stable tag: 1.7.0
+Stable tag: 1.8.0
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -142,6 +142,39 @@ A Pro version with additional features like payment integration, Google Calendar
 7. Settings page – Customize plugin behavior
 
 == Changelog ==
+
+= 1.7.0 =
+* Fixed email notifications not firing
+* Staff portal default calendar weekly view
+* FullCalendar integration for admin and staff
+
+= 1.6.0 =
+* FullCalendar day/week/month views for admin calendar
+* Staff portal list/calendar toggle
+* Calendar events API endpoint
+
+= 1.5.0 =
+* Staff portal with own bookings and schedule management
+* Staff WordPress user creation and linking
+* Booking completion with payment recording
+* Staff salary/commission system
+* Email notification fix
+
+= 1.4.0 =
+* Admin new booking page with customer search
+* Staff custom pricing per service
+* Category-grouped services in booking form
+* Compact service cards with inline duration
+* Scroll indicators for category filter
+* Staff availability cards with nearest slots
+* Time format (24h/12h) fix
+* Staff data leak fix in public API
+
+= 1.3.0 =
+* Multi-service category grouping in booking form
+* Stylish category filter buttons
+* Service search in admin new booking
+* Various bug fixes
 
 = 1.2.0 =
 * Added full data export/import functionality

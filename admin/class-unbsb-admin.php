@@ -251,6 +251,11 @@ class UNBSB_Admin {
 			return;
 		}
 
+		// Load WordPress Media Library for staff avatar upload.
+		if ( false !== strpos( $hook, 'unbsb-staff' ) ) {
+			wp_enqueue_media();
+		}
+
 		// Load FullCalendar for Calendar page and Staff Portal bookings.
 		if ( false !== strpos( $hook, 'unbsb-calendar' ) || false !== strpos( $hook, 'unbsb-staff-portal' ) ) {
 			wp_enqueue_script(
@@ -318,6 +323,8 @@ class UNBSB_Admin {
 					// Staff.
 					'new_staff'                  => __( 'New Staff', 'unbelievable-salon-booking' ),
 					'edit_staff'                 => __( 'Edit Staff', 'unbelievable-salon-booking' ),
+					'select_avatar'              => __( 'Select Staff Avatar', 'unbelievable-salon-booking' ),
+					'use_image'                  => __( 'Use this image', 'unbelievable-salon-booking' ),
 					// Customer.
 					'new_customer'               => __( 'New Customer', 'unbelievable-salon-booking' ),
 					'edit_customer'              => __( 'Edit Customer', 'unbelievable-salon-booking' ),
@@ -1757,6 +1764,7 @@ class UNBSB_Admin {
 			'unbsb_allow_cancel',
 			'unbsb_allow_reschedule',
 			'unbsb_enable_multi_service',
+			'unbsb_auto_confirm',
 			'unbsb_sms_enabled',
 			'unbsb_sms_reminder_enabled',
 			'unbsb_sms_on_booking',

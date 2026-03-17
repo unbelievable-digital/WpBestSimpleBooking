@@ -343,6 +343,8 @@ class UNBSB_Activator {
 			'unbsb_max_reschedules'           => 2,
 			// Multi-service settings.
 			'unbsb_enable_multi_service'      => 'no',
+			// Auto-confirm bookings.
+			'unbsb_auto_confirm'              => 'no',
 			// SMS settings.
 			'unbsb_sms_enabled'               => 'no',
 			'unbsb_sms_provider'              => 'netgsm',

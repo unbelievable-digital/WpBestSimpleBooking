@@ -33,6 +33,7 @@ $settings = array(
 	'unbsb_reschedule_deadline_hours' => get_option( 'unbsb_reschedule_deadline_hours', 24 ),
 	'unbsb_max_reschedules'           => get_option( 'unbsb_max_reschedules', 2 ),
 	'unbsb_enable_multi_service'      => get_option( 'unbsb_enable_multi_service', 'no' ),
+	'unbsb_auto_confirm'              => get_option( 'unbsb_auto_confirm', 'no' ),
 	'unbsb_sms_enabled'               => get_option( 'unbsb_sms_enabled', 'no' ),
 	'unbsb_sms_provider'              => get_option( 'unbsb_sms_provider', 'netgsm' ),
 	'unbsb_sms_netgsm_username'       => get_option( 'unbsb_sms_netgsm_username', '' ),
@@ -357,6 +358,24 @@ if ( ! array_key_exists( $current_tab, $unbsb_tabs ) ) {
 
 				<?php elseif ( 'booking' === $current_tab ) : ?>
 				<!-- BOOKING SETTINGS -->
+				<div class="unbsb-settings-section">
+					<div class="unbsb-section-header">
+						<h2><?php esc_html_e( 'Booking Confirmation', 'unbelievable-salon-booking' ); ?></h2>
+						<p><?php esc_html_e( 'Configure how new bookings are confirmed.', 'unbelievable-salon-booking' ); ?></p>
+					</div>
+
+					<div class="unbsb-setting-item unbsb-setting-toggle">
+						<div class="unbsb-toggle-content">
+							<span class="setting-label"><?php esc_html_e( 'Auto-Confirm Bookings', 'unbelievable-salon-booking' ); ?></span>
+							<span class="setting-hint"><?php esc_html_e( 'Automatically confirm new bookings without requiring manual approval', 'unbelievable-salon-booking' ); ?></span>
+						</div>
+						<label class="unbsb-toggle">
+							<input type="checkbox" name="unbsb_auto_confirm" id="unbsb_auto_confirm" value="yes" <?php checked( $settings['unbsb_auto_confirm'], 'yes' ); ?>>
+							<span class="unbsb-toggle-slider"></span>
+						</label>
+					</div>
+				</div>
+
 				<div class="unbsb-settings-section">
 					<div class="unbsb-section-header">
 						<h2><?php esc_html_e( 'Cancellation and Rescheduling', 'unbelievable-salon-booking' ); ?></h2>

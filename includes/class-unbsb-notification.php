@@ -57,9 +57,6 @@ class UNBSB_Notification {
 	 * Load ICS Generator
 	 */
 	private function load_ics_generator() {
-		if ( ! class_exists( 'UNBSB_ICS_Generator' ) ) {
-			require_once plugin_dir_path( __FILE__ ) . 'class-unbsb-ics-generator.php';
-		}
 		$this->ics_generator = new UNBSB_ICS_Generator();
 	}
 
@@ -147,15 +144,18 @@ class UNBSB_Notification {
 				AND b.start_time <= %s
 				AND b.status IN ('pending', 'confirmed')
 				AND b.customer_email IS NOT NULL
-				AND b.customer_email != ''
-				AND NOT EXISTS (
-					SELECT 1 FROM " . $wpdb->postmeta . " pm
-					WHERE pm.post_id = b.id
-					AND pm.meta_key = '_unbsb_reminder_sent'
-				)",
+				AND b.customer_email != ''",
 				$reminder_date,
 				$reminder_time
 			)
+		);
+
+		// Filter out bookings that already had reminders sent.
+		$bookings = array_filter(
+			$bookings,
+			function ( $b ) {
+				return false === get_option( '_unbsb_reminder_sent_' . $b->id );
+			}
 		);
 
 		$booking_model = new UNBSB_Booking();
