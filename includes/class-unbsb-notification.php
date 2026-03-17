@@ -78,12 +78,15 @@ class UNBSB_Notification {
 		}
 
 		// Email to customer.
+		do_action( 'unbsb_before_send_notification', $booking_id, 'booking_received' );
 		$this->send_customer_email( $booking, 'booking_received' );
 
 		// Email to admin.
+		do_action( 'unbsb_before_send_notification', $booking_id, 'admin_new_booking' );
 		$this->send_admin_email( $booking, 'admin_new_booking' );
 
 		// Email to assigned staff.
+		do_action( 'unbsb_before_send_notification', $booking_id, 'staff_new_booking' );
 		$this->send_staff_email( $booking, 'staff_new_booking' );
 	}
 
@@ -108,10 +111,12 @@ class UNBSB_Notification {
 
 		switch ( $new_status ) {
 			case 'confirmed':
+				do_action( 'unbsb_before_send_notification', $booking_id, 'booking_confirmed' );
 				$this->send_customer_email( $booking, 'booking_confirmed', true );
 				break;
 
 			case 'cancelled':
+				do_action( 'unbsb_before_send_notification', $booking_id, 'booking_cancelled' );
 				$this->send_customer_email( $booking, 'booking_cancelled', false, true );
 				break;
 		}
@@ -313,8 +318,10 @@ class UNBSB_Notification {
 		// Create table and add default templates (if not exists).
 		$this->ensure_templates_exist();
 
+		$safe_table = esc_sql( $this->templates_table );
+
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-		return $wpdb->get_results( "SELECT * FROM {$this->templates_table} ORDER BY id ASC" );
+		return $wpdb->get_results( "SELECT * FROM `{$safe_table}` ORDER BY id ASC" );
 	}
 
 	/**
@@ -323,9 +330,13 @@ class UNBSB_Notification {
 	private function ensure_templates_exist() {
 		global $wpdb;
 
+		$safe_table = esc_sql( $this->templates_table );
+
 		// Check if table exists.
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-		$table_exists = $wpdb->get_var( "SHOW TABLES LIKE '{$this->templates_table}'" );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$table_exists = $wpdb->get_var(
+			$wpdb->prepare( 'SHOW TABLES LIKE %s', $this->templates_table )
+		);
 
 		if ( ! $table_exists ) {
 			// Create table.
@@ -334,7 +345,7 @@ class UNBSB_Notification {
 
 		// Check if templates exist.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-		$count = $wpdb->get_var( "SELECT COUNT(*) FROM {$this->templates_table}" );
+		$count = $wpdb->get_var( "SELECT COUNT(*) FROM `{$safe_table}`" );
 
 		if ( 0 === intval( $count ) ) {
 			// Create default templates.

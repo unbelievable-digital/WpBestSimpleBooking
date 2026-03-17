@@ -66,11 +66,13 @@ unbelievable-salon-booking/
 │   ├── class-unbsb-rate-limiter.php # Rate limiting
 │   ├── class-unbsb-security-logger.php # Security logging
 │   ├── class-unbsb-captcha.php      # CAPTCHA integration
+│   ├── class-unbsb-export-import.php # Data export/import
 │   ├── models/
 │   │   ├── class-unbsb-booking.php
 │   │   ├── class-unbsb-booking-service.php
 │   │   ├── class-unbsb-category.php
 │   │   ├── class-unbsb-customer.php
+│   │   ├── class-unbsb-promo-code.php
 │   │   ├── class-unbsb-service.php
 │   │   └── class-unbsb-staff.php
 │   └── sms/
@@ -82,14 +84,19 @@ unbelievable-salon-booking/
 │   ├── partials/                    # Admin template parts
 │   │   ├── admin-dashboard.php
 │   │   ├── admin-bookings.php
+│   │   ├── admin-new-booking.php
 │   │   ├── admin-calendar.php
 │   │   ├── admin-categories.php
 │   │   ├── admin-services.php
 │   │   ├── admin-staff.php
 │   │   ├── admin-staff-schedule.php
+│   │   ├── admin-staff-bookings.php
+│   │   ├── admin-staff-schedule-own.php
 │   │   ├── admin-customers.php
 │   │   ├── admin-settings.php
-│   │   └── admin-email-templates.php
+│   │   ├── admin-email-templates.php
+│   │   ├── admin-export-import.php
+│   │   └── admin-promo-codes.php
 │   ├── css/
 │   │   └── unbsb-admin.css
 │   └── js/
@@ -100,7 +107,9 @@ unbelievable-salon-booking/
 │   ├── partials/                    # Public template parts
 │   │   ├── booking-form.php
 │   │   ├── booking-manage.php
+│   │   ├── account.php
 │   │   ├── services-list.php
+│   │   ├── service-card-inner.php
 │   │   └── staff-list.php
 │   ├── css/
 │   │   └── unbsb-public.css
@@ -128,7 +137,7 @@ CREATE TABLE {prefix}unbsb_categories (
     description TEXT,
     color VARCHAR(7) DEFAULT '#3788d8',
     icon VARCHAR(100) DEFAULT '',
-    status ENUM('active','inactive') DEFAULT 'active',
+    status VARCHAR(20) DEFAULT 'active',
     sort_order INT DEFAULT 0,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -149,7 +158,7 @@ CREATE TABLE {prefix}unbsb_services (
     buffer_before INT DEFAULT 0,
     buffer_after INT DEFAULT 0,
     color VARCHAR(7) DEFAULT '#3788d8',
-    status ENUM('active','inactive') DEFAULT 'active',
+    status VARCHAR(20) DEFAULT 'active',
     sort_order INT DEFAULT 0,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -168,8 +177,11 @@ CREATE TABLE {prefix}unbsb_staff (
     phone VARCHAR(50),
     bio TEXT,
     avatar_url VARCHAR(500),
-    status ENUM('active','inactive') DEFAULT 'active',
+    status VARCHAR(20) DEFAULT 'active',
     sort_order INT DEFAULT 0,
+    salary_type VARCHAR(20) DEFAULT 'percentage',
+    salary_percentage DECIMAL(5,2) DEFAULT 0,
+    salary_fixed DECIMAL(10,2) DEFAULT 0,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
@@ -243,10 +255,14 @@ CREATE TABLE {prefix}unbsb_bookings (
     end_time TIME NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     total_duration INT DEFAULT 0,
-    status ENUM('pending','confirmed','cancelled','completed','no_show') DEFAULT 'pending',
+    status VARCHAR(20) DEFAULT 'pending',
     notes TEXT,
     internal_notes TEXT,
-    token VARCHAR(64) UNIQUE,
+    promo_code_id BIGINT(20) UNSIGNED DEFAULT NULL,
+    discount_amount DECIMAL(10,2) DEFAULT 0,
+    paid_amount DECIMAL(10,2) DEFAULT NULL,
+    payment_method VARCHAR(50) DEFAULT NULL,
+    token VARCHAR(64),
     reschedule_count INT DEFAULT 0,
     original_booking_id BIGINT(20) UNSIGNED,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -256,7 +272,9 @@ CREATE TABLE {prefix}unbsb_bookings (
     KEY staff_id (staff_id),
     KEY customer_id (customer_id),
     KEY booking_date (booking_date),
-    KEY status (status)
+    KEY status (status),
+    KEY original_booking_id (original_booking_id),
+    UNIQUE KEY token (token)
 );
 ```
 
@@ -272,8 +290,134 @@ CREATE TABLE {prefix}unbsb_customers (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
-    UNIQUE KEY email (email),
+    KEY email (email),
     KEY user_id (user_id)
+);
+```
+
+#### unbsb_booking_services (Multi-Service Support)
+```sql
+CREATE TABLE {prefix}unbsb_booking_services (
+    id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    booking_id BIGINT(20) UNSIGNED NOT NULL,
+    service_id BIGINT(20) UNSIGNED NOT NULL,
+    staff_id BIGINT(20) UNSIGNED,
+    price DECIMAL(10,2) NOT NULL,
+    duration INT NOT NULL,
+    sort_order INT DEFAULT 0,
+    PRIMARY KEY (id),
+    KEY booking_id (booking_id),
+    KEY service_id (service_id)
+);
+```
+
+#### unbsb_staff_earnings (Staff Earnings/Commission)
+```sql
+CREATE TABLE {prefix}unbsb_staff_earnings (
+    id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    staff_id BIGINT(20) UNSIGNED NOT NULL,
+    booking_id BIGINT(20) UNSIGNED,
+    amount DECIMAL(10,2) NOT NULL DEFAULT 0,
+    type VARCHAR(20) DEFAULT 'commission',
+    period VARCHAR(7),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    KEY staff_id (staff_id),
+    KEY booking_id (booking_id),
+    KEY period (period)
+);
+```
+
+#### unbsb_email_templates (Email Templates)
+```sql
+CREATE TABLE {prefix}unbsb_email_templates (
+    id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
+    content LONGTEXT NOT NULL,
+    is_active TINYINT(1) DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    UNIQUE KEY type (type)
+);
+```
+
+#### unbsb_sms_queue (SMS Queue)
+```sql
+CREATE TABLE {prefix}unbsb_sms_queue (
+    id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    booking_id BIGINT(20) UNSIGNED NOT NULL,
+    phone VARCHAR(50) NOT NULL,
+    message TEXT NOT NULL,
+    scheduled_at DATETIME NOT NULL,
+    sent_at DATETIME,
+    status VARCHAR(20) DEFAULT 'pending',
+    attempts INT DEFAULT 0,
+    provider_response TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    KEY booking_id (booking_id),
+    KEY scheduled_at (scheduled_at),
+    KEY status (status)
+);
+```
+
+#### unbsb_sms_templates (SMS Templates)
+```sql
+CREATE TABLE {prefix}unbsb_sms_templates (
+    id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    message TEXT NOT NULL,
+    is_active TINYINT(1) DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    UNIQUE KEY type (type)
+);
+```
+
+#### unbsb_promo_codes (Promo Codes)
+```sql
+CREATE TABLE {prefix}unbsb_promo_codes (
+    id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    code VARCHAR(50) NOT NULL,
+    description TEXT,
+    discount_type VARCHAR(20) NOT NULL DEFAULT 'percentage',
+    discount_value DECIMAL(10,2) NOT NULL DEFAULT 0,
+    first_time_only TINYINT(1) DEFAULT 0,
+    min_services INT DEFAULT 0,
+    min_order_amount DECIMAL(10,2) DEFAULT 0,
+    max_uses INT DEFAULT 0,
+    max_uses_per_customer INT DEFAULT 0,
+    applicable_services TEXT,
+    applicable_categories TEXT,
+    start_date DATE,
+    end_date DATE,
+    status VARCHAR(20) DEFAULT 'active',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    UNIQUE KEY code (code),
+    KEY status (status)
+);
+```
+
+#### unbsb_promo_code_usage (Promo Code Usage Tracking)
+```sql
+CREATE TABLE {prefix}unbsb_promo_code_usage (
+    id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    promo_code_id BIGINT(20) UNSIGNED NOT NULL,
+    booking_id BIGINT(20) UNSIGNED NOT NULL,
+    customer_email VARCHAR(255) NOT NULL,
+    discount_amount DECIMAL(10,2) NOT NULL,
+    used_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    KEY promo_code_id (promo_code_id),
+    KEY booking_id (booking_id),
+    KEY customer_email (customer_email)
 );
 ```
 
@@ -533,6 +677,21 @@ wp i18n make-pot . languages/unbelievable-salon-booking.pot --domain=unbelievabl
 6. **Update POT file** - Regenerate after adding new strings
 
 ## Version History
+
+### v1.7.0
+- FullCalendar integration (admin + staff portal)
+- Staff portal (My Bookings + My Schedule)
+- Staff WordPress user management (create/link/unlink)
+- Staff salary/commission system (percentage/fixed/mix)
+- Booking completion with payment recording
+- Email notification fix
+- Full data export/import
+- Admin new booking page with customer search
+- Multi-service category grouping
+- Staff custom pricing per service
+- Promo codes
+- 24h time format fix
+- Staff data leak fix (public API)
 
 ### v1.0.0
 - Initial release

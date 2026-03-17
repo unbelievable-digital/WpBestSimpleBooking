@@ -283,13 +283,15 @@ class UNBSB_Calendar {
 		$table = $wpdb->prefix . 'unbsb_working_hours';
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		return $wpdb->get_row(
+		$hours = $wpdb->get_row(
 			$wpdb->prepare(
 				'SELECT * FROM ' . $table . ' WHERE staff_id = %d AND day_of_week = %d',
 				$staff_id,
 				$day_of_week
 			)
 		);
+
+		return apply_filters( 'unbsb_filter_working_hours', $hours, $staff_id, $day_of_week );
 	}
 
 	/**

@@ -308,9 +308,11 @@ class UNBSB_Security_Logger {
 
 		$where_sql = implode( ' AND ', $where );
 
+		$safe_table = esc_sql( self::$table_name );
+
 		if ( empty( $values ) ) {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-			return (int) $wpdb->get_var( "SELECT COUNT(*) FROM " . self::$table_name . " WHERE {$where_sql}" );
+			return (int) $wpdb->get_var( "SELECT COUNT(*) FROM `{$safe_table}` WHERE {$where_sql}" );
 		}
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared

@@ -450,8 +450,10 @@ class UNBSB_SMS_Manager {
 	public function get_templates() {
 		global $wpdb;
 
+		$safe_table = esc_sql( $this->templates_table );
+
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-		return $wpdb->get_results( "SELECT * FROM {$this->templates_table} ORDER BY id ASC" );
+		return $wpdb->get_results( "SELECT * FROM `{$safe_table}` ORDER BY id ASC" );
 	}
 
 	/**
@@ -487,9 +489,11 @@ class UNBSB_SMS_Manager {
 	public function get_queue_stats() {
 		global $wpdb;
 
+		$safe_table = esc_sql( $this->queue_table );
+
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$stats = $wpdb->get_results(
-			"SELECT status, COUNT(*) as count FROM {$this->queue_table} GROUP BY status"
+			"SELECT status, COUNT(*) as count FROM `{$safe_table}` GROUP BY status"
 		);
 
 		$result = array(

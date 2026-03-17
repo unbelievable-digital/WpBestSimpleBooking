@@ -369,6 +369,11 @@ class UNBSB_Admin {
 					'staff'                      => __( 'Staff', 'unbelievable-salon-booking' ),
 					'status'                     => __( 'Status', 'unbelievable-salon-booking' ),
 					'price'                      => __( 'Price', 'unbelievable-salon-booking' ),
+					// Status labels (calendar).
+					'pending'                    => __( 'Pending', 'unbelievable-salon-booking' ),
+					'confirmed'                  => __( 'Confirmed', 'unbelievable-salon-booking' ),
+					'cancelled'                  => __( 'Cancelled', 'unbelievable-salon-booking' ),
+					'no_show'                    => __( 'No Show', 'unbelievable-salon-booking' ),
 					// Work schedule.
 					'not_working'                => __( 'Not working', 'unbelievable-salon-booking' ),
 					'no_holidays'                => __( 'No holidays registered', 'unbelievable-salon-booking' ),

@@ -199,6 +199,16 @@ class UNBSB_Booking {
 			}
 		}
 
+		// Allow filtering the booking price.
+		if ( isset( $sanitized['price'] ) ) {
+			$sanitized['price'] = apply_filters(
+				'unbsb_filter_booking_price',
+				$sanitized['price'],
+				$sanitized['service_id'] ?? 0,
+				$sanitized['staff_id']
+			);
+		}
+
 		// Promo code validation and discount application.
 		if ( ! empty( $data['promo_code'] ) ) {
 			$promo_model    = new UNBSB_Promo_Code();
@@ -249,6 +259,8 @@ class UNBSB_Booking {
 				$sanitized['customer_id'] = $customer->id;
 			}
 		}
+
+		do_action( 'unbsb_before_booking_created', $sanitized );
 
 		$booking_id = $this->db->insert( $this->table, $sanitized );
 

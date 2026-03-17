@@ -107,10 +107,11 @@ class UNBSB_Export_Import {
 				continue;
 			}
 
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$safe_table = esc_sql( $table_name );
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			$rows = $this->wpdb->get_results(
-				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-				"SELECT * FROM {$table_name} ORDER BY id ASC",
+				"SELECT * FROM `{$safe_table}` ORDER BY id ASC",
 				ARRAY_A
 			);
 
@@ -236,8 +237,10 @@ class UNBSB_Export_Import {
 					$table_name = $this->prefix . $table;
 
 					if ( $this->table_exists( $table_name ) ) {
+						$safe_table = esc_sql( $table_name );
+
 						// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-						$this->wpdb->query( "DELETE FROM {$table_name}" );
+						$this->wpdb->query( "DELETE FROM `{$safe_table}`" );
 					}
 				}
 			}
@@ -538,8 +541,10 @@ class UNBSB_Export_Import {
 	 * @return array Column names.
 	 */
 	private function get_table_columns( $table_name ) {
+		$safe_table = esc_sql( $table_name );
+
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-		$columns = $this->wpdb->get_col( "SHOW COLUMNS FROM {$table_name}" );
+		$columns = $this->wpdb->get_col( "SHOW COLUMNS FROM `{$safe_table}`" );
 
 		return ( null === $columns ) ? array() : $columns;
 	}
@@ -636,8 +641,10 @@ class UNBSB_Export_Import {
 				continue;
 			}
 
+			$safe_table = esc_sql( $table_name );
+
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-			$count = $this->wpdb->get_var( "SELECT COUNT(*) FROM {$table_name}" );
+			$count = $this->wpdb->get_var( "SELECT COUNT(*) FROM `{$safe_table}`" );
 
 			$summary[ $table ] = (int) $count;
 		}
