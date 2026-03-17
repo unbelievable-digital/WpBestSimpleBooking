@@ -828,6 +828,113 @@ class UNBSB_Admin {
 			)
 		);
 
+		// --- Enriched metrics ---
+
+		$customers_table = $wpdb->prefix . 'unbsb_customers';
+		$staff_table     = $wpdb->prefix . 'unbsb_staff';
+
+		// Top 5 services (with booking count + revenue).
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$top_services = $wpdb->get_results(
+			'SELECT s.name, COUNT(b.id) as booking_count, COALESCE(SUM(b.price), 0) as total_revenue
+			FROM ' . $bookings_table . ' b
+			INNER JOIN ' . $services_table . " s ON b.service_id = s.id
+			WHERE b.status IN ('confirmed', 'completed')
+			GROUP BY b.service_id
+			ORDER BY booking_count DESC
+			LIMIT 5"
+		);
+
+		// Staff performance (this month: bookings + revenue per staff).
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$staff_performance = $wpdb->get_results(
+			$wpdb->prepare(
+				'SELECT st.name, st.avatar_url, COUNT(b.id) as booking_count, COALESCE(SUM(b.price), 0) as total_revenue
+				FROM ' . $bookings_table . ' b
+				INNER JOIN ' . $staff_table . " st ON b.staff_id = st.id
+				WHERE b.booking_date BETWEEN %s AND %s AND b.status IN ('confirmed', 'completed')
+				GROUP BY b.staff_id
+				ORDER BY total_revenue DESC",
+				$month_start,
+				$month_end
+			)
+		);
+
+		// Cancellation rate.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$total_all_bookings = (int) $wpdb->get_var(
+			'SELECT COUNT(*) FROM ' . $bookings_table
+		);
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$cancelled_count = (int) $wpdb->get_var(
+			"SELECT COUNT(*) FROM {$bookings_table} WHERE status = 'cancelled'"
+		);
+		$cancellation_rate = $total_all_bookings > 0
+			? round( ( $cancelled_count / $total_all_bookings ) * 100, 1 )
+			: 0;
+
+		// Customer stats (total, new this month, returning).
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$total_customers_count = (int) $wpdb->get_var(
+			'SELECT COUNT(*) FROM ' . $customers_table
+		);
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$new_customers_month = (int) $wpdb->get_var(
+			$wpdb->prepare(
+				'SELECT COUNT(*) FROM ' . $customers_table . '
+				WHERE created_at >= %s',
+				$month_start
+			)
+		);
+		// Returning = customers with more than 1 booking.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$returning_customers = (int) $wpdb->get_var(
+			"SELECT COUNT(*) FROM (
+				SELECT customer_email FROM {$bookings_table}
+				WHERE status != 'cancelled'
+				GROUP BY customer_email
+				HAVING COUNT(*) > 1
+			) as returning_cust"
+		);
+
+		$customer_stats = array(
+			'total'     => $total_customers_count,
+			'new_month' => $new_customers_month,
+			'returning' => $returning_customers,
+		);
+
+		// Revenue summary (today, this week, this month).
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$revenue_today = (float) $wpdb->get_var(
+			$wpdb->prepare(
+				'SELECT COALESCE(SUM(price), 0) FROM ' . $bookings_table . "
+				WHERE booking_date = %s AND status IN ('confirmed', 'completed')",
+				$today
+			)
+		);
+		$week_start = gmdate( 'Y-m-d', strtotime( 'monday this week' ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$revenue_week = (float) $wpdb->get_var(
+			$wpdb->prepare(
+				'SELECT COALESCE(SUM(price), 0) FROM ' . $bookings_table . "
+				WHERE booking_date BETWEEN %s AND %s AND status IN ('confirmed', 'completed')",
+				$week_start,
+				$today
+			)
+		);
+
+		$revenue_summary = array(
+			'today' => $revenue_today,
+			'week'  => $revenue_week,
+			'month' => (float) $monthly_total,
+		);
+
+		// Average booking value.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$avg_booking_value = (float) $wpdb->get_var(
+			"SELECT COALESCE(AVG(price), 0) FROM {$bookings_table} WHERE status IN ('confirmed', 'completed')"
+		);
+
 		// Chart data.
 		$chart_data = array(
 			'weekly'   => array(
@@ -904,8 +1011,12 @@ class UNBSB_Admin {
 	 * Calendar page
 	 */
 	public function render_calendar() {
-		$staff_model = new UNBSB_Staff();
-		$staff       = $staff_model->get_active();
+		$staff_model   = new UNBSB_Staff();
+		$service_model = new UNBSB_Service();
+		$staff         = $staff_model->get_active();
+		$services      = $service_model->get_active();
+
+		$currency_symbol = get_option( 'unbsb_currency_symbol', '₺' );
 
 		include UNBSB_PLUGIN_DIR . 'admin/partials/admin-calendar.php';
 	}
@@ -1741,6 +1852,11 @@ class UNBSB_Admin {
 			'unbsb_social_instagram',
 			'unbsb_social_twitter',
 			'unbsb_social_twitter_handle',
+			// Appearance.
+			'unbsb_appearance_primary_color',
+			'unbsb_appearance_accent_color',
+			'unbsb_appearance_border_radius',
+			'unbsb_appearance_font_size',
 			// Security / CAPTCHA.
 			'unbsb_captcha_provider',
 			'unbsb_captcha_site_key',
@@ -3220,6 +3336,133 @@ class UNBSB_Admin {
 		} else {
 			wp_send_json_error( __( 'An error occurred while updating the booking.', 'unbelievable-salon-booking' ) );
 		}
+	}
+
+	/**
+	 * AJAX: Export customers as CSV
+	 */
+	public function ajax_export_customers_csv() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'Unauthorized.', 'unbelievable-salon-booking' ) );
+		}
+
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'unbsb_customers';
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$customers = $wpdb->get_results(
+			"SELECT id, name, email, phone, notes, created_at FROM {$table} ORDER BY id ASC",
+			ARRAY_A
+		);
+
+		if ( null === $customers ) {
+			$customers = array();
+		}
+
+		// Build CSV string.
+		$output = fopen( 'php://temp', 'r+' );
+		fputcsv( $output, array( 'id', 'name', 'email', 'phone', 'notes', 'created_at' ) );
+
+		foreach ( $customers as $row ) {
+			fputcsv( $output, $row );
+		}
+
+		rewind( $output );
+		$csv = stream_get_contents( $output );
+		fclose( $output );
+
+		wp_send_json_success(
+			array(
+				'csv'      => $csv,
+				'filename' => 'customers-' . gmdate( 'Y-m-d' ) . '.csv',
+				'count'    => count( $customers ),
+			)
+		);
+	}
+
+	/**
+	 * AJAX: Import customers from CSV
+	 */
+	public function ajax_import_customers_csv() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'Unauthorized.', 'unbelievable-salon-booking' ) );
+		}
+
+		if ( empty( $_FILES['csv_file'] ) || ! empty( $_FILES['csv_file']['error'] ) ) {
+			wp_send_json_error( __( 'No valid CSV file uploaded.', 'unbelievable-salon-booking' ) );
+		}
+
+		$file_path = sanitize_text_field( wp_unslash( $_FILES['csv_file']['tmp_name'] ) );
+
+		if ( ! is_uploaded_file( $file_path ) ) {
+			wp_send_json_error( __( 'Invalid upload.', 'unbelievable-salon-booking' ) );
+		}
+
+		$handle = fopen( $file_path, 'r' );
+		if ( false === $handle ) {
+			wp_send_json_error( __( 'Could not read file.', 'unbelievable-salon-booking' ) );
+		}
+
+		$customer_model = new UNBSB_Customer();
+		$added          = 0;
+		$skipped        = 0;
+		$row_num        = 0;
+
+		while ( false !== ( $row = fgetcsv( $handle ) ) ) {
+			++$row_num;
+
+			// Skip header row.
+			if ( 1 === $row_num ) {
+				$first_cell = strtolower( trim( $row[0] ?? '' ) );
+				if ( in_array( $first_cell, array( 'name', 'id', 'email' ), true ) ) {
+					continue;
+				}
+			}
+
+			// Expected CSV columns: name, email, phone, notes.
+			$name  = sanitize_text_field( $row[0] ?? '' );
+			$email = sanitize_email( $row[1] ?? '' );
+			$phone = sanitize_text_field( $row[2] ?? '' );
+			$notes = sanitize_textarea_field( $row[3] ?? '' );
+
+			if ( empty( $name ) || empty( $email ) ) {
+				++$skipped;
+				continue;
+			}
+
+			// Check email uniqueness.
+			$existing = $customer_model->get_by_email( $email );
+			if ( $existing ) {
+				++$skipped;
+				continue;
+			}
+
+			$customer_model->create(
+				array(
+					'name'  => $name,
+					'email' => $email,
+					'phone' => $phone,
+					'notes' => $notes,
+				)
+			);
+			++$added;
+		}
+
+		fclose( $handle );
+
+		wp_send_json_success(
+			array(
+				/* translators: 1: number of customers added, 2: number of customers skipped */
+				'message' => sprintf( __( '%1$d customers added, %2$d skipped.', 'unbelievable-salon-booking' ), $added, $skipped ),
+				'added'   => $added,
+				'skipped' => $skipped,
+			)
+		);
 	}
 
 }

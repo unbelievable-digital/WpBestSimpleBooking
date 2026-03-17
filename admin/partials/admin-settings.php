@@ -57,6 +57,11 @@ $settings = array(
 	'unbsb_social_instagram'          => get_option( 'unbsb_social_instagram', '' ),
 	'unbsb_social_twitter'            => get_option( 'unbsb_social_twitter', '' ),
 	'unbsb_social_twitter_handle'     => get_option( 'unbsb_social_twitter_handle', '' ),
+	// Appearance.
+	'unbsb_appearance_primary_color'  => get_option( 'unbsb_appearance_primary_color', '#6366f1' ),
+	'unbsb_appearance_accent_color'   => get_option( 'unbsb_appearance_accent_color', '#10b981' ),
+	'unbsb_appearance_border_radius'  => get_option( 'unbsb_appearance_border_radius', 'rounded' ),
+	'unbsb_appearance_font_size'      => get_option( 'unbsb_appearance_font_size', 'medium' ),
 	// Security / CAPTCHA.
 	'unbsb_captcha_provider'          => get_option( 'unbsb_captcha_provider', 'none' ),
 	'unbsb_captcha_site_key'          => get_option( 'unbsb_captcha_site_key', '' ),
@@ -105,6 +110,10 @@ $unbsb_tabs = array(
 	'security' => array(
 		'label' => __( 'Security', 'unbelievable-salon-booking' ),
 		'icon'  => 'dashicons-shield',
+	),
+'appearance' => array(
+		'label' => __( 'Appearance', 'unbelievable-salon-booking' ),
+		'icon'  => 'dashicons-art',
 	),
 );
 
@@ -891,6 +900,60 @@ if ( ! array_key_exists( $current_tab, $unbsb_tabs ) ) {
 								<input type="checkbox" name="unbsb_security_logging_enabled" value="yes" <?php checked( $settings['unbsb_security_logging_enabled'], 'yes' ); ?>>
 								<span class="unbsb-toggle-slider"></span>
 							</label>
+						</div>
+					</div>
+				</div>
+				<?php endif; ?>
+
+				<!-- Appearance Tab -->
+				<?php if ( 'appearance' === $current_tab ) : ?>
+				<div class="unbsb-settings-section active" id="tab-appearance">
+					<div class="unbsb-section-header">
+						<span class="dashicons dashicons-art"></span>
+						<div>
+							<h2><?php esc_html_e( 'Appearance', 'unbelievable-salon-booking' ); ?></h2>
+							<p><?php esc_html_e( 'Customize the look and feel of the booking form.', 'unbelievable-salon-booking' ); ?></p>
+						</div>
+					</div>
+
+					<div class="unbsb-settings-subsection">
+						<h3><?php esc_html_e( 'Colors', 'unbelievable-salon-booking' ); ?></h3>
+						<p class="unbsb-subsection-desc"><?php esc_html_e( 'Set the primary and accent colors for the booking form.', 'unbelievable-salon-booking' ); ?></p>
+
+						<div class="unbsb-setting-item">
+							<label class="setting-label" for="unbsb_appearance_primary_color"><?php esc_html_e( 'Primary Color', 'unbelievable-salon-booking' ); ?></label>
+							<span class="setting-desc"><?php esc_html_e( 'Used for buttons, links, and active elements.', 'unbelievable-salon-booking' ); ?></span>
+							<input type="color" id="unbsb_appearance_primary_color" name="unbsb_appearance_primary_color" value="<?php echo esc_attr( $settings['unbsb_appearance_primary_color'] ); ?>">
+						</div>
+
+						<div class="unbsb-setting-item">
+							<label class="setting-label" for="unbsb_appearance_accent_color"><?php esc_html_e( 'Accent Color', 'unbelievable-salon-booking' ); ?></label>
+							<span class="setting-desc"><?php esc_html_e( 'Used for success states and highlights.', 'unbelievable-salon-booking' ); ?></span>
+							<input type="color" id="unbsb_appearance_accent_color" name="unbsb_appearance_accent_color" value="<?php echo esc_attr( $settings['unbsb_appearance_accent_color'] ); ?>">
+						</div>
+					</div>
+
+					<div class="unbsb-settings-subsection">
+						<h3><?php esc_html_e( 'Style', 'unbelievable-salon-booking' ); ?></h3>
+
+						<div class="unbsb-setting-item">
+							<label class="setting-label" for="unbsb_appearance_border_radius"><?php esc_html_e( 'Border Radius', 'unbelievable-salon-booking' ); ?></label>
+							<span class="setting-desc"><?php esc_html_e( 'Controls the roundness of buttons and cards.', 'unbelievable-salon-booking' ); ?></span>
+							<select id="unbsb_appearance_border_radius" name="unbsb_appearance_border_radius">
+								<option value="square" <?php selected( $settings['unbsb_appearance_border_radius'], 'square' ); ?>><?php esc_html_e( 'Square (0px)', 'unbelievable-salon-booking' ); ?></option>
+								<option value="rounded" <?php selected( $settings['unbsb_appearance_border_radius'], 'rounded' ); ?>><?php esc_html_e( 'Rounded (12px)', 'unbelievable-salon-booking' ); ?></option>
+								<option value="pill" <?php selected( $settings['unbsb_appearance_border_radius'], 'pill' ); ?>><?php esc_html_e( 'Pill (50px)', 'unbelievable-salon-booking' ); ?></option>
+							</select>
+						</div>
+
+						<div class="unbsb-setting-item">
+							<label class="setting-label" for="unbsb_appearance_font_size"><?php esc_html_e( 'Font Size', 'unbelievable-salon-booking' ); ?></label>
+							<span class="setting-desc"><?php esc_html_e( 'Base font size for the booking form.', 'unbelievable-salon-booking' ); ?></span>
+							<select id="unbsb_appearance_font_size" name="unbsb_appearance_font_size">
+								<option value="small" <?php selected( $settings['unbsb_appearance_font_size'], 'small' ); ?>><?php esc_html_e( 'Small (13px)', 'unbelievable-salon-booking' ); ?></option>
+								<option value="medium" <?php selected( $settings['unbsb_appearance_font_size'], 'medium' ); ?>><?php esc_html_e( 'Medium (15px)', 'unbelievable-salon-booking' ); ?></option>
+								<option value="large" <?php selected( $settings['unbsb_appearance_font_size'], 'large' ); ?>><?php esc_html_e( 'Large (17px)', 'unbelievable-salon-booking' ); ?></option>
+							</select>
 						</div>
 					</div>
 				</div>

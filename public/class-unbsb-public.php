@@ -40,6 +40,35 @@ class UNBSB_Public {
 			array(),
 			$this->version
 		);
+
+		// Inject appearance CSS variables.
+		$primary = sanitize_hex_color( get_option( 'unbsb_appearance_primary_color', '#6366f1' ) );
+		$accent  = sanitize_hex_color( get_option( 'unbsb_appearance_accent_color', '#10b981' ) );
+		$radius  = get_option( 'unbsb_appearance_border_radius', 'rounded' );
+		$font    = get_option( 'unbsb_appearance_font_size', 'medium' );
+
+		$radius_map = array(
+			'square'  => '0px',
+			'rounded' => '12px',
+			'pill'    => '50px',
+		);
+		$font_map = array(
+			'small'  => '13px',
+			'medium' => '15px',
+			'large'  => '17px',
+		);
+
+		$radius_val = isset( $radius_map[ $radius ] ) ? $radius_map[ $radius ] : '12px';
+		$font_val   = isset( $font_map[ $font ] ) ? $font_map[ $font ] : '15px';
+
+		$inline_css = ":root {
+			--unbsb-primary: {$primary};
+			--unbsb-accent: {$accent};
+			--unbsb-radius: {$radius_val};
+			--unbsb-font-size: {$font_val};
+		}";
+
+		wp_add_inline_style( 'unbsb-public', $inline_css );
 	}
 
 	/**

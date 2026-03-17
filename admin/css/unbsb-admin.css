@@ -111,14 +111,37 @@
 	grid-template-columns: repeat(4, 1fr);
 }
 
+.unbsb-stats-grid-3 {
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.unbsb-dashboard-grid-2 {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+	margin-bottom: 20px;
+}
+
 @media (max-width: 1200px) {
 	.unbsb-stats-grid-4 {
 		grid-template-columns: repeat(2, 1fr);
+	}
+	.unbsb-stats-grid-3 {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media (max-width: 768px) {
+	.unbsb-dashboard-grid-2 {
+		grid-template-columns: 1fr;
 	}
 }
 
 @media (max-width: 600px) {
 	.unbsb-stats-grid-4 {
+		grid-template-columns: 1fr;
+	}
+	.unbsb-stats-grid-3 {
 		grid-template-columns: 1fr;
 	}
 }

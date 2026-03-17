@@ -186,6 +186,10 @@ class UNBSB_Core {
 		// Calendar events.
 		$this->loader->add_action( 'wp_ajax_unbsb_get_calendar_events', $admin, 'ajax_get_calendar_events' );
 
+		// Customer CSV import/export.
+		$this->loader->add_action( 'wp_ajax_unbsb_export_customers_csv', $admin, 'ajax_export_customers_csv' );
+		$this->loader->add_action( 'wp_ajax_unbsb_import_customers_csv', $admin, 'ajax_import_customers_csv' );
+
 		// Staff admin restrictions.
 		$this->loader->add_action( 'admin_menu', $admin, 'restrict_staff_admin_menu', 999 );
 		$this->loader->add_action( 'admin_bar_menu', $admin, 'restrict_staff_admin_bar', 999 );
