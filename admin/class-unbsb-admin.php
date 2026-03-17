@@ -201,6 +201,24 @@ class UNBSB_Admin {
 				'unbsb-staff-schedule-portal',
 				array( $this, 'render_staff_schedule_portal' )
 			);
+
+			add_submenu_page(
+				'unbsb-staff-portal',
+				__( 'My Earnings', 'unbelievable-salon-booking' ),
+				__( 'My Earnings', 'unbelievable-salon-booking' ),
+				'unbsb_view_own_bookings',
+				'unbsb-staff-earnings-portal',
+				array( $this, 'render_staff_earnings_portal' )
+			);
+
+			add_submenu_page(
+				'unbsb-staff-portal',
+				__( 'My Performance', 'unbelievable-salon-booking' ),
+				__( 'My Performance', 'unbelievable-salon-booking' ),
+				'unbsb_view_own_bookings',
+				'unbsb-staff-performance-portal',
+				array( $this, 'render_staff_performance_portal' )
+			);
 		} else {
 			// Hidden pages for admin access (accessible via URL).
 			add_submenu_page(
@@ -219,6 +237,24 @@ class UNBSB_Admin {
 				'manage_options',
 				'unbsb-staff-schedule-portal',
 				array( $this, 'render_staff_schedule_portal' )
+			);
+
+			add_submenu_page(
+				null,
+				__( 'Staff Earnings', 'unbelievable-salon-booking' ),
+				__( 'Staff Earnings', 'unbelievable-salon-booking' ),
+				'manage_options',
+				'unbsb-staff-earnings-portal',
+				array( $this, 'render_staff_earnings_portal' )
+			);
+
+			add_submenu_page(
+				null,
+				__( 'Staff Performance', 'unbelievable-salon-booking' ),
+				__( 'Staff Performance', 'unbelievable-salon-booking' ),
+				'manage_options',
+				'unbsb-staff-performance-portal',
+				array( $this, 'render_staff_performance_portal' )
 			);
 		}
 	}
@@ -487,6 +523,26 @@ class UNBSB_Admin {
 					'complete_and_save'          => __( 'Complete & Save', 'unbelievable-salon-booking' ),
 					'booking_completed'          => __( 'Booking completed successfully.', 'unbelievable-salon-booking' ),
 					'completed'                  => __( 'Completed', 'unbelievable-salon-booking' ),
+					// Earnings & Performance.
+					'my_earnings'                => __( 'My Earnings', 'unbelievable-salon-booking' ),
+					'my_performance'             => __( 'My Performance', 'unbelievable-salon-booking' ),
+					'total_earnings'             => __( 'Total Earnings', 'unbelievable-salon-booking' ),
+					'total_paid'                 => __( 'Total Paid', 'unbelievable-salon-booking' ),
+					'remaining_balance'          => __( 'Remaining Balance', 'unbelievable-salon-booking' ),
+					'this_month'                 => __( 'This Month', 'unbelievable-salon-booking' ),
+					'last_month'                 => __( 'Last Month', 'unbelievable-salon-booking' ),
+					'last_3_months'              => __( 'Last 3 Months', 'unbelievable-salon-booking' ),
+					'custom_range'               => __( 'Custom Range', 'unbelievable-salon-booking' ),
+					'record_payment'             => __( 'Record Payment', 'unbelievable-salon-booking' ),
+					'payment_amount'             => __( 'Amount', 'unbelievable-salon-booking' ),
+					'payment_date'               => __( 'Date', 'unbelievable-salon-booking' ),
+					'payment_method'             => __( 'Payment Method', 'unbelievable-salon-booking' ),
+					'payment_notes'              => __( 'Notes', 'unbelievable-salon-booking' ),
+					'payment_recorded'           => __( 'Payment recorded successfully.', 'unbelievable-salon-booking' ),
+					'payment_deleted'            => __( 'Payment deleted.', 'unbelievable-salon-booking' ),
+					'confirm_delete_payment'     => __( 'Are you sure you want to delete this payment?', 'unbelievable-salon-booking' ),
+					'no_earnings'                => __( 'No earnings found for this period.', 'unbelievable-salon-booking' ),
+					'no_payments'                => __( 'No payments recorded yet.', 'unbelievable-salon-booking' ),
 				),
 				'currency'  => array(
 					'symbol'   => get_option( 'unbsb_currency_symbol', '₺' ),
@@ -1173,6 +1229,58 @@ class UNBSB_Admin {
 		$staff_id = $staff->id;
 
 		include UNBSB_PLUGIN_DIR . 'admin/partials/admin-staff-schedule-own.php';
+	}
+
+	/**
+	 * Render staff earnings portal page
+	 */
+	public function render_staff_earnings_portal() {
+		$staff_model = new UNBSB_Staff();
+
+		if ( current_user_can( 'manage_options' ) ) {
+			$staff_id = isset( $_GET['staff_id'] ) ? absint( $_GET['staff_id'] ) : 0;
+			$staff    = $staff_id ? $staff_model->get( $staff_id ) : null;
+		} else {
+			$staff = $staff_model->get_by_user_id( get_current_user_id() );
+		}
+
+		if ( ! $staff ) {
+			wp_die( esc_html__( 'Staff record not found.', 'unbelievable-salon-booking' ) );
+		}
+
+		$summary         = $staff_model->get_earnings_summary( $staff->id );
+		$currency_symbol = get_option( 'unbsb_currency_symbol', '₺' );
+		$date_format     = get_option( 'unbsb_date_format', 'd.m.Y' );
+
+		include plugin_dir_path( __FILE__ ) . 'partials/admin-staff-earnings.php';
+	}
+
+	/**
+	 * Render staff performance portal page
+	 */
+	public function render_staff_performance_portal() {
+		$staff_model = new UNBSB_Staff();
+
+		if ( current_user_can( 'manage_options' ) ) {
+			$staff_id = isset( $_GET['staff_id'] ) ? absint( $_GET['staff_id'] ) : 0;
+			$staff    = $staff_id ? $staff_model->get( $staff_id ) : null;
+		} else {
+			$staff = $staff_model->get_by_user_id( get_current_user_id() );
+		}
+
+		if ( ! $staff ) {
+			wp_die( esc_html__( 'Staff record not found.', 'unbelievable-salon-booking' ) );
+		}
+
+		$date_from       = wp_date( 'Y-m-01' );
+		$date_to         = wp_date( 'Y-m-t' );
+		$metrics         = $staff_model->get_performance_metrics( $staff->id, $date_from, $date_to );
+		$top_services    = $staff_model->get_top_services( $staff->id, $date_from, $date_to );
+		$trend           = $staff_model->get_monthly_trend( $staff->id );
+		$currency_symbol = get_option( 'unbsb_currency_symbol', '₺' );
+		$date_format     = get_option( 'unbsb_date_format', 'd.m.Y' );
+
+		include plugin_dir_path( __FILE__ ) . 'partials/admin-staff-performance.php';
 	}
 
 	/**
