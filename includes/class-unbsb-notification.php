@@ -348,14 +348,8 @@ class UNBSB_Notification {
 			$this->create_email_templates_table();
 		}
 
-		// Check if templates exist.
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-		$count = $wpdb->get_var( "SELECT COUNT(*) FROM `{$safe_table}`" );
-
-		if ( 0 === intval( $count ) ) {
-			// Create default templates.
-			$this->create_default_email_templates();
-		}
+		// Always ensure all default templates exist (adds missing ones).
+		$this->create_default_email_templates();
 	}
 
 	/**
