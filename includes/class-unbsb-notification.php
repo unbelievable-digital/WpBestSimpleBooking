@@ -185,7 +185,12 @@ class UNBSB_Notification {
 			return;
 		}
 
-		$to      = $booking->customer_email;
+		$to = $booking->customer_email;
+
+		// Skip if no customer email.
+		if ( empty( $to ) || ! is_email( $to ) ) {
+			return;
+		}
 		$subject = $this->parse_placeholders( $template->subject, $booking );
 		$content = $this->parse_placeholders( $template->content, $booking );
 
