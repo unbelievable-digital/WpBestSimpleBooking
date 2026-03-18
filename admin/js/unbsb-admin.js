@@ -25,11 +25,23 @@
 		initCompleteBooking();
 		initStaffBookings();
 		initStaffScheduleOwn();
+		initStaffEarnings();
+		initStaffPerformance();
 	});
 
 	/**
 	 * Toast notification
 	 */
+	function highlightSection(sectionId) {
+		var section = document.getElementById(sectionId);
+		if (!section) return;
+		section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		section.classList.add('unbsb-highlight-section');
+		setTimeout(function() {
+			section.classList.remove('unbsb-highlight-section');
+		}, 1500);
+	}
+
 	function showToast(message, type) {
 		type = type || 'success';
 
@@ -747,6 +759,67 @@
 					} else {
 						showToast(response.data, 'error');
 					}
+				});
+			});
+		}
+
+		// Payment modal handlers
+		document.querySelectorAll('.unbsb-staff-payment').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				var staffId = this.dataset.id;
+				var staffName = this.dataset.name;
+
+				document.getElementById('payment-staff-id').value = staffId;
+				document.getElementById('unbsb-payment-staff-name').textContent = staffName;
+				document.getElementById('payment-amount').value = '';
+				document.getElementById('payment-date').value = new Date().toISOString().split('T')[0];
+				document.getElementById('payment-method').value = '';
+				document.getElementById('payment-notes').value = '';
+
+				openModal('unbsb-payment-modal');
+			});
+		});
+
+		var savePaymentBtn = document.getElementById('unbsb-save-payment');
+		if (savePaymentBtn) {
+			savePaymentBtn.addEventListener('click', function() {
+				var staffId = document.getElementById('payment-staff-id').value;
+				var amount = document.getElementById('payment-amount').value;
+				var paymentDate = document.getElementById('payment-date').value;
+				var paymentMethod = document.getElementById('payment-method').value;
+				var notes = document.getElementById('payment-notes').value;
+
+				if (!amount || parseFloat(amount) <= 0) {
+					showToast(unbsbAdmin.strings.payment_amount + ' is required', 'error');
+					return;
+				}
+
+				fetch(unbsbAdmin.restUrl + 'admin/staff/' + staffId + '/payments', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'X-WP-Nonce': unbsbAdmin.restNonce
+					},
+					body: JSON.stringify({
+						amount: parseFloat(amount),
+						payment_date: paymentDate,
+						payment_method: paymentMethod,
+						notes: notes
+					})
+				})
+				.then(function(r) { return r.json(); })
+				.then(function(data) {
+					if (data.success) {
+						showToast(unbsbAdmin.strings.payment_recorded, 'success');
+						closeModal(document.getElementById('unbsb-payment-modal'));
+						// Reload page to update balance
+						window.location.reload();
+					} else {
+						showToast(data.message || 'Error', 'error');
+					}
+				})
+				.catch(function() {
+					showToast(unbsbAdmin.strings.error, 'error');
 				});
 			});
 		}
@@ -4219,7 +4292,7 @@
 					return;
 				}
 				if (0 === selectedServices.length) {
-					showToast(unbsbAdmin.strings.nb_select_service, 'error');
+					highlightSection('unbsb-nb-services-section');
 					return;
 				}
 				if (!selectedStaffId) {
@@ -4739,6 +4812,374 @@
 			});
 
 			extradaysList.innerHTML = html;
+		}
+	}
+
+	/**
+	 * Staff Earnings page
+	 */
+	function initStaffEarnings() {
+		var filterWrap = document.getElementById('unbsb-earnings-filter');
+		if (!filterWrap) return;
+
+		var staffId = filterWrap.dataset.staffId;
+		var earningsTbody = document.getElementById('unbsb-earnings-tbody');
+		var paymentsTbody = document.getElementById('unbsb-payments-tbody');
+		var earningsEmpty = document.getElementById('unbsb-earnings-empty');
+		var paymentsEmpty = document.getElementById('unbsb-payments-empty');
+		var dateRangeWrap = document.getElementById('unbsb-earnings-date-range');
+		var dateFrom = document.getElementById('unbsb-earnings-date-from');
+		var dateTo = document.getElementById('unbsb-earnings-date-to');
+		var applyBtn = document.getElementById('unbsb-earnings-apply-range');
+		var currencySymbol = unbsbAdmin.currency.symbol;
+		var currencyPosition = unbsbAdmin.currency.position;
+
+		function formatCurrency(amount) {
+			var formatted = parseFloat(amount).toFixed(2);
+			if ('before' === currencyPosition) {
+				return currencySymbol + formatted;
+			}
+			return formatted + ' ' + currencySymbol;
+		}
+
+		function getDateRange(period) {
+			var now = new Date();
+			var year = now.getFullYear();
+			var month = now.getMonth();
+
+			switch (period) {
+				case 'this_month':
+					return {
+						period: year + '-' + String(month + 1).padStart(2, '0'),
+						date_from: null,
+						date_to: null
+					};
+				case 'last_month':
+					var d = new Date(year, month - 1, 1);
+					return {
+						period: d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0'),
+						date_from: null,
+						date_to: null
+					};
+				case 'last_3_months':
+					var start = new Date(year, month - 2, 1);
+					var end = new Date(year, month + 1, 0);
+					return {
+						period: null,
+						date_from: start.toISOString().split('T')[0],
+						date_to: end.toISOString().split('T')[0]
+					};
+				default:
+					return { period: null, date_from: null, date_to: null };
+			}
+		}
+
+		function loadEarnings(range) {
+			// Build earnings URL
+			var earningsUrl = unbsbAdmin.restUrl + 'staff-portal/earnings';
+			if (range.period) {
+				earningsUrl += '?period=' + range.period;
+			}
+
+			// Build payments URL
+			var paymentsUrl = unbsbAdmin.restUrl + 'staff-portal/payments';
+			var paymentParams = [];
+			if (range.date_from) paymentParams.push('date_from=' + range.date_from);
+			if (range.date_to) paymentParams.push('date_to=' + range.date_to);
+			if (range.period) {
+				// Convert period to date range for payments
+				var parts = range.period.split('-');
+				var firstDay = range.period + '-01';
+				var lastDay = new Date(parseInt(parts[0]), parseInt(parts[1]), 0);
+				paymentParams.push('date_from=' + firstDay);
+				paymentParams.push('date_to=' + lastDay.toISOString().split('T')[0]);
+			}
+			if (paymentParams.length) paymentsUrl += '?' + paymentParams.join('&');
+
+			// Fetch earnings
+			fetch(earningsUrl, {
+				headers: { 'X-WP-Nonce': unbsbAdmin.restNonce }
+			})
+			.then(function(r) { return r.json(); })
+			.then(function(data) {
+				renderEarnings(data.detail || []);
+			});
+
+			// Fetch payments
+			fetch(paymentsUrl, {
+				headers: { 'X-WP-Nonce': unbsbAdmin.restNonce }
+			})
+			.then(function(r) { return r.json(); })
+			.then(function(data) {
+				renderPayments(data || []);
+			});
+		}
+
+		function renderEarnings(rows) {
+			if (!earningsTbody) return;
+
+			if (0 === rows.length) {
+				earningsTbody.closest('table').style.display = 'none';
+				if (earningsEmpty) earningsEmpty.style.display = 'block';
+				return;
+			}
+
+			earningsTbody.closest('table').style.display = '';
+			if (earningsEmpty) earningsEmpty.style.display = 'none';
+
+			var html = '';
+			rows.forEach(function(row) {
+				html += '<tr>';
+				html += '<td>' + (row.booking_date || '-') + '</td>';
+				html += '<td>#' + (row.booking_id || '-') + '</td>';
+				html += '<td>' + (row.service_name || '-') + '</td>';
+				html += '<td>' + (row.customer_name || '-') + '</td>';
+				html += '<td>' + formatCurrency(row.booking_price || 0) + '</td>';
+				html += '<td><strong>' + formatCurrency(row.amount || 0) + '</strong></td>';
+				html += '</tr>';
+			});
+			earningsTbody.innerHTML = html;
+		}
+
+		function renderPayments(rows) {
+			if (!paymentsTbody) return;
+
+			if (0 === rows.length) {
+				paymentsTbody.closest('table').style.display = 'none';
+				if (paymentsEmpty) paymentsEmpty.style.display = 'block';
+				return;
+			}
+
+			paymentsTbody.closest('table').style.display = '';
+			if (paymentsEmpty) paymentsEmpty.style.display = 'none';
+
+			var html = '';
+			rows.forEach(function(row) {
+				html += '<tr>';
+				html += '<td>' + (row.payment_date || '-') + '</td>';
+				html += '<td><strong>' + formatCurrency(row.amount || 0) + '</strong></td>';
+				html += '<td>' + (row.payment_method || '-') + '</td>';
+				html += '<td>' + (row.notes || '-') + '</td>';
+				html += '<td>' + (row.recorded_by_name || '-') + '</td>';
+				html += '</tr>';
+			});
+			paymentsTbody.innerHTML = html;
+		}
+
+		// Period filter clicks
+		filterWrap.addEventListener('click', function(e) {
+			var btn = e.target.closest('[data-period]');
+			if (!btn) return;
+
+			// Update active state
+			filterWrap.querySelectorAll('[data-period]').forEach(function(b) {
+				b.classList.remove('active');
+			});
+			btn.classList.add('active');
+
+			var period = btn.dataset.period;
+
+			if ('custom' === period) {
+				if (dateRangeWrap) dateRangeWrap.style.display = 'flex';
+				return;
+			}
+
+			if (dateRangeWrap) dateRangeWrap.style.display = 'none';
+			loadEarnings(getDateRange(period));
+		});
+
+		// Custom range apply
+		if (applyBtn) {
+			applyBtn.addEventListener('click', function() {
+				if (dateFrom.value && dateTo.value) {
+					loadEarnings({
+						period: null,
+						date_from: dateFrom.value,
+						date_to: dateTo.value
+					});
+				}
+			});
+		}
+
+		// Initial load
+		loadEarnings(getDateRange('this_month'));
+	}
+
+	/**
+	 * Staff Performance page
+	 */
+	function initStaffPerformance() {
+		var filterWrap = document.getElementById('unbsb-performance-filter');
+		if (!filterWrap) return;
+
+		var staffId = filterWrap.dataset.staffId;
+		var dateRangeWrap = document.getElementById('unbsb-performance-date-range');
+		var dateFrom = document.getElementById('unbsb-performance-date-from');
+		var dateTo = document.getElementById('unbsb-performance-date-to');
+		var applyBtn = document.getElementById('unbsb-performance-apply-range');
+
+		function getDateRange(period) {
+			var now = new Date();
+			var year = now.getFullYear();
+			var month = now.getMonth();
+
+			switch (period) {
+				case 'this_month':
+					return {
+						date_from: new Date(year, month, 1).toISOString().split('T')[0],
+						date_to: new Date(year, month + 1, 0).toISOString().split('T')[0]
+					};
+				case 'last_month':
+					return {
+						date_from: new Date(year, month - 1, 1).toISOString().split('T')[0],
+						date_to: new Date(year, month, 0).toISOString().split('T')[0]
+					};
+				case 'last_3_months':
+					return {
+						date_from: new Date(year, month - 2, 1).toISOString().split('T')[0],
+						date_to: new Date(year, month + 1, 0).toISOString().split('T')[0]
+					};
+				default:
+					return { date_from: null, date_to: null };
+			}
+		}
+
+		function loadPerformance(range) {
+			var url = unbsbAdmin.restUrl + 'staff-portal/performance';
+			var params = [];
+			if (range.date_from) params.push('date_from=' + range.date_from);
+			if (range.date_to) params.push('date_to=' + range.date_to);
+			if (params.length) url += '?' + params.join('&');
+
+			fetch(url, {
+				headers: { 'X-WP-Nonce': unbsbAdmin.restNonce }
+			})
+			.then(function(r) { return r.json(); })
+			.then(function(data) {
+				updatePerformanceCards(data.metrics || {});
+				updateTopServices(data.top_services || []);
+				updateMonthlyTrend(data.trend || []);
+			});
+		}
+
+		function updatePerformanceCards(metrics) {
+			var cards = document.querySelectorAll('.unbsb-perf-value');
+			cards.forEach(function(card) {
+				var key = card.dataset.metric;
+				if (key && undefined !== metrics[key]) {
+					if ('cancel_rate' === key) {
+						card.textContent = metrics[key] + '%';
+					} else if ('total_revenue' === key) {
+						var currSymbol = unbsbAdmin.currency.symbol;
+						var pos = unbsbAdmin.currency.position;
+						var val = parseFloat(metrics[key]).toFixed(2);
+						card.textContent = ('before' === pos) ? currSymbol + val : val + ' ' + currSymbol;
+					} else {
+						card.textContent = metrics[key];
+					}
+				}
+			});
+		}
+
+		function updateTopServices(services) {
+			var tbody = document.getElementById('unbsb-top-services-tbody');
+			var emptyEl = document.getElementById('unbsb-top-services-empty');
+			if (!tbody) return;
+
+			if (0 === services.length) {
+				tbody.closest('table').style.display = 'none';
+				if (emptyEl) emptyEl.style.display = 'block';
+				return;
+			}
+
+			tbody.closest('table').style.display = '';
+			if (emptyEl) emptyEl.style.display = 'none';
+
+			var currSymbol = unbsbAdmin.currency.symbol;
+			var pos = unbsbAdmin.currency.position;
+
+			var html = '';
+			services.forEach(function(svc, i) {
+				var revenue = parseFloat(svc.total_revenue).toFixed(2);
+				var formatted = ('before' === pos) ? currSymbol + revenue : revenue + ' ' + currSymbol;
+				html += '<tr>';
+				html += '<td><span class="unbsb-service-rank">' + (i + 1) + '</span></td>';
+				html += '<td>' + svc.name + '</td>';
+				html += '<td>' + svc.booking_count + '</td>';
+				html += '<td>' + formatted + '</td>';
+				html += '</tr>';
+			});
+			tbody.innerHTML = html;
+		}
+
+		function updateMonthlyTrend(trend) {
+			var tbody = document.getElementById('unbsb-trend-tbody');
+			var emptyEl = document.getElementById('unbsb-trend-empty');
+			if (!tbody) return;
+
+			if (0 === trend.length) {
+				tbody.closest('table').style.display = 'none';
+				if (emptyEl) emptyEl.style.display = 'block';
+				return;
+			}
+
+			tbody.closest('table').style.display = '';
+			if (emptyEl) emptyEl.style.display = 'none';
+
+			var currSymbol = unbsbAdmin.currency.symbol;
+			var pos = unbsbAdmin.currency.position;
+			var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+			var html = '';
+			trend.forEach(function(row) {
+				var parts = row.month.split('-');
+				var monthLabel = monthNames[parseInt(parts[1]) - 1] + ' ' + parts[0];
+				var revenue = parseFloat(row.revenue).toFixed(2);
+				var commission = parseFloat(row.commission).toFixed(2);
+				var fmtRev = ('before' === pos) ? currSymbol + revenue : revenue + ' ' + currSymbol;
+				var fmtCom = ('before' === pos) ? currSymbol + commission : commission + ' ' + currSymbol;
+
+				html += '<tr>';
+				html += '<td>' + monthLabel + '</td>';
+				html += '<td>' + row.bookings + '</td>';
+				html += '<td>' + fmtRev + '</td>';
+				html += '<td>' + fmtCom + '</td>';
+				html += '</tr>';
+			});
+			tbody.innerHTML = html;
+		}
+
+		// Period filter clicks
+		filterWrap.addEventListener('click', function(e) {
+			var btn = e.target.closest('[data-period]');
+			if (!btn) return;
+
+			filterWrap.querySelectorAll('[data-period]').forEach(function(b) {
+				b.classList.remove('active');
+			});
+			btn.classList.add('active');
+
+			var period = btn.dataset.period;
+
+			if ('custom' === period) {
+				if (dateRangeWrap) dateRangeWrap.style.display = 'flex';
+				return;
+			}
+
+			if (dateRangeWrap) dateRangeWrap.style.display = 'none';
+			loadPerformance(getDateRange(period));
+		});
+
+		// Custom range apply
+		if (applyBtn) {
+			applyBtn.addEventListener('click', function() {
+				if (dateFrom.value && dateTo.value) {
+					loadPerformance({
+						date_from: dateFrom.value,
+						date_to: dateTo.value
+					});
+				}
+			});
 		}
 	}
 
