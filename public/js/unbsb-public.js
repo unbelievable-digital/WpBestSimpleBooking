@@ -880,7 +880,53 @@
 
 		// --- Event listeners ---
 
-		// Slot click: select staff + date + time
+		// Helper: select a staff and go to datetime step
+		function selectStaffAndAdvance(staffId) {
+			state.selectedStaff = staffData.find(function(s) { return s.staff_id == staffId; });
+			state.selectedDate = null;
+			state.selectedTime = null;
+
+			var staffHidden = document.getElementById('staff-id');
+			if (staffHidden) staffHidden.value = staffId;
+
+			var dateInput = document.getElementById('booking-date');
+			var timeInput = document.getElementById('start-time');
+			if (dateInput) dateInput.value = '';
+			if (timeInput) timeInput.value = '';
+
+			// Highlight selected card
+			staffList.querySelectorAll('.unbsb-staff-avail-card').forEach(function(card) {
+				card.classList.remove('unbsb-staff-selected');
+			});
+			var selectedCard = staffList.querySelector('.unbsb-staff-avail-card[data-staff-id="' + staffId + '"]');
+			if (selectedCard) selectedCard.classList.add('unbsb-staff-selected');
+
+			staffList.querySelectorAll('.unbsb-staff-slot').forEach(function(s) {
+				s.classList.remove('active');
+			});
+
+			updateNextButton();
+
+			// Auto-advance to datetime step
+			var datetimeStep = getStepNumber('datetime');
+			if (datetimeStep) {
+				goToStep(datetimeStep);
+			}
+		}
+
+		// Staff card click: select staff and go to datetime
+		staffList.querySelectorAll('.unbsb-staff-avail-card').forEach(function(card) {
+			card.addEventListener('click', function(e) {
+				// Don't trigger if clicking a slot button or more-dates link
+				if (e.target.closest('.unbsb-staff-slot') || e.target.closest('.unbsb-staff-more-dates')) return;
+
+				var staffId = this.dataset.staffId;
+				if ('any' === staffId) return; // handled separately below
+				selectStaffAndAdvance(staffId);
+			});
+		});
+
+		// Slot click: select staff + date + time, then advance
 		staffList.querySelectorAll('.unbsb-staff-slot').forEach(function(btn) {
 			btn.addEventListener('click', function() {
 				var staffId = this.dataset.staffId;
@@ -912,6 +958,12 @@
 				this.classList.add('active');
 
 				updateNextButton();
+
+				// Auto-advance to datetime step
+				var datetimeStep = getStepNumber('datetime');
+				if (datetimeStep) {
+					goToStep(datetimeStep);
+				}
 			});
 		});
 
@@ -919,18 +971,15 @@
 		var anyStaffCard = staffList.querySelector('.unbsb-any-staff');
 		if (anyStaffCard) {
 			anyStaffCard.addEventListener('click', function() {
-				// Set a marker so the system knows to auto-assign
 				state.selectedStaff = { id: 'any', name: unbsbPublic.strings.any_staff || 'Any Staff' };
 				state.selectedDate = null;
 				state.selectedTime = null;
 
-				// Clear hidden fields
 				var dateInput = document.getElementById('booking-date');
 				var timeInput = document.getElementById('start-time');
 				if (dateInput) dateInput.value = '';
 				if (timeInput) timeInput.value = '';
 
-				// Highlight "Any Staff" card
 				staffList.querySelectorAll('.unbsb-staff-avail-card').forEach(function(card) {
 					card.classList.remove('unbsb-staff-selected');
 				});
@@ -941,6 +990,12 @@
 				});
 
 				updateNextButton();
+
+				// Auto-advance to datetime step
+				var datetimeStep = getStepNumber('datetime');
+				if (datetimeStep) {
+					goToStep(datetimeStep);
+				}
 			});
 		}
 
