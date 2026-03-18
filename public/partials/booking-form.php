@@ -221,6 +221,38 @@ $has_staff_step   = isset( $step_numbers['staff'] );
 									</div>
 								</div>
 							<?php endif; ?>
+						<?php elseif ( ! empty( $categories ) && ! empty( $grouped_services ) ) : ?>
+							<?php foreach ( $grouped_services as $cat_id => $cat_services ) : ?>
+								<?php $cat = $categories_map[ $cat_id ]; ?>
+								<div class="unbsb-service-category-group" data-category-id="<?php echo esc_attr( $cat_id ); ?>">
+									<div class="unbsb-service-category-header">
+										<span class="unbsb-category-dot" style="background-color: <?php echo esc_attr( $cat->color ); ?>"></span>
+										<span class="unbsb-category-title"><?php echo esc_html( $cat->name ); ?></span>
+									</div>
+									<div class="unbsb-service-category-items">
+										<?php foreach ( $cat_services as $service ) : ?>
+											<?php
+											$has_discount    = ! empty( $service->discounted_price ) && floatval( $service->discounted_price ) < floatval( $service->price );
+											$effective_price = $has_discount ? $service->discounted_price : $service->price;
+											?>
+											<label class="unbsb-service-item" data-service-id="<?php echo esc_attr( $service->id ); ?>" data-category-id="<?php echo esc_attr( $cat_id ); ?>" data-price="<?php echo esc_attr( $effective_price ); ?>" data-duration="<?php echo esc_attr( $service->duration ); ?>">
+												<?php include __DIR__ . '/service-card-inner.php'; ?>
+											</label>
+										<?php endforeach; ?>
+									</div>
+								</div>
+							<?php endforeach; ?>
+							<?php if ( ! empty( $uncategorized_services ) ) : ?>
+								<?php foreach ( $uncategorized_services as $service ) : ?>
+									<?php
+									$has_discount    = ! empty( $service->discounted_price ) && floatval( $service->discounted_price ) < floatval( $service->price );
+									$effective_price = $has_discount ? $service->discounted_price : $service->price;
+									?>
+									<label class="unbsb-service-item" data-service-id="<?php echo esc_attr( $service->id ); ?>" data-category-id="0" data-price="<?php echo esc_attr( $effective_price ); ?>" data-duration="<?php echo esc_attr( $service->duration ); ?>">
+										<?php include __DIR__ . '/service-card-inner.php'; ?>
+									</label>
+								<?php endforeach; ?>
+							<?php endif; ?>
 						<?php else : ?>
 							<?php foreach ( $services as $service ) : ?>
 								<?php

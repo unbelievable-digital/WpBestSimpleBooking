@@ -1811,21 +1811,34 @@
 		font-size: 13px;
 	}
 
-	/* Service cards — more compact on mobile */
+	/* Service cards — mobile 2-row layout
+	   ┌──────────────────────────────────────┐
+	   │ [✓]  Saç Kesimi               150 ₺ │
+	   │       ⏱ 30 min                       │
+	   └──────────────────────────────────────┘
+	   col-auto: check | col-1fr: name+duration | col-auto: price
+	   ------------------------------------------------- */
 	.unbsb-service-list {
 		gap: 8px;
 	}
 
 	.unbsb-service-card {
-		padding: 10px 12px;
-		gap: 10px;
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		padding: 12px;
+		gap: 0 10px;
 		border-radius: var(--unbsb-radius-sm);
+		align-items: center;
 	}
 
+	/* Check: col 1, spans both rows vertically */
 	.unbsb-service-check {
+		grid-column: 1;
+		grid-row: 1 / 3;
 		width: 22px;
 		height: 22px;
 		min-width: 22px;
+		align-self: center;
 	}
 
 	.unbsb-service-check svg {
@@ -1833,36 +1846,64 @@
 		height: 12px;
 	}
 
-	.unbsb-service-name {
-		font-size: 14px;
+	/* Hide color bar on mobile */
+	.unbsb-service-color {
+		display: none;
 	}
 
-	.unbsb-service-desc {
-		font-size: 11px;
-		display: -webkit-box;
-		-webkit-line-clamp: 1;
-		-webkit-box-orient: vertical;
+	/* Service info: col 2, spans both rows — name on top, duration below */
+	.unbsb-service-info {
+		grid-column: 2;
+		grid-row: 1 / 3;
+		display: flex;
+		flex-direction: column;
+		min-width: 0;
+		gap: 2px;
+	}
+
+	.unbsb-service-name-row {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 2px;
+	}
+
+	.unbsb-service-name {
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 1.3;
 		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	.unbsb-service-duration {
-		font-size: 10px;
+		font-size: 11px;
+		opacity: 0.65;
 	}
 
+	.unbsb-service-desc {
+		display: none;
+	}
+
+	/* Price: col 3, spans both rows — right aligned, vertically centered */
 	.unbsb-service-price-area {
-		min-width: 55px;
+		grid-column: 3;
+		grid-row: 1 / 3;
+		min-width: unset;
+		align-self: center;
 	}
 
 	.unbsb-price-current {
 		font-size: 16px;
+		font-weight: 700;
 	}
 
 	.unbsb-price-current small {
-		font-size: 11px;
+		font-size: 12px;
 	}
 
 	.unbsb-price-discounted-big {
-		font-size: 18px;
+		font-size: 17px;
 	}
 
 	.unbsb-price-original-top {
@@ -1995,7 +2036,19 @@
 	/* Category group headers */
 	.unbsb-service-category-header {
 		padding: 8px 12px;
-		font-size: 13px;
+		margin-top: 8px;
+		border: none;
+		background: transparent;
+		border-bottom: 2px solid var(--unbsb-border-light);
+		border-radius: 0;
+	}
+
+	.unbsb-service-category-group:first-child .unbsb-service-category-header {
+		margin-top: 0;
+	}
+
+	.unbsb-category-title {
+		font-size: 12px;
 	}
 }
 
