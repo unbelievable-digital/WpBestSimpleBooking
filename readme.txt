@@ -3,7 +3,7 @@ Contributors: zgrkaralar
 Tags: appointment, booking, scheduler, reservation, salon
 Requires at least: 5.8
 Tested up to: 6.9
-Stable tag: 2.3.0
+Stable tag: 2.4.0
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -142,6 +142,11 @@ A Pro version with additional features like payment integration, Google Calendar
 7. Settings page – Customize plugin behavior
 
 == Changelog ==
+
+= 2.4.0 =
+* New: Staff can edit/reschedule their own bookings (change date, time, add notes)
+* New: "Save & Confirm" button — staff can edit and confirm a booking in one action
+* New: Edit button on staff booking rows for pending and confirmed bookings
 
 = 2.3.0 =
 * New: Admin Staff View page — combined earnings, performance, and payments in one page
