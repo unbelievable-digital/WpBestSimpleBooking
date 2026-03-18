@@ -1299,6 +1299,9 @@
 		html += '</div>';
 		bodyEl.innerHTML = html;
 
+		// Fetch available days from API and disable unavailable ones
+		fetchAvailableDays(year, month);
+
 		// Add click events
 		bodyEl.querySelectorAll('.unbsb-calendar-day:not(.disabled):not(.other-month)').forEach(function(dayEl) {
 			dayEl.addEventListener('click', function() {
@@ -1319,6 +1322,48 @@
 				// Load available slots
 				loadAvailableSlots();
 				updateNextButton();
+			});
+		});
+	}
+
+	/**
+	 * Fetch available days from API and disable unavailable calendar days
+	 */
+	function fetchAvailableDays(year, month) {
+		var staffId = state.selectedStaff ? state.selectedStaff.id : null;
+		var serviceId = state.selectedService ? state.selectedService.id : null;
+
+		// For multi-service, use first service
+		if (!serviceId && state.selectedServices && state.selectedServices.length > 0) {
+			serviceId = state.selectedServices[0].id;
+		}
+
+		if (!staffId || !serviceId) return;
+
+		var monthStr = year + '-' + String(month + 1).padStart(2, '0');
+
+		fetch(unbsbPublic.restUrl + 'available-days?staff_id=' + staffId + '&service_id=' + serviceId + '&month=' + monthStr, {
+			headers: { 'X-WP-Nonce': unbsbPublic.restNonce }
+		})
+		.then(function(r) { return r.json(); })
+		.then(function(availableDays) {
+			if (!Array.isArray(availableDays)) return;
+
+			var bodyEl = document.getElementById('unbsb-calendar-body');
+			if (!bodyEl) return;
+
+			bodyEl.querySelectorAll('.unbsb-calendar-day:not(.other-month)').forEach(function(dayEl) {
+				var dateStr = dayEl.dataset.date;
+				if (!dateStr) return;
+
+				// If already disabled (past/future), skip
+				if (dayEl.classList.contains('disabled')) return;
+
+				// If not in available days list, disable it
+				if (availableDays.indexOf(dateStr) === -1) {
+					dayEl.classList.add('disabled');
+					dayEl.classList.add('closed-day');
+				}
 			});
 		});
 	}
