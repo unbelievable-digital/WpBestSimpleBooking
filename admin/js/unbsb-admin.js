@@ -3761,6 +3761,11 @@
 		var selectedStaffId = null;
 		var selectedSlot = null;
 
+		// Staff self-booking: pre-select staff.
+		if (typeof unbsbNewBookingData !== 'undefined' && unbsbNewBookingData.is_staff_self_booking) {
+			selectedStaffId = unbsbNewBookingData.self_staff_id;
+		}
+
 		// ---- Customer Search ----
 		var searchInput = document.getElementById('unbsb-nb-customer-query');
 		var searchSpinner = document.getElementById('unbsb-nb-search-spinner');

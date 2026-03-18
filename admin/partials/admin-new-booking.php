@@ -146,12 +146,22 @@ $time_format     = get_option( 'unbsb_time_format', 'H:i' );
 
 						<!-- Services List (grouped by category accordion) -->
 						<div class="unbsb-nb-services-list" id="unbsb-nb-services-list">
-							<?php if ( ! empty( $services ) ) : ?>
+							<?php
+							// Filter services for staff self-booking.
+							$display_services = $services;
+							if ( $is_staff_self_booking && ! empty( $self_staff_services ) ) {
+								$staff_svc_ids    = array_map( 'intval', $self_staff_services );
+								$display_services = array_filter( $services, function ( $s ) use ( $staff_svc_ids ) {
+									return in_array( intval( $s->id ), $staff_svc_ids, true );
+								} );
+							}
+							?>
+							<?php if ( ! empty( $display_services ) ) : ?>
 								<?php
 								// Group services by category.
 								$grouped   = array();
 								$no_cat    = array();
-								foreach ( $services as $service ) {
+								foreach ( $display_services as $service ) {
 									if ( ! empty( $service->category_id ) && ! empty( $service->category_name ) ) {
 										$grouped[ $service->category_id ]['name']       = $service->category_name;
 										$grouped[ $service->category_id ]['color']      = $service->category_color ?? '#3788d8';
@@ -279,9 +289,28 @@ $time_format     = get_option( 'unbsb_time_format', 'H:i' );
 						</h2>
 					</div>
 					<div class="unbsb-card-body">
-						<div class="unbsb-nb-staff-list" id="unbsb-nb-staff-list">
-							<p class="unbsb-text-muted"><?php esc_html_e( 'Please select at least one service first.', 'unbelievable-salon-booking' ); ?></p>
-						</div>
+						<?php if ( $is_staff_self_booking && $self_staff ) : ?>
+							<div class="unbsb-nb-staff-selected">
+								<div class="unbsb-nb-staff-item" style="pointer-events: none; opacity: 0.8;">
+									<span class="unbsb-nb-staff-radio" style="background: var(--unbsb-primary); border-color: var(--unbsb-primary);"></span>
+									<div class="unbsb-nb-staff-avatar">
+										<?php if ( $self_staff->avatar_url ) : ?>
+											<img src="<?php echo esc_url( $self_staff->avatar_url ); ?>" alt="<?php echo esc_attr( $self_staff->name ); ?>">
+										<?php else : ?>
+											<span class="unbsb-nb-staff-placeholder"><?php echo esc_html( mb_substr( $self_staff->name, 0, 1 ) ); ?></span>
+										<?php endif; ?>
+									</div>
+									<div class="unbsb-nb-staff-info">
+										<strong><?php echo esc_html( $self_staff->name ); ?></strong>
+									</div>
+								</div>
+								<input type="hidden" name="staff_id" value="<?php echo esc_attr( $self_staff->id ); ?>">
+							</div>
+						<?php else : ?>
+							<div class="unbsb-nb-staff-list" id="unbsb-nb-staff-list">
+								<p class="unbsb-text-muted"><?php esc_html_e( 'Please select at least one service first.', 'unbelievable-salon-booking' ); ?></p>
+							</div>
+						<?php endif; ?>
 					</div>
 				</div>
 

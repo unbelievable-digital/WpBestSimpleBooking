@@ -629,6 +629,17 @@ class UNBSB_Admin {
 				}
 			}
 
+			// Staff self-booking context.
+			$is_self_booking = false;
+			$self_staff_obj  = null;
+			if ( ! current_user_can( 'manage_options' ) && current_user_can( 'unbsb_view_own_bookings' ) ) {
+				$self_staff_obj  = $this->get_current_staff();
+				$is_self_booking = (bool) $self_staff_obj;
+			}
+			$booking_data['is_staff_self_booking'] = $is_self_booking;
+			$booking_data['self_staff_id']         = $self_staff_obj ? $self_staff_obj->id : 0;
+			$booking_data['self_staff_name']       = $self_staff_obj ? $self_staff_obj->name : '';
+
 			wp_localize_script(
 				'unbsb-admin',
 				'unbsbNewBookingData',
@@ -1170,6 +1181,20 @@ class UNBSB_Admin {
 		$staff      = $staff_model->get_active();
 		$services   = $service_model->get_with_categories();
 		$categories = $category_model->get_active();
+
+		// Staff self-booking detection.
+		$is_staff_self_booking = false;
+		$self_staff            = null;
+		$self_staff_services   = array();
+
+		if ( ! current_user_can( 'manage_options' ) && current_user_can( 'unbsb_view_own_bookings' ) ) {
+			$self_staff            = $staff_model->get_by_user_id( get_current_user_id() );
+			$is_staff_self_booking = (bool) $self_staff;
+			if ( $self_staff ) {
+				$self_staff_services = $staff_model->get_services( $self_staff->id );
+				$self_staff_services = wp_list_pluck( $self_staff_services, 'service_id' );
+			}
+		}
 
 		include UNBSB_PLUGIN_DIR . 'admin/partials/admin-new-booking.php';
 	}
@@ -1834,10 +1859,11 @@ class UNBSB_Admin {
 	public function ajax_create_booking() {
 		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
 
-		// Allow admin or staff with confirm_bookings capability.
-		$is_staff_user = ! current_user_can( 'manage_options' ) && current_user_can( 'unbsb_confirm_bookings' );
+		// Allow admin, staff with confirm_bookings, or staff with view_own_bookings capability.
+		$is_staff_user        = ! current_user_can( 'manage_options' ) && current_user_can( 'unbsb_confirm_bookings' );
+		$is_self_booking_user = ! current_user_can( 'manage_options' ) && current_user_can( 'unbsb_view_own_bookings' );
 
-		if ( ! current_user_can( 'manage_options' ) && ! $is_staff_user ) {
+		if ( ! current_user_can( 'manage_options' ) && ! $is_staff_user && ! $is_self_booking_user ) {
 			wp_send_json_error( __( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
 		}
 
@@ -1858,6 +1884,18 @@ class UNBSB_Admin {
 				wp_send_json_error( __( 'Staff record not found.', 'unbelievable-salon-booking' ) );
 			}
 			$staff_id = absint( $current_staff->id );
+		}
+
+		// Staff self-booking enforcement.
+		if ( $is_self_booking_user && ! $is_staff_user ) {
+			$linked_staff = $this->get_current_staff();
+			if ( $linked_staff ) {
+				$submitted_staff_id = isset( $_POST['staff_id'] ) ? absint( $_POST['staff_id'] ) : 0;
+				if ( $submitted_staff_id && absint( $submitted_staff_id ) !== absint( $linked_staff->id ) ) {
+					wp_send_json_error( __( 'You can only create bookings for yourself.', 'unbelievable-salon-booking' ) );
+				}
+				$staff_id = absint( $linked_staff->id );
+			}
 		}
 
 		$data = array(
