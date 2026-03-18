@@ -167,6 +167,7 @@ class UNBSB_Core {
 		$this->loader->add_action( 'wp_ajax_unbsb_get_staff_own_bookings', $admin, 'ajax_get_staff_own_bookings' );
 		$this->loader->add_action( 'wp_ajax_unbsb_staff_confirm_booking', $admin, 'ajax_staff_confirm_booking' );
 		$this->loader->add_action( 'wp_ajax_unbsb_staff_reject_booking', $admin, 'ajax_staff_reject_booking' );
+		$this->loader->add_action( 'wp_ajax_unbsb_staff_edit_booking', $admin, 'ajax_staff_edit_booking' );
 		$this->loader->add_action( 'wp_ajax_unbsb_staff_add_holiday', $admin, 'ajax_staff_add_holiday' );
 		$this->loader->add_action( 'wp_ajax_unbsb_staff_remove_holiday', $admin, 'ajax_staff_remove_holiday' );
 		$this->loader->add_action( 'wp_ajax_unbsb_staff_get_holidays', $admin, 'ajax_staff_get_holidays' );

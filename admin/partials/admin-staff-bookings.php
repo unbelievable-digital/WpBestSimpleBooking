@@ -129,10 +129,16 @@ $filter = isset( $_GET['filter'] ) ? sanitize_text_field( wp_unslash( $_GET['fil
 												<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-danger unbsb-sp-reject-booking" data-id="<?php echo esc_attr( $booking->id ); ?>" title="<?php esc_attr_e( 'Reject', 'unbelievable-salon-booking' ); ?>">
 													<span class="dashicons dashicons-dismiss"></span>
 												</button>
+												<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-secondary unbsb-sp-edit-booking" data-id="<?php echo esc_attr( $booking->id ); ?>" data-date="<?php echo esc_attr( $booking->booking_date ); ?>" data-time="<?php echo esc_attr( $booking->start_time ); ?>" data-notes="<?php echo esc_attr( $booking->internal_notes ); ?>" data-status="<?php echo esc_attr( $booking->status ); ?>" data-customer="<?php echo esc_attr( $booking->customer_name ); ?>">
+													<span class="dashicons dashicons-edit"></span>
+												</button>
 											<?php endif; ?>
 											<?php if ( 'confirmed' === $booking->status ) : ?>
 												<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-success unbsb-complete-booking" data-id="<?php echo esc_attr( $booking->id ); ?>" data-service="<?php echo esc_attr( $booking->service_name ); ?>" data-price="<?php echo esc_attr( number_format( $booking->price, 2, '.', '' ) ); ?>" title="<?php esc_attr_e( 'Complete', 'unbelievable-salon-booking' ); ?>">
 													<span class="dashicons dashicons-yes-alt"></span>
+												</button>
+												<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-secondary unbsb-sp-edit-booking" data-id="<?php echo esc_attr( $booking->id ); ?>" data-date="<?php echo esc_attr( $booking->booking_date ); ?>" data-time="<?php echo esc_attr( $booking->start_time ); ?>" data-notes="<?php echo esc_attr( $booking->internal_notes ); ?>" data-status="<?php echo esc_attr( $booking->status ); ?>" data-customer="<?php echo esc_attr( $booking->customer_name ); ?>">
+													<span class="dashicons dashicons-edit"></span>
 												</button>
 											<?php endif; ?>
 											<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-icon unbsb-sp-view-booking" data-id="<?php echo esc_attr( $booking->id ); ?>" title="<?php esc_attr_e( 'View', 'unbelievable-salon-booking' ); ?>">
@@ -160,6 +166,53 @@ $filter = isset( $_GET['filter'] ) ? sanitize_text_field( wp_unslash( $_GET['fil
 			<div class="unbsb-card-body unbsb-fc-wrap">
 				<div id="unbsb-calendar"></div>
 			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Staff Edit Booking Modal -->
+<div id="unbsb-sp-edit-modal" class="unbsb-modal" style="display: none;">
+	<div class="unbsb-modal-overlay"></div>
+	<div class="unbsb-modal-content">
+		<div class="unbsb-modal-header unbsb-modal-header-gradient">
+			<div class="unbsb-modal-header-content">
+				<div class="unbsb-modal-icon">
+					<span class="dashicons dashicons-edit"></span>
+				</div>
+				<div>
+					<h3><?php esc_html_e( 'Edit Booking', 'unbelievable-salon-booking' ); ?></h3>
+					<p class="unbsb-modal-subtitle" id="unbsb-sp-edit-subtitle"></p>
+				</div>
+			</div>
+			<button type="button" class="unbsb-modal-close">&times;</button>
+		</div>
+		<div class="unbsb-modal-body">
+			<form id="unbsb-sp-edit-form">
+				<input type="hidden" id="sp-edit-booking-id" value="">
+				<div class="unbsb-form-row-2">
+					<div class="unbsb-form-group">
+						<label for="sp-edit-date"><?php esc_html_e( 'Date', 'unbelievable-salon-booking' ); ?></label>
+						<input type="date" id="sp-edit-date" required>
+					</div>
+					<div class="unbsb-form-group">
+						<label for="sp-edit-time"><?php esc_html_e( 'Start Time', 'unbelievable-salon-booking' ); ?></label>
+						<input type="time" id="sp-edit-time" required>
+					</div>
+				</div>
+				<div class="unbsb-form-group">
+					<label for="sp-edit-notes"><?php esc_html_e( 'Internal Notes', 'unbelievable-salon-booking' ); ?></label>
+					<textarea id="sp-edit-notes" rows="3" placeholder="<?php esc_attr_e( 'Add notes about this booking...', 'unbelievable-salon-booking' ); ?>"></textarea>
+				</div>
+			</form>
+		</div>
+		<div class="unbsb-modal-footer">
+			<button type="button" class="unbsb-btn unbsb-btn-secondary unbsb-modal-close"><?php esc_html_e( 'Cancel', 'unbelievable-salon-booking' ); ?></button>
+			<button type="button" class="unbsb-btn unbsb-btn-success" id="unbsb-sp-edit-confirm">
+				<?php esc_html_e( 'Save & Confirm', 'unbelievable-salon-booking' ); ?>
+			</button>
+			<button type="button" class="unbsb-btn unbsb-btn-primary" id="unbsb-sp-edit-save">
+				<?php esc_html_e( 'Save Changes', 'unbelievable-salon-booking' ); ?>
+			</button>
 		</div>
 	</div>
 </div>

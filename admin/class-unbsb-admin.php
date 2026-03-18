@@ -2795,6 +2795,130 @@ class UNBSB_Admin {
 	}
 
 	/**
+	 * AJAX: Staff edit booking (reschedule + notes)
+	 */
+	public function ajax_staff_edit_booking() {
+		check_ajax_referer( 'unbsb_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'unbsb_confirm_bookings' ) ) {
+			wp_send_json_error( __( 'Unauthorized.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff = $this->get_current_staff();
+		if ( ! $staff ) {
+			wp_send_json_error( __( 'Staff record not found.', 'unbelievable-salon-booking' ) );
+		}
+
+		$booking_id    = isset( $_POST['booking_id'] ) ? absint( $_POST['booking_id'] ) : 0;
+		$booking_model = new UNBSB_Booking();
+		$booking       = $booking_model->get( $booking_id );
+
+		if ( ! $booking || absint( $booking->staff_id ) !== absint( $staff->id ) ) {
+			wp_send_json_error( __( 'Booking not found or not yours.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Only allow editing pending or confirmed bookings.
+		if ( ! in_array( $booking->status, array( 'pending', 'confirmed' ), true ) ) {
+			wp_send_json_error( __( 'This booking cannot be edited.', 'unbelievable-salon-booking' ) );
+		}
+
+		$new_date     = isset( $_POST['booking_date'] ) ? sanitize_text_field( wp_unslash( $_POST['booking_date'] ) ) : '';
+		$new_time     = isset( $_POST['start_time'] ) ? sanitize_text_field( wp_unslash( $_POST['start_time'] ) ) : '';
+		$notes        = isset( $_POST['internal_notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['internal_notes'] ) ) : '';
+		$also_confirm = isset( $_POST['also_confirm'] ) && '1' === $_POST['also_confirm'];
+
+		if ( empty( $new_date ) || empty( $new_time ) ) {
+			wp_send_json_error( __( 'Date and time are required.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Validate date format.
+		if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $new_date ) ) {
+			wp_send_json_error( __( 'Invalid date format.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Calculate new end time based on service duration.
+		$service_model = new UNBSB_Service();
+		$staff_model   = new UNBSB_Staff();
+		$service       = $service_model->get( $booking->service_id );
+
+		if ( $service ) {
+			$custom = $staff_model->get_service_custom_data( $staff->id, $booking->service_id );
+
+			$effective_duration = ( $custom && null !== $custom->custom_duration )
+				? intval( $custom->custom_duration )
+				: intval( $service->duration );
+
+			$duration = $effective_duration + intval( $service->buffer_after );
+		} else {
+			$duration = intval( $booking->total_duration );
+		}
+
+		if ( $duration <= 0 ) {
+			$duration = 30;
+		}
+
+		$start_timestamp = strtotime( $new_time );
+		$end_time        = gmdate( 'H:i:s', $start_timestamp + ( $duration * 60 ) );
+
+		// Conflict check (exclude current booking).
+		$conflict_data = array(
+			'staff_id'     => $staff->id,
+			'booking_date' => $new_date,
+			'start_time'   => $new_time,
+			'end_time'     => $end_time,
+		);
+
+		if ( $booking_model->has_conflict( $conflict_data, $booking_id ) ) {
+			wp_send_json_error( __( 'Time conflict with another booking.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Build update data.
+		$update_data = array(
+			'booking_date'  => $new_date,
+			'start_time'    => $new_time,
+			'end_time'      => $end_time,
+			'total_duration' => $duration,
+		);
+
+		if ( '' !== $notes ) {
+			$update_data['internal_notes'] = $notes;
+		}
+
+		$old_status = $booking->status;
+
+		if ( $also_confirm && 'pending' === $booking->status ) {
+			$update_data['status'] = 'confirmed';
+		}
+
+		global $wpdb;
+		$table = $wpdb->prefix . 'unbsb_bookings';
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$result = $wpdb->update(
+			$table,
+			$update_data,
+			array( 'id' => $booking_id ),
+			null,
+			array( '%d' )
+		);
+
+		if ( false === $result ) {
+			wp_send_json_error( __( 'Failed to update booking.', 'unbelievable-salon-booking' ) );
+		}
+
+		// Fire status changed hook if confirmed.
+		if ( $also_confirm && 'pending' === $old_status ) {
+			do_action( 'unbsb_booking_status_changed', $booking_id, 'confirmed', 'pending' );
+		}
+
+		$message = $also_confirm
+			? __( 'Booking updated and confirmed.', 'unbelievable-salon-booking' )
+			: __( 'Booking updated successfully.', 'unbelievable-salon-booking' );
+
+		wp_send_json_success( array( 'message' => $message ) );
+	}
+
+	/**
 	 * AJAX: Staff add own holiday
 	 */
 	public function ajax_staff_add_holiday() {

@@ -4455,6 +4455,76 @@
 			});
 		});
 
+		// Edit booking handler.
+		document.querySelectorAll('.unbsb-sp-edit-booking').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				var bookingId = this.dataset.id;
+				var date = this.dataset.date;
+				var time = this.dataset.time;
+				var notes = this.dataset.notes || '';
+				var status = this.dataset.status;
+				var customer = this.dataset.customer;
+
+				document.getElementById('sp-edit-booking-id').value = bookingId;
+				document.getElementById('sp-edit-date').value = date;
+				document.getElementById('sp-edit-time').value = time ? time.substring(0, 5) : '';
+				document.getElementById('sp-edit-notes').value = notes;
+				document.getElementById('unbsb-sp-edit-subtitle').textContent = '#' + bookingId + ' — ' + customer;
+
+				// Show/hide "Save & Confirm" button only for pending bookings.
+				var confirmBtn = document.getElementById('unbsb-sp-edit-confirm');
+				if (confirmBtn) {
+					confirmBtn.style.display = ('pending' === status) ? '' : 'none';
+				}
+
+				openModal('unbsb-sp-edit-modal');
+			});
+		});
+
+		// Save booking edit (just save, don't change status).
+		var spEditSaveBtn = document.getElementById('unbsb-sp-edit-save');
+		if (spEditSaveBtn) {
+			spEditSaveBtn.addEventListener('click', function() {
+				submitStaffBookingEdit(false);
+			});
+		}
+
+		// Save & Confirm (save + change status to confirmed).
+		var spEditConfirmBtn = document.getElementById('unbsb-sp-edit-confirm');
+		if (spEditConfirmBtn) {
+			spEditConfirmBtn.addEventListener('click', function() {
+				submitStaffBookingEdit(true);
+			});
+		}
+
+		function submitStaffBookingEdit(alsoConfirm) {
+			var bookingId = document.getElementById('sp-edit-booking-id').value;
+			var date = document.getElementById('sp-edit-date').value;
+			var time = document.getElementById('sp-edit-time').value;
+			var notes = document.getElementById('sp-edit-notes').value;
+
+			if (!date || !time) {
+				showToast(unbsbAdmin.strings.nb_select_date || 'Please select date and time', 'error');
+				return;
+			}
+
+			ajaxRequest('unbsb_staff_edit_booking', {
+				booking_id: bookingId,
+				booking_date: date,
+				start_time: time,
+				internal_notes: notes,
+				also_confirm: alsoConfirm ? '1' : '0'
+			}, function(response) {
+				if (response.success) {
+					showToast(response.data.message || unbsbAdmin.strings.saved, 'success');
+					closeModal(document.getElementById('unbsb-sp-edit-modal'));
+					window.location.reload();
+				} else {
+					showToast(response.data || unbsbAdmin.strings.error, 'error');
+				}
+			});
+		}
+
 		// View booking detail.
 		document.querySelectorAll('.unbsb-sp-view-booking').forEach(function(btn) {
 			btn.addEventListener('click', function() {
