@@ -217,6 +217,10 @@ $template_descriptions = array(
 												<option value="{total_duration}"><?php esc_html_e( 'Duration', 'unbelievable-salon-booking' ); ?></option>
 												<option value="{price}"><?php esc_html_e( 'Price', 'unbelievable-salon-booking' ); ?></option>
 											</optgroup>
+											<optgroup label="<?php esc_attr_e( 'Reschedule', 'unbelievable-salon-booking' ); ?>">
+												<option value="{old_booking_date}"><?php esc_html_e( 'Old Date (reschedule)', 'unbelievable-salon-booking' ); ?></option>
+												<option value="{old_booking_time}"><?php esc_html_e( 'Old Time (reschedule)', 'unbelievable-salon-booking' ); ?></option>
+											</optgroup>
 											<optgroup label="<?php esc_attr_e( 'Business', 'unbelievable-salon-booking' ); ?>">
 												<option value="{company_name}"><?php esc_html_e( 'Business Name', 'unbelievable-salon-booking' ); ?></option>
 												<option value="{company_phone}"><?php esc_html_e( 'Business Phone', 'unbelievable-salon-booking' ); ?></option>
@@ -283,6 +287,11 @@ $template_descriptions = array(
 								<code>{company_name}</code>
 								<code>{company_phone}</code>
 								<code>{company_address}</code>
+							</div>
+							<div class="unbsb-variable-group">
+								<h4><?php esc_html_e( 'Reschedule', 'unbelievable-salon-booking' ); ?></h4>
+								<code>{old_booking_date}</code>
+								<code>{old_booking_time}</code>
 							</div>
 							<div class="unbsb-variable-group">
 								<h4><?php esc_html_e( 'Special', 'unbelievable-salon-booking' ); ?></h4>

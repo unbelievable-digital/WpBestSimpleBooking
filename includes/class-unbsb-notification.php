@@ -41,6 +41,9 @@ class UNBSB_Notification {
 		// When status changes.
 		add_action( 'unbsb_booking_status_changed', array( $this, 'send_status_changed_email' ), 10, 3 );
 
+		// When booking is rescheduled by customer.
+		add_action( 'unbsb_booking_rescheduled_by_customer', array( $this, 'send_booking_rescheduled_emails' ), 10, 4 );
+
 		// Reminder cron.
 		add_action( 'unbsb_send_reminder_emails', array( $this, 'process_reminder_emails' ) );
 
@@ -88,6 +91,122 @@ class UNBSB_Notification {
 	}
 
 	/**
+	 * Send emails when booking is rescheduled by customer
+	 *
+	 * @param int    $booking_id      Booking ID.
+	 * @param object $updated_booking Updated booking object.
+	 * @param string $old_date        Old date (Y-m-d).
+	 * @param string $old_time        Old time (H:i:s).
+	 */
+	public function send_booking_rescheduled_emails( $booking_id, $updated_booking, $old_date, $old_time ) {
+		if ( ! $updated_booking ) {
+			$booking_model   = new UNBSB_Booking();
+			$updated_booking = $booking_model->get_with_details( $booking_id );
+		}
+
+		if ( ! $updated_booking ) {
+			return;
+		}
+
+		$date_format     = get_option( 'unbsb_date_format', 'd.m.Y' );
+		$time_format     = get_option( 'unbsb_time_format', 'H:i' );
+		$old_date_formatted = date_i18n( $date_format, strtotime( $old_date ) );
+		$old_time_formatted = date_i18n( $time_format, strtotime( $old_time ) );
+
+		// Email to customer.
+		do_action( 'unbsb_before_send_notification', $booking_id, 'booking_rescheduled' );
+		$this->send_rescheduled_email( $updated_booking, 'booking_rescheduled', $old_date_formatted, $old_time_formatted, 'customer' );
+
+		// Email to admin.
+		do_action( 'unbsb_before_send_notification', $booking_id, 'booking_rescheduled' );
+		$this->send_rescheduled_email( $updated_booking, 'booking_rescheduled', $old_date_formatted, $old_time_formatted, 'admin' );
+
+		// Email to staff.
+		do_action( 'unbsb_before_send_notification', $booking_id, 'booking_rescheduled' );
+		$this->send_rescheduled_email( $updated_booking, 'booking_rescheduled', $old_date_formatted, $old_time_formatted, 'staff' );
+	}
+
+	/**
+	 * Send rescheduled email to a specific recipient type
+	 *
+	 * @param object $booking             Booking object.
+	 * @param string $template_type       Template type.
+	 * @param string $old_date_formatted  Old date (formatted).
+	 * @param string $old_time_formatted  Old time (formatted).
+	 * @param string $recipient_type      'customer', 'admin', or 'staff'.
+	 */
+	private function send_rescheduled_email( $booking, $template_type, $old_date_formatted, $old_time_formatted, $recipient_type ) {
+		$template = $this->get_template( $template_type );
+
+		if ( ! $template || ! $template->is_active ) {
+			return;
+		}
+
+		// Determine recipient.
+		switch ( $recipient_type ) {
+			case 'customer':
+				$to = $booking->customer_email;
+				if ( empty( $to ) || ! is_email( $to ) ) {
+					return;
+				}
+				break;
+
+			case 'admin':
+				$to = get_option( 'unbsb_admin_email', get_option( 'admin_email' ) );
+				break;
+
+			case 'staff':
+				if ( empty( $booking->staff_id ) ) {
+					return;
+				}
+				$staff_model = new UNBSB_Staff();
+				$staff       = $staff_model->get( $booking->staff_id );
+				if ( ! $staff || empty( $staff->email ) ) {
+					return;
+				}
+				$to = $staff->email;
+				break;
+
+			default:
+				return;
+		}
+
+		$subject = $this->parse_placeholders( $template->subject, $booking );
+		$content = $this->parse_placeholders( $template->content, $booking );
+
+		// Replace reschedule-specific placeholders.
+		$content = str_replace( '{old_booking_date}', $old_date_formatted, $content );
+		$content = str_replace( '{old_booking_time}', $old_time_formatted, $content );
+		$subject = str_replace( '{old_booking_date}', $old_date_formatted, $subject );
+		$subject = str_replace( '{old_booking_time}', $old_time_formatted, $subject );
+
+		// Clear calendar links.
+		$content = str_replace( '{calendar_links}', '', $content );
+
+		// ICS attachment for customer.
+		$attachments  = array();
+		$ics_filepath = null;
+
+		if ( 'customer' === $recipient_type && $this->is_ics_enabled() ) {
+			$calendar_links = $this->ics_generator->get_calendar_links_html( $booking );
+			$content        = str_replace( '{calendar_links}', $calendar_links, $content );
+
+			$ics_filepath = $this->ics_generator->save_temp_file( $booking );
+			if ( $ics_filepath ) {
+				$attachments[] = $ics_filepath;
+			}
+		}
+
+		$message = $this->wrap_email_content( $content, $template_type );
+
+		$this->send_email( $to, $subject, $message, $attachments );
+
+		if ( $ics_filepath ) {
+			$this->ics_generator->delete_temp_file( $ics_filepath );
+		}
+	}
+
+	/**
 	 * Send email when status changes
 	 *
 	 * @param int    $booking_id Booking ID.
@@ -132,9 +251,10 @@ class UNBSB_Notification {
 		global $wpdb;
 		$bookings_table = $wpdb->prefix . 'unbsb_bookings';
 
-		// Find bookings to remind.
-		$reminder_date = gmdate( 'Y-m-d', strtotime( "+{$hours} hours" ) );
-		$reminder_time = gmdate( 'H:i:s', strtotime( "+{$hours} hours" ) );
+		// Find bookings to remind (use WordPress local time).
+		$local_timestamp = current_time( 'timestamp' ) + ( $hours * 3600 );
+		$reminder_date   = gmdate( 'Y-m-d', $local_timestamp );
+		$reminder_time   = gmdate( 'H:i:s', $local_timestamp );
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$bookings = $wpdb->get_results(
@@ -154,7 +274,7 @@ class UNBSB_Notification {
 		$bookings = array_filter(
 			$bookings,
 			function ( $b ) {
-				return false === get_option( '_unbsb_reminder_sent_' . $b->id );
+				return false === get_transient( '_unbsb_reminder_sent_' . $b->id );
 			}
 		);
 
@@ -164,8 +284,8 @@ class UNBSB_Notification {
 			$booking = $booking_model->get_with_details( $booking_row->id );
 			if ( $booking ) {
 				$this->send_customer_email( $booking, 'booking_reminder', true );
-				// Mark as reminder sent.
-				update_option( '_unbsb_reminder_sent_' . $booking->id, time() );
+				// Mark as reminder sent (expires after 48 hours to avoid bloating).
+				set_transient( '_unbsb_reminder_sent_' . $booking->id, time(), 48 * HOUR_IN_SECONDS );
 			}
 		}
 	}
@@ -420,6 +540,12 @@ class UNBSB_Notification {
 				'subject' => __( 'New Booking Assigned to You', 'unbelievable-salon-booking' ) . ' - {company_name}',
 				'content' => $this->get_default_staff_new_booking_template(),
 			),
+			array(
+				'name'    => __( 'Booking Rescheduled', 'unbelievable-salon-booking' ),
+				'type'    => 'booking_rescheduled',
+				'subject' => __( 'Your Booking Has Been Rescheduled', 'unbelievable-salon-booking' ) . ' - {company_name}',
+				'content' => $this->get_default_booking_rescheduled_template(),
+			),
 		);
 
 		foreach ( $templates as $template ) {
@@ -605,6 +731,36 @@ class UNBSB_Notification {
 	}
 
 	/**
+	 * Default "Booking Rescheduled" email template
+	 */
+	private function get_default_booking_rescheduled_template() {
+		return '<p>Dear <strong>{customer_name}</strong>,</p>
+
+<p style="font-size: 18px; color: #6366f1;"><strong>Your booking has been rescheduled.</strong></p>
+
+<h3>Previous Booking</h3>
+<table class="cancelled">
+<tr><td><strong>Date:</strong></td><td>{old_booking_date}</td></tr>
+<tr><td><strong>Time:</strong></td><td>{old_booking_time}</td></tr>
+</table>
+
+<h3>New Booking Details</h3>
+<table class="confirmed">
+<tr><td><strong>Service(s):</strong></td><td>{services_list}</td></tr>
+<tr><td><strong>Staff:</strong></td><td>{staff_name}</td></tr>
+<tr><td><strong>Date:</strong></td><td>{booking_date}</td></tr>
+<tr><td><strong>Time:</strong></td><td>{booking_time}</td></tr>
+<tr><td><strong>Duration:</strong></td><td>{total_duration}</td></tr>
+</table>
+
+<p style="text-align: center;">
+<a href="{manage_booking_url}" class="button">Manage My Booking</a>
+</p>
+
+<p style="text-align: center; font-size: 13px; color: #6b7280;">If you need to make further changes, you can use the button above.</p>';
+	}
+
+	/**
 	 * Update template
 	 *
 	 * @param int    $id        Template ID.
@@ -706,8 +862,9 @@ class UNBSB_Notification {
 			'booking_confirmed' => '#10b981', // Green.
 			'booking_cancelled' => '#ef4444', // Red.
 			'booking_reminder'  => '#f59e0b', // Orange.
-			'admin_new_booking' => '#8b5cf6', // Purple.
-			'staff_new_booking' => '#0891b2', // Cyan.
+			'admin_new_booking'    => '#8b5cf6', // Purple.
+			'staff_new_booking'    => '#0891b2', // Cyan.
+			'booking_rescheduled'  => '#6366f1', // Indigo.
 		);
 		$accent_color  = $accent_colors[ $template_type ] ?? $primary_color;
 
