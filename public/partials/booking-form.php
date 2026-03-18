@@ -442,5 +442,10 @@ $has_staff_step   = isset( $step_numbers['staff'] );
 				</button>
 			</div>
 		</form>
+		<div class="unbsb-powered-by">
+			<a href="https://unbelievable.digital/" target="_blank" rel="noopener noreferrer">
+				Unbelievable Booking System <?php echo esc_html( UNBSB_VERSION ); ?>
+			</a>
+		</div>
 	</div>
 </div>
