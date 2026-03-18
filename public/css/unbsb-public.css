@@ -1086,35 +1086,7 @@
 	50% { opacity: 0.5; }
 }
 
-/* Responsive */
-@media (max-width: 480px) {
-	.unbsb-staff-avail-card {
-		padding: 16px;
-	}
-
-	.unbsb-staff-avatar {
-		width: 48px;
-		height: 48px;
-		min-width: 48px;
-	}
-
-	.unbsb-staff-avatar-placeholder {
-		font-size: 18px;
-	}
-
-	.unbsb-staff-name {
-		font-size: 15px;
-	}
-
-	.unbsb-staff-slots {
-		gap: 5px;
-	}
-
-	.unbsb-staff-slot {
-		padding: 5px 12px;
-		font-size: 12px;
-	}
-}
+/* Staff 480px overrides removed — handled in main 640px + 380px responsive blocks */
 
 /* ========================================
    Calendar
@@ -1777,15 +1749,22 @@
 /* ========================================
    Responsive
    ======================================== */
+/* ========================================
+   Mobile Responsive — 640px
+   ======================================== */
 @media (max-width: 640px) {
 	.unbsb-booking-container {
-		padding: 20px 16px;
+		padding: 16px 12px;
 		border-radius: var(--unbsb-radius-sm);
-		margin: 0 8px;
+		margin: 0;
+		box-shadow: none;
+		border: none;
 	}
 
+	/* Progress */
 	.unbsb-progress {
-		padding: 14px 8px;
+		padding: 12px 4px;
+		gap: 0;
 	}
 
 	.unbsb-step-label {
@@ -1796,23 +1775,23 @@
 		margin-bottom: 0;
 	}
 
+	.unbsb-progress-step .unbsb-step-circle {
+		width: 34px;
+		height: 34px;
+		font-size: 13px;
+	}
+
+	/* Step title */
 	.unbsb-step-title {
 		font-size: 18px;
+		margin-bottom: 12px;
 	}
 
-	.unbsb-form-actions {
-		flex-direction: column;
-		gap: 12px;
+	.unbsb-step-subtitle {
+		font-size: 13px;
 	}
 
-	.unbsb-form-actions .unbsb-btn {
-		width: 100%;
-	}
-
-	.unbsb-time-grid {
-		grid-template-columns: repeat(2, 1fr);
-	}
-
+	/* Category filter */
 	.unbsb-category-filter {
 		flex-wrap: nowrap;
 		overflow-x: auto;
@@ -1828,10 +1807,254 @@
 
 	.unbsb-filter-btn {
 		flex-shrink: 0;
+		padding: 7px 14px;
+		font-size: 13px;
 	}
 
-	.unbsb-staff-list {
+	/* Service cards — more compact on mobile */
+	.unbsb-service-list {
+		gap: 8px;
+	}
+
+	.unbsb-service-card {
+		padding: 10px 12px;
 		gap: 10px;
+		border-radius: var(--unbsb-radius-sm);
+	}
+
+	.unbsb-service-check {
+		width: 22px;
+		height: 22px;
+		min-width: 22px;
+	}
+
+	.unbsb-service-check svg {
+		width: 12px;
+		height: 12px;
+	}
+
+	.unbsb-service-name {
+		font-size: 14px;
+	}
+
+	.unbsb-service-desc {
+		font-size: 11px;
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.unbsb-service-duration {
+		font-size: 10px;
+	}
+
+	.unbsb-service-price-area {
+		min-width: 55px;
+	}
+
+	.unbsb-price-current {
+		font-size: 16px;
+	}
+
+	.unbsb-price-current small {
+		font-size: 11px;
+	}
+
+	.unbsb-price-discounted-big {
+		font-size: 18px;
+	}
+
+	.unbsb-price-original-top {
+		font-size: 11px;
+	}
+
+	.unbsb-discount-badge {
+		font-size: 10px;
+		padding: 2px 5px;
+	}
+
+	/* Service color bar thinner on mobile */
+	.unbsb-service-color {
+		width: 3px;
+	}
+
+	/* Multi-service selected summary */
+	.unbsb-selected-services-summary {
+		padding: 12px;
+		font-size: 13px;
+	}
+
+	/* Staff cards — compact layout */
+	.unbsb-staff-list {
+		gap: 8px;
+	}
+
+	.unbsb-staff-avail-card {
+		padding: 14px;
+		border-radius: var(--unbsb-radius-sm);
+	}
+
+	.unbsb-staff-avatar {
+		width: 44px;
+		height: 44px;
+		min-width: 44px;
+	}
+
+	.unbsb-staff-avatar-placeholder {
+		font-size: 16px;
+	}
+
+	.unbsb-staff-name {
+		font-size: 14px;
+	}
+
+	.unbsb-staff-slot {
+		padding: 4px 10px;
+		font-size: 11px;
+	}
+
+	.unbsb-staff-slots {
+		gap: 4px;
+	}
+
+	/* Calendar */
+	.unbsb-calendar-header {
+		padding: 8px 0;
+	}
+
+	.unbsb-calendar-nav {
+		font-size: 14px;
+	}
+
+	.unbsb-calendar-day {
+		font-size: 13px;
+	}
+
+	.unbsb-calendar-weekday {
+		font-size: 10px;
+	}
+
+	/* Time slots */
+	.unbsb-time-grid {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 6px;
+	}
+
+	.unbsb-time-slot {
+		padding: 8px 4px;
+		font-size: 13px;
+	}
+
+	/* Customer info form */
+	.unbsb-customer-form .unbsb-form-group label {
+		font-size: 13px;
+	}
+
+	.unbsb-customer-form input,
+	.unbsb-customer-form textarea {
+		padding: 10px 12px;
+		font-size: 15px;
+	}
+
+	/* Promo code */
+	.unbsb-promo-input-wrapper {
+		flex-direction: column;
+	}
+
+	.unbsb-promo-input-wrapper .unbsb-btn {
+		width: 100%;
+	}
+
+	/* Booking summary */
+	.unbsb-booking-summary {
+		padding: 16px;
+	}
+
+	.unbsb-summary-row {
+		font-size: 13px;
+	}
+
+	.unbsb-summary-total {
+		font-size: 16px;
+	}
+
+	/* Form actions — full width stacked buttons */
+	.unbsb-form-actions {
+		flex-direction: column;
+		gap: 10px;
+		margin-top: 20px;
+	}
+
+	.unbsb-form-actions .unbsb-btn {
+		width: 100%;
+		padding: 14px 20px;
+		font-size: 15px;
+	}
+
+	/* Category group headers */
+	.unbsb-service-category-header {
+		padding: 8px 12px;
+		font-size: 13px;
+	}
+}
+
+/* ========================================
+   Mobile Responsive — 380px (very small screens)
+   ======================================== */
+@media (max-width: 380px) {
+	.unbsb-booking-container {
+		padding: 12px 8px;
+	}
+
+	.unbsb-step-title {
+		font-size: 16px;
+	}
+
+	.unbsb-service-card {
+		padding: 8px 10px;
+		gap: 8px;
+	}
+
+	.unbsb-service-name {
+		font-size: 13px;
+	}
+
+	.unbsb-service-desc {
+		display: none;
+	}
+
+	.unbsb-price-current {
+		font-size: 15px;
+	}
+
+	.unbsb-service-price-area {
+		min-width: 50px;
+	}
+
+	.unbsb-staff-avail-card {
+		padding: 12px;
+	}
+
+	.unbsb-staff-avatar {
+		width: 40px;
+		height: 40px;
+		min-width: 40px;
+	}
+
+	.unbsb-time-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.unbsb-filter-btn {
+		padding: 6px 10px;
+		font-size: 12px;
+	}
+
+	.unbsb-progress-step .unbsb-step-circle {
+		width: 30px;
+		height: 30px;
+		font-size: 12px;
 	}
 }
 
