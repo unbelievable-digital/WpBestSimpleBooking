@@ -256,6 +256,15 @@ class UNBSB_Admin {
 				'unbsb-staff-performance-portal',
 				array( $this, 'render_staff_performance_portal' )
 			);
+
+			add_submenu_page(
+				null,
+				__( 'Staff View', 'unbelievable-salon-booking' ),
+				__( 'Staff View', 'unbelievable-salon-booking' ),
+				'manage_options',
+				'unbsb-staff-view',
+				array( $this, 'render_staff_view' )
+			);
 		}
 	}
 
@@ -1306,6 +1315,34 @@ class UNBSB_Admin {
 		$date_format     = get_option( 'unbsb_date_format', 'd.m.Y' );
 
 		include plugin_dir_path( __FILE__ ) . 'partials/admin-staff-performance.php';
+	}
+
+	/**
+	 * Render staff view page (admin combined earnings + performance)
+	 */
+	public function render_staff_view() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'Unauthorized access.', 'unbelievable-salon-booking' ) );
+		}
+
+		$staff_model = new UNBSB_Staff();
+		$staff_id    = isset( $_GET['staff_id'] ) ? absint( $_GET['staff_id'] ) : 0;
+		$staff       = $staff_id ? $staff_model->get( $staff_id ) : null;
+
+		if ( ! $staff ) {
+			wp_die( esc_html__( 'Staff record not found.', 'unbelievable-salon-booking' ) );
+		}
+
+		$summary         = $staff_model->get_earnings_summary( $staff->id );
+		$date_from       = wp_date( 'Y-m-01' );
+		$date_to         = wp_date( 'Y-m-t' );
+		$metrics         = $staff_model->get_performance_metrics( $staff->id, $date_from, $date_to );
+		$top_services    = $staff_model->get_top_services( $staff->id, $date_from, $date_to );
+		$trend           = $staff_model->get_monthly_trend( $staff->id );
+		$currency_symbol = get_option( 'unbsb_currency_symbol', '₺' );
+		$date_format     = get_option( 'unbsb_date_format', 'd.m.Y' );
+
+		include plugin_dir_path( __FILE__ ) . 'partials/admin-staff-view.php';
 	}
 
 	/**

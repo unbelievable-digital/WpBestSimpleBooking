@@ -53,6 +53,10 @@ $currency_symbol = get_option( 'unbsb_currency_symbol', '₺' );
 								<?php endif; ?>
 							</div>
 							<div class="unbsb-staff-actions">
+								<a href="<?php echo esc_url( admin_url( 'admin.php?page=unbsb-staff-view&staff_id=' . $staff_member->id ) ); ?>" class="unbsb-btn unbsb-btn-sm unbsb-btn-primary">
+									<span class="dashicons dashicons-visibility"></span>
+									<?php esc_html_e( 'View', 'unbelievable-salon-booking' ); ?>
+								</a>
 								<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-secondary unbsb-edit-hours" data-id="<?php echo esc_attr( $staff_member->id ); ?>" data-name="<?php echo esc_attr( $staff_member->name ); ?>">
 									<span class="dashicons dashicons-clock"></span>
 									<?php esc_html_e( 'Hours', 'unbelievable-salon-booking' ); ?>

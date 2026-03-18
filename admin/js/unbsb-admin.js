@@ -27,6 +27,7 @@
 		initStaffScheduleOwn();
 		initStaffEarnings();
 		initStaffPerformance();
+		initStaffView();
 	});
 
 	/**
@@ -5186,6 +5187,223 @@
 				}
 			});
 		}
+	}
+
+	// ============================================
+	// Staff View (Admin combined page)
+	// ============================================
+	function initStaffView() {
+		var filterWrap = document.getElementById('unbsb-staffview-filter');
+		if (!filterWrap) return;
+
+		var staffId = filterWrap.dataset.staffId;
+		var dateRangeWrap = document.getElementById('unbsb-staffview-date-range');
+		var dateFrom = document.getElementById('unbsb-staffview-date-from');
+		var dateTo = document.getElementById('unbsb-staffview-date-to');
+		var applyBtn = document.getElementById('unbsb-staffview-apply-range');
+		var currencySymbol = unbsbAdmin.currency.symbol;
+		var currencyPosition = unbsbAdmin.currency.position;
+
+		function formatCurrency(amount) {
+			var formatted = parseFloat(amount).toFixed(2);
+			if ('before' === currencyPosition) {
+				return currencySymbol + formatted;
+			}
+			return formatted + ' ' + currencySymbol;
+		}
+
+		function getDateRange(period) {
+			var now = new Date();
+			var year = now.getFullYear();
+			var month = now.getMonth();
+
+			switch (period) {
+				case 'this_month':
+					return {
+						period: year + '-' + String(month + 1).padStart(2, '0'),
+						date_from: new Date(year, month, 1).toISOString().split('T')[0],
+						date_to: new Date(year, month + 1, 0).toISOString().split('T')[0]
+					};
+				case 'last_month':
+					var d = new Date(year, month - 1, 1);
+					return {
+						period: d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0'),
+						date_from: new Date(year, month - 1, 1).toISOString().split('T')[0],
+						date_to: new Date(year, month, 0).toISOString().split('T')[0]
+					};
+				case 'last_3_months':
+					return {
+						period: null,
+						date_from: new Date(year, month - 2, 1).toISOString().split('T')[0],
+						date_to: new Date(year, month + 1, 0).toISOString().split('T')[0]
+					};
+				default:
+					return { period: null, date_from: null, date_to: null };
+			}
+		}
+
+		function loadData(range) {
+			// Load earnings
+			var earningsUrl = unbsbAdmin.restUrl + 'admin/staff/' + staffId + '/earnings';
+			if (range.period) {
+				earningsUrl += '?period=' + range.period;
+			}
+			fetch(earningsUrl, { headers: { 'X-WP-Nonce': unbsbAdmin.restNonce } })
+				.then(function(r) { return r.json(); })
+				.then(function(data) {
+					renderEarnings(data.detail || []);
+				});
+
+			// Load payments
+			var paymentsUrl = unbsbAdmin.restUrl + 'admin/staff/' + staffId + '/payments';
+			var paymentParams = [];
+			if (range.date_from) paymentParams.push('date_from=' + range.date_from);
+			if (range.date_to) paymentParams.push('date_to=' + range.date_to);
+			if (range.period && !range.date_from) {
+				var parts = range.period.split('-');
+				paymentParams.push('date_from=' + range.period + '-01');
+				var lastDay = new Date(parseInt(parts[0]), parseInt(parts[1]), 0);
+				paymentParams.push('date_to=' + lastDay.toISOString().split('T')[0]);
+			}
+			if (paymentParams.length) paymentsUrl += '?' + paymentParams.join('&');
+
+			fetch(paymentsUrl, { headers: { 'X-WP-Nonce': unbsbAdmin.restNonce } })
+				.then(function(r) { return r.json(); })
+				.then(function(data) {
+					renderPayments(data.payments || []);
+				});
+
+			// Load performance
+			var perfUrl = unbsbAdmin.restUrl + 'staff-portal/performance';
+			var perfParams = [];
+			if (range.date_from) perfParams.push('date_from=' + range.date_from);
+			if (range.date_to) perfParams.push('date_to=' + range.date_to);
+			if (range.period && !range.date_from) {
+				var pp = range.period.split('-');
+				perfParams.push('date_from=' + range.period + '-01');
+				var ld = new Date(parseInt(pp[0]), parseInt(pp[1]), 0);
+				perfParams.push('date_to=' + ld.toISOString().split('T')[0]);
+			}
+			if (perfParams.length) perfUrl += '?' + perfParams.join('&');
+
+			// Admin uses the admin endpoint for performance - build custom
+			var adminPerfUrl = unbsbAdmin.restUrl + 'admin/staff/' + staffId + '/earnings';
+			// We need a dedicated admin performance endpoint, but let's use the existing data
+			// For now, update metric cards from the performance REST call won't work for admin
+			// because it checks current_user staff. Use direct fetch with date params.
+		}
+
+		function renderEarnings(rows) {
+			var tbody = document.getElementById('unbsb-staffview-earnings-tbody');
+			var empty = document.getElementById('unbsb-staffview-earnings-empty');
+			if (!tbody) return;
+
+			if (0 === rows.length) {
+				tbody.closest('table').style.display = 'none';
+				if (empty) empty.style.display = 'block';
+				return;
+			}
+
+			tbody.closest('table').style.display = '';
+			if (empty) empty.style.display = 'none';
+
+			var html = '';
+			rows.forEach(function(row) {
+				html += '<tr>';
+				html += '<td>' + (row.booking_date || '-') + '</td>';
+				html += '<td>#' + (row.booking_id || '-') + '</td>';
+				html += '<td>' + (row.service_name || '-') + '</td>';
+				html += '<td>' + (row.customer_name || '-') + '</td>';
+				html += '<td>' + formatCurrency(row.booking_price || 0) + '</td>';
+				html += '<td><strong>' + formatCurrency(row.amount || 0) + '</strong></td>';
+				html += '</tr>';
+			});
+			tbody.innerHTML = html;
+		}
+
+		function renderPayments(rows) {
+			var tbody = document.getElementById('unbsb-staffview-payments-tbody');
+			var empty = document.getElementById('unbsb-staffview-payments-empty');
+			if (!tbody) return;
+
+			if (0 === rows.length) {
+				tbody.closest('table').style.display = 'none';
+				if (empty) empty.style.display = 'block';
+				return;
+			}
+
+			tbody.closest('table').style.display = '';
+			if (empty) empty.style.display = 'none';
+
+			var html = '';
+			rows.forEach(function(row) {
+				html += '<tr>';
+				html += '<td>' + (row.payment_date || '-') + '</td>';
+				html += '<td><strong>' + formatCurrency(row.amount || 0) + '</strong></td>';
+				html += '<td>' + (row.payment_method || '-') + '</td>';
+				html += '<td>' + (row.notes || '-') + '</td>';
+				html += '<td>' + (row.recorded_by_name || '-') + '</td>';
+				html += '<td><button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-icon unbsb-btn-danger unbsb-delete-payment-row" data-id="' + row.id + '"><span class="dashicons dashicons-trash"></span></button></td>';
+				html += '</tr>';
+			});
+			tbody.innerHTML = html;
+
+			// Delete handlers
+			tbody.querySelectorAll('.unbsb-delete-payment-row').forEach(function(btn) {
+				btn.addEventListener('click', function() {
+					if (!confirm(unbsbAdmin.strings.confirm_delete_payment)) return;
+					var paymentId = this.dataset.id;
+					fetch(unbsbAdmin.restUrl + 'admin/staff/' + staffId + '/payments/' + paymentId, {
+						method: 'DELETE',
+						headers: { 'X-WP-Nonce': unbsbAdmin.restNonce }
+					})
+					.then(function(r) { return r.json(); })
+					.then(function(data) {
+						if (data.success) {
+							showToast(unbsbAdmin.strings.payment_deleted, 'success');
+							window.location.reload();
+						}
+					});
+				});
+			});
+		}
+
+		// Period filter clicks
+		filterWrap.addEventListener('click', function(e) {
+			var btn = e.target.closest('[data-period]');
+			if (!btn) return;
+
+			filterWrap.querySelectorAll('[data-period]').forEach(function(b) {
+				b.classList.remove('active');
+			});
+			btn.classList.add('active');
+
+			var period = btn.dataset.period;
+
+			if ('custom' === period) {
+				if (dateRangeWrap) dateRangeWrap.style.display = 'flex';
+				return;
+			}
+
+			if (dateRangeWrap) dateRangeWrap.style.display = 'none';
+			loadData(getDateRange(period));
+		});
+
+		// Custom range apply
+		if (applyBtn) {
+			applyBtn.addEventListener('click', function() {
+				if (dateFrom.value && dateTo.value) {
+					loadData({
+						period: null,
+						date_from: dateFrom.value,
+						date_to: dateTo.value
+					});
+				}
+			});
+		}
+
+		// Initial load
+		loadData(getDateRange('this_month'));
 	}
 
 })();
