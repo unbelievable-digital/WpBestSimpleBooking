@@ -3,7 +3,7 @@ Contributors: zgrkaralar
 Tags: appointment, booking, scheduler, reservation, salon
 Requires at least: 5.8
 Tested up to: 6.9
-Stable tag: 2.2.0
+Stable tag: 2.3.0
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -142,6 +142,19 @@ A Pro version with additional features like payment integration, Google Calendar
 7. Settings page – Customize plugin behavior
 
 == Changelog ==
+
+= 2.3.0 =
+* New: Admin Staff View page — combined earnings, performance, and payments in one page
+* New: "View" button on staff cards for quick access to staff details
+* New: Calendar shows unavailable/closed days with stripe pattern (uses available-days API)
+* New: Staff card click auto-advances to date/time selection step
+* New: Slot click also auto-advances to date/time step
+* New: Category headers shown in single-service booking mode
+* New: "Powered by Unbelievable Booking System" footer with version
+* Fix: Service name no longer overlaps price on mobile (text wraps fully)
+* Fix: Service validation uses highlight animation instead of toast message
+* Style: Comprehensive mobile responsive improvements — compact cards, better spacing, 380px breakpoint
+* Style: Bold duration text, darker powered-by link
 
 = 2.2.0 =
 * New: Staff Earnings Dashboard — view commission, salary, and payment history
