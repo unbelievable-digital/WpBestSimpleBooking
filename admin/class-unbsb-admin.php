@@ -1114,7 +1114,7 @@ class UNBSB_Admin {
 		$service_model  = new UNBSB_Service();
 		$category_model = new UNBSB_Category();
 
-		$staff      = $staff_model->get_all();
+		$staff      = $staff_model->get_all_with_balance();
 		$services   = $service_model->get_active();
 		$categories = $category_model->get_active();
 

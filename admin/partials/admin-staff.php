@@ -45,11 +45,21 @@ $currency_symbol = get_option( 'unbsb_currency_symbol', '₺' );
 								<?php if ( $staff_member->phone ) : ?>
 									<p class="unbsb-staff-phone"><?php echo esc_html( $staff_member->phone ); ?></p>
 								<?php endif; ?>
+								<?php if ( isset( $staff_member->remaining_balance ) && floatval( $staff_member->remaining_balance ) > 0 ) : ?>
+									<p class="unbsb-staff-balance">
+										<span class="dashicons dashicons-money-alt"></span>
+										<strong><?php echo esc_html( number_format( $staff_member->remaining_balance, 2 ) ); ?> <?php echo esc_html( $currency_symbol ); ?></strong>
+									</p>
+								<?php endif; ?>
 							</div>
 							<div class="unbsb-staff-actions">
 								<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-secondary unbsb-edit-hours" data-id="<?php echo esc_attr( $staff_member->id ); ?>" data-name="<?php echo esc_attr( $staff_member->name ); ?>">
 									<span class="dashicons dashicons-clock"></span>
 									<?php esc_html_e( 'Hours', 'unbelievable-salon-booking' ); ?>
+								</button>
+								<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-secondary unbsb-staff-payment" data-id="<?php echo esc_attr( $staff_member->id ); ?>" data-name="<?php echo esc_attr( $staff_member->name ); ?>">
+									<span class="dashicons dashicons-money-alt"></span>
+									<?php esc_html_e( 'Pay', 'unbelievable-salon-booking' ); ?>
 								</button>
 								<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-icon unbsb-edit-staff" data-id="<?php echo esc_attr( $staff_member->id ); ?>">
 									<span class="dashicons dashicons-edit"></span>
@@ -491,6 +501,50 @@ function unbsb_render_service_checkbox( $service, $currency_symbol ) {
 				<span class="dashicons dashicons-saved"></span>
 				<?php esc_html_e( 'Save', 'unbelievable-salon-booking' ); ?>
 			</button>
+		</div>
+	</div>
+</div>
+
+<!-- Payment Recording Modal -->
+<div id="unbsb-payment-modal" class="unbsb-modal" style="display: none;">
+	<div class="unbsb-modal-overlay"></div>
+	<div class="unbsb-modal-content">
+		<div class="unbsb-modal-header unbsb-modal-header-gradient">
+			<div class="unbsb-modal-header-content">
+				<div class="unbsb-modal-icon">
+					<span class="dashicons dashicons-money-alt"></span>
+				</div>
+				<div>
+					<h3><?php esc_html_e( 'Record Payment', 'unbelievable-salon-booking' ); ?></h3>
+					<p class="unbsb-modal-subtitle" id="unbsb-payment-staff-name"></p>
+				</div>
+			</div>
+			<button type="button" class="unbsb-modal-close">&times;</button>
+		</div>
+		<div class="unbsb-modal-body">
+			<form id="unbsb-payment-form">
+				<input type="hidden" id="payment-staff-id" value="">
+				<div class="unbsb-form-group">
+					<label for="payment-amount"><?php esc_html_e( 'Amount', 'unbelievable-salon-booking' ); ?> <span class="required">*</span></label>
+					<input type="number" id="payment-amount" step="0.01" min="0.01" required>
+				</div>
+				<div class="unbsb-form-group">
+					<label for="payment-date"><?php esc_html_e( 'Date', 'unbelievable-salon-booking' ); ?></label>
+					<input type="date" id="payment-date">
+				</div>
+				<div class="unbsb-form-group">
+					<label for="payment-method"><?php esc_html_e( 'Payment Method', 'unbelievable-salon-booking' ); ?></label>
+					<input type="text" id="payment-method" placeholder="<?php esc_attr_e( 'Cash, Transfer, etc.', 'unbelievable-salon-booking' ); ?>">
+				</div>
+				<div class="unbsb-form-group">
+					<label for="payment-notes"><?php esc_html_e( 'Notes', 'unbelievable-salon-booking' ); ?></label>
+					<textarea id="payment-notes" rows="2"></textarea>
+				</div>
+			</form>
+		</div>
+		<div class="unbsb-modal-footer">
+			<button type="button" class="unbsb-btn unbsb-btn-secondary unbsb-modal-close"><?php esc_html_e( 'Cancel', 'unbelievable-salon-booking' ); ?></button>
+			<button type="button" class="unbsb-btn unbsb-btn-primary" id="unbsb-save-payment"><?php esc_html_e( 'Save Payment', 'unbelievable-salon-booking' ); ?></button>
 		</div>
 	</div>
 </div>
