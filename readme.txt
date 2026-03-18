@@ -3,7 +3,7 @@ Contributors: zgrkaralar
 Tags: appointment, booking, scheduler, reservation, salon
 Requires at least: 5.8
 Tested up to: 6.9
-Stable tag: 2.0.0
+Stable tag: 2.2.0
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -142,6 +142,22 @@ A Pro version with additional features like payment integration, Google Calendar
 7. Settings page – Customize plugin behavior
 
 == Changelog ==
+
+= 2.2.0 =
+* New: Staff Earnings Dashboard — view commission, salary, and payment history
+* New: Staff Performance Metrics — booking stats, cancellation rate, top services, monthly trends
+* New: Admin payment recording — track payments to staff with remaining balance
+* New: Remaining balance column on staff list cards
+* New: Staff self-booking — staff can create bookings for themselves with filtered services and backend enforcement
+* Database: Added unbsb_staff_payments table
+* 6 new REST API endpoints for earnings, payments, and performance data
+
+= 2.1.0 =
+* Reschedule email notification — customers, admin, and staff now receive email when a booking is rescheduled
+* New email template: Booking Rescheduled with {old_booking_date} and {old_booking_time} placeholders
+* Fix reminder email timezone — now uses WordPress local time instead of UTC
+* Fix staff email template missing on fresh installations
+* Fix reminder tracking bloating wp_options — now uses transients with 48h auto-expiry
 
 = 2.0.0 =
 * Staff extra working days — staff can add extra open days to their schedule
