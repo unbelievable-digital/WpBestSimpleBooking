@@ -147,6 +147,8 @@ A Pro version with additional features like payment integration, Google Calendar
 * New: Staff can edit/reschedule their own bookings (change date, time, add notes)
 * New: "Save & Confirm" button — staff can edit and confirm a booking in one action
 * New: Edit button on staff booking rows for pending and confirmed bookings
+* New: Staff page converted to table list view with columns: name, contact, status, compensation, balance, actions
+* New: Conflict detection when staff reschedules a booking
 
 = 2.3.0 =
 * New: Admin Staff View page — combined earnings, performance, and payments in one page
