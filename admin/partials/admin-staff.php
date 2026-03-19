@@ -21,61 +21,100 @@ $currency_symbol = get_option( 'unbsb_currency_symbol', '₺' );
 		</button>
 	</div>
 
-	<div class="unbsb-card">
-		<div class="unbsb-card-body">
-			<?php if ( ! empty( $staff ) ) : ?>
-				<div class="unbsb-staff-grid">
-					<?php foreach ( $staff as $staff_member ) : ?>
-						<div class="unbsb-staff-card" data-id="<?php echo esc_attr( $staff_member->id ); ?>">
-							<div class="unbsb-staff-avatar">
-								<?php if ( $staff_member->avatar_url ) : ?>
-									<img src="<?php echo esc_url( $staff_member->avatar_url ); ?>" alt="<?php echo esc_attr( $staff_member->name ); ?>">
-								<?php else : ?>
-									<span class="unbsb-avatar-placeholder">
-										<?php echo esc_html( mb_substr( $staff_member->name, 0, 1 ) ); ?>
+	<?php if ( ! empty( $staff ) ) : ?>
+		<div class="unbsb-card">
+			<div class="unbsb-card-body" style="padding: 0;">
+				<table class="unbsb-table unbsb-table-striped unbsb-staff-table">
+					<thead>
+						<tr>
+							<th style="width: 40px;"></th>
+							<th><?php esc_html_e( 'Name', 'unbelievable-salon-booking' ); ?></th>
+							<th><?php esc_html_e( 'Contact', 'unbelievable-salon-booking' ); ?></th>
+							<th><?php esc_html_e( 'Status', 'unbelievable-salon-booking' ); ?></th>
+							<th><?php esc_html_e( 'Compensation', 'unbelievable-salon-booking' ); ?></th>
+							<th><?php esc_html_e( 'Balance', 'unbelievable-salon-booking' ); ?></th>
+							<th style="text-align: right;"><?php esc_html_e( 'Actions', 'unbelievable-salon-booking' ); ?></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ( $staff as $staff_member ) : ?>
+							<tr data-id="<?php echo esc_attr( $staff_member->id ); ?>">
+								<td>
+									<div class="unbsb-staff-table-avatar">
+										<?php if ( $staff_member->avatar_url ) : ?>
+											<img src="<?php echo esc_url( $staff_member->avatar_url ); ?>" alt="<?php echo esc_attr( $staff_member->name ); ?>">
+										<?php else : ?>
+											<span class="unbsb-avatar-placeholder-sm">
+												<?php echo esc_html( mb_substr( $staff_member->name, 0, 1 ) ); ?>
+											</span>
+										<?php endif; ?>
+									</div>
+								</td>
+								<td>
+									<strong><?php echo esc_html( $staff_member->name ); ?></strong>
+								</td>
+								<td>
+									<?php if ( $staff_member->email ) : ?>
+										<div class="unbsb-text-small"><?php echo esc_html( $staff_member->email ); ?></div>
+									<?php endif; ?>
+									<?php if ( $staff_member->phone ) : ?>
+										<div class="unbsb-text-small"><?php echo esc_html( $staff_member->phone ); ?></div>
+									<?php endif; ?>
+								</td>
+								<td>
+									<span class="unbsb-status unbsb-status-<?php echo esc_attr( $staff_member->status ); ?>">
+										<?php echo 'active' === $staff_member->status ? esc_html__( 'Active', 'unbelievable-salon-booking' ) : esc_html__( 'Inactive', 'unbelievable-salon-booking' ); ?>
 									</span>
-								<?php endif; ?>
-								<span class="unbsb-staff-status-dot unbsb-status-<?php echo esc_attr( $staff_member->status ); ?>"></span>
-							</div>
-							<div class="unbsb-staff-info">
-								<h3><?php echo esc_html( $staff_member->name ); ?></h3>
-								<?php if ( $staff_member->email ) : ?>
-									<p class="unbsb-staff-email"><?php echo esc_html( $staff_member->email ); ?></p>
-								<?php endif; ?>
-								<?php if ( $staff_member->phone ) : ?>
-									<p class="unbsb-staff-phone"><?php echo esc_html( $staff_member->phone ); ?></p>
-								<?php endif; ?>
-								<?php if ( isset( $staff_member->remaining_balance ) && floatval( $staff_member->remaining_balance ) > 0 ) : ?>
-									<p class="unbsb-staff-balance">
-										<span class="dashicons dashicons-money-alt"></span>
-										<strong><?php echo esc_html( number_format( $staff_member->remaining_balance, 2 ) ); ?> <?php echo esc_html( $currency_symbol ); ?></strong>
-									</p>
-								<?php endif; ?>
-							</div>
-							<div class="unbsb-staff-actions">
-								<a href="<?php echo esc_url( admin_url( 'admin.php?page=unbsb-staff-view&staff_id=' . $staff_member->id ) ); ?>" class="unbsb-btn unbsb-btn-sm unbsb-btn-primary">
-									<span class="dashicons dashicons-visibility"></span>
-									<?php esc_html_e( 'View', 'unbelievable-salon-booking' ); ?>
-								</a>
-								<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-secondary unbsb-edit-hours" data-id="<?php echo esc_attr( $staff_member->id ); ?>" data-name="<?php echo esc_attr( $staff_member->name ); ?>">
-									<span class="dashicons dashicons-clock"></span>
-									<?php esc_html_e( 'Hours', 'unbelievable-salon-booking' ); ?>
-								</button>
-								<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-secondary unbsb-staff-payment" data-id="<?php echo esc_attr( $staff_member->id ); ?>" data-name="<?php echo esc_attr( $staff_member->name ); ?>">
-									<span class="dashicons dashicons-money-alt"></span>
-									<?php esc_html_e( 'Pay', 'unbelievable-salon-booking' ); ?>
-								</button>
-								<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-icon unbsb-edit-staff" data-id="<?php echo esc_attr( $staff_member->id ); ?>">
-									<span class="dashicons dashicons-edit"></span>
-								</button>
-								<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-icon unbsb-btn-danger unbsb-delete-staff" data-id="<?php echo esc_attr( $staff_member->id ); ?>">
-									<span class="dashicons dashicons-trash"></span>
-								</button>
-							</div>
-						</div>
-					<?php endforeach; ?>
-				</div>
-			<?php else : ?>
+								</td>
+								<td>
+									<?php
+									$salary_type = isset( $staff_member->salary_type ) ? $staff_member->salary_type : 'percentage';
+									if ( 'percentage' === $salary_type ) {
+										echo esc_html( ( $staff_member->salary_percentage ?? 0 ) . '%' );
+									} elseif ( 'fixed' === $salary_type ) {
+										echo esc_html( number_format( $staff_member->salary_fixed ?? 0, 0 ) . ' ' . $currency_symbol );
+									} elseif ( 'mix' === $salary_type ) {
+										echo esc_html( ( $staff_member->salary_percentage ?? 0 ) . '% + ' . number_format( $staff_member->salary_fixed ?? 0, 0 ) . ' ' . $currency_symbol );
+									}
+									?>
+								</td>
+								<td>
+									<?php if ( isset( $staff_member->remaining_balance ) && floatval( $staff_member->remaining_balance ) > 0 ) : ?>
+										<strong style="color: var(--unbsb-danger);"><?php echo esc_html( number_format( $staff_member->remaining_balance, 2 ) ); ?> <?php echo esc_html( $currency_symbol ); ?></strong>
+									<?php elseif ( isset( $staff_member->remaining_balance ) ) : ?>
+										<span style="color: var(--unbsb-success);">0 <?php echo esc_html( $currency_symbol ); ?></span>
+									<?php else : ?>
+										—
+									<?php endif; ?>
+								</td>
+								<td>
+									<div class="unbsb-actions" style="justify-content: flex-end;">
+										<a href="<?php echo esc_url( admin_url( 'admin.php?page=unbsb-staff-view&staff_id=' . $staff_member->id ) ); ?>" class="unbsb-btn unbsb-btn-sm unbsb-btn-primary" title="<?php esc_attr_e( 'View', 'unbelievable-salon-booking' ); ?>">
+											<span class="dashicons dashicons-visibility"></span>
+										</a>
+										<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-secondary unbsb-edit-hours" data-id="<?php echo esc_attr( $staff_member->id ); ?>" data-name="<?php echo esc_attr( $staff_member->name ); ?>" title="<?php esc_attr_e( 'Hours', 'unbelievable-salon-booking' ); ?>">
+											<span class="dashicons dashicons-clock"></span>
+										</button>
+										<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-secondary unbsb-staff-payment" data-id="<?php echo esc_attr( $staff_member->id ); ?>" data-name="<?php echo esc_attr( $staff_member->name ); ?>" title="<?php esc_attr_e( 'Pay', 'unbelievable-salon-booking' ); ?>">
+											<span class="dashicons dashicons-money-alt"></span>
+										</button>
+										<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-icon unbsb-edit-staff" data-id="<?php echo esc_attr( $staff_member->id ); ?>" title="<?php esc_attr_e( 'Edit', 'unbelievable-salon-booking' ); ?>">
+											<span class="dashicons dashicons-edit"></span>
+										</button>
+										<button type="button" class="unbsb-btn unbsb-btn-sm unbsb-btn-icon unbsb-btn-danger unbsb-delete-staff" data-id="<?php echo esc_attr( $staff_member->id ); ?>" title="<?php esc_attr_e( 'Delete', 'unbelievable-salon-booking' ); ?>">
+											<span class="dashicons dashicons-trash"></span>
+										</button>
+									</div>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	<?php else : ?>
+		<div class="unbsb-card">
+			<div class="unbsb-card-body">
 				<div class="unbsb-empty-state">
 					<span class="dashicons dashicons-businessman"></span>
 					<p><?php esc_html_e( 'No staff added yet.', 'unbelievable-salon-booking' ); ?></p>
@@ -83,9 +122,9 @@ $currency_symbol = get_option( 'unbsb_currency_symbol', '₺' );
 						<?php esc_html_e( 'Add First Staff', 'unbelievable-salon-booking' ); ?>
 					</button>
 				</div>
-			<?php endif; ?>
+			</div>
 		</div>
-	</div>
+	<?php endif; ?>
 </div>
 
 <?php

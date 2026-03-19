@@ -1963,6 +1963,43 @@ select optgroup option {
 /* ========================================
    Staff Grid
    ======================================== */
+/* Staff table list view */
+.unbsb-staff-table-avatar {
+	width: 36px;
+	height: 36px;
+	position: relative;
+}
+
+.unbsb-staff-table-avatar img {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.unbsb-avatar-placeholder-sm {
+	width: 36px;
+	height: 36px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(135deg, var(--unbsb-primary), #1d4ed8);
+	color: var(--unbsb-white);
+	font-size: 15px;
+	font-weight: 600;
+	border-radius: 50%;
+}
+
+.unbsb-staff-table td {
+	vertical-align: middle;
+}
+
+.unbsb-staff-table .unbsb-actions {
+	display: flex;
+	gap: 4px;
+	flex-wrap: nowrap;
+}
+
 .unbsb-staff-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
