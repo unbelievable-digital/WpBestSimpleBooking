@@ -560,6 +560,12 @@
 		// Update buttons
 		updateNavButtons();
 		updateNextButton();
+
+		// Smooth scroll to top of booking form
+		var wrapper = document.querySelector('.unbsb-booking-wrapper');
+		if (wrapper) {
+			wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}
 	}
 
 	/**
