@@ -144,9 +144,12 @@ A Pro version with additional features like payment integration, Google Calendar
 == Changelog ==
 
 = 2.6.0 =
+* New: Meta Pixel (Facebook) integration with configurable event tracking
 * New: Google Analytics 4 integration with configurable event tracking
 * New: Tracking tab in settings — Meta Pixel + Google Analytics side by side
-* GA4 events: view_item, add_to_cart, begin_checkout, add_shipping_info, purchase
+* New: "GA already loaded" option — works with Google Site Kit, MonsterInsights, etc. without conflicts
+* Meta Pixel events: PageView, ViewContent, AddToCart, Schedule, InitiateCheckout, Purchase
+* GA4 events: page_view, view_item, add_to_cart, begin_checkout, add_shipping_info, purchase
 * All tracking events individually toggleable from admin settings
 
 = 2.5.0 =
