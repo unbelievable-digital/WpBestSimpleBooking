@@ -209,6 +209,9 @@ class UNBSB_Core {
 		$this->loader->add_action( 'wp_enqueue_scripts', $public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $public, 'enqueue_scripts' );
 
+		// Meta Pixel base code.
+		$this->loader->add_action( 'wp_head', $public, 'render_meta_pixel' );
+
 		// Shortcodes.
 		$this->loader->add_action( 'init', $public, 'register_shortcodes' );
 

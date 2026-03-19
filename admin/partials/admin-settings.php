@@ -68,6 +68,17 @@ $settings = array(
 	'unbsb_captcha_secret_key'        => UNBSB_Encryption::get_option( 'unbsb_captcha_secret_key', '' ),
 	'unbsb_captcha_min_score'         => get_option( 'unbsb_captcha_min_score', '0.5' ),
 	'unbsb_security_logging_enabled'  => get_option( 'unbsb_security_logging_enabled', 'yes' ),
+	// Tracking Settings.
+	'unbsb_meta_pixel_enabled'        => get_option( 'unbsb_meta_pixel_enabled', 'no' ),
+	'unbsb_meta_pixel_id'             => get_option( 'unbsb_meta_pixel_id', '' ),
+	'unbsb_meta_pixel_events'         => get_option( 'unbsb_meta_pixel_events', array(
+		'page_view'           => 'yes',
+		'view_content'        => 'yes',
+		'add_to_cart'         => 'yes',
+		'initiate_checkout'   => 'yes',
+		'schedule'            => 'yes',
+		'purchase'            => 'yes',
+	) ),
 );
 
 // Get SMS templates.
@@ -106,6 +117,10 @@ $unbsb_tabs = array(
 	'seo'      => array(
 		'label' => __( 'SEO', 'unbelievable-salon-booking' ),
 		'icon'  => 'dashicons-search',
+	),
+	'tracking' => array(
+		'label' => __( 'Tracking', 'unbelievable-salon-booking' ),
+		'icon'  => 'dashicons-chart-area',
 	),
 	'security' => array(
 		'label' => __( 'Security', 'unbelievable-salon-booking' ),
@@ -809,6 +824,133 @@ if ( ! array_key_exists( $current_tab, $unbsb_tabs ) ) {
 							<p><strong><?php esc_html_e( 'How Does SEO Work?', 'unbelievable-salon-booking' ); ?></strong></p>
 							<p><?php esc_html_e( 'These settings add Schema.org structured data and Open Graph tags to your booking page. Google uses this information to display your business better in search results.', 'unbelievable-salon-booking' ); ?></p>
 						</div>
+					</div>
+				</div>
+				<?php endif; ?>
+
+				<!-- Tracking Tab -->
+				<?php if ( 'tracking' === $current_tab ) : ?>
+				<div class="unbsb-settings-section active" id="tab-tracking">
+					<div class="unbsb-section-header">
+						<h2><?php esc_html_e( 'Tracking & Analytics', 'unbelievable-salon-booking' ); ?></h2>
+						<p><?php esc_html_e( 'Configure tracking pixels to measure your booking conversions.', 'unbelievable-salon-booking' ); ?></p>
+					</div>
+
+					<!-- Meta Pixel Section -->
+					<div class="unbsb-settings-group">
+						<h3>
+							<svg width="20" height="20" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 6px;">
+								<path fill="#0081FB" d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
+							</svg>
+							<?php esc_html_e( 'Meta Pixel (Facebook)', 'unbelievable-salon-booking' ); ?>
+						</h3>
+					</div>
+
+					<div class="unbsb-settings-grid">
+						<div class="unbsb-setting-item unbsb-setting-toggle">
+							<div class="unbsb-toggle-content">
+								<label class="unbsb-switch">
+									<input type="checkbox" name="unbsb_meta_pixel_enabled" value="yes" <?php checked( $settings['unbsb_meta_pixel_enabled'], 'yes' ); ?>>
+									<span class="unbsb-switch-slider"></span>
+								</label>
+								<div>
+									<span class="setting-label"><?php esc_html_e( 'Enable Meta Pixel', 'unbelievable-salon-booking' ); ?></span>
+									<span class="setting-hint"><?php esc_html_e( 'Activate Meta Pixel tracking on your booking pages', 'unbelievable-salon-booking' ); ?></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="unbsb-setting-item">
+							<label for="unbsb_meta_pixel_id">
+								<span class="setting-label"><?php esc_html_e( 'Pixel ID', 'unbelievable-salon-booking' ); ?></span>
+								<span class="setting-hint"><?php esc_html_e( 'Find it in Meta Events Manager > Data Sources > Your Pixel', 'unbelievable-salon-booking' ); ?></span>
+							</label>
+							<div class="unbsb-input-group">
+								<input type="text" name="unbsb_meta_pixel_id" id="unbsb_meta_pixel_id" class="unbsb-input" value="<?php echo esc_attr( $settings['unbsb_meta_pixel_id'] ); ?>" placeholder="<?php esc_attr_e( 'e.g. 123456789012345', 'unbelievable-salon-booking' ); ?>" pattern="[0-9]*" inputmode="numeric">
+							</div>
+						</div>
+					</div>
+
+					<div class="unbsb-settings-group" style="margin-top: 20px;">
+						<h3><?php esc_html_e( 'Event Tracking', 'unbelievable-salon-booking' ); ?></h3>
+						<p class="unbsb-setting-desc"><?php esc_html_e( 'Choose which booking events to track with Meta Pixel.', 'unbelievable-salon-booking' ); ?></p>
+					</div>
+
+					<?php
+					$pixel_events  = is_array( $settings['unbsb_meta_pixel_events'] ) ? $settings['unbsb_meta_pixel_events'] : array();
+					$event_options = array(
+						'page_view'         => array(
+							'label' => __( 'PageView', 'unbelievable-salon-booking' ),
+							'desc'  => __( 'When booking page loads', 'unbelievable-salon-booking' ),
+						),
+						'view_content'      => array(
+							'label' => __( 'ViewContent', 'unbelievable-salon-booking' ),
+							'desc'  => __( 'When customer views services list', 'unbelievable-salon-booking' ),
+						),
+						'add_to_cart'       => array(
+							'label' => __( 'AddToCart', 'unbelievable-salon-booking' ),
+							'desc'  => __( 'When customer selects a service', 'unbelievable-salon-booking' ),
+						),
+						'initiate_checkout' => array(
+							'label' => __( 'InitiateCheckout', 'unbelievable-salon-booking' ),
+							'desc'  => __( 'When customer reaches the info/summary step', 'unbelievable-salon-booking' ),
+						),
+						'schedule'          => array(
+							'label' => __( 'Schedule', 'unbelievable-salon-booking' ),
+							'desc'  => __( 'When customer selects date and time', 'unbelievable-salon-booking' ),
+						),
+						'purchase'          => array(
+							'label' => __( 'Purchase', 'unbelievable-salon-booking' ),
+							'desc'  => __( 'When booking is successfully created', 'unbelievable-salon-booking' ),
+						),
+					);
+					?>
+
+					<div class="unbsb-settings-grid">
+						<?php foreach ( $event_options as $event_key => $event_data ) :
+							$is_checked = isset( $pixel_events[ $event_key ] ) && 'yes' === $pixel_events[ $event_key ];
+						?>
+						<div class="unbsb-setting-item unbsb-setting-toggle">
+							<div class="unbsb-toggle-content">
+								<label class="unbsb-switch">
+									<input type="checkbox" name="unbsb_meta_pixel_events[<?php echo esc_attr( $event_key ); ?>]" value="yes" <?php checked( $is_checked ); ?>>
+									<span class="unbsb-switch-slider"></span>
+								</label>
+								<div>
+									<span class="setting-label"><code><?php echo esc_html( $event_data['label'] ); ?></code></span>
+									<span class="setting-hint"><?php echo esc_html( $event_data['desc'] ); ?></span>
+								</div>
+							</div>
+						</div>
+						<?php endforeach; ?>
+					</div>
+
+					<div class="unbsb-info-box" style="margin-top: 20px;">
+						<span class="dashicons dashicons-info-outline"></span>
+						<div>
+							<p><strong><?php esc_html_e( 'How It Works', 'unbelievable-salon-booking' ); ?></strong></p>
+							<p><?php esc_html_e( 'Meta Pixel tracks customer actions on your booking form and sends them to your Meta Ads account. This helps you create targeted ads, build custom audiences, and measure ad conversion performance.', 'unbelievable-salon-booking' ); ?></p>
+							<p><strong><?php esc_html_e( 'Events Sent:', 'unbelievable-salon-booking' ); ?></strong></p>
+							<ul style="margin: 4px 0 0 16px; list-style: disc;">
+								<li><code>PageView</code> — <?php esc_html_e( 'Automatic when page loads', 'unbelievable-salon-booking' ); ?></li>
+								<li><code>ViewContent</code> — <?php esc_html_e( 'Service name, price, currency', 'unbelievable-salon-booking' ); ?></li>
+								<li><code>AddToCart</code> — <?php esc_html_e( 'Selected service with value', 'unbelievable-salon-booking' ); ?></li>
+								<li><code>Schedule</code> — <?php esc_html_e( 'Date and time selected', 'unbelievable-salon-booking' ); ?></li>
+								<li><code>InitiateCheckout</code> — <?php esc_html_e( 'Total value of all services', 'unbelievable-salon-booking' ); ?></li>
+								<li><code>Purchase</code> — <?php esc_html_e( 'Booking ID, total value, currency', 'unbelievable-salon-booking' ); ?></li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- Google Analytics placeholder -->
+					<div class="unbsb-settings-group" style="margin-top: 32px; opacity: 0.5;">
+						<h3>
+							<svg width="20" height="20" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 6px;">
+								<path fill="#E37400" d="M22.844 11.35l-2.016-7.31A2.996 2.996 0 0017.953 2H6.047a2.996 2.996 0 00-2.875 2.04L1.156 11.35A3 3 0 004 15h16a3 3 0 002.844-3.65z"/>
+							</svg>
+							<?php esc_html_e( 'Google Analytics', 'unbelievable-salon-booking' ); ?>
+							<span class="unbsb-badge unbsb-badge-info" style="margin-left: 8px;"><?php esc_html_e( 'Coming Soon', 'unbelievable-salon-booking' ); ?></span>
+						</h3>
 					</div>
 				</div>
 				<?php endif; ?>

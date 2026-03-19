@@ -168,6 +168,11 @@ class UNBSB_Public {
 				'currency'   => array(
 					'symbol'   => get_option( 'unbsb_currency_symbol', '₺' ),
 					'position' => get_option( 'unbsb_currency_position', 'after' ),
+					'code'     => get_option( 'unbsb_currency', 'TRY' ),
+				),
+				'metaPixel'  => array(
+					'enabled' => 'yes' === get_option( 'unbsb_meta_pixel_enabled', 'no' ) && '' !== get_option( 'unbsb_meta_pixel_id', '' ),
+					'events'  => get_option( 'unbsb_meta_pixel_events', array() ),
 				),
 				'dateFormat' => get_option( 'unbsb_date_format', 'd.m.Y' ),
 				'timeFormat' => get_option( 'unbsb_time_format', 'H:i' ),
@@ -872,6 +877,42 @@ class UNBSB_Public {
 		}
 
 		wp_send_json_success( $result );
+	}
+
+	/**
+	 * Output Meta Pixel base code in wp_head.
+	 */
+	public function render_meta_pixel() {
+		if ( 'yes' !== get_option( 'unbsb_meta_pixel_enabled', 'no' ) ) {
+			return;
+		}
+
+		$pixel_id = get_option( 'unbsb_meta_pixel_id', '' );
+		if ( empty( $pixel_id ) ) {
+			return;
+		}
+
+		$pixel_events = get_option( 'unbsb_meta_pixel_events', array() );
+		$track_page_view = isset( $pixel_events['page_view'] ) && 'yes' === $pixel_events['page_view'];
+		?>
+		<!-- Meta Pixel Code - Unbelievable Salon Booking -->
+		<script>
+		!function(f,b,e,v,n,t,s)
+		{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+		n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+		if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+		n.queue=[];t=b.createElement(e);t.async=!0;
+		t.src=v;s=b.getElementsByTagName(e)[0];
+		s.parentNode.insertBefore(t,s)}(window, document,'script',
+		'https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '<?php echo esc_js( $pixel_id ); ?>');
+		<?php if ( $track_page_view ) : ?>
+		fbq('track', 'PageView');
+		<?php endif; ?>
+		</script>
+		<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=<?php echo esc_attr( $pixel_id ); ?>&ev=PageView&noscript=1"/></noscript>
+		<!-- End Meta Pixel Code -->
+		<?php
 	}
 
 	/**

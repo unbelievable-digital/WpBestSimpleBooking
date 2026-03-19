@@ -2086,12 +2086,36 @@ class UNBSB_Admin {
 			'unbsb_seo_enabled',
 			// Security.
 			'unbsb_security_logging_enabled',
+			// Tracking.
+			'unbsb_meta_pixel_enabled',
 		);
 
 		foreach ( $checkbox_settings as $key ) {
 			$value = isset( $_POST[ $key ] ) ? 'yes' : 'no';
 			update_option( $key, $value );
 		}
+
+		// Tracking: Meta Pixel ID.
+		if ( isset( $_POST['unbsb_meta_pixel_id'] ) ) {
+			update_option( 'unbsb_meta_pixel_id', sanitize_text_field( wp_unslash( $_POST['unbsb_meta_pixel_id'] ) ) );
+		}
+
+		// Tracking: Meta Pixel events (array of checkboxes).
+		$pixel_events_default = array(
+			'page_view'         => 'no',
+			'view_content'      => 'no',
+			'add_to_cart'       => 'no',
+			'initiate_checkout' => 'no',
+			'schedule'          => 'no',
+			'purchase'          => 'no',
+		);
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Values are checked against 'yes' only.
+		$pixel_events_input = isset( $_POST['unbsb_meta_pixel_events'] ) && is_array( $_POST['unbsb_meta_pixel_events'] ) ? wp_unslash( $_POST['unbsb_meta_pixel_events'] ) : array();
+		$pixel_events_clean = array();
+		foreach ( $pixel_events_default as $key => $default ) {
+			$pixel_events_clean[ $key ] = isset( $pixel_events_input[ $key ] ) ? 'yes' : 'no';
+		}
+		update_option( 'unbsb_meta_pixel_events', $pixel_events_clean );
 
 		wp_send_json_success( __( 'Settings saved.', 'unbelievable-salon-booking' ) );
 	}

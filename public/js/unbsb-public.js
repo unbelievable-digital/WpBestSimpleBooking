@@ -51,6 +51,44 @@
 	};
 
 	/**
+	 * Meta Pixel event helper.
+	 * Fires fbq('track', ...) only when pixel is enabled and the event is active.
+	 *
+	 * @param {string} eventName  Standard Meta Pixel event name (e.g. 'ViewContent').
+	 * @param {Object} params     Optional event parameters.
+	 */
+	function trackPixelEvent(eventName, params) {
+		if (typeof fbq === 'undefined') return;
+		if (typeof unbsbPublic === 'undefined' || !unbsbPublic.metaPixel || !unbsbPublic.metaPixel.enabled) return;
+
+		var events = unbsbPublic.metaPixel.events || {};
+		var eventMap = {
+			'ViewContent': 'view_content',
+			'AddToCart': 'add_to_cart',
+			'InitiateCheckout': 'initiate_checkout',
+			'Schedule': 'schedule',
+			'Purchase': 'purchase'
+		};
+
+		var settingKey = eventMap[eventName] || eventName;
+		if (events[settingKey] !== 'yes') return;
+
+		fbq('track', eventName, params || {});
+	}
+
+	/**
+	 * Get currency ISO code for pixel events.
+	 *
+	 * @return {string} Currency ISO code.
+	 */
+	function getCurrencyCode() {
+		if (typeof unbsbPublic !== 'undefined' && unbsbPublic.currency && unbsbPublic.currency.code) {
+			return unbsbPublic.currency.code;
+		}
+		return 'USD';
+	}
+
+	/**
 	 * Format time string based on user's time format setting.
 	 * Converts 24h "HH:MM" to 12h "h:MM AM/PM" when format is "g:i A".
 	 *
@@ -334,6 +372,16 @@
 					state.selectedStaff = null;
 				}
 
+				// Meta Pixel: AddToCart when service is selected.
+				if (state.selectedService) {
+					trackPixelEvent('AddToCart', {
+						content_name: state.selectedService.name,
+						content_type: 'product',
+						value: getEffectivePrice(state.selectedService),
+						currency: getCurrencyCode()
+					});
+				}
+
 				updateNextButton();
 			});
 		});
@@ -354,6 +402,15 @@
 					// Add service
 					if (!state.selectedServices.find(function(s) { return s.id == serviceId; })) {
 						state.selectedServices.push(service);
+					}
+					// Meta Pixel: AddToCart when service is added.
+					if (service) {
+						trackPixelEvent('AddToCart', {
+							content_name: service.name,
+							content_type: 'product',
+							value: getEffectivePrice(service),
+							currency: getCurrencyCode()
+						});
 					}
 				} else {
 					// Remove service
@@ -578,6 +635,11 @@
 					// Load services for selected staff
 					loadServicesForStaff();
 				}
+				// Meta Pixel: ViewContent when services list is shown.
+				trackPixelEvent('ViewContent', {
+					content_type: 'product',
+					content_category: 'Booking Services'
+				});
 				break;
 			case 'staff':
 				if (flowConfig.mode === 'service_first') {
@@ -605,6 +667,13 @@
 				break;
 			case 'info':
 				renderSummary();
+				// Meta Pixel: InitiateCheckout when info/summary step is shown.
+				var checkoutTotal = getTotalPrice();
+				trackPixelEvent('InitiateCheckout', {
+					value: checkoutTotal,
+					currency: getCurrencyCode(),
+					num_items: (flowConfig.multiService && state.selectedServices.length > 0) ? state.selectedServices.length : 1
+				});
 				break;
 		}
 	}
@@ -943,6 +1012,12 @@
 				state.selectedStaff = staffData.find(function(s) { return s.staff_id == staffId; });
 				state.selectedDate = date;
 				state.selectedTime = time;
+
+				// Meta Pixel: Schedule when date and time are selected via staff card.
+				trackPixelEvent('Schedule', {
+					content_name: state.selectedService ? state.selectedService.name : 'Booking',
+					content_category: 'Appointment'
+				});
 
 				// Set hidden fields
 				var dateInput = document.getElementById('booking-date');
@@ -1443,6 +1518,12 @@
 				state.selectedTime = this.dataset.time;
 				document.getElementById('start-time').value = state.selectedTime;
 
+				// Meta Pixel: Schedule when date and time are selected.
+				trackPixelEvent('Schedule', {
+					content_name: state.selectedService ? state.selectedService.name : 'Booking',
+					content_category: 'Appointment'
+				});
+
 				updateNextButton();
 			});
 		});
@@ -1723,6 +1804,18 @@
 			// Submit booking
 			ajaxRequest('unbsb_create_booking', data, function(response) {
 				if (response.success) {
+					// Meta Pixel: Purchase when booking is successfully created.
+					var purchaseValue = response.data.booking ? (parseFloat(response.data.booking.price) || 0) : getTotalPrice();
+					var purchaseServiceName = response.data.booking ? (response.data.booking.service_name || '') : (state.selectedService ? state.selectedService.name : '');
+					var purchaseBookingId = response.data.booking ? response.data.booking.id : '';
+					trackPixelEvent('Purchase', {
+						value: purchaseValue,
+						currency: getCurrencyCode(),
+						content_name: purchaseServiceName,
+						content_type: 'product',
+						content_ids: [String(purchaseBookingId)]
+					});
+
 					// Show success step
 					goToStep(state.totalSteps + 1);
 					renderSuccessDetails(response.data.booking);
