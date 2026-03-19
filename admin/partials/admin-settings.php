@@ -79,6 +79,17 @@ $settings = array(
 		'schedule'            => 'yes',
 		'purchase'            => 'yes',
 	) ),
+	// Google Analytics Settings.
+	'unbsb_ga_enabled'                => get_option( 'unbsb_ga_enabled', 'no' ),
+	'unbsb_ga_measurement_id'         => get_option( 'unbsb_ga_measurement_id', '' ),
+	'unbsb_ga_events'                 => get_option( 'unbsb_ga_events', array(
+		'page_view'           => 'yes',
+		'view_item'           => 'yes',
+		'add_to_cart'         => 'yes',
+		'begin_checkout'      => 'yes',
+		'add_shipping_info'   => 'yes',
+		'purchase'            => 'yes',
+	) ),
 );
 
 // Get SMS templates.
@@ -942,16 +953,89 @@ if ( ! array_key_exists( $current_tab, $unbsb_tabs ) ) {
 						</div>
 					</div>
 
-					<!-- Google Analytics placeholder -->
-					<div class="unbsb-settings-group" style="margin-top: 32px; opacity: 0.5;">
+					<!-- Google Analytics 4 Section -->
+					<div class="unbsb-settings-group" style="margin-top: 32px;">
 						<h3>
 							<svg width="20" height="20" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 6px;">
-								<path fill="#E37400" d="M22.844 11.35l-2.016-7.31A2.996 2.996 0 0017.953 2H6.047a2.996 2.996 0 00-2.875 2.04L1.156 11.35A3 3 0 004 15h16a3 3 0 002.844-3.65z"/>
+								<path fill="#E37400" d="M3 3v18h18V3H3zm9.5 14.5c-3.04 0-5.5-2.46-5.5-5.5s2.46-5.5 5.5-5.5S18 8.96 18 12s-2.46 5.5-5.5 5.5z"/>
+								<circle fill="#F9AB00" cx="12.5" cy="12" r="3"/>
 							</svg>
-							<?php esc_html_e( 'Google Analytics', 'unbelievable-salon-booking' ); ?>
-							<span class="unbsb-badge unbsb-badge-info" style="margin-left: 8px;"><?php esc_html_e( 'Coming Soon', 'unbelievable-salon-booking' ); ?></span>
+							<?php esc_html_e( 'Google Analytics 4', 'unbelievable-salon-booking' ); ?>
 						</h3>
 					</div>
+
+					<div class="unbsb-settings-row">
+						<div class="unbsb-setting-toggle">
+							<label class="unbsb-switch">
+								<input type="checkbox" name="unbsb_ga_enabled" value="yes" <?php checked( $settings['unbsb_ga_enabled'], 'yes' ); ?>>
+								<span class="unbsb-switch-slider"></span>
+							</label>
+							<span class="setting-label"><?php esc_html_e( 'Enable Google Analytics', 'unbelievable-salon-booking' ); ?></span>
+						</div>
+					</div>
+
+					<div class="unbsb-settings-row">
+						<div class="unbsb-form-group">
+							<label for="unbsb_ga_measurement_id">
+								<?php esc_html_e( 'Measurement ID', 'unbelievable-salon-booking' ); ?>
+							</label>
+							<input type="text" name="unbsb_ga_measurement_id" id="unbsb_ga_measurement_id" class="unbsb-input" value="<?php echo esc_attr( $settings['unbsb_ga_measurement_id'] ); ?>" placeholder="G-XXXXXXXXXX">
+							<p class="unbsb-setting-desc"><?php esc_html_e( 'Enter your GA4 Measurement ID. Find it in Google Analytics > Admin > Data Streams > Your Stream.', 'unbelievable-salon-booking' ); ?></p>
+						</div>
+					</div>
+
+					<div class="unbsb-settings-group" style="margin-top: 20px;">
+						<h4><?php esc_html_e( 'Event Tracking', 'unbelievable-salon-booking' ); ?></h4>
+						<p class="unbsb-setting-desc"><?php esc_html_e( 'Choose which booking events to track with Google Analytics.', 'unbelievable-salon-booking' ); ?></p>
+					</div>
+
+					<?php
+					$ga_events = is_array( $settings['unbsb_ga_events'] ) ? $settings['unbsb_ga_events'] : array();
+					$ga_event_options = array(
+						'page_view'       => array(
+							'label' => __( 'page_view', 'unbelievable-salon-booking' ),
+							'desc'  => __( 'When booking page loads (automatic with gtag)', 'unbelievable-salon-booking' ),
+						),
+						'view_item'       => array(
+							'label' => __( 'view_item', 'unbelievable-salon-booking' ),
+							'desc'  => __( 'When customer views services list', 'unbelievable-salon-booking' ),
+						),
+						'add_to_cart'     => array(
+							'label' => __( 'add_to_cart', 'unbelievable-salon-booking' ),
+							'desc'  => __( 'When customer selects a service', 'unbelievable-salon-booking' ),
+						),
+						'begin_checkout'  => array(
+							'label' => __( 'begin_checkout', 'unbelievable-salon-booking' ),
+							'desc'  => __( 'When customer reaches the info/summary step', 'unbelievable-salon-booking' ),
+						),
+						'add_shipping_info' => array(
+							'label' => __( 'add_shipping_info', 'unbelievable-salon-booking' ),
+							'desc'  => __( 'When customer selects date and time (schedule info)', 'unbelievable-salon-booking' ),
+						),
+						'purchase'        => array(
+							'label' => __( 'purchase', 'unbelievable-salon-booking' ),
+							'desc'  => __( 'When booking is successfully created', 'unbelievable-salon-booking' ),
+						),
+					);
+					?>
+
+					<div class="unbsb-pixel-events-grid">
+						<?php foreach ( $ga_event_options as $ga_key => $ga_data ) :
+							$ga_checked = isset( $ga_events[ $ga_key ] ) && 'yes' === $ga_events[ $ga_key ];
+						?>
+						<div class="unbsb-settings-row unbsb-pixel-event-row">
+							<div class="unbsb-setting-toggle">
+								<label class="unbsb-switch">
+									<input type="checkbox" name="unbsb_ga_events[<?php echo esc_attr( $ga_key ); ?>]" value="yes" <?php checked( $ga_checked ); ?>>
+									<span class="unbsb-switch-slider"></span>
+								</label>
+								<div>
+									<span class="setting-label"><code><?php echo esc_html( $ga_data['label'] ); ?></code></span>
+									<span class="unbsb-setting-desc"><?php echo esc_html( $ga_data['desc'] ); ?></span>
+								</div>
+							</div>
+						</div>
+						<?php endforeach; ?>
 				</div>
 				<?php endif; ?>
 

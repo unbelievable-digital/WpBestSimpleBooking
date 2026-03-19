@@ -2088,6 +2088,7 @@ class UNBSB_Admin {
 			'unbsb_security_logging_enabled',
 			// Tracking.
 			'unbsb_meta_pixel_enabled',
+			'unbsb_ga_enabled',
 		);
 
 		foreach ( $checkbox_settings as $key ) {
@@ -2116,6 +2117,26 @@ class UNBSB_Admin {
 			$pixel_events_clean[ $key ] = isset( $pixel_events_input[ $key ] ) ? 'yes' : 'no';
 		}
 		update_option( 'unbsb_meta_pixel_events', $pixel_events_clean );
+
+		// Google Analytics settings.
+		update_option( 'unbsb_ga_enabled', sanitize_text_field( $_POST['unbsb_ga_enabled'] ?? 'no' ) );
+		update_option( 'unbsb_ga_measurement_id', sanitize_text_field( $_POST['unbsb_ga_measurement_id'] ?? '' ) );
+
+		$ga_events_default = array(
+			'page_view'         => 'no',
+			'view_item'         => 'no',
+			'add_to_cart'       => 'no',
+			'begin_checkout'    => 'no',
+			'add_shipping_info' => 'no',
+			'purchase'          => 'no',
+		);
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Values are checked against 'yes' only.
+		$ga_events_input = isset( $_POST['unbsb_ga_events'] ) && is_array( $_POST['unbsb_ga_events'] ) ? wp_unslash( $_POST['unbsb_ga_events'] ) : array();
+		$ga_events_clean = array();
+		foreach ( $ga_events_default as $key => $default ) {
+			$ga_events_clean[ $key ] = isset( $ga_events_input[ $key ] ) ? 'yes' : 'no';
+		}
+		update_option( 'unbsb_ga_events', $ga_events_clean );
 
 		wp_send_json_success( __( 'Settings saved.', 'unbelievable-salon-booking' ) );
 	}

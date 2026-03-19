@@ -174,6 +174,10 @@ class UNBSB_Public {
 					'enabled' => 'yes' === get_option( 'unbsb_meta_pixel_enabled', 'no' ) && '' !== get_option( 'unbsb_meta_pixel_id', '' ),
 					'events'  => get_option( 'unbsb_meta_pixel_events', array() ),
 				),
+				'ga'         => array(
+					'enabled' => 'yes' === get_option( 'unbsb_ga_enabled', 'no' ) && '' !== get_option( 'unbsb_ga_measurement_id', '' ),
+					'events'  => get_option( 'unbsb_ga_events', array() ),
+				),
 				'dateFormat' => get_option( 'unbsb_date_format', 'd.m.Y' ),
 				'timeFormat' => get_option( 'unbsb_time_format', 'H:i' ),
 				'captcha'    => array(
@@ -912,6 +916,34 @@ class UNBSB_Public {
 		</script>
 		<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=<?php echo esc_attr( $pixel_id ); ?>&ev=PageView&noscript=1"/></noscript>
 		<!-- End Meta Pixel Code -->
+		<?php
+	}
+
+	/**
+	 * Output Google Analytics 4 gtag code in wp_head
+	 */
+	public function render_google_analytics() {
+		if ( 'yes' !== get_option( 'unbsb_ga_enabled', 'no' ) ) {
+			return;
+		}
+
+		$measurement_id = get_option( 'unbsb_ga_measurement_id', '' );
+		if ( empty( $measurement_id ) ) {
+			return;
+		}
+
+		$ga_events      = get_option( 'unbsb_ga_events', array() );
+		$track_page_view = isset( $ga_events['page_view'] ) && 'yes' === $ga_events['page_view'];
+		?>
+		<!-- Google Analytics 4 - Unbelievable Salon Booking -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo esc_attr( $measurement_id ); ?>"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', '<?php echo esc_js( $measurement_id ); ?>'<?php echo $track_page_view ? '' : ", { 'send_page_view': false }"; ?>);
+		</script>
+		<!-- End Google Analytics 4 -->
 		<?php
 	}
 

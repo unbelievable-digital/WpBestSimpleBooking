@@ -77,6 +77,23 @@
 	}
 
 	/**
+	 * Google Analytics 4 event helper.
+	 * Fires gtag('event', ...) only when GA is enabled and the event is active.
+	 *
+	 * @param {string} eventName  GA4 event name (e.g. 'add_to_cart').
+	 * @param {Object} params     Optional event parameters.
+	 */
+	function trackGAEvent(eventName, params) {
+		if (typeof gtag === 'undefined') return;
+		if (typeof unbsbPublic === 'undefined' || !unbsbPublic.ga || !unbsbPublic.ga.enabled) return;
+
+		var events = unbsbPublic.ga.events || {};
+		if (events[eventName] !== 'yes') return;
+
+		gtag('event', eventName, params || {});
+	}
+
+	/**
 	 * Get currency ISO code for pixel events.
 	 *
 	 * @return {string} Currency ISO code.
@@ -372,13 +389,19 @@
 					state.selectedStaff = null;
 				}
 
-				// Meta Pixel: AddToCart when service is selected.
+				// Tracking: AddToCart when service is selected.
 				if (state.selectedService) {
+					var _price = getEffectivePrice(state.selectedService);
 					trackPixelEvent('AddToCart', {
 						content_name: state.selectedService.name,
 						content_type: 'product',
-						value: getEffectivePrice(state.selectedService),
+						value: _price,
 						currency: getCurrencyCode()
+					});
+					trackGAEvent('add_to_cart', {
+						currency: getCurrencyCode(),
+						value: _price,
+						items: [{ item_name: state.selectedService.name, price: _price, quantity: 1 }]
 					});
 				}
 
@@ -403,13 +426,19 @@
 					if (!state.selectedServices.find(function(s) { return s.id == serviceId; })) {
 						state.selectedServices.push(service);
 					}
-					// Meta Pixel: AddToCart when service is added.
+					// Tracking: AddToCart when service is added.
 					if (service) {
+						var _svcPrice = getEffectivePrice(service);
 						trackPixelEvent('AddToCart', {
 							content_name: service.name,
 							content_type: 'product',
-							value: getEffectivePrice(service),
+							value: _svcPrice,
 							currency: getCurrencyCode()
+						});
+						trackGAEvent('add_to_cart', {
+							currency: getCurrencyCode(),
+							value: _svcPrice,
+							items: [{ item_name: service.name, price: _svcPrice, quantity: 1 }]
 						});
 					}
 				} else {
@@ -635,10 +664,14 @@
 					// Load services for selected staff
 					loadServicesForStaff();
 				}
-				// Meta Pixel: ViewContent when services list is shown.
+				// Tracking: ViewContent / view_item when services list is shown.
 				trackPixelEvent('ViewContent', {
 					content_type: 'product',
 					content_category: 'Booking Services'
+				});
+				trackGAEvent('view_item', {
+					currency: getCurrencyCode(),
+					items: [{ item_category: 'Booking Services' }]
 				});
 				break;
 			case 'staff':
@@ -667,12 +700,17 @@
 				break;
 			case 'info':
 				renderSummary();
-				// Meta Pixel: InitiateCheckout when info/summary step is shown.
+				// Tracking: InitiateCheckout / begin_checkout when info/summary step is shown.
 				var checkoutTotal = getTotalPrice();
 				trackPixelEvent('InitiateCheckout', {
 					value: checkoutTotal,
 					currency: getCurrencyCode(),
 					num_items: (flowConfig.multiService && state.selectedServices.length > 0) ? state.selectedServices.length : 1
+				});
+				trackGAEvent('begin_checkout', {
+					currency: getCurrencyCode(),
+					value: checkoutTotal,
+					items: [{ item_name: state.selectedService ? state.selectedService.name : 'Booking', price: checkoutTotal, quantity: 1 }]
 				});
 				break;
 		}
@@ -1013,10 +1051,14 @@
 				state.selectedDate = date;
 				state.selectedTime = time;
 
-				// Meta Pixel: Schedule when date and time are selected via staff card.
+				// Tracking: Schedule when date and time are selected via staff card.
 				trackPixelEvent('Schedule', {
 					content_name: state.selectedService ? state.selectedService.name : 'Booking',
 					content_category: 'Appointment'
+				});
+				trackGAEvent('add_shipping_info', {
+					currency: getCurrencyCode(),
+					items: [{ item_name: state.selectedService ? state.selectedService.name : 'Booking' }]
 				});
 
 				// Set hidden fields
@@ -1518,10 +1560,14 @@
 				state.selectedTime = this.dataset.time;
 				document.getElementById('start-time').value = state.selectedTime;
 
-				// Meta Pixel: Schedule when date and time are selected.
+				// Tracking: Schedule when date and time are selected.
 				trackPixelEvent('Schedule', {
 					content_name: state.selectedService ? state.selectedService.name : 'Booking',
 					content_category: 'Appointment'
+				});
+				trackGAEvent('add_shipping_info', {
+					currency: getCurrencyCode(),
+					items: [{ item_name: state.selectedService ? state.selectedService.name : 'Booking' }]
 				});
 
 				updateNextButton();
@@ -1804,7 +1850,7 @@
 			// Submit booking
 			ajaxRequest('unbsb_create_booking', data, function(response) {
 				if (response.success) {
-					// Meta Pixel: Purchase when booking is successfully created.
+					// Tracking: Purchase when booking is successfully created.
 					var purchaseValue = response.data.booking ? (parseFloat(response.data.booking.price) || 0) : getTotalPrice();
 					var purchaseServiceName = response.data.booking ? (response.data.booking.service_name || '') : (state.selectedService ? state.selectedService.name : '');
 					var purchaseBookingId = response.data.booking ? response.data.booking.id : '';
@@ -1814,6 +1860,12 @@
 						content_name: purchaseServiceName,
 						content_type: 'product',
 						content_ids: [String(purchaseBookingId)]
+					});
+					trackGAEvent('purchase', {
+						transaction_id: String(purchaseBookingId),
+						value: purchaseValue,
+						currency: getCurrencyCode(),
+						items: [{ item_name: purchaseServiceName, price: purchaseValue, quantity: 1 }]
 					});
 
 					// Show success step
