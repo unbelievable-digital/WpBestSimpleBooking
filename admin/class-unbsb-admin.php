@@ -1200,8 +1200,7 @@ class UNBSB_Admin {
 			$self_staff            = $staff_model->get_by_user_id( get_current_user_id() );
 			$is_staff_self_booking = (bool) $self_staff;
 			if ( $self_staff ) {
-				$self_staff_services = $staff_model->get_services( $self_staff->id );
-				$self_staff_services = wp_list_pluck( $self_staff_services, 'service_id' );
+				$self_staff_services = $staff_model->get_services( $self_staff->id, true );
 			}
 		}
 
