@@ -3,7 +3,7 @@ Contributors: zgrkaralar
 Tags: appointment, booking, scheduler, reservation, salon
 Requires at least: 5.8
 Tested up to: 6.9
-Stable tag: 2.4.0
+Stable tag: 2.5.0
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -142,6 +142,13 @@ A Pro version with additional features like payment integration, Google Calendar
 7. Settings page – Customize plugin behavior
 
 == Changelog ==
+
+= 2.5.0 =
+* New: Staff page converted to table list view (name, contact, status, compensation, balance, actions)
+* New: Smooth scroll to top of booking form on every step navigation
+* Fix: Staff self-booking now loads available time slots correctly
+* Fix: Staff self-booking shows only assigned services (was showing all 59, now shows only staff's own)
+* Fix: unbsbNewBookingData localization for staff-new-booking page hook
 
 = 2.4.0 =
 * New: Staff can edit/reschedule their own bookings (change date, time, add notes)
