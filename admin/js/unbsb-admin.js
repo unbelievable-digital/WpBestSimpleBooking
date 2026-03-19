@@ -4073,10 +4073,18 @@
 			}
 
 			// Reset staff and slot when services change
-			selectedStaffId = null;
+			// Keep staff ID in self-booking mode
+			if (typeof unbsbNewBookingData === 'undefined' || !unbsbNewBookingData.is_staff_self_booking) {
+				selectedStaffId = null;
+			}
 			selectedSlot = null;
 			document.getElementById('unbsb-nb-start-time').value = '';
 			resetSlotsUI();
+
+			// In self-booking mode, auto-load slots when services selected
+			if (typeof unbsbNewBookingData !== 'undefined' && unbsbNewBookingData.is_staff_self_booking && selectedServices.length > 0) {
+				loadSlots();
+			}
 		}
 
 		// ---- Staff List ----
