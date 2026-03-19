@@ -927,12 +927,20 @@ class UNBSB_Public {
 			return;
 		}
 
-		$measurement_id = get_option( 'unbsb_ga_measurement_id', '' );
+		$measurement_id  = get_option( 'unbsb_ga_measurement_id', '' );
+		$already_loaded  = 'yes' === get_option( 'unbsb_ga_already_loaded', 'no' );
+
+		// If already loaded by another plugin, skip gtag.js injection entirely.
+		// JS events will still fire via trackGAEvent() since gtag() is already available.
+		if ( $already_loaded ) {
+			return;
+		}
+
 		if ( empty( $measurement_id ) ) {
 			return;
 		}
 
-		$ga_events      = get_option( 'unbsb_ga_events', array() );
+		$ga_events       = get_option( 'unbsb_ga_events', array() );
 		$track_page_view = isset( $ga_events['page_view'] ) && 'yes' === $ga_events['page_view'];
 		?>
 		<!-- Google Analytics 4 - Unbelievable Salon Booking -->

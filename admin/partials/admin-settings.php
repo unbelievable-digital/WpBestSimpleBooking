@@ -81,6 +81,7 @@ $settings = array(
 	) ),
 	// Google Analytics Settings.
 	'unbsb_ga_enabled'                => get_option( 'unbsb_ga_enabled', 'no' ),
+	'unbsb_ga_already_loaded'         => get_option( 'unbsb_ga_already_loaded', 'no' ),
 	'unbsb_ga_measurement_id'         => get_option( 'unbsb_ga_measurement_id', '' ),
 	'unbsb_ga_events'                 => get_option( 'unbsb_ga_events', array(
 		'page_view'           => 'yes',
@@ -981,6 +982,19 @@ if ( ! array_key_exists( $current_tab, $unbsb_tabs ) ) {
 							</label>
 							<input type="text" name="unbsb_ga_measurement_id" id="unbsb_ga_measurement_id" class="unbsb-input" value="<?php echo esc_attr( $settings['unbsb_ga_measurement_id'] ); ?>" placeholder="G-XXXXXXXXXX">
 							<p class="unbsb-setting-desc"><?php esc_html_e( 'Enter your GA4 Measurement ID. Find it in Google Analytics > Admin > Data Streams > Your Stream.', 'unbelievable-salon-booking' ); ?></p>
+						</div>
+					</div>
+
+					<div class="unbsb-settings-row">
+						<div class="unbsb-setting-toggle">
+							<label class="unbsb-switch">
+								<input type="checkbox" name="unbsb_ga_already_loaded" value="yes" <?php checked( $settings['unbsb_ga_already_loaded'], 'yes' ); ?>>
+								<span class="unbsb-switch-slider"></span>
+							</label>
+							<div>
+								<span class="setting-label"><?php esc_html_e( 'GA already loaded by another plugin/theme', 'unbelievable-salon-booking' ); ?></span>
+								<span class="unbsb-setting-desc"><?php esc_html_e( 'Enable this if gtag.js is already loaded (e.g. by a theme, Google Site Kit, MonsterInsights, etc.). We will only send booking events without loading gtag.js again.', 'unbelievable-salon-booking' ); ?></span>
+							</div>
 						</div>
 					</div>
 

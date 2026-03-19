@@ -2089,6 +2089,7 @@ class UNBSB_Admin {
 			// Tracking.
 			'unbsb_meta_pixel_enabled',
 			'unbsb_ga_enabled',
+			'unbsb_ga_already_loaded',
 		);
 
 		foreach ( $checkbox_settings as $key ) {
