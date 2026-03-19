@@ -615,7 +615,7 @@ class UNBSB_Admin {
 			wp_localize_script( 'unbsb-admin', 'unbsbStaff', $staff_model->get_active() );
 		}
 
-		if ( false !== strpos( $hook, 'unbsb-new-booking' ) ) {
+		if ( false !== strpos( $hook, 'unbsb-new-booking' ) || false !== strpos( $hook, 'unbsb-staff-new-booking' ) ) {
 			$staff_model   = new UNBSB_Staff();
 			$service_model = new UNBSB_Service();
 			$all_staff     = $staff_model->get_active();
