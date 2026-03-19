@@ -3,7 +3,7 @@ Contributors: zgrkaralar
 Tags: appointment, booking, scheduler, reservation, salon
 Requires at least: 5.8
 Tested up to: 6.9
-Stable tag: 2.5.0
+Stable tag: 2.6.0
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -142,6 +142,12 @@ A Pro version with additional features like payment integration, Google Calendar
 7. Settings page – Customize plugin behavior
 
 == Changelog ==
+
+= 2.6.0 =
+* New: Google Analytics 4 integration with configurable event tracking
+* New: Tracking tab in settings — Meta Pixel + Google Analytics side by side
+* GA4 events: view_item, add_to_cart, begin_checkout, add_shipping_info, purchase
+* All tracking events individually toggleable from admin settings
 
 = 2.5.0 =
 * New: Staff page converted to table list view (name, contact, status, compensation, balance, actions)
